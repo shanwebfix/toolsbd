@@ -80,7 +80,14 @@ header {
   .menu-toggle {
     display: block;
   }
-
+.logo img {
+  height: 20px;
+  margin-left: -35px;
+}
+header {
+  padding-left: 0px;
+  padding-right: 0px;
+}
   .nav-menu {
     position: absolute;
     top: 70px;
