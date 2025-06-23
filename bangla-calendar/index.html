@@ -1,12 +1,18 @@
 <!DOCTYPE html>
 <html lang="bn">
 <head>
-<meta charset="UTF-8" />
-<meta name="viewport" content="width=device-width, initial-scale=1" />
-<title>Bangla Calendar Converter</title>
-<link rel="stylesheet" href="bangla-calendar.css" />
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Bangla Calendar Converter</title>
+  <link rel="stylesheet" href="bangla-calendar.css" />
+<link rel="stylesheet" href="/components/header.css">
 </head>
 <body>
+
+  <!-- ✅ Placeholder for Header -->
+  <div id="header-placeholder"></div>
+
+  <!-- ✅ Page Main Content -->
   <div class="container">
     <h1>ইংরেজি থেকে বাংলা তারিখ রূপান্তর</h1>
     <input type="date" id="gregorian-date" />
@@ -14,6 +20,8 @@
     <div id="result"></div>
   </div>
 
+  <!-- ✅ JS Scripts -->
+  <script src="/components/header.js"></script>
   <script src="bangla-calendar.js"></script>
 </body>
 </html>

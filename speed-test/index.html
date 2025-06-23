@@ -1,25 +1,32 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8">
+  <meta charset="UTF-8" />
   <title>Internet Speed Test</title>
-  <link rel="stylesheet" href="speed-test.css"> <!-- CSS একই ফোল্ডারে -->
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <link rel="stylesheet" href="speed-test.css" />
+  <link rel="stylesheet" href="/components/header.css">
 </head>
 <body>
 
-<div class="speed-test">
-  <h2>Internet Speed Test</h2>
 
-  <div class="main-speed" id="main-speed">--</div>
-  <div class="sub-speed" id="download">↓ Download: -- Mbps</div>
-  <div class="sub-speed" id="upload">↑ Upload: -- Mbps</div>
+  <!-- ✅ Main Section -->
+  <main class="speed-test-wrapper">
+    <div class="speed-test">
+      <h2>Internet Speed Test</h2>
 
-  <button onclick="startSpeedTest()">Start Test</button>
-  <div class="status" id="status">Click the button to start testing.</div>
+      <div class="main-speed" id="main-speed">--</div>
+      <div class="sub-speed" id="download">↓ Download: -- Mbps</div>
+      <div class="sub-speed" id="upload">↑ Upload: -- Mbps</div>
 
-  <div class="info" id="info">Loading network info...</div>
-</div>
+      <button onclick="startSpeedTest()">Start Test</button>
+      <div class="status" id="status">Click the button to start testing.</div>
 
-<script src="speed-test.js"></script>
+      <div class="info" id="info">Loading network info...</div>
+    </div>
+  </main>
+<script src="/components/header.js"></script>
+
+  <script src="speed-test.js"></script>
 </body>
 </html>

@@ -3,6 +3,11 @@
 <head>
   <meta charset="UTF-8" />
   <title>QR Code Generator</title>
+
+  <!-- Common Header CSS -->
+  <link rel="stylesheet" href="/components/header.css">
+
+  <!-- Page Specific CSS -->
   <link rel="stylesheet" href="qr-code.css" />
 </head>
 <body>
@@ -14,9 +19,11 @@
   <div id="qrcode"></div>
 </div>
 
-<!-- QRCode.js CDN -->
+<!-- Header Load -->
+<script src="/components/header.js"></script>
+
+<!-- QR Script -->
 <script src="https://cdnjs.cloudflare.com/ajax/libs/qrcodejs/1.0.0/qrcode.min.js"></script>
 <script src="qr-code.js"></script>
-
 </body>
 </html>

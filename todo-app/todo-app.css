@@ -1,19 +1,22 @@
+/* Global */
+* {
+  box-sizing: border-box;
+}
+
 body {
-  font-family: Arial, sans-serif;
-  background: #0f172a;
-  color: white;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  height: 100vh;
   margin: 0;
+  padding: 100px 20px 20px;
+  color: #ffffff;
+  font-family: Arial, sans-serif;
 }
 
 .container {
+  max-width: 600px;
+  margin: 0 auto;
   background: #1e293b;
   padding: 30px;
   border-radius: 15px;
-  width: 400px;
+  text-align: center;
   box-shadow: 0 0 15px rgba(0,0,0,0.3);
 }
 

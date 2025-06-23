@@ -1,25 +1,35 @@
-body {
-  background: #0f172a;
-  color: #fff;
-  font-family: Arial, sans-serif;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  height: 100vh;
-  margin: 0;
-  padding: 20px; /* for mobile spacing */
+/* Global */
+* {
   box-sizing: border-box;
 }
 
+body {
+  margin: 0;
+  padding: 0;
+  background: #0f172a;
+  color: #fff;
+  font-family: Arial, sans-serif;
+}
+
+
+/* Page Wrapper */
+.speed-test-wrapper {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  min-height: calc(100vh - 70px); /* leave space for header */
+  padding: 20px;
+}
+
+/* Speed Test Box */
 .speed-test {
   background: #1e293b;
   padding: 30px 40px;
   border-radius: 15px;
   text-align: center;
-  box-shadow: 0 0 15px rgba(0, 0, 0, 0.3);
+  box-shadow: 0 0 15px rgba(0,0,0,0.3);
   max-width: 600px;
   width: 100%;
-  box-sizing: border-box;
 }
 
 h2 {
@@ -69,7 +79,7 @@ button:hover {
   padding-top: 10px;
 }
 
-/* ✅ Mobile Responsive Tweaks */
+/* Responsive */
 @media (max-width: 480px) {
   .speed-test {
     padding: 25px 20px;
