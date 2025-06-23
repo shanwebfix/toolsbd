@@ -21,13 +21,14 @@ header {
   height: 70px;
   display: flex;
   align-items: center;
+  box-sizing: border-box;
 }
 
 .container {
   max-width: 1200px;
   width: 100%;
   margin: auto;
-  padding: 0 20px;
+  padding: 0 40px; /* ✅ 40px left & right space */
   display: flex;
   justify-content: space-between;
   align-items: center;
@@ -37,12 +38,15 @@ header {
   height: 40px;
 }
 
+/* Toggle Icon */
 .menu-toggle {
   font-size: 26px;
   cursor: pointer;
   display: none;
+  margin-right: 0;
 }
 
+/* Navigation */
 .nav-menu {
   display: flex;
 }
@@ -71,7 +75,7 @@ header {
   transform: translateY(-2px);
 }
 
-/* Responsive */
+/* Responsive Styles */
 @media (max-width: 768px) {
   .menu-toggle {
     display: block;
@@ -80,13 +84,14 @@ header {
   .nav-menu {
     position: absolute;
     top: 70px;
-    right: 20px;
+    right: 40px; /* ✅ 40px from right */
     background-color: #fff;
     display: none;
     flex-direction: column;
     border-radius: 12px;
     box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
     z-index: 999;
+    min-width: 180px;
   }
 
   .nav-menu.active {
@@ -95,6 +100,7 @@ header {
 
   .nav-menu ul {
     flex-direction: column;
+    padding: 10px 0;
   }
 
   .nav-menu ul li {
@@ -105,9 +111,13 @@ header {
     padding: 12px 20px;
     display: block;
   }
+
+  body {
+    padding: 100px 20px 50px;
+  }
 }
 
-/* Main section */
+/* Main Section */
 .main-section {
   margin-top: 30px;
 }
@@ -127,12 +137,15 @@ header {
   font-weight: 500;
   color: #000;
   transition: box-shadow 0.3s ease, transform 0.2s ease;
+  text-decoration: none !important;
 }
 
 .clickable-box:hover {
   box-shadow: 0 4px 12px rgba(135, 206, 250, 0.6);
   transform: translateY(-3px);
 }
+
+/* Link cleanup */
 .box-link {
   text-decoration: none !important;
 }
