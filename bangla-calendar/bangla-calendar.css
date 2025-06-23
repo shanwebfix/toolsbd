@@ -1,0 +1,61 @@
+body {
+  font-family: 'Noto Sans Bengali', Arial, sans-serif;
+  background: #0f172a;
+  color: white;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100vh;
+  margin: 0;
+}
+
+.container {
+  background: #1e293b;
+  padding: 25px 30px;
+  border-radius: 12px;
+  width: 350px;
+  text-align: center;
+  box-shadow: 0 0 15px rgba(0,0,0,0.3);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+h1 {
+  margin-bottom: 20px;
+  width: 100%;
+}
+
+input[type="date"],
+button {
+  width: 100%;
+  max-width: 300px; /* চাইলে পরিবর্তন করতে পারো */
+  padding: 12px;
+  font-size: 16px;
+  border-radius: 6px;
+  border: none;
+  margin-bottom: 20px;
+  box-sizing: border-box;
+  text-align: center;
+  cursor: pointer;
+}
+
+button {
+  background: #3b82f6;
+  color: white;
+  transition: background 0.3s ease;
+}
+
+button:hover {
+  background: #2563eb;
+}
+
+#result {
+  margin-top: 20px;
+  font-size: 20px;
+  font-weight: bold;
+  color: #93c5fd;
+  width: 100%;
+  max-width: 300px;
+  text-align: center;
+}

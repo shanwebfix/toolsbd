@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <title>Unit Converter</title>
+  <link rel="stylesheet" href="unit-converter.css" />
+</head>
+<body>
+
+<div class="container">
+  <h1>Unit Converter</h1>
+
+  <div class="converter">
+    <label for="converter-type">Select Conversion Type:</label>
+    <select id="converter-type">
+      <option value="length">Length (Meter ↔ Kilometer)</option>
+      <option value="weight">Weight (Gram ↔ Kilogram)</option>
+      <option value="temperature">Temperature (Celsius ↔ Fahrenheit)</option>
+      <option value="currency">Currency (USD ↔ BDT)</option>
+    </select>
+  </div>
+
+  <div class="converter">
+    <label for="input-value">Enter Value:</label>
+    <input type="number" id="input-value" placeholder="Enter value" />
+  </div>
+
+  <div class="converter">
+    <label for="input-unit">From:</label>
+    <select id="input-unit"></select>
+  </div>
+
+  <div class="converter">
+    <label for="output-unit">To:</label>
+    <select id="output-unit"></select>
+  </div>
+
+  <button id="convert-btn">Convert</button>
+
+  <div id="result"></div>
+</div>
+
+<script src="unit-converter.js"></script>
+</body>
+</html>

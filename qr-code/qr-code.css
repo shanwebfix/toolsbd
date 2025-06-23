@@ -1,0 +1,57 @@
+body {
+  font-family: Arial, sans-serif;
+  background: #0f172a;
+  color: white;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100vh;
+  margin: 0;
+}
+
+.container {
+  background: #1e293b;
+  padding: 30px;
+  border-radius: 15px;
+  text-align: center;
+  width: 320px;
+  box-shadow: 0 0 15px rgba(0,0,0,0.3);
+}
+
+h1 {
+  margin-bottom: 20px;
+}
+
+input[type="text"] {
+  width: 60%;           /* input এর width কমিয়ে দেয়া */
+  padding: 12px 15px;
+  border-radius: 6px;
+  border: none;
+  font-size: 16px;
+  margin: 0 auto 15px; /* উপরে 0, নিচে 15px margin, বামে ডানে auto */
+  display: block;      /* block level করে margin auto কাজ করাবে */
+  text-align: center;  /* input এর টেক্সট সেন্টার */
+}
+
+button {
+  width: 100%;
+  padding: 12px 0;
+  background: #3b82f6;
+  border: none;
+  border-radius: 6px;
+  color: white;
+  font-size: 18px;
+  cursor: pointer;
+}
+
+button:hover {
+  background: #2563eb;
+}
+
+#qrcode {
+  margin-top: 20px;
+  background: white;
+  padding: 10px;
+  border-radius: 8px;
+  display: inline-block;
+}
