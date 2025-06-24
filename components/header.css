@@ -24,17 +24,21 @@ body {
   margin-top: 30px;
 }
 header {
-  background: #5bbef9;
+  background: rgba(255, 255, 255, 0.7);
+  backdrop-filter: blur(10px);
+  -webkit-backdrop-filter: blur(10px);
   position: fixed;
   top: 0;
   left: 0;
   right: 0;
-  width: 100%;
+  width: 100vw;
   z-index: 999;
+  box-shadow: 0 2px 5px rgba(0,0,0,0.05);
   height: 70px;
   display: flex;
   align-items: center;
-  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
 }
 
 /* Container inside header */
@@ -42,14 +46,14 @@ header .header-container {
   max-width: 1200px;
   margin: 0 auto;
   width: 100%;
-  padding: 0 40px; /* এটা মোবাইলেও কাজ করবে */
+  padding: 0 40px; 
   display: flex;
   justify-content: space-between;
   align-items: center;
 }
 @media (max-width: 768px) {
   header .header-container {
-    padding: 20px;
+    padding: 40px;
   }
 }
 /* Logo */
