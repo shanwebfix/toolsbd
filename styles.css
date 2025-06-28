@@ -147,3 +147,58 @@ h2 {
 .box-link:focus {
   text-decoration: none !important;
 }
+
+
+
+
+
+ h2 {
+      text-align: center;
+      margin-bottom: 20px;
+    }
+
+    .category-grid {
+      display: grid;
+      grid-template-columns: repeat(2, 1fr); /* Always 2 per row */
+      gap: 20px;
+    }
+
+    .category-item {
+      background: #fff;
+      padding: 20px;
+      border-radius: 8px;
+      box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      text-align: center;
+      transition: transform 0.2s ease;
+    }
+
+    .category-item:hover {
+      transform: translateY(-5px);
+    }
+
+    .category-icon {
+      font-size: 36px;
+      color: #007bff;
+      margin-bottom: 10px;
+    }
+
+    .category-title {
+      font-size: 18px;
+      font-weight: bold;
+      margin-bottom: 6px;
+    }
+
+    .category-desc {
+      font-size: 14px;
+      color: #555;
+    }
+
+    /* মোবাইলে ১ কলামে দেখাবে */
+    @media (max-width: 600px) {
+      .category-grid {
+        grid-template-columns: 1fr;
+      }
+    }
