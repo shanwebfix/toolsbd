@@ -7,6 +7,7 @@ footer {
       border-top: 1px solid #ccc;
       box-shadow: 0 -1px 5px rgba(0,0,0,0.1);
       z-index: 1000;
+    
     }
 
     .footer-menu {
@@ -14,6 +15,7 @@ footer {
       grid-template-columns: repeat(4, 1fr); /* ৪টি গ্রিড কলাম */
       text-align: center;
       height: 60px;
+      
     }
 
     .footer-menu a {
