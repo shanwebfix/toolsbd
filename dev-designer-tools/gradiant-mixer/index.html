@@ -1,0 +1,121 @@
+<!DOCTYPE html>
+<html lang="bn">
+<head>
+  <meta charset="UTF-8">
+  <title>CSS গ্র্যাডিয়েন্ট জেনারেটর</title>
+
+  <link rel="stylesheet" href="/components/header.css" />
+  <link rel="stylesheet" href="/components/footer.css" />
+  <style>
+    body {
+      font-family: sans-serif;
+      background: #f4f4f4;
+      padding: 30px;
+      text-align: center;
+    }
+    .generator {
+      background: white;
+      padding: 30px;
+      border-radius: 12px;
+      max-width: 500px;
+      margin: auto;
+      box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+    }
+    label {
+      font-weight: bold;
+      display: block;
+      margin: 15px 0 5px;
+    }
+    input[type="color"], select {
+      padding: 10px;
+      margin-bottom: 10px;
+      font-size: 16px;
+      border-radius: 6px;
+    }
+    #preview {
+      height: 150px;
+      margin-top: 20px;
+      border-radius: 8px;
+      border: 1px solid #ccc;
+    }
+    #cssCode {
+      margin-top: 20px;
+      background: #eaeaea;
+      padding: 10px;
+      font-family: monospace;
+      border-radius: 6px;
+    }
+    button {
+      margin-top: 10px;
+      padding: 10px 20px;
+      background: #007B5E;
+      color: white;
+      border: none;
+      border-radius: 5px;
+      cursor: pointer;
+    }
+    button:hover {
+      background: #005f48;
+    }
+    .margin {
+        margin-top: 50px;
+        margin-bottom: 50px;
+    }
+  </style>
+</head>
+<body>
+
+  ,<div class="margin"><div class="generator">
+    <h2>🎨 CSS গ্র্যাডিয়েন্ট জেনারেটর</h2>
+
+    <label>রং ১</label>
+    <input type="color" id="color1" value="#ff7e5f">
+
+    <label>রং ২</label>
+    <input type="color" id="color2" value="#feb47b">
+
+    <label>গ্র্যাডিয়েন্টের দিক</label>
+    <select id="direction">
+      <option value="to right">ডান দিকে</option>
+      <option value="to left">বামে</option>
+      <option value="to bottom">নিচে</option>
+      <option value="to top">উপরে</option>
+      <option value="135deg">তির্যক (135deg)</option>
+    </select>
+
+    <div id="preview"></div>
+
+    <div id="cssCode"></div>
+    <button onclick="copyCode()">CSS কপি করুন</button>
+  </div> </div>
+
+  <script>
+    const color1 = document.getElementById('color1');
+    const color2 = document.getElementById('color2');
+    const direction = document.getElementById('direction');
+    const preview = document.getElementById('preview');
+    const cssCode = document.getElementById('cssCode');
+
+    function updateGradient() {
+      const grad = `linear-gradient(${direction.value}, ${color1.value}, ${color2.value})`;
+      preview.style.background = grad;
+      cssCode.textContent = `background: ${grad};`;
+    }
+
+    function copyCode() {
+      const text = cssCode.textContent;
+      navigator.clipboard.writeText(text);
+      alert("CSS কোড কপি হয়েছে!");
+    }
+
+    color1.addEventListener('input', updateGradient);
+    color2.addEventListener('input', updateGradient);
+    direction.addEventListener('change', updateGradient);
+
+    // Initial preview
+    updateGradient();
+  </script>
+  <script src="/components/header.js"></script>
+  <script src="/components/footer.js"></script>
+</body>
+</html>
