@@ -1,0 +1,177 @@
+<!DOCTYPE html>
+<html lang="bn">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>ইসলামিক কুইজ</title>
+  <link rel="stylesheet" href="/components/header.css" />
+  <link rel="stylesheet" href="/components/footer.css" />
+  <style>
+    body {
+      font-family: 'Noto Sans Bengali', sans-serif;
+      background: #f5f5f5;
+      padding: 20px;
+      margin: 0;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      min-height: 100vh;
+    }
+    .quiz-box {
+      background: white;
+      padding: 30px;
+      border-radius: 10px;
+      max-width: 600px;
+      width: 100%;
+      box-shadow: 0 0 15px rgba(0,0,0,0.1);
+    }
+    .quiz-box h2 {
+      margin-bottom: 20px;
+      color: #00796b;
+    }
+    .question {
+      font-size: 20px;
+      margin-bottom: 15px;
+    }
+    .options button {
+      display: block;
+      width: 100%;
+      margin: 8px 0;
+      padding: 10px;
+      border: 1px solid #ddd;
+      border-radius: 5px;
+      background: #f0f0f0;
+      cursor: pointer;
+      transition: 0.3s;
+    }
+    .options button:hover {
+      background: #d0f0ec;
+    }
+    .result {
+      font-size: 18px;
+      margin-top: 20px;
+      font-weight: bold;
+      color: #00796b;
+    }
+    .next-btn {
+      margin-top: 20px;
+      padding: 10px 20px;
+      background: #00796b;
+      color: white;
+      border: none;
+      border-radius: 5px;
+      cursor: pointer;
+    }
+    .next-btn:hover {
+      background: #005f53;
+    }
+  </style>
+</head>
+<body>
+
+<div class="quiz-box">
+  <h2>ইসলামিক কুইজ</h2>
+  <div class="question" id="question"></div>
+  <div class="options" id="options"></div>
+  <div class="result" id="result"></div>
+  <button class="next-btn" id="nextBtn" style="display:none;">পরবর্তী প্রশ্ন</button>
+</div>
+
+<script>
+  const quizData = [
+    {
+      question: "কুরআনের প্রথম সূরার নাম কী?",
+      options: ["সূরা আল কাহফ", "সূরা আল বাকারাহ", "সূরা আল ফাতিহা", "সূরা আল ইখলাস"],
+      answer: "সূরা আল ফাতিহা"
+    },
+    {
+      question: "পয়গম্বর মুহাম্মাদ (সা.) কোথায় জন্মগ্রহণ করেন?",
+      options: ["মদিনা", "তাইফ", "মক্কা", "ইয়াসরিব"],
+      answer: "মক্কা"
+    },
+    {
+      question: "ইসলামের ৫টি স্তম্ভের একটি কী?",
+      options: ["নামায", "তাওবা", "হালাল খাবার", "জাকাহ দেওয়া না দেওয়া"],
+      answer: "নামায"
+    },
+    {
+      question: "হজ কোন মাসে আদায় করা হয়?",
+      options: ["রমজান", "শাবান", "জিলহজ", "মুহাররম"],
+      answer: "জিলহজ"
+    },
+    {
+      question: "পবিত্র কুরআন কতটি সূরা নিয়ে গঠিত?",
+      options: ["১১৪", "১০৪", "১২০", "১১০"],
+      answer: "১১৪"
+    }
+  ];
+
+  let currentQuestion = 0;
+  let score = 0;
+
+  const questionEl = document.getElementById("question");
+  const optionsEl = document.getElementById("options");
+  const resultEl = document.getElementById("result");
+  const nextBtn = document.getElementById("nextBtn");
+
+  function loadQuestion() {
+    const q = quizData[currentQuestion];
+    questionEl.textContent = `প্রশ্ন ${currentQuestion + 1}: ${q.question}`;
+    optionsEl.innerHTML = "";
+    resultEl.textContent = "";
+    nextBtn.style.display = "none";
+
+    q.options.forEach(option => {
+      const btn = document.createElement("button");
+      btn.textContent = option;
+      btn.onclick = () => selectAnswer(option);
+      optionsEl.appendChild(btn);
+    });
+  }
+
+  function selectAnswer(selected) {
+    const correct = quizData[currentQuestion].answer;
+    if (selected === correct) {
+      resultEl.textContent = "✔️ সঠিক উত্তর!";
+      resultEl.style.color = "green";
+      score++;
+    } else {
+      resultEl.textContent = `❌ ভুল উত্তর! সঠিক উত্তর: ${correct}`;
+      resultEl.style.color = "red";
+    }
+    nextBtn.style.display = "inline-block";
+    Array.from(optionsEl.children).forEach(btn => btn.disabled = true);
+  }
+
+  nextBtn.onclick = () => {
+    currentQuestion++;
+    if (currentQuestion < quizData.length) {
+      loadQuestion();
+    } else {
+      showFinalScore();
+    }
+  };
+
+  function showFinalScore() {
+    questionEl.textContent = "কুইজ শেষ!";
+    optionsEl.innerHTML = "";
+    resultEl.innerHTML = `✅ আপনার স্কোর: ${score} / ${quizData.length}<br><br>
+      <button onclick="restartQuiz()" style="padding: 10px 20px; font-size: 16px; background: #00796b; color: white; border: none; border-radius: 5px; cursor: pointer;">
+        🔁 আবার খেলুন
+      </button>`;
+    nextBtn.style.display = "none";
+  }
+
+  function restartQuiz() {
+    currentQuestion = 0;
+    score = 0;
+    loadQuestion();
+  }
+
+  loadQuestion();
+</script>
+<script src="/components/header.js"></script>
+<script src="/components/footer.js"></script>
+
+</body>
+</html>
