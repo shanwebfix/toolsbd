@@ -1,0 +1,139 @@
+<!DOCTYPE html>
+<html lang="bn">
+<head>
+  <meta charset="UTF-8" />
+  <title>Discount Calculator</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <link rel="stylesheet" href="/components/header.css" />
+  <link rel="stylesheet" href="/components/footer.css" />
+  <style>
+    body {
+      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+      background: #f9fafb;
+      margin: 0;
+      padding: 20px;
+      /* flex না দিলাম যাতে margin ঠিক কাজ করে */
+    }
+    .wrapper {
+      margin-top: 70px;
+      margin-bottom: 70px;
+      display: flex;
+      justify-content: center;
+    }
+    .calculator {
+      background: #fff;
+      padding: 30px 35px;
+      border-radius: 10px;
+      box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+      max-width: 350px;
+      width: 100%;
+    }
+    h2 {
+      text-align: center;
+      color: #2c3e50;
+      margin-bottom: 25px;
+    }
+    label {
+      display: block;
+      font-weight: 600;
+      margin-top: 15px;
+      margin-bottom: 8px;
+      color: #34495e;
+    }
+    input[type="number"] {
+      width: 100%;
+      padding: 10px 12px;
+      font-size: 16px;
+      border: 1px solid #ccc;
+      border-radius: 6px;
+      box-sizing: border-box;
+    }
+    button {
+      margin-top: 25px;
+      width: 100%;
+      padding: 12px;
+      background-color: #27ae60;
+      color: white;
+      border: none;
+      border-radius: 8px;
+      font-size: 18px;
+      cursor: pointer;
+      transition: background-color 0.3s ease;
+    }
+    button:hover {
+      background-color: #1e8449;
+    }
+    .result {
+      margin-top: 25px;
+      background: #ecf0f1;
+      padding: 15px;
+      border-radius: 8px;
+      font-size: 18px;
+      color: #2c3e50;
+      text-align: center;
+      min-height: 48px;
+    }
+    @media (max-width: 400px) {
+      .calculator {
+        padding: 20px;
+      }
+    }
+  </style>
+</head>
+<body>
+
+  <div class="wrapper">
+    <div class="calculator">
+      <h2>Discount Calculator</h2>
+
+      <label for="originalPrice">মূল দাম (৳)</label>
+      <input type="number" id="originalPrice" placeholder="মূল দাম লিখুন" min="0" step="0.01" />
+
+      <label for="discountPercent">ডিসকাউন্ট (%)</label>
+      <input type="number" id="discountPercent" placeholder="ডিসকাউন্ট শতাংশ" min="0" max="100" step="0.01" />
+
+      <label for="discountAmount">অথবা ডিসকাউন্ট মূল্য (৳)</label>
+      <input type="number" id="discountAmount" placeholder="ডিসকাউন্ট মূল্য" min="0" step="0.01" />
+
+      <button onclick="calculateDiscount()">হিসাব করুন</button>
+
+      <div class="result" id="result"></div>
+    </div>
+  </div>
+
+  <script>
+    function calculateDiscount() {
+      const originalPrice = parseFloat(document.getElementById('originalPrice').value);
+      const discountPercent = parseFloat(document.getElementById('discountPercent').value);
+      const discountAmount = parseFloat(document.getElementById('discountAmount').value);
+      const resultDiv = document.getElementById('result');
+
+      if (isNaN(originalPrice) || originalPrice <= 0) {
+        resultDiv.textContent = 'অনুগ্রহ করে সঠিক মূল দাম লিখুন।';
+        return;
+      }
+
+      let discountValue = 0;
+
+      if (!isNaN(discountPercent) && discountPercent > 0 && discountPercent <= 100) {
+        discountValue = (originalPrice * discountPercent) / 100;
+      } else if (!isNaN(discountAmount) && discountAmount > 0 && discountAmount < originalPrice) {
+        discountValue = discountAmount;
+      } else {
+        resultDiv.textContent = 'ডিসকাউন্ট শতাংশ অথবা মূল্য সঠিকভাবে লিখুন।';
+        return;
+      }
+
+      const finalPrice = originalPrice - discountValue;
+
+      resultDiv.innerHTML = `
+        মূল দাম: ৳${originalPrice.toFixed(2)}<br/>
+        ডিসকাউন্ট: ৳${discountValue.toFixed(2)}<br/>
+        <strong>ফাইনাল দাম: ৳${finalPrice.toFixed(2)}</strong>
+      `;
+    }
+  </script>
+<script src="/components/header.js"></script>
+<script src="/components/footer.js"></script>
+</body>
+</html>

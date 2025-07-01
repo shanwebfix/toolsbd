@@ -1,0 +1,180 @@
+<!DOCTYPE html>
+<html lang="bn">
+<head>
+  <meta charset="UTF-8">
+  <title>মাল স্টক ম্যানেজমেন্ট টুল</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+   <link rel="stylesheet" href="/components/header.css" />
+  <link rel="stylesheet" href="/components/footer.css" />
+  <style>
+    body {
+      font-family: 'Segoe UI', sans-serif;
+      background: #f4f6f8;
+      margin: 0;
+      padding: 20px;
+    }
+    .container {
+      max-width: 1000px;
+      margin: auto;
+      background: #fff;
+      padding: 25px;
+      border-radius: 10px;
+      box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+      margin-top: 70px;
+      margin-bottom: 70px;
+    }
+    h2 {
+      text-align: center;
+      color: #2a4d69;
+    }
+    label {
+      font-weight: bold;
+      margin-top: 10px;
+      display: block;
+    }
+    input {
+      padding: 10px;
+      width: 100%;
+      margin-top: 5px;
+      margin-bottom: 15px;
+      font-size: 15px;
+      border: 1px solid #ccc;
+      border-radius: 6px;
+      box-sizing: border-box;
+    }
+    button {
+      padding: 10px 18px;
+      font-size: 15px;
+      background: #2a4d69;
+      color: white;
+      border: none;
+      border-radius: 6px;
+      cursor: pointer;
+      margin-right: 8px;
+    }
+    button:hover {
+      background: #1d3750;
+    }
+    table {
+      width: 100%;
+      margin-top: 20px;
+      border-collapse: collapse;
+    }
+    th, td {
+      padding: 10px;
+      border: 1px solid #ccc;
+      text-align: center;
+    }
+    th {
+      background: #f0f4f8;
+    }
+    @media print {
+      button {
+        display: none;
+      }
+    }
+  </style>
+</head>
+<body>
+
+<div class="container">
+  <h2>📦 মাল স্টক ম্যানেজমেন্ট টুল</h2>
+
+  <div class="form">
+    <label>পণ্যের নাম</label>
+    <input type="text" id="productName" placeholder="যেমন: চিনি, চাল, সেমাই">
+    
+    <label>পণ্যের কোড</label>
+    <input type="text" id="productCode" placeholder="যেমন: A101">
+
+    <label>পরিমাণ (পিস/কেজি/লিটার)</label>
+    <input type="number" id="productQty" placeholder="যেমন: 100">
+
+    <label>প্রতি ইউনিট মূল্য (৳)</label>
+    <input type="number" id="productPrice" placeholder="যেমন: 50">
+
+    <button onclick="addStock()">➕ যুক্ত করুন</button>
+    <button onclick="window.print()">🖨️ প্রিন্ট করুন</button>
+  </div>
+
+  <table>
+    <thead>
+      <tr>
+        <th>পণ্যের নাম</th>
+        <th>কোড</th>
+        <th>পরিমাণ</th>
+        <th>প্রতি ইউনিট মূল্য</th>
+        <th>মোট মূল্য</th>
+        <th>অপশন</th>
+      </tr>
+    </thead>
+    <tbody id="stockTable"></tbody>
+  </table>
+
+  <h3 style="text-align:right; margin-top: 20px;">মোট মূল্য: ৳<span id="totalValue">0.00</span></h3>
+</div>
+
+<script>
+  let stockList = [];
+
+  function addStock() {
+    const name = document.getElementById("productName").value.trim();
+    const code = document.getElementById("productCode").value.trim();
+    const qty = parseFloat(document.getElementById("productQty").value);
+    const price = parseFloat(document.getElementById("productPrice").value);
+
+    if (!name || !code || isNaN(qty) || isNaN(price)) {
+      alert("সকল ঘর সঠিকভাবে পূরণ করুন!");
+      return;
+    }
+
+    const existing = stockList.find(item => item.code === code);
+
+    if (existing) {
+      existing.qty += qty;
+    } else {
+      stockList.push({ name, code, qty, price });
+    }
+
+    document.getElementById("productName").value = "";
+    document.getElementById("productCode").value = "";
+    document.getElementById("productQty").value = "";
+    document.getElementById("productPrice").value = "";
+
+    renderStock();
+  }
+
+  function removeStock(code) {
+    stockList = stockList.filter(item => item.code !== code);
+    renderStock();
+  }
+
+  function renderStock() {
+    const tbody = document.getElementById("stockTable");
+    tbody.innerHTML = "";
+
+    let total = 0;
+
+    stockList.forEach(item => {
+      const totalItemValue = item.qty * item.price;
+      total += totalItemValue;
+
+      const tr = document.createElement("tr");
+      tr.innerHTML = `
+        <td>${item.name}</td>
+        <td>${item.code}</td>
+        <td>${item.qty}</td>
+        <td>৳${item.price.toFixed(2)}</td>
+        <td>৳${totalItemValue.toFixed(2)}</td>
+        <td><button onclick="removeStock('${item.code}')">❌</button></td>
+      `;
+      tbody.appendChild(tr);
+    });
+
+    document.getElementById("totalValue").textContent = total.toFixed(2);
+  }
+</script>
+<script src="/components/header.js"></script>
+<script src="/components/footer.js"></script>
+</body>
+</html>

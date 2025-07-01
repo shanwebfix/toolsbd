@@ -1,0 +1,188 @@
+<!DOCTYPE html>
+<html lang="bn">
+<head>
+  <meta charset="UTF-8">
+  <title>Fiverr/Gig Keyword Tool</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <link rel="stylesheet" href="/components/header.css" />
+  <link rel="stylesheet" href="/components/footer.css" />
+  <style>
+    body {
+      font-family: 'Segoe UI', sans-serif;
+      background: #f4f6f9;
+      margin: 0;
+      padding: 20px;
+      color: #333;
+    }
+
+    .container {
+      max-width: 850px;
+      margin: auto;
+      background: #fff;
+      padding: 30px;
+      border-radius: 10px;
+      box-shadow: 0 4px 12px rgba(0,0,0,0.08);
+      margin-top: 70px;
+      margin-bottom: 70px;
+    }
+
+    h1 {
+      text-align: center;
+      margin-bottom: 25px;
+      color: #2a4d69;
+    }
+
+    input {
+      width: 100%;
+      padding: 12px;
+      font-size: 16px;
+      border: 1px solid #ccc;
+      border-radius: 6px;
+      box-sizing: border-box;
+      margin-bottom: 20px;
+    }
+
+    button {
+      padding: 12px 20px;
+      font-size: 16px;
+      background-color: #2a4d69;
+      color: white;
+      border: none;
+      border-radius: 6px;
+      cursor: pointer;
+      margin-bottom: 15px;
+    }
+
+    button:hover {
+      background-color: #1c3550;
+    }
+
+    .keywords {
+      margin-top: 10px;
+      display: flex;
+      flex-wrap: wrap;
+      gap: 10px;
+    }
+
+    .keyword {
+      background-color: #e6f0ff;
+      padding: 8px 12px;
+      border-radius: 6px;
+      cursor: pointer;
+      font-size: 14px;
+      user-select: none;
+      transition: background 0.2s;
+    }
+
+    .keyword:hover {
+      background-color: #d2e5ff;
+    }
+
+    .info {
+      font-size: 13px;
+      color: #666;
+      margin-top: 10px;
+      text-align: center;
+    }
+
+    @media (max-width: 600px) {
+      .container {
+        padding: 20px;
+      }
+      button {
+        font-size: 15px;
+      }
+    }
+  </style>
+</head>
+<body>
+
+<div class="container">
+  <h1>Fiverr / Gig Keyword Tool</h1>
+  <input type="text" id="keywordInput" placeholder="যেমন: logo design" />
+  <button onclick="generateKeywords()">🎯 কিওয়ার্ড সাজেশন দেখাও</button>
+  <button onclick="copyAllKeywords()">📋 সব কিওয়ার্ড কপি করুন</button>
+
+  <div class="keywords" id="keywordBox"></div>
+  <div class="info">একটি কিওয়ার্ডে ক্লিক করলে তা কপি হয়ে যাবে ✅</div>
+</div>
+
+<script>
+  let generatedKeywords = [];
+
+  function generateKeywords() {
+    const input = document.getElementById("keywordInput").value.trim();
+    const keywordBox = document.getElementById("keywordBox");
+    keywordBox.innerHTML = "";
+    generatedKeywords = [];
+
+    if (!input) {
+      alert("দয়া করে একটি মূল কিওয়ার্ড লিখুন!");
+      return;
+    }
+
+    const base = input.toLowerCase();
+    const suggestions = [
+      base,
+      `${base} service`,
+      `best ${base}`,
+      `top rated ${base}`,
+      `cheap ${base}`,
+      `${base} for business`,
+      `professional ${base}`,
+      `custom ${base}`,
+      `${base} expert`,
+      `${base} gig`,
+      `${base} seller`,
+      `${base} on Fiverr`,
+      `${base} in 24 hours`,
+      `unique ${base}`,
+      `seo optimized ${base}`,
+      `${base} portfolio`,
+      `${base} with fast delivery`,
+      `creative ${base}`,
+      `premium ${base} package`,
+      `trusted ${base} provider`,
+      `affordable ${base}`,
+      `${base} agency`,
+      `${base} freelancer bangladesh`,
+      `${base} usa market`,
+      `low cost ${base}`,
+      `top 10 ${base}`,
+      `${base} reviews`,
+      `hire ${base} expert`,
+    ];
+
+    suggestions.forEach(word => {
+      const div = document.createElement("div");
+      div.className = "keyword";
+      div.textContent = word;
+      div.onclick = () => {
+        navigator.clipboard.writeText(word);
+        div.style.backgroundColor = "#c1e1c1";
+        div.textContent = "✅ কপি হয়েছে: " + word;
+        setTimeout(() => {
+          div.textContent = word;
+          div.style.backgroundColor = "#e6f0ff";
+        }, 1200);
+      };
+      keywordBox.appendChild(div);
+      generatedKeywords.push(word);
+    });
+  }
+
+  function copyAllKeywords() {
+    if (generatedKeywords.length === 0) {
+      alert("প্রথমে কিওয়ার্ড তৈরি করুন!");
+      return;
+    }
+    const allText = generatedKeywords.join(", ");
+    navigator.clipboard.writeText(allText).then(() => {
+      alert("✅ সব কিওয়ার্ড কপি হয়েছে!");
+    });
+  }
+</script>
+<script src="/components/header.js"></script>
+<script src="/components/footer.js"></script>
+</body>
+</html>

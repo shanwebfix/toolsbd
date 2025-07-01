@@ -1,0 +1,115 @@
+<!DOCTYPE html>
+<html lang="bn">
+<head>
+  <meta charset="UTF-8" />
+  <title>QR Code Generator for Product</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <link rel="stylesheet" href="/components/header.css" />
+  <link rel="stylesheet" href="/components/footer.css" />
+  <style>
+    body {
+      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+      background-color: #f0f4f8;
+      margin: 0;
+      padding: 30px;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      min-height: 100vh;
+    }
+    .container {
+      max-width: 1000px;
+      margin: auto;
+      background: #fff;
+      padding: 25px;
+      border-radius: 10px;
+      box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+      margin-top: 70px;
+      margin-bottom: 70px;
+    }
+    h2 {
+      color: #2a4d69;
+      margin-bottom: 20px;
+      text-align: center;
+    }
+    input[type="text"] {
+      width: 300px;
+      max-width: 90vw;
+      padding: 12px 15px;
+      font-size: 16px;
+      border: 1px solid #ccc;
+      border-radius: 6px;
+      margin-bottom: 20px;
+      outline: none;
+      transition: border-color 0.3s ease;
+    }
+    input[type="text"]:focus {
+      border-color: #2a4d69;
+    }
+    button {
+      padding: 12px 25px;
+      background-color: #2a4d69;
+      color: #fff;
+      border: none;
+      border-radius: 6px;
+      font-size: 16px;
+      cursor: pointer;
+      transition: background-color 0.3s ease;
+      margin-bottom: 30px;
+    }
+    button:hover {
+      background-color: #1e3750;
+    }
+    #qrcode {
+      background: white;
+      padding: 20px;
+      border-radius: 10px;
+      box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+    }
+    #qrcode canvas {
+      display: block;
+      margin: 0 auto;
+    }
+  </style>
+</head>
+<body>
+
+  <div class="container"><h2>প্রোডাক্টের জন্য QR কোড জেনারেটর</h2>
+  
+  <input type="text" id="productInput" placeholder="প্রোডাক্ট লিংক বা টেক্সট দিন" />
+  <button onclick="generateQR()">QR কোড তৈরি করুন</button>
+  
+  <div id="qrcode"></div></div>
+
+  <!-- QRCode.js লাইব্রেরি CDN -->
+  <script src="https://cdn.jsdelivr.net/npm/qrcodejs2@0.0.2/qrcode.min.js"></script>
+  <script>
+    let qr;
+
+    function generateQR() {
+      const input = document.getElementById('productInput').value.trim();
+      const qrContainer = document.getElementById('qrcode');
+
+      if (!input) {
+        alert('অনুগ্রহ করে প্রোডাক্টের লিংক বা টেক্সট দিন');
+        return;
+      }
+
+      // আগের QR কোড থাকলে ক্লিয়ার করা
+      qrContainer.innerHTML = "";
+
+      // নতুন QR কোড তৈরি
+      qr = new QRCode(qrContainer, {
+        text: input,
+        width: 200,
+        height: 200,
+        colorDark : "#2a4d69",
+        colorLight : "#ffffff",
+        correctLevel : QRCode.CorrectLevel.H
+      });
+    }
+  </script>
+<script src="/components/header.js"></script>
+<script src="/components/footer.js"></script>
+</body>
+</html>

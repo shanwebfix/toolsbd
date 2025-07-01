@@ -1,0 +1,151 @@
+<!DOCTYPE html>
+<html lang="bn">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <link rel="stylesheet" href="/components/header.css" />
+  <link rel="stylesheet" href="/components/footer.css" />
+  <title>Project Cost Estimator</title>
+  <style>
+    body {
+      font-family: 'Segoe UI', sans-serif;
+      background: #f5f7fa;
+      margin: 0;
+      padding: 20px;
+    }
+    .container {
+      max-width: 900px;
+      margin: auto;
+      background: #fff;
+      padding: 30px;
+      border-radius: 10px;
+      box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+      margin-top: 70px;
+      margin-bottom: 70px;
+    }
+    h1 {
+      text-align: center;
+      color: #2a4d69;
+      margin-bottom: 25px;
+    }
+    .row {
+      display: flex;
+      gap: 10px;
+      margin-bottom: 15px;
+      flex-wrap: wrap;
+    }
+    input {
+      flex: 1;
+      padding: 10px;
+      font-size: 15px;
+      border: 1px solid #ccc;
+      border-radius: 6px;
+      min-width: 100px;
+    }
+    button {
+      padding: 10px 18px;
+      background-color: #2a4d69;
+      color: white;
+      border: none;
+      border-radius: 6px;
+      cursor: pointer;
+      font-size: 15px;
+    }
+    button:hover {
+      background-color: #19334d;
+    }
+    table {
+      width: 100%;
+      margin-top: 25px;
+      border-collapse: collapse;
+    }
+    th, td {
+      padding: 10px;
+      border: 1px solid #ccc;
+      text-align: left;
+    }
+    th {
+      background: #e9f1f7;
+    }
+    .total {
+      margin-top: 20px;
+      font-weight: bold;
+      font-size: 18px;
+      background: #e0f6e0;
+      padding: 12px;
+      border-left: 4px solid #2ecc71;
+      border-radius: 5px;
+    }
+    @media(max-width: 600px) {
+      .row {
+        flex-direction: column;
+      }
+    }
+  </style>
+</head>
+<body>
+
+<div class="container">
+  <h1>📊 Project Cost Estimator</h1>
+
+  <div class="row">
+    <input type="text" id="itemName" placeholder="আইটেমের নাম (যেমন: ডিজাইন)">
+    <input type="number" id="unit" placeholder="পরিমাণ" min="1">
+    <input type="number" id="unitPrice" placeholder="ইউনিট মূল্য (৳)" min="0">
+    <button onclick="addItem()">+ যোগ করুন</button>
+  </div>
+
+  <table id="costTable">
+    <thead>
+      <tr>
+        <th>আইটেম</th>
+        <th>পরিমাণ</th>
+        <th>ইউনিট মূল্য</th>
+        <th>মোট (৳)</th>
+      </tr>
+    </thead>
+    <tbody></tbody>
+  </table>
+
+  <div class="total" id="totalCost">মোট খরচ: ৳0.00</div>
+</div>
+
+<script>
+  const tableBody = document.querySelector("#costTable tbody");
+  const totalCostElem = document.getElementById("totalCost");
+  let grandTotal = 0;
+
+  function addItem() {
+    const name = document.getElementById("itemName").value.trim();
+    const unit = parseFloat(document.getElementById("unit").value);
+    const unitPrice = parseFloat(document.getElementById("unitPrice").value);
+
+    if (!name || isNaN(unit) || unit <= 0 || isNaN(unitPrice) || unitPrice < 0) {
+      alert("সব তথ্য সঠিকভাবে পূরণ করুন!");
+      return;
+    }
+
+    const total = unit * unitPrice;
+    grandTotal += total;
+
+    const row = document.createElement("tr");
+    row.innerHTML = `
+      <td>${name}</td>
+      <td>${unit}</td>
+      <td>৳${unitPrice.toFixed(2)}</td>
+      <td>৳${total.toFixed(2)}</td>
+    `;
+    tableBody.appendChild(row);
+
+    totalCostElem.textContent = `মোট খরচ: ৳${grandTotal.toFixed(2)}`;
+
+    // Clear input
+    document.getElementById("itemName").value = "";
+    document.getElementById("unit").value = "";
+    document.getElementById("unitPrice").value = "";
+  }
+</script>
+<script src="/components/header.js"></script>
+<script src="/components/footer.js"></script>
+</body>
+</html>

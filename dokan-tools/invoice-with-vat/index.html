@@ -1,0 +1,185 @@
+<!DOCTYPE html>
+<html lang="bn">
+<head>
+  <meta charset="UTF-8" />
+  <title>ইনভয়েস সিস্টেম (VAT সহ)</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <link rel="stylesheet" href="/components/header.css" />
+  <link rel="stylesheet" href="/components/footer.css" />
+  <style>
+    body {
+      font-family: 'Segoe UI', sans-serif;
+      background: #f1f5f9;
+      margin: 0;
+      padding: 20px;
+    }
+    .container {
+      max-width: 900px;
+      margin: auto;
+      background: white;
+      padding: 30px;
+      border-radius: 10px;
+      box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+      margin-top: 70px;
+      margin-bottom: 70px;
+    }
+    h2 {
+      text-align: center;
+      color: #2a4d69;
+    }
+    input {
+      padding: 10px;
+      font-size: 15px;
+      margin: 5px 0;
+      width: 100%;
+      border: 1px solid #ccc;
+      border-radius: 6px;
+      box-sizing: border-box;
+    }
+    table {
+      width: 100%;
+      margin-top: 20px;
+      border-collapse: collapse;
+    }
+    th, td {
+      padding: 10px;
+      border: 1px solid #ccc;
+      text-align: center;
+    }
+    th {
+      background: #f0f4f8;
+    }
+    .actions {
+      margin-top: 15px;
+      display: flex;
+      flex-wrap: wrap;
+      gap: 10px;
+    }
+    button {
+      padding: 10px 16px;
+      background: #2a4d69;
+      color: white;
+      border: none;
+      border-radius: 6px;
+      font-size: 15px;
+      cursor: pointer;
+    }
+    button:hover {
+      background: #1e3750;
+    }
+    .totals {
+      margin-top: 20px;
+      text-align: right;
+      font-size: 16px;
+    }
+    .totals span {
+      display: inline-block;
+      min-width: 120px;
+    }
+    @media print {
+      body * {
+        visibility: hidden;
+      }
+      .container, .container * {
+        visibility: visible;
+      }
+      .container {
+        position: absolute;
+        top: 0;
+        left: 0;
+        width: 100%;
+      }
+    }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <h2>🧾 ইনভয়েস সিস্টেম (VAT সহ)</h2>
+
+    <label>কাস্টমারের নাম:</label>
+    <input type="text" id="customerName" placeholder="যেমন: রায়হান ইসলাম"/>
+
+    <label>VAT (%)</label>
+    <input type="number" id="vatPercent" value="5"/>
+
+    <table id="invoiceTable">
+      <thead>
+        <tr>
+          <th>পণ্যের নাম</th>
+          <th>পরিমাণ</th>
+          <th>প্রতি ইউনিট মূল্য (৳)</th>
+          <th>মোট (৳)</th>
+          <th>অপশন</th>
+        </tr>
+      </thead>
+      <tbody></tbody>
+    </table>
+
+    <div class="actions">
+      <button onclick="addItem()">➕ পণ্য যুক্ত করুন</button>
+      <button onclick="calculateInvoice()">📊 হিসাব করুন</button>
+      <button onclick="window.print()">🖨️ প্রিন্ট</button>
+    </div>
+
+    <div class="totals" id="totalsBox" style="display:none;">
+      <p><span>Subtotal:</span> ৳<span id="subtotal">0.00</span></p>
+      <p><span>VAT Amount:</span> ৳<span id="vatAmount">0.00</span></p>
+      <p><strong><span>Grand Total:</span> ৳<span id="grandTotal">0.00</span></strong></p>
+    </div>
+  </div>
+
+  <script>
+    function addItem() {
+      const row = document.createElement("tr");
+
+      row.innerHTML = `
+        <td><input type="text" placeholder="পণ্যের নাম"/></td>
+        <td><input type="number" min="1" value="1" onchange="calculateRow(this)"/></td>
+        <td><input type="number" min="0" value="0" onchange="calculateRow(this)"/></td>
+        <td class="lineTotal">৳0.00</td>
+        <td><button onclick="removeItem(this)">❌</button></td>
+      `;
+
+      document.querySelector("#invoiceTable tbody").appendChild(row);
+    }
+
+    function calculateRow(input) {
+      const row = input.parentElement.parentElement;
+      const qty = parseFloat(row.children[1].children[0].value) || 0;
+      const unitPrice = parseFloat(row.children[2].children[0].value) || 0;
+      const total = qty * unitPrice;
+      row.children[3].textContent = "৳" + total.toFixed(2);
+    }
+
+    function removeItem(btn) {
+      btn.parentElement.parentElement.remove();
+      calculateInvoice();
+    }
+
+    function calculateInvoice() {
+      let subtotal = 0;
+      const rows = document.querySelectorAll("#invoiceTable tbody tr");
+
+      rows.forEach(row => {
+        const qty = parseFloat(row.children[1].children[0].value) || 0;
+        const price = parseFloat(row.children[2].children[0].value) || 0;
+        const total = qty * price;
+        row.children[3].textContent = "৳" + total.toFixed(2);
+        subtotal += total;
+      });
+
+      const vatPercent = parseFloat(document.getElementById("vatPercent").value) || 0;
+      const vatAmount = (subtotal * vatPercent) / 100;
+      const grandTotal = subtotal + vatAmount;
+
+      document.getElementById("subtotal").textContent = subtotal.toFixed(2);
+      document.getElementById("vatAmount").textContent = vatAmount.toFixed(2);
+      document.getElementById("grandTotal").textContent = grandTotal.toFixed(2);
+
+      document.getElementById("totalsBox").style.display = "block";
+    }
+  </script>
+  <script src="/components/header.js"></script>
+<script src="/components/footer.js"></script>
+</body>
+</html>

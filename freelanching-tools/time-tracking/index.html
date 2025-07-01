@@ -1,0 +1,147 @@
+<!DOCTYPE html>
+<html lang="bn">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<link rel="stylesheet" href="/components/header.css" />
+  <link rel="stylesheet" href="/components/footer.css" />
+<title>টাইম ট্র্যাকিং টুল</title>
+<style>
+  body {
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    background: #f0f4f8;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+    margin: 0;
+    padding: 15px;
+    color: #222;
+  }
+  .tracker {
+    background: #fff;
+    padding: 30px 40px;
+    border-radius: 12px;
+    box-shadow: 0 6px 15px rgba(0,0,0,0.1);
+    max-width: 320px;
+    width: 100%;
+    text-align: center;
+  }
+  h1 {
+    margin-bottom: 25px;
+    color: #2a4d69;
+  }
+  #timeDisplay {
+    font-size: 48px;
+    font-weight: 700;
+    margin-bottom: 25px;
+    font-family: 'Courier New', Courier, monospace;
+    letter-spacing: 3px;
+  }
+  .buttons {
+    display: flex;
+    justify-content: center;
+    gap: 15px;
+  }
+  button {
+    background: #2a4d69;
+    color: white;
+    border: none;
+    padding: 12px 20px;
+    font-size: 16px;
+    border-radius: 8px;
+    cursor: pointer;
+    flex: 1;
+    transition: background 0.3s ease;
+  }
+  button:hover {
+    background: #1e3550;
+  }
+  button:disabled {
+    background: #8aa7c7;
+    cursor: default;
+  }
+  @media (max-width: 400px) {
+    .tracker {
+      padding: 20px;
+    }
+    #timeDisplay {
+      font-size: 36px;
+    }
+    button {
+      padding: 10px 12px;
+      font-size: 14px;
+    }
+  }
+</style>
+</head>
+<body>
+
+<div class="tracker">
+  <h1>টাইম ট্র্যাকিং টুল</h1>
+  <div id="timeDisplay">00:00:00</div>
+  <div class="buttons">
+    <button id="startBtn">শুরু করুন</button>
+    <button id="pauseBtn" disabled>বিরতি দিন</button>
+    <button id="resetBtn" disabled>রিসেট</button>
+  </div>
+</div>
+
+<script>
+  let startTime = 0;
+  let elapsedTime = 0;
+  let timerInterval;
+
+  const timeDisplay = document.getElementById('timeDisplay');
+  const startBtn = document.getElementById('startBtn');
+  const pauseBtn = document.getElementById('pauseBtn');
+  const resetBtn = document.getElementById('resetBtn');
+
+  function timeToString(time) {
+    let diffInHrs = Math.floor(time / 3600000);
+    let diffInMin = Math.floor((time % 3600000) / 60000);
+    let diffInSec = Math.floor((time % 60000) / 1000);
+
+    let formattedHrs = diffInHrs.toString().padStart(2, "0");
+    let formattedMin = diffInMin.toString().padStart(2, "0");
+    let formattedSec = diffInSec.toString().padStart(2, "0");
+
+    return `${formattedHrs}:${formattedMin}:${formattedSec}`;
+  }
+
+  function printTime() {
+    elapsedTime = Date.now() - startTime;
+    timeDisplay.textContent = timeToString(elapsedTime);
+  }
+
+  function startTimer() {
+    startTime = Date.now() - elapsedTime;
+    timerInterval = setInterval(printTime, 1000);
+    startBtn.disabled = true;
+    pauseBtn.disabled = false;
+    resetBtn.disabled = false;
+  }
+
+  function pauseTimer() {
+    clearInterval(timerInterval);
+    startBtn.disabled = false;
+    pauseBtn.disabled = true;
+  }
+
+  function resetTimer() {
+    clearInterval(timerInterval);
+    timeDisplay.textContent = "00:00:00";
+    elapsedTime = 0;
+    startBtn.disabled = false;
+    pauseBtn.disabled = true;
+    resetBtn.disabled = true;
+  }
+
+  startBtn.addEventListener('click', startTimer);
+  pauseBtn.addEventListener('click', pauseTimer);
+  resetBtn.addEventListener('click', resetTimer);
+</script>
+<script src="/components/header.js"></script>
+<script src="/components/footer.js"></script>
+</body>
+</html>

@@ -1,0 +1,171 @@
+<!DOCTYPE html>
+<html lang="bn">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <link rel="stylesheet" href="/components/header.css" />
+  <link rel="stylesheet" href="/components/footer.css" />
+  <title>ক্লায়েন্ট পেমেন্ট ট্র্যাকার</title>
+  <style>
+    body {
+      font-family: 'Segoe UI', sans-serif;
+      margin: 0;
+      background: #f5f8fa;
+      padding: 20px;
+    }
+    .container {
+      max-width: 900px;
+      margin: auto;
+      background: white;
+      padding: 30px;
+      border-radius: 10px;
+      box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+      margin-top: 70px;
+      margin-bottom: 70px;
+    }
+    h1 {
+      text-align: center;
+      color: #2a4d69;
+      margin-bottom: 25px;
+    }
+    label {
+      font-weight: 600;
+      display: block;
+      margin-top: 12px;
+    }
+    input {
+      width: 100%;
+      padding: 10px;
+      font-size: 15px;
+      margin-top: 5px;
+      border: 1px solid #ccc;
+      border-radius: 6px;
+    }
+    button {
+      margin-top: 20px;
+      padding: 12px 20px;
+      background-color: #2a4d69;
+      color: white;
+      font-size: 16px;
+      border: none;
+      border-radius: 6px;
+      cursor: pointer;
+    }
+    button:hover {
+      background-color: #19334d;
+    }
+    table {
+      width: 100%;
+      margin-top: 30px;
+      border-collapse: collapse;
+    }
+    th, td {
+      padding: 10px;
+      border: 1px solid #ddd;
+      text-align: left;
+    }
+    th {
+      background-color: #e8f0f8;
+    }
+    .summary {
+      margin-top: 20px;
+      padding: 15px;
+      background: #ecf7ed;
+      border-left: 4px solid #4caf50;
+      border-radius: 5px;
+      font-weight: 600;
+    }
+    @media (max-width: 600px) {
+      input, button {
+        font-size: 14px;
+      }
+      table {
+        font-size: 14px;
+      }
+    }
+  </style>
+</head>
+<body>
+
+<div class="container">
+  <h1>💳 ক্লায়েন্ট পেমেন্ট ট্র্যাকার</h1>
+
+  <label for="name">ক্লায়েন্টের নাম:</label>
+  <input type="text" id="name" placeholder="যেমন: মোঃ সুমন"/>
+
+  <label for="project">প্রকল্প / সেবা:</label>
+  <input type="text" id="project" placeholder="যেমন: ওয়েব ডিজাইন"/>
+
+  <label for="total">মোট বিল (৳):</label>
+  <input type="number" id="total" placeholder="যেমন: 10000"/>
+
+  <label for="paid">প্রাপ্ত টাকা (৳):</label>
+  <input type="number" id="paid" placeholder="যেমন: 6000"/>
+
+  <button onclick="addPayment()">+ যোগ করুন</button>
+
+  <div class="summary" id="summary">মোট ক্লায়েন্ট: ০ | মোট প্রাপ্ত: ৳০ | বাকি: ৳০</div>
+
+  <table id="paymentTable">
+    <thead>
+      <tr>
+        <th>নাম</th>
+        <th>প্রকল্প</th>
+        <th>মোট বিল</th>
+        <th>প্রাপ্ত</th>
+        <th>বাকি</th>
+      </tr>
+    </thead>
+    <tbody></tbody>
+  </table>
+</div>
+
+<script>
+  const tableBody = document.querySelector("#paymentTable tbody");
+  const summary = document.getElementById("summary");
+
+  let totalClient = 0;
+  let totalPaid = 0;
+  let totalDue = 0;
+
+  function addPayment() {
+    const name = document.getElementById("name").value.trim();
+    const project = document.getElementById("project").value.trim();
+    const total = parseFloat(document.getElementById("total").value);
+    const paid = parseFloat(document.getElementById("paid").value);
+
+    if (!name || !project || isNaN(total) || isNaN(paid) || total < paid) {
+      alert("অনুগ্রহ করে সব তথ্য সঠিকভাবে পূরণ করুন।");
+      return;
+    }
+
+    const due = total - paid;
+
+    const row = document.createElement("tr");
+    row.innerHTML = `
+      <td>${name}</td>
+      <td>${project}</td>
+      <td>৳${total.toFixed(2)}</td>
+      <td>৳${paid.toFixed(2)}</td>
+      <td>৳${due.toFixed(2)}</td>
+    `;
+    tableBody.appendChild(row);
+
+    // Update Summary
+    totalClient++;
+    totalPaid += paid;
+    totalDue += due;
+
+    summary.textContent = `মোট ক্লায়েন্ট: ${totalClient} | মোট প্রাপ্ত: ৳${totalPaid.toFixed(2)} | বাকি: ৳${totalDue.toFixed(2)}`;
+
+    // Clear input fields
+    document.getElementById("name").value = "";
+    document.getElementById("project").value = "";
+    document.getElementById("total").value = "";
+    document.getElementById("paid").value = "";
+  }
+</script>
+<script src="/components/header.js"></script>
+<script src="/components/footer.js"></script>
+</body>
+</html>

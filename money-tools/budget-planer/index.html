@@ -1,0 +1,182 @@
+<!DOCTYPE html>
+<html lang="bn">
+<head>
+  <meta charset="UTF-8" />
+  <title>Budget Planner (মাসিক/বার্ষিক)</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <link rel="stylesheet" href="/components/header.css" />
+  <link rel="stylesheet" href="/components/footer.css" />
+  <style>
+    body {
+      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+      background: #f7f9fc;
+      margin: 0;
+      padding: 20px;
+      display: flex;
+      justify-content: center;
+      align-items: flex-start;
+      min-height: 100vh;
+    }
+    .container {
+      background: #fff;
+      max-width: 480px;
+      width: 100%;
+      padding: 30px 35px;
+      border-radius: 10px;
+      box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+      margin-top: 70px;
+      margin-bottom: 70px;
+    }
+    h2 {
+      text-align: center;
+      margin-bottom: 25px;
+      color: #34495e;
+    }
+    label {
+      display: block;
+      font-weight: 600;
+      margin-top: 15px;
+      margin-bottom: 6px;
+      color: #34495e;
+    }
+    select, input[type="number"], input[type="text"] {
+      width: 100%;
+      padding: 10px 12px;
+      font-size: 16px;
+      border: 1px solid #ccc;
+      border-radius: 6px;
+      box-sizing: border-box;
+    }
+    .expense-list {
+      margin-top: 20px;
+    }
+    .expense-item {
+      display: flex;
+      gap: 10px;
+      margin-bottom: 10px;
+    }
+    .expense-item input[type="text"] {
+      flex: 2;
+    }
+    .expense-item input[type="number"] {
+      flex: 1;
+    }
+    button, .add-expense-btn {
+      margin-top: 20px;
+      padding: 12px;
+      width: 100%;
+      font-size: 18px;
+      background-color: #2980b9;
+      color: white;
+      border: none;
+      border-radius: 8px;
+      cursor: pointer;
+      transition: background-color 0.3s ease;
+    }
+    button:hover, .add-expense-btn:hover {
+      background-color: #1c5980;
+    }
+    .result {
+      margin-top: 25px;
+      background: #ecf0f1;
+      padding: 18px;
+      border-radius: 8px;
+      font-size: 18px;
+      color: #2c3e50;
+      text-align: center;
+      min-height: 60px;
+      box-shadow: inset 0 1px 3px rgba(0,0,0,0.1);
+      white-space: pre-line;
+    }
+    @media (max-width: 520px) {
+      .container {
+        padding: 20px;
+      }
+    }
+  </style>
+</head>
+<body>
+
+<div class="container">
+  <h2>Budget Planner (মাসিক/বার্ষিক)</h2>
+
+  <label for="budgetType">বাজেট টাইপ</label>
+  <select id="budgetType">
+    <option value="monthly" selected>মাসিক</option>
+    <option value="yearly">বার্ষিক</option>
+  </select>
+
+  <label for="budgetAmount">মোট বাজেট (৳)</label>
+  <input type="number" id="budgetAmount" placeholder="আপনার মোট বাজেট লিখুন" min="0" step="0.01" />
+
+  <div class="expense-list" id="expenseList">
+    <label>খরচ যোগ করুন</label>
+    <div class="expense-item">
+      <input type="text" placeholder="খরচের নাম" class="expense-name" />
+      <input type="number" placeholder="টাকা" class="expense-amount" min="0" step="0.01" />
+    </div>
+  </div>
+  
+  <button type="button" class="add-expense-btn">আরও খরচ যোগ করুন</button>
+  <button type="button" onclick="calculateBudget()">হিসাব করুন</button>
+
+  <div class="result" id="result">ফলাফল এখানে দেখুন</div>
+</div>
+
+<script>
+  const addExpenseBtn = document.querySelector('.add-expense-btn');
+  const expenseList = document.getElementById('expenseList');
+  const resultDiv = document.getElementById('result');
+
+  addExpenseBtn.addEventListener('click', () => {
+    const expenseItem = document.createElement('div');
+    expenseItem.classList.add('expense-item');
+    expenseItem.innerHTML = `
+      <input type="text" placeholder="খরচের নাম" class="expense-name" />
+      <input type="number" placeholder="টাকা" class="expense-amount" min="0" step="0.01" />
+    `;
+    expenseList.appendChild(expenseItem);
+  });
+
+  function calculateBudget() {
+    const budgetType = document.getElementById('budgetType').value;
+    const budgetAmount = parseFloat(document.getElementById('budgetAmount').value);
+
+    if (isNaN(budgetAmount) || budgetAmount < 0) {
+      resultDiv.textContent = 'অনুগ্রহ করে বৈধ বাজেট পরিমাণ লিখুন।';
+      return;
+    }
+
+    const expenseNames = document.querySelectorAll('.expense-name');
+    const expenseAmounts = document.querySelectorAll('.expense-amount');
+
+    let totalExpenses = 0;
+    let expensesDetails = '';
+
+    for (let i = 0; i < expenseAmounts.length; i++) {
+      const name = expenseNames[i].value.trim() || `খরচ ${i + 1}`;
+      const amount = parseFloat(expenseAmounts[i].value);
+
+      if (isNaN(amount) || amount < 0) {
+        resultDiv.textContent = `অনুগ্রহ করে বৈধ খরচের পরিমাণ লিখুন: ${name}`;
+        return;
+      }
+
+      totalExpenses += amount;
+      expensesDetails += `${name}: ৳${amount.toFixed(2)}\n`;
+    }
+
+    const remaining = budgetAmount - totalExpenses;
+
+    resultDiv.innerHTML =
+      `<strong>বাজেট টাইপ:</strong> ${budgetType === 'monthly' ? 'মাসিক' : 'বার্ষিক'}\n` +
+      `<strong>মোট বাজেট:</strong> ৳${budgetAmount.toFixed(2)}\n` +
+      `<strong>মোট খরচ:</strong> ৳${totalExpenses.toFixed(2)}\n` +
+      `<strong>অবশিষ্ট বাজেট:</strong> ৳${remaining.toFixed(2)}\n\n` +
+      `<strong>খরচের বিস্তারিত:</strong>\n${expensesDetails}`;
+  }
+</script>
+<script src="/components/header.js"></script>
+<script src="/components/footer.js"></script>
+</body>
+</html>

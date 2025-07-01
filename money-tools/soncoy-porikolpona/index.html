@@ -1,0 +1,153 @@
+<!DOCTYPE html>
+<html lang="bn">
+<head>
+  <meta charset="UTF-8" />
+  <title>সঞ্চয় পরিকল্পনা টুল</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <link rel="stylesheet" href="/components/header.css" />
+  <link rel="stylesheet" href="/components/footer.css" />
+  <style>
+    body {
+      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+      background: #f9fafb;
+      margin: 0;
+      padding: 20px;
+      display: flex;
+      justify-content: center;
+      align-items: flex-start;
+      min-height: 100vh;
+    }
+    .container {
+      background: #fff;
+      padding: 30px 35px;
+      border-radius: 10px;
+      max-width: 400px;
+      width: 100%;
+      box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+      margin-top: 70px;
+      margin-bottom: 70px;
+    }
+    h2 {
+      text-align: center;
+      color: #2c3e50;
+      margin-bottom: 25px;
+    }
+    label {
+      display: block;
+      font-weight: 600;
+      margin-top: 15px;
+      margin-bottom: 8px;
+      color: #34495e;
+    }
+    input[type="number"], select {
+      width: 100%;
+      padding: 10px 12px;
+      font-size: 16px;
+      border: 1px solid #ccc;
+      border-radius: 6px;
+      box-sizing: border-box;
+    }
+    button {
+      margin-top: 25px;
+      width: 100%;
+      padding: 12px;
+      background-color: #2980b9;
+      color: white;
+      border: none;
+      border-radius: 8px;
+      font-size: 18px;
+      cursor: pointer;
+      transition: background-color 0.3s ease;
+    }
+    button:hover {
+      background-color: #1c5980;
+    }
+    .result {
+      margin-top: 30px;
+      background: #ecf0f1;
+      padding: 18px;
+      border-radius: 8px;
+      font-size: 18px;
+      color: #2c3e50;
+      text-align: center;
+      min-height: 60px;
+      box-shadow: inset 0 1px 3px rgba(0,0,0,0.1);
+    }
+    @media (max-width: 450px) {
+      .container {
+        padding: 20px;
+      }
+    }
+  </style>
+</head>
+<body>
+
+<div class="container">
+  <h2>সঞ্চয় পরিকল্পনা টুল</h2>
+
+  <label for="monthlySavings">মাসিক সঞ্চয় (৳)</label>
+  <input type="number" id="monthlySavings" placeholder="মাসিক সঞ্চয় লিখুন" min="0" step="0.01" />
+
+  <label for="duration">সময়কাল</label>
+  <select id="duration">
+    <option value="12">12 মাস (1 বছর)</option>
+    <option value="24">24 মাস (2 বছর)</option>
+    <option value="36">36 মাস (3 বছর)</option>
+    <option value="48">48 মাস (4 বছর)</option>
+    <option value="60">60 মাস (5 বছর)</option>
+  </select>
+
+  <label for="annualInterest">বার্ষিক সুদের হার (%)</label>
+  <input type="number" id="annualInterest" placeholder="বার্ষিক সুদের হার লিখুন" min="0" step="0.01" value="5" />
+
+  <button onclick="calculateSavings()">হিসাব করুন</button>
+
+  <div class="result" id="result">ফলাফল এখানে দেখুন</div>
+</div>
+
+<script>
+  function calculateSavings() {
+    const monthlySavings = parseFloat(document.getElementById('monthlySavings').value);
+    const durationMonths = parseInt(document.getElementById('duration').value);
+    const annualInterest = parseFloat(document.getElementById('annualInterest').value) / 100;
+
+    const resultDiv = document.getElementById('result');
+
+    if (isNaN(monthlySavings) || monthlySavings <= 0) {
+      resultDiv.textContent = 'অনুগ্রহ করে বৈধ মাসিক সঞ্চয় লিখুন।';
+      return;
+    }
+    if (isNaN(durationMonths) || durationMonths <= 0) {
+      resultDiv.textContent = 'অনুগ্রহ করে বৈধ সময়কাল নির্বাচন করুন।';
+      return;
+    }
+    if (isNaN(annualInterest) || annualInterest < 0) {
+      resultDiv.textContent = 'অনুগ্রহ করে বৈধ বার্ষিক সুদের হার লিখুন।';
+      return;
+    }
+
+    // মাসিক সুদের হার
+    const monthlyInterestRate = annualInterest / 12;
+
+    // ভবিষ্যতের মান (Future Value) - মাসিক কিস্তির জন্য ভবিষ্যত মূল্য সূত্র:
+    // FV = P * [((1 + r)^n - 1) / r]
+    // যেখানে P = মাসিক সঞ্চয়, r = মাসিক সুদের হার, n = মাস সংখ্যা
+
+    let futureValue = 0;
+    if (monthlyInterestRate === 0) {
+      futureValue = monthlySavings * durationMonths;
+    } else {
+      futureValue = monthlySavings * (Math.pow(1 + monthlyInterestRate, durationMonths) - 1) / monthlyInterestRate;
+    }
+
+    resultDiv.innerHTML = `
+      <strong>মোট সঞ্চয় (সুদের সাথে):</strong> ৳${futureValue.toFixed(2)}<br/>
+      <strong>মোট সঞ্চয়ের সময়কাল:</strong> ${durationMonths} মাস<br/>
+      <strong>বার্ষিক সুদের হার:</strong> ${(annualInterest*100).toFixed(2)}%
+    `;
+  }
+</script>
+<script src="/components/header.js"></script>
+<script src="/components/footer.js"></script>
+</body>
+</html>

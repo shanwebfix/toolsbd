@@ -1,0 +1,145 @@
+<!DOCTYPE html>
+<html lang="bn">
+<head>
+  <meta charset="UTF-8" />
+  <title>বাংলাদেশ ট্যাক্স ক্যালকুলেটর</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <link rel="stylesheet" href="/components/header.css" />
+  <link rel="stylesheet" href="/components/footer.css" />
+  <style>
+    body {
+      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+      background: #f0f4f8;
+      margin: 0;
+      padding: 20px;
+      display: flex;
+      justify-content: center;
+      align-items: flex-start;
+      min-height: 100vh;
+    }
+    .container {
+      background: #fff;
+      padding: 30px 35px;
+      border-radius: 10px;
+      max-width: 400px;
+      width: 100%;
+      box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+      margin-top: 70px;
+      margin-bottom: 70px;
+    }
+    h2 {
+      text-align: center;
+      color: #2c3e50;
+      margin-bottom: 25px;
+    }
+    label {
+      display: block;
+      font-weight: 600;
+      margin-top: 15px;
+      margin-bottom: 8px;
+      color: #34495e;
+    }
+    input[type="number"] {
+      width: 100%;
+      padding: 10px 12px;
+      font-size: 16px;
+      border: 1px solid #ccc;
+      border-radius: 6px;
+      box-sizing: border-box;
+    }
+    button {
+      margin-top: 25px;
+      width: 100%;
+      padding: 12px;
+      background-color: #2980b9;
+      color: white;
+      border: none;
+      border-radius: 8px;
+      font-size: 18px;
+      cursor: pointer;
+      transition: background-color 0.3s ease;
+    }
+    button:hover {
+      background-color: #1c5980;
+    }
+    .result {
+      margin-top: 30px;
+      background: #ecf0f1;
+      padding: 18px;
+      border-radius: 8px;
+      font-size: 18px;
+      color: #2c3e50;
+      text-align: center;
+      min-height: 60px;
+      box-shadow: inset 0 1px 3px rgba(0,0,0,0.1);
+      white-space: pre-line;
+    }
+    @media (max-width: 450px) {
+      .container {
+        padding: 20px;
+      }
+    }
+  </style>
+</head>
+<body>
+
+<div class="container">
+  <h2>বাংলাদেশ ট্যাক্স ক্যালকুলেটর</h2>
+
+  <label for="annualIncome">বার্ষিক আয় (৳)</label>
+  <input type="number" id="annualIncome" placeholder="আপনার বার্ষিক আয় লিখুন" min="0" step="0.01" />
+
+  <button onclick="calculateTax()">হিসাব করুন</button>
+
+  <div class="result" id="result">ফলাফল এখানে দেখুন</div>
+</div>
+
+<script>
+  // ২০২৪ সালের বাংলাদেশ ট্যাক্স স্ল্যাব অনুযায়ী (সাধারণ ব্যক্তি)
+  // উৎস: https://dor.gov.bd/tax-rate
+  // ট্যাক্স স্ল্যাব (প্রাথমিক) :  
+  // 0 - ৩,০০,০০০: 0%  
+  // ৩,০০,০০১ - ৭০০,০০০: ৫%  
+  // ৭০০,০০১ - ১,২০,০০,০০০: ১০%  
+  // ১,২০,০০১ - ৩০০০,০০০০: ১৫%  
+  // ৩০০০,০০১ - ৪০০০,০০০০: ২০%  
+  // ৪০০০,০০১ - উপরে: ২৫%
+
+  function calculateTax() {
+    const income = parseFloat(document.getElementById('annualIncome').value);
+    const resultDiv = document.getElementById('result');
+
+    if (isNaN(income) || income < 0) {
+      resultDiv.textContent = 'অনুগ্রহ করে বৈধ বার্ষিক আয় লিখুন।';
+      return;
+    }
+
+    let taxableIncome = income;
+    let tax = 0;
+
+    if (taxableIncome <= 300000) {
+      tax = 0;
+    } else if (taxableIncome <= 700000) {
+      tax = (taxableIncome - 300000) * 0.05;
+    } else if (taxableIncome <= 1200000) {
+      tax = (700000 - 300000) * 0.05 + (taxableIncome - 700000) * 0.10;
+    } else if (taxableIncome <= 3000000) {
+      tax = (700000 - 300000) * 0.05 + (1200000 - 700000) * 0.10 + (taxableIncome - 1200000) * 0.15;
+    } else if (taxableIncome <= 4000000) {
+      tax = (700000 - 300000) * 0.05 + (1200000 - 700000) * 0.10 + (3000000 - 1200000) * 0.15 + (taxableIncome - 3000000) * 0.20;
+    } else {
+      tax = (700000 - 300000) * 0.05 + (1200000 - 700000) * 0.10 + (3000000 - 1200000) * 0.15 + (4000000 - 3000000) * 0.20 + (taxableIncome - 4000000) * 0.25;
+    }
+
+    const netIncome = income - tax;
+
+    resultDiv.innerHTML = 
+      `বার্ষিক আয়: ৳${income.toFixed(2)}\n` +
+      `মোট ট্যাক্স: ৳${tax.toFixed(2)}\n` +
+      `নেট আয় (ট্যাক্স কাটার পর): ৳${netIncome.toFixed(2)}`;
+  }
+</script>
+<script src="/components/header.js"></script>
+<script src="/components/footer.js"></script>
+</body>
+</html>

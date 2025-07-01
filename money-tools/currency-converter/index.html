@@ -1,0 +1,167 @@
+<!DOCTYPE html>
+<html lang="bn">
+<head>
+  <meta charset="UTF-8" />
+  <title>Currency Converter (BDT Focused)</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <link rel="stylesheet" href="/components/header.css" />
+  <link rel="stylesheet" href="/components/footer.css" />
+  <style>
+    body {
+      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+      background: #f9fafb;
+      margin: 0;
+      padding: 20px;
+      display: flex;
+      justify-content: center;
+      align-items: flex-start;
+      min-height: 100vh;
+    }
+    .container {
+      background: #fff;
+      max-width: 400px;
+      width: 100%;
+      padding: 30px 35px;
+      border-radius: 10px;
+      box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+      margin-top: 70px;
+      margin-bottom: 70px;
+    }
+    h2 {
+      text-align: center;
+      margin-bottom: 25px;
+      color: #34495e;
+    }
+    label {
+      display: block;
+      font-weight: 600;
+      margin-top: 15px;
+      margin-bottom: 8px;
+      color: #34495e;
+    }
+    input[type="number"], select {
+      width: 100%;
+      padding: 10px 12px;
+      font-size: 16px;
+      border: 1px solid #ccc;
+      border-radius: 6px;
+      box-sizing: border-box;
+    }
+    button {
+      margin-top: 25px;
+      width: 100%;
+      padding: 12px;
+      background-color: #2980b9;
+      color: white;
+      border: none;
+      border-radius: 8px;
+      font-size: 18px;
+      cursor: pointer;
+      transition: background-color 0.3s ease;
+    }
+    button:hover {
+      background-color: #1c5980;
+    }
+    .result {
+      margin-top: 30px;
+      background: #ecf0f1;
+      padding: 18px;
+      border-radius: 8px;
+      font-size: 18px;
+      color: #2c3e50;
+      text-align: center;
+      min-height: 60px;
+      box-shadow: inset 0 1px 3px rgba(0,0,0,0.1);
+      white-space: pre-line;
+    }
+    @media (max-width: 450px) {
+      .container {
+        padding: 20px;
+      }
+    }
+  </style>
+</head>
+<body>
+
+<div class="container">
+  <h2>Currency Converter (BDT কেন্দ্রিক)</h2>
+
+  <label for="amount">পরিমাণ লিখুন</label>
+  <input type="number" id="amount" placeholder="পরিমাণ লিখুন" min="0" step="0.01" />
+
+  <label for="fromCurrency">থেকে</label>
+  <select id="fromCurrency"></select>
+
+  <label for="toCurrency">এ</label>
+  <select id="toCurrency"></select>
+
+  <button onclick="convertCurrency()">রূপান্তর করুন</button>
+
+  <div class="result" id="result">ফলাফল এখানে দেখুন</div>
+</div>
+
+<script>
+  // কারেন্সি রেট: BDT প্রতি ১ ইউনিট কারেন্সির দাম (যেমন USD ১ = ১০৮.৫০ BDT)
+  // মান শুধুমাত্র উদাহরণ, আপডেট প্রয়োজন হলে পরিবর্তন করবেন
+  const rates = {
+    "BDT": 1,
+    "USD": 108.50,
+    "EUR": 115.00,
+    "GBP": 133.00,
+    "INR": 1.40,
+    "AUD": 70.00,
+    "CAD": 81.00,
+    "JPY": 0.75,
+    "CNY": 15.80,
+    "SGD": 80.00,
+    "CHF": 120.00
+  };
+
+  const fromCurrency = document.getElementById('fromCurrency');
+  const toCurrency = document.getElementById('toCurrency');
+
+  // কারেন্সি অপশন তৈরি
+  function populateCurrencyOptions() {
+    for (const currency in rates) {
+      const optionFrom = document.createElement('option');
+      optionFrom.value = currency;
+      optionFrom.textContent = currency;
+      fromCurrency.appendChild(optionFrom);
+
+      const optionTo = document.createElement('option');
+      optionTo.value = currency;
+      optionTo.textContent = currency;
+      toCurrency.appendChild(optionTo);
+    }
+    fromCurrency.value = 'BDT';
+    toCurrency.value = 'USD';
+  }
+
+  populateCurrencyOptions();
+
+  function convertCurrency() {
+    const amount = parseFloat(document.getElementById('amount').value);
+    const from = fromCurrency.value;
+    const to = toCurrency.value;
+    const resultDiv = document.getElementById('result');
+
+    if (isNaN(amount) || amount < 0) {
+      resultDiv.textContent = "অনুগ্রহ করে বৈধ পরিমাণ লিখুন।";
+      return;
+    }
+
+    // BDT-কে বেস ধরে রূপান্তর:
+    // amount_in_bdt = amount * rates[from]
+    // amount_in_to = amount_in_bdt / rates[to]
+
+    const amountInBDT = amount * rates[from];
+    const convertedAmount = amountInBDT / rates[to];
+
+    resultDiv.textContent = 
+      `${amount.toFixed(2)} ${from} = ${convertedAmount.toFixed(2)} ${to}`;
+  }
+</script>
+<script src="/components/header.js"></script>
+<script src="/components/footer.js"></script>
+</body>
+</html>

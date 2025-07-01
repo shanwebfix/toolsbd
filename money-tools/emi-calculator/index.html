@@ -1,0 +1,147 @@
+<!DOCTYPE html>
+<html lang="bn">
+<head>
+  <meta charset="UTF-8" />
+  <title>EMI ক্যালকুলেটর</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <link rel="stylesheet" href="/components/header.css" />
+  <link rel="stylesheet" href="/components/footer.css" />
+  <style>
+    body {
+      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+      background: #f9fafb;
+      margin: 0;
+      padding: 20px;
+      display: flex;
+      justify-content: center;
+      align-items: flex-start;
+      min-height: 100vh;
+    }
+    .container {
+      background: #fff;
+      padding: 30px 35px;
+      border-radius: 10px;
+      max-width: 400px;
+      width: 100%;
+      box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+      margin-top: 70px;
+      margin-bottom: 70px;
+    }
+    h2 {
+      text-align: center;
+      color: #2c3e50;
+      margin-bottom: 25px;
+    }
+    label {
+      display: block;
+      font-weight: 600;
+      margin-top: 15px;
+      margin-bottom: 8px;
+      color: #34495e;
+    }
+    input[type="number"] {
+      width: 100%;
+      padding: 10px 12px;
+      font-size: 16px;
+      border: 1px solid #ccc;
+      border-radius: 6px;
+      box-sizing: border-box;
+    }
+    button {
+      margin-top: 25px;
+      width: 100%;
+      padding: 12px;
+      background-color: #2980b9;
+      color: white;
+      border: none;
+      border-radius: 8px;
+      font-size: 18px;
+      cursor: pointer;
+      transition: background-color 0.3s ease;
+    }
+    button:hover {
+      background-color: #1c5980;
+    }
+    .result {
+      margin-top: 30px;
+      background: #ecf0f1;
+      padding: 18px;
+      border-radius: 8px;
+      font-size: 18px;
+      color: #2c3e50;
+      text-align: center;
+      min-height: 60px;
+      box-shadow: inset 0 1px 3px rgba(0,0,0,0.1);
+      white-space: pre-line;
+    }
+    @media (max-width: 450px) {
+      .container {
+        padding: 20px;
+      }
+    }
+  </style>
+</head>
+<body>
+
+<div class="container">
+  <h2>EMI ক্যালকুলেটর</h2>
+
+  <label for="loanAmount">লোনের পরিমাণ (৳)</label>
+  <input type="number" id="loanAmount" placeholder="লোনের পরিমাণ লিখুন" min="1" step="0.01" />
+
+  <label for="annualInterest">বার্ষিক সুদের হার (%)</label>
+  <input type="number" id="annualInterest" placeholder="বার্ষিক সুদের হার লিখুন" min="0" step="0.01" />
+
+  <label for="loanTenure">লোনের মেয়াদ (মাস)</label>
+  <input type="number" id="loanTenure" placeholder="মাসের সংখ্যা লিখুন" min="1" step="1" />
+
+  <button onclick="calculateEMI()">হিসাব করুন</button>
+
+  <div class="result" id="result">ফলাফল এখানে দেখুন</div>
+</div>
+
+<script>
+  function calculateEMI() {
+    const loanAmount = parseFloat(document.getElementById('loanAmount').value);
+    const annualInterest = parseFloat(document.getElementById('annualInterest').value);
+    const loanTenure = parseInt(document.getElementById('loanTenure').value);
+
+    const resultDiv = document.getElementById('result');
+
+    if (isNaN(loanAmount) || loanAmount <= 0) {
+      resultDiv.textContent = 'অনুগ্রহ করে বৈধ লোনের পরিমাণ লিখুন।';
+      return;
+    }
+    if (isNaN(annualInterest) || annualInterest < 0) {
+      resultDiv.textContent = 'অনুগ্রহ করে বৈধ বার্ষিক সুদের হার লিখুন।';
+      return;
+    }
+    if (isNaN(loanTenure) || loanTenure <= 0) {
+      resultDiv.textContent = 'অনুগ্রহ করে বৈধ লোনের মেয়াদ লিখুন।';
+      return;
+    }
+
+    const monthlyInterestRate = annualInterest / 12 / 100;
+
+    let emi;
+
+    if (monthlyInterestRate === 0) {
+      emi = loanAmount / loanTenure;
+    } else {
+      emi = (loanAmount * monthlyInterestRate * Math.pow(1 + monthlyInterestRate, loanTenure)) /
+            (Math.pow(1 + monthlyInterestRate, loanTenure) - 1);
+    }
+
+    const totalPayment = emi * loanTenure;
+    const totalInterest = totalPayment - loanAmount;
+
+    resultDiv.textContent =
+      `প্রতি মাসের EMI: ৳${emi.toFixed(2)}\n` +
+      `মোট পরিশোধ (লোন + সুদ): ৳${totalPayment.toFixed(2)}\n` +
+      `মোট সুদ: ৳${totalInterest.toFixed(2)}`;
+  }
+</script>
+<script src="/components/header.js"></script>
+<script src="/components/footer.js"></script>
+</body>
+</html>

@@ -1,0 +1,224 @@
+<!DOCTYPE html>
+<html lang="bn">
+<head>
+  <meta charset="UTF-8">
+  <title>বিক্রয়/লেনদেন হিসাবপত্র</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <link rel="stylesheet" href="/components/header.css" />
+  <link rel="stylesheet" href="/components/footer.css" />
+  <style>
+    body {
+      font-family: 'Segoe UI', sans-serif;
+      background: #eef2f7;
+      margin: 0;
+      padding: 20px;
+    }
+
+    .container {
+      max-width: 900px;
+      margin: auto;
+      background: #fff;
+      padding: 25px;
+      border-radius: 10px;
+      box-shadow: 0 4px 10px rgba(0,0,0,0.08);
+      margin-top: 70px;
+      margin-bottom: 70px;
+    }
+
+    h2 {
+      text-align: center;
+      color: #2a4d69;
+      margin-bottom: 20px;
+    }
+
+    label {
+      display: block;
+      margin-top: 10px;
+      font-weight: bold;
+    }
+
+    input, select {
+      width: 100%;
+      padding: 10px;
+      margin-top: 5px;
+      font-size: 15px;
+      border: 1px solid #ccc;
+      border-radius: 6px;
+    }
+
+    .form-row {
+      display: flex;
+      gap: 15px;
+      flex-wrap: wrap;
+    }
+
+    .form-row > div {
+      flex: 1;
+      min-width: 150px;
+    }
+
+    button {
+      margin-top: 15px;
+      padding: 10px 16px;
+      font-size: 16px;
+      background: #2a4d69;
+      color: white;
+      border: none;
+      border-radius: 6px;
+      cursor: pointer;
+    }
+
+    button:hover {
+      background: #1e3750;
+    }
+
+    table {
+      width: 100%;
+      margin-top: 25px;
+      border-collapse: collapse;
+    }
+
+    th, td {
+      border: 1px solid #ccc;
+      padding: 10px;
+      text-align: center;
+    }
+
+    th {
+      background: #f0f4f8;
+    }
+
+    .totals {
+      margin-top: 20px;
+      font-size: 16px;
+      text-align: right;
+    }
+
+    .totals span {
+      display: inline-block;
+      min-width: 130px;
+    }
+
+    @media print {
+      body * {
+        visibility: hidden;
+      }
+      .container, .container * {
+        visibility: visible;
+      }
+      .container {
+        position: absolute;
+        top: 0;
+        left: 0;
+        width: 100%;
+      }
+      button {
+        display: none;
+      }
+    }
+  </style>
+</head>
+<body>
+
+<div class="container">
+  <h2>📒 বিক্রয়/লেনদেন হিসাবপত্র</h2>
+
+  <div class="form-row">
+    <div>
+      <label>তারিখ</label>
+      <input type="date" id="date">
+    </div>
+    <div>
+      <label>বিবরণ</label>
+      <input type="text" id="description" placeholder="যেমন: পণ্য বিক্রয় / ইন্টারনেট বিল">
+    </div>
+    <div>
+      <label>প্রকার</label>
+      <select id="type">
+        <option value="income">আয়</option>
+        <option value="expense">ব্যয়</option>
+      </select>
+    </div>
+    <div>
+      <label>টাকা (৳)</label>
+      <input type="number" id="amount" placeholder="যেমন: 1000">
+    </div>
+  </div>
+
+  <button onclick="addTransaction()">➕ যোগ করুন</button>
+  <button onclick="window.print()">🖨️ প্রিন্ট</button>
+
+  <table>
+    <thead>
+      <tr>
+        <th>তারিখ</th>
+        <th>বিবরণ</th>
+        <th>প্রকার</th>
+        <th>টাকা (৳)</th>
+        <th>অপশন</th>
+      </tr>
+    </thead>
+    <tbody id="transactionList"></tbody>
+  </table>
+
+  <div class="totals">
+    <p><span>মোট আয়:</span> ৳<span id="totalIncome">0.00</span></p>
+    <p><span>মোট ব্যয়:</span> ৳<span id="totalExpense">0.00</span></p>
+    <p><strong><span>লাভ/ঘাটতি:</span> ৳<span id="netTotal">0.00</span></strong></p>
+  </div>
+</div>
+
+<script>
+  let transactions = [];
+
+  function addTransaction() {
+    const date = document.getElementById("date").value;
+    const description = document.getElementById("description").value.trim();
+    const type = document.getElementById("type").value;
+    const amount = parseFloat(document.getElementById("amount").value);
+
+    if (!date || !description || isNaN(amount) || amount <= 0) {
+      alert("সব তথ্য সঠিকভাবে পূরণ করুন!");
+      return;
+    }
+
+    const transaction = { date, description, type, amount };
+    transactions.push(transaction);
+    updateTable();
+  }
+
+  function updateTable() {
+    const tbody = document.getElementById("transactionList");
+    tbody.innerHTML = "";
+
+    let income = 0, expense = 0;
+
+    transactions.forEach((item, index) => {
+      const tr = document.createElement("tr");
+      tr.innerHTML = `
+        <td>${item.date}</td>
+        <td>${item.description}</td>
+        <td>${item.type === 'income' ? 'আয়' : 'ব্যয়'}</td>
+        <td>৳${item.amount.toFixed(2)}</td>
+        <td><button onclick="deleteTransaction(${index})">❌</button></td>
+      `;
+      tbody.appendChild(tr);
+
+      if (item.type === "income") income += item.amount;
+      else expense += item.amount;
+    });
+
+    document.getElementById("totalIncome").textContent = income.toFixed(2);
+    document.getElementById("totalExpense").textContent = expense.toFixed(2);
+    document.getElementById("netTotal").textContent = (income - expense).toFixed(2);
+  }
+
+  function deleteTransaction(index) {
+    transactions.splice(index, 1);
+    updateTable();
+  }
+</script>
+<script src="/components/header.js"></script>
+<script src="/components/footer.js"></script>
+</body>
+</html>

@@ -1,0 +1,168 @@
+<!DOCTYPE html>
+<html lang="bn">
+<head>
+  <meta charset="UTF-8" />
+  <title>কাস্টমার রিসিপ্ট প্রিন্ট টুল</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <link rel="stylesheet" href="/components/header.css" />
+  <link rel="stylesheet" href="/components/footer.css" />
+  <style>
+    body {
+      font-family: 'Segoe UI', sans-serif;
+      background: #f0f3f8;
+      padding: 20px;
+      margin: 0;
+    }
+    .container {
+      max-width: 800px;
+      margin: auto;
+      background: white;
+      padding: 25px;
+      border-radius: 10px;
+      box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+      margin-top: 70px;
+      margin-bottom: 70px;
+    }
+    h2 {
+      text-align: center;
+      margin-bottom: 20px;
+      color: #2a4d69;
+    }
+    label {
+      display: block;
+      margin-top: 15px;
+      font-weight: 600;
+    }
+    input {
+      width: 100%;
+      padding: 10px;
+      font-size: 15px;
+      margin-top: 5px;
+      border: 1px solid #ccc;
+      border-radius: 6px;
+    }
+    button {
+      margin-top: 20px;
+      padding: 12px 20px;
+      background-color: #2a4d69;
+      color: white;
+      border: none;
+      border-radius: 6px;
+      font-size: 16px;
+      cursor: pointer;
+    }
+    button:hover {
+      background-color: #19334d;
+    }
+    table {
+      width: 100%;
+      margin-top: 20px;
+      border-collapse: collapse;
+    }
+    th, td {
+      border: 1px solid #ccc;
+      padding: 10px;
+      text-align: left;
+    }
+    th {
+      background: #f5f8fc;
+    }
+    .receipt-box {
+      margin-top: 30px;
+      padding: 20px;
+      background: #fff;
+      border: 1px dashed #ccc;
+    }
+
+    @media print {
+      body * {
+        visibility: hidden;
+      }
+      .receipt-box, .receipt-box * {
+        visibility: visible;
+      }
+      .receipt-box {
+        position: absolute;
+        top: 0;
+        left: 0;
+        width: 100%;
+      }
+    }
+  </style>
+</head>
+<body>
+
+<div class="container">
+  <h2>🧾 কাস্টমার রিসিপ্ট প্রিন্ট টুল</h2>
+
+  <label>কাস্টমারের নাম:</label>
+  <input type="text" id="customerName" placeholder="যেমন: মোঃ রায়হান"/>
+
+  <label>পণ্যের নাম:</label>
+  <input type="text" id="productName" placeholder="যেমন: ডিজাইন সার্ভিস"/>
+
+  <label>পরিমাণ:</label>
+  <input type="number" id="quantity" placeholder="যেমন: 2"/>
+
+  <label>প্রতি ইউনিট মূল্য (৳):</label>
+  <input type="number" id="unitPrice" placeholder="যেমন: 500"/>
+
+  <button onclick="generateReceipt()">📄 রিসিপ্ট তৈরি করুন</button>
+
+  <div id="receipt" class="receipt-box" style="display:none;">
+    <h3>🧾 রিসিপ্ট</h3>
+    <p><strong>কাস্টমার:</strong> <span id="rcustomer"></span></p>
+    <table>
+      <thead>
+        <tr>
+          <th>পণ্য</th>
+          <th>পরিমাণ</th>
+          <th>প্রতি ইউনিট</th>
+          <th>মোট</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td id="rproduct"></td>
+          <td id="rqty"></td>
+          <td id="runit"></td>
+          <td id="rtotal"></td>
+        </tr>
+      </tbody>
+    </table>
+    <p style="text-align:right; font-size:16px; font-weight: bold;">মোট বিল: ৳<span id="rgrand"></span></p>
+    <p style="text-align:center; margin-top: 30px;">ধন্যবাদ!</p>
+  </div>
+
+  <button onclick="window.print()" id="printBtn" style="display:none;">🖨️ প্রিন্ট করুন</button>
+</div>
+
+<script>
+  function generateReceipt() {
+    const name = document.getElementById("customerName").value.trim();
+    const product = document.getElementById("productName").value.trim();
+    const qty = parseFloat(document.getElementById("quantity").value);
+    const unit = parseFloat(document.getElementById("unitPrice").value);
+
+    if (!name || !product || isNaN(qty) || isNaN(unit) || qty <= 0 || unit < 0) {
+      alert("সব তথ্য সঠিকভাবে দিন!");
+      return;
+    }
+
+    const total = qty * unit;
+
+    document.getElementById("rcustomer").textContent = name;
+    document.getElementById("rproduct").textContent = product;
+    document.getElementById("rqty").textContent = qty;
+    document.getElementById("runit").textContent = "৳" + unit.toFixed(2);
+    document.getElementById("rtotal").textContent = "৳" + total.toFixed(2);
+    document.getElementById("rgrand").textContent = total.toFixed(2);
+
+    document.getElementById("receipt").style.display = "block";
+    document.getElementById("printBtn").style.display = "inline-block";
+  }
+</script>
+<script src="/components/header.js"></script>
+<script src="/components/footer.js"></script>
+</body>
+</html>

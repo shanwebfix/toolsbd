@@ -1,0 +1,176 @@
+<!DOCTYPE html>
+<html lang="bn">
+<head>
+  <meta charset="UTF-8">
+  <title>Contract Template Generator</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="stylesheet" href="/components/header.css" />
+  <link rel="stylesheet" href="/components/footer.css" />
+  <style>
+    body {
+      font-family: 'Segoe UI', sans-serif;
+      background: #f4f6f8;
+      margin: 0;
+      padding: 20px;
+      color: #333;
+    }
+    .container {
+      max-width: 900px;
+      margin: auto;
+      background: #fff;
+      padding: 25px;
+      border-radius: 10px;
+      box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+      margin-top: 70px;
+      margin-bottom: 70px;
+    }
+    h1 {
+      text-align: center;
+      color: #2a4d69;
+      margin-bottom: 25px;
+    }
+    label {
+      font-weight: 600;
+      display: block;
+      margin: 15px 0 5px;
+    }
+    input, textarea {
+      width: 100%;
+      padding: 10px;
+      font-size: 15px;
+      border: 1px solid #ccc;
+      border-radius: 6px;
+      box-sizing: border-box;
+    }
+    textarea {
+      resize: vertical;
+      min-height: 80px;
+    }
+    button {
+      margin-top: 20px;
+      padding: 12px 20px;
+      background-color: #2a4d69;
+      color: white;
+      border: none;
+      border-radius: 6px;
+      font-size: 16px;
+      cursor: pointer;
+    }
+    button:hover {
+      background-color: #19334d;
+    }
+    .contract-box {
+      background: #fff;
+      padding: 20px;
+      margin-top: 30px;
+      border: 1px solid #ccc;
+      border-radius: 8px;
+      white-space: pre-wrap;
+    }
+    .action-buttons {
+      display: flex;
+      gap: 10px;
+      flex-wrap: wrap;
+      margin-top: 10px;
+    }
+    .action-buttons button {
+      flex: 1;
+    }
+    @media (max-width: 600px) {
+      input, textarea {
+        font-size: 14px;
+      }
+      button {
+        font-size: 14px;
+      }
+    }
+  </style>
+</head>
+<body>
+
+<div class="container">
+  <h1>📃 Contract Template Generator</h1>
+
+  <label>ক্লায়েন্টের নাম:</label>
+  <input type="text" id="clientName" placeholder="যেমন: জনাব রাকিব হোসেন">
+
+  <label>ফ্রিল্যান্সারের নাম:</label>
+  <input type="text" id="freelancerName" placeholder="যেমন: মোঃ রায়হান ইসলাম">
+
+  <label>প্রকল্পের নাম / সার্ভিস:</label>
+  <input type="text" id="project" placeholder="যেমন: ওয়েবসাইট ডিজাইন">
+
+  <label>চুক্তির তারিখ:</label>
+  <input type="text" id="date" placeholder="যেমন: ১ জুলাই ২০২৫">
+
+  <label>পেমেন্ট পরিমাণ (৳):</label>
+  <input type="number" id="amount" placeholder="যেমন: ১৫,০০০">
+
+  <label>ডেলিভারি সময়সীমা:</label>
+  <input type="text" id="deadline" placeholder="যেমন: ৭ দিন">
+
+  <label>অতিরিক্ত শর্তাবলী (ঐচ্ছিক):</label>
+  <textarea id="terms" placeholder="যেমন: কাজ চলাকালে অগ্রিম ৫০% পেমেন্ট দিতে হবে।"></textarea>
+
+  <button onclick="generateContract()">✍️ কনট্রাক্ট তৈরি করুন</button>
+
+  <div id="contractBox" class="contract-box" style="display:none;"></div>
+
+  <div class="action-buttons" id="contractActions" style="display:none;">
+    <button onclick="copyContract()">📋 কপি</button>
+    <button onclick="window.print()">🖨️ প্রিন্ট</button>
+  </div>
+</div>
+
+<script>
+  function generateContract() {
+    const client = document.getElementById('clientName').value.trim();
+    const freelancer = document.getElementById('freelancerName').value.trim();
+    const project = document.getElementById('project').value.trim();
+    const date = document.getElementById('date').value.trim();
+    const amount = document.getElementById('amount').value.trim();
+    const deadline = document.getElementById('deadline').value.trim();
+    const terms = document.getElementById('terms').value.trim();
+
+    if (!client || !freelancer || !project || !date || !amount || !deadline) {
+      alert('অনুগ্রহ করে সব আবশ্যক ঘর পূরণ করুন।');
+      return;
+    }
+
+    let contractText = `
+চুক্তিপত্র
+
+এই চুক্তি ${date} তারিখে ${client} (যাকে "ক্লায়েন্ট" বলা হবে) এবং ${freelancer} (যাকে "ফ্রিল্যান্সার" বলা হবে) এর মধ্যে সম্পাদিত হলো।
+
+ফ্রিল্যান্সার ${project} প্রকল্পের দায়িত্ব গ্রহণ করছেন এবং ক্লায়েন্ট এটির জন্য মোট ৳${amount} প্রদান করবেন।
+
+ডেলিভারি সময়সীমা: ${deadline}
+
+অতিরিক্ত শর্তাবলী:
+${terms || 'প্রযোজ্য নয়।'}
+
+চুক্তির উভয় পক্ষ এই শর্তাবলীতে সম্মত।
+      
+_____________________
+ক্লায়েন্ট: ${client}
+
+_____________________
+ফ্রিল্যান্সার: ${freelancer}
+`;
+
+    document.getElementById('contractBox').textContent = contractText;
+    document.getElementById('contractBox').style.display = 'block';
+    document.getElementById('contractActions').style.display = 'flex';
+  }
+
+  function copyContract() {
+    const contract = document.getElementById('contractBox').textContent;
+    navigator.clipboard.writeText(contract).then(() => {
+      alert("কনট্রাক্ট কপি হয়েছে ✅");
+    });
+  }
+</script>
+<script src="/components/header.js"></script>
+<script src="/components/footer.js"></script>
+</body>
+</html>
