@@ -1,0 +1,267 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <link rel="stylesheet" href="/components/header.css" />
+  <link rel="stylesheet" href="/components/footer.css" />
+  <title>Color Similarity Suggestion - Single Row</title>
+  <style>
+    body {
+  font-family: Arial, sans-serif;
+  background: #f0f4f8;
+  margin: 0;
+  padding: 30px;
+  text-align: center;
+}
+.margin {
+        margin-top: 70px;
+        margin-bottom: 70px;
+    }
+h1 {
+  margin-bottom: 25px;
+  color: #333;
+}
+
+input[type="text"] {
+  width: 180px;
+  padding: 10px 12px;
+  font-size: 16px;
+  border: 1px solid #ccc;
+  border-radius: 6px;
+  margin-bottom: 25px;
+  text-transform: none;
+  letter-spacing: 1px;
+}
+
+button {
+  padding: 10px 20px;
+  font-size: 15px;
+  background-color: #3498db;
+  border: none;
+  border-radius: 6px;
+  color: white;
+  cursor: pointer;
+  margin-left: 10px;
+}
+
+button:hover {
+  background-color: #2980b9;
+}
+
+/* Main color box container */
+.colors-container {
+  display: flex;
+  flex-wrap: nowrap;
+  gap: 12px;
+  margin: 0 auto;
+  padding: 10px 15px;
+  overflow-x: auto;
+  scroll-snap-type: x mandatory;
+  scroll-behavior: smooth;
+  justify-content: center; /* ✅ Desktop এ মাঝখানে */
+
+  /* Hide scrollbar in Firefox but still scrollable */
+  scrollbar-width: thin;
+  scrollbar-color: #888 transparent;
+}
+
+/* Scrollbar for WebKit browsers */
+.colors-container::-webkit-scrollbar {
+  height: 6px;
+}
+.colors-container::-webkit-scrollbar-thumb {
+  background-color: #888;
+  border-radius: 3px;
+}
+
+/* Optional edge padding effect for scroll */
+.colors-container::before,
+.colors-container::after {
+  content: "";
+  flex: 0 0 10px;
+}
+
+/* Responsive scroll alignment for small screens */
+@media (max-width: 768px) {
+  .colors-container {
+    justify-content: flex-start; /* Mobile: left aligned, scrollable */
+  }
+}
+
+.color-box {
+  flex: 0 0 auto;
+  scroll-snap-align: center;
+  width: 80px;
+  height: 70px;
+  border-radius: 8px;
+  position: relative;
+  cursor: pointer;
+  user-select: none;
+  box-shadow: 0 3px 7px rgba(0,0,0,0.12);
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-end;
+  padding-bottom: 6px;
+  color: white;
+  font-weight: 600;
+  font-size: 11px;
+  transition: transform 0.2s ease;
+}
+
+.color-box:hover {
+  transform: scale(1.1);
+  box-shadow: 0 6px 15px rgba(0,0,0,0.25);
+}
+
+.label {
+  margin-bottom: 4px;
+  font-weight: 600;
+  font-size: 10px;
+  color: #555;
+  user-select: none;
+  white-space: normal;
+}
+
+.color-code {
+  background: rgba(0,0,0,0.3);
+  border-radius: 4px;
+  padding: 2px 6px;
+  margin: 0 auto;
+  user-select: text;
+  font-size: 10px;
+}
+
+  </style>
+</head>
+<body>
+
+  <div class="margin"><h1>Color Similarity Suggestion</h1>
+
+  <input type="text" id="colorInput" placeholder="#3498DB or 3498DB" maxlength="7" />
+  <button onclick="suggestColors()">Suggest</button>
+
+  <div class="colors-container" id="colorsContainer" style="margin-top: 20px;">
+    <!-- Color boxes go here -->
+  </div></div>
+
+  <script>
+    function hexToRgb(hex) {
+      hex = hex.replace(/^#/, '');
+      if (hex.length === 3) {
+        hex = hex.split('').map(x => x + x).join('');
+      }
+      const bigint = parseInt(hex, 16);
+      return {
+        r: (bigint >> 16) & 255,
+        g: (bigint >> 8) & 255,
+        b: bigint & 255
+      };
+    }
+
+    function rgbToHex(r, g, b) {
+      return "#" + [r, g, b].map(x => {
+        const hex = x.toString(16);
+        return hex.length === 1 ? "0" + hex : hex;
+      }).join('').toUpperCase();
+    }
+
+    function lightenColor(rgb, amt) {
+      return {
+        r: Math.min(255, Math.round(rgb.r + (255 - rgb.r) * amt)),
+        g: Math.min(255, Math.round(rgb.g + (255 - rgb.g) * amt)),
+        b: Math.min(255, Math.round(rgb.b + (255 - rgb.b) * amt))
+      };
+    }
+
+    function darkenColor(rgb, amt) {
+      return {
+        r: Math.max(0, Math.round(rgb.r * (1 - amt))),
+        g: Math.max(0, Math.round(rgb.g * (1 - amt))),
+        b: Math.max(0, Math.round(rgb.b * (1 - amt)))
+      };
+    }
+
+    function generateShades(rgb, n, lighten=true) {
+      const shades = [];
+      for(let i=1; i<=n; i++) {
+        const amt = i / (n + 1);
+        shades.push(lighten ? lightenColor(rgb, amt) : darkenColor(rgb, amt));
+      }
+      return shades;
+    }
+
+    function suggestColors() {
+      let input = document.getElementById('colorInput').value.trim();
+      if (!input) {
+        alert('Please enter a color code!');
+        return;
+      }
+
+      if (!input.startsWith('#')) {
+        input = '#' + input;
+      }
+
+      const validHex = /^#([0-9A-Fa-f]{6}|[0-9A-Fa-f]{3})$/;
+      if (!validHex.test(input)) {
+        alert('Invalid HEX color! Please enter a valid 3 or 6 digit HEX code like #3498DB');
+        return;
+      }
+
+      const rgb = hexToRgb(input);
+
+      // বামে হালকা শেড - reverse to get from lightest (left) to closest to original (right)
+      const lightShades = generateShades(rgb, 4, true).reverse();
+      // ডানে গাঢ় শেড - from closest to original (left) to darkest (right)
+      const darkShades = generateShades(rgb, 4, false);
+
+      const container = document.getElementById('colorsContainer');
+      container.innerHTML = '';
+
+      const colors = [
+        ...lightShades,
+        rgb,
+        ...darkShades
+      ].map((c, i) => {
+        let label = '';
+        if (i < 4) label = `Light ${4 - i}`;
+        else if (i === 4) label = 'Original';
+        else label = `Dark ${i - 4}`;
+        return { label, rgb: c };
+      });
+
+      colors.forEach(c => {
+        const hex = rgbToHex(c.rgb.r, c.rgb.g, c.rgb.b);
+        const box = document.createElement('div');
+        box.className = 'color-box';
+        box.style.backgroundColor = hex;
+
+        const brightness = (c.rgb.r * 299 + c.rgb.g * 587 + c.rgb.b * 114) / 1000;
+        box.style.color = brightness > 180 ? '#000' : '#fff';
+
+        const label = document.createElement('div');
+        label.className = 'label';
+        label.textContent = c.label;
+
+        const code = document.createElement('div');
+        code.className = 'color-code';
+        code.textContent = hex;
+        code.title = 'Click to copy';
+
+        code.addEventListener('click', () => {
+          navigator.clipboard.writeText(hex).then(() => {
+            code.textContent = 'Copied!';
+            setTimeout(() => { code.textContent = hex; }, 1000);
+          });
+        });
+
+        box.appendChild(label);
+        box.appendChild(code);
+        container.appendChild(box);
+      });
+    }
+  </script>
+<script src="/components/header.js"></script>
+<script src="/components/footer.js"></script>
+</body>
+</html>
