@@ -1,0 +1,205 @@
+<!DOCTYPE html>
+<html lang="bn">
+<head>
+  <meta charset="UTF-8" />
+  <title>Quick Notes with List</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+   <link rel="stylesheet" href="/components/header.css" />
+  <link rel="stylesheet" href="/components/footer.css" />
+  <style>
+    body {
+      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+      background: #f9fafb;
+      margin: 0;
+      padding: 20px;
+      display: flex;
+      justify-content: center;
+      min-height: 100vh;
+      box-sizing: border-box;
+    }
+    .container {
+      width: 100%;
+      max-width: 700px;
+      background: #fff;
+      border-radius: 10px;
+      box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+      padding: 20px;
+      display: flex;
+      flex-direction: column;
+      margin-top: 70px;
+      margin-bottom: 70px;
+    }
+    h2 {
+      text-align: center;
+      color: #2c3e50;
+      margin-bottom: 15px;
+    }
+    textarea {
+      width: 100%;
+      height: 150px;
+      padding: 15px;
+      font-size: 16px;
+      border: 1px solid #ccc;
+      border-radius: 8px;
+      font-family: monospace;
+      resize: vertical;
+      box-sizing: border-box;
+    }
+    .buttons {
+      margin-top: 12px;
+      display: flex;
+      justify-content: flex-end;
+      gap: 10px;
+    }
+    button {
+      padding: 10px 18px;
+      font-size: 16px;
+      font-weight: 600;
+      border-radius: 8px;
+      border: none;
+      cursor: pointer;
+      color: white;
+      transition: background-color 0.3s ease;
+    }
+    button#saveBtn {
+      background-color: #27ae60;
+    }
+    button#saveBtn:hover {
+      background-color: #1e8449;
+    }
+    button#clearBtn {
+      background-color: #e74c3c;
+    }
+    button#clearBtn:hover {
+      background-color: #c0392b;
+    }
+    .notes-list {
+      margin-top: 25px;
+      display: flex;
+      flex-direction: column;
+      gap: 15px;
+      max-height: 350px;
+      overflow-y: auto;
+      border-top: 1px solid #ddd;
+      padding-top: 15px;
+    }
+    .note-item {
+      background: #ecf0f1;
+      padding: 15px;
+      border-radius: 8px;
+      position: relative;
+      white-space: pre-wrap;
+      font-family: monospace;
+      color: #2c3e50;
+    }
+    .note-item button.delete-btn {
+      position: absolute;
+      top: 8px;
+      right: 8px;
+      background: #e74c3c;
+      border: none;
+      border-radius: 5px;
+      color: white;
+      cursor: pointer;
+      padding: 4px 8px;
+      font-size: 12px;
+      transition: background-color 0.3s ease;
+    }
+    .note-item button.delete-btn:hover {
+      background: #c0392b;
+    }
+    @media (max-width: 600px) {
+      .container {
+        padding: 15px;
+      }
+      textarea {
+        height: 120px;
+      }
+    }
+  </style>
+</head>
+<body>
+
+<div class="container">
+  <h2>⚡ Quick Notes with List</h2>
+  <textarea id="noteArea" placeholder="এখানে আপনার নোট লিখুন..."></textarea>
+  <div class="buttons">
+    <button id="saveBtn">💾 সেভ করুন</button>
+    <button id="clearBtn">🗑️ ক্লিয়ার করুন</button>
+  </div>
+
+  <div class="notes-list" id="notesList">
+    <!-- Saved notes will appear here -->
+  </div>
+</div>
+
+<script>
+  const noteArea = document.getElementById('noteArea');
+  const saveBtn = document.getElementById('saveBtn');
+  const clearBtn = document.getElementById('clearBtn');
+  const notesList = document.getElementById('notesList');
+
+  // Load saved notes on page load
+  window.onload = function () {
+    displayNotes();
+  };
+
+  // Display all saved notes
+  function displayNotes() {
+    const notes = JSON.parse(localStorage.getItem('notesArray')) || [];
+    notesList.innerHTML = '';
+
+    if (notes.length === 0) {
+      notesList.innerHTML = '<p style="color:#555; text-align:center;">কোনো নোট পাওয়া যায়নি।</p>';
+      return;
+    }
+
+    notes.forEach((note, index) => {
+      const noteDiv = document.createElement('div');
+      noteDiv.className = 'note-item';
+      noteDiv.textContent = note;
+
+      const delBtn = document.createElement('button');
+      delBtn.textContent = 'মুছুন';
+      delBtn.className = 'delete-btn';
+      delBtn.onclick = () => deleteNote(index);
+
+      noteDiv.appendChild(delBtn);
+      notesList.appendChild(noteDiv);
+    });
+  }
+
+  // Save note
+  saveBtn.addEventListener('click', () => {
+    const noteText = noteArea.value.trim();
+    if (!noteText) {
+      alert('দয়া করে নোট লিখুন।');
+      return;
+    }
+
+    let notes = JSON.parse(localStorage.getItem('notesArray')) || [];
+    notes.push(noteText);
+    localStorage.setItem('notesArray', JSON.stringify(notes));
+    noteArea.value = '';
+    displayNotes();
+  });
+
+  // Clear textarea only
+  clearBtn.addEventListener('click', () => {
+    if (confirm('আপনি কি নিশ্চিত নোট মুছে ফেলতে চান?')) {
+      noteArea.value = '';
+    }
+  });
+
+  // Delete a note by index
+  function deleteNote(index) {
+    let notes = JSON.parse(localStorage.getItem('notesArray')) || [];
+    notes.splice(index, 1);
+    localStorage.setItem('notesArray', JSON.stringify(notes));
+    displayNotes();
+  }
+</script>
+<script src="/components/header.js"></script>
+<script src="/components/footer.js"></script>
+</body>
+</html>

@@ -1,0 +1,215 @@
+<!DOCTYPE html>
+<html lang="bn">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<link rel="stylesheet" href="/components/header.css" />
+  <link rel="stylesheet" href="/components/footer.css" />
+<title>Number to Words Converter (Bangla & English)</title>
+<style>
+  body {
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    background: #f9fafb;
+    margin: 0;
+    padding: 20px;
+    display: flex;
+    justify-content: center;
+    min-height: 100vh;
+  }
+  .container {
+    background: #fff;
+    max-width: 480px;
+    width: 100%;
+    padding: 25px 30px;
+    border-radius: 10px;
+    box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+    margin-top: 70px;
+    margin-bottom: 70px;
+  }
+  h2 {
+    text-align: center;
+    margin-bottom: 25px;
+    color: #2c3e50;
+  }
+  label {
+    font-weight: 600;
+    display: block;
+    margin-bottom: 8px;
+    color: #34495e;
+  }
+  input[type="number"] {
+    width: 100%;
+    padding: 12px 15px;
+    font-size: 16px;
+    border-radius: 6px;
+    border: 1px solid #ccc;
+    box-sizing: border-box;
+  }
+  select {
+    margin-top: 15px;
+    padding: 10px;
+    font-size: 16px;
+    border-radius: 6px;
+    border: 1px solid #ccc;
+    width: 100%;
+    box-sizing: border-box;
+  }
+  button {
+    margin-top: 25px;
+    width: 100%;
+    padding: 14px;
+    background-color: #27ae60;
+    border: none;
+    border-radius: 8px;
+    font-size: 18px;
+    color: white;
+    cursor: pointer;
+    font-weight: 600;
+    transition: background-color 0.3s ease;
+  }
+  button:hover {
+    background-color: #1e8449;
+  }
+  .result {
+    margin-top: 30px;
+    background: #ecf0f1;
+    padding: 20px;
+    border-radius: 8px;
+    font-size: 18px;
+    color: #2c3e50;
+    min-height: 60px;
+    line-height: 1.5;
+  }
+  @media(max-width: 480px) {
+    .container {
+      padding: 20px;
+    }
+  }
+</style>
+</head>
+<body>
+
+<div class="container">
+  <h2>Number to Words Converter (Bangla & English)</h2>
+
+  <label for="numberInput">সংখ্যা দিন:</label>
+  <input type="number" id="numberInput" placeholder="যেমন: 1200" min="0" />
+
+  <label for="languageSelect">ভাষা নির্বাচন করুন:</label>
+  <select id="languageSelect">
+    <option value="bn">বাংলা</option>
+    <option value="en">English</option>
+  </select>
+
+  <button onclick="convertNumber()">রূপান্তর করুন</button>
+
+  <div class="result" id="resultBox">ফলাফল এখানে দেখানো হবে</div>
+</div>
+
+<script>
+  // Bangla number to words converter
+  function numberToBanglaWords(num) {
+    if (num === 0) return "শূন্য";
+
+    const ones = ["", "এক", "দুই", "তিন", "চার", "পাঁচ", "ছয়", "সাত", "আট", "নয়"];
+    const teens = ["দশ", "এগারো", "বারো", "তেরো", "চৌদ্দ", "পনেরো", "ষোল", "সতেরো", "আঠারো", "উনিশ"];
+    const tens = ["", "", "বিশ", "ত্রিশ", "চল্লিশ", "পঞ্চাশ", "ষাট", "সত্তর", "আশি", "নব্বই"];
+    const hundreds = "শত";
+    const thousands = "হাজার";
+    const lakhs = "লাখ";
+    const crores = "কোটি";
+
+    function twoDigitWords(n) {
+      if (n < 10) return ones[n];
+      else if (n >= 10 && n < 20) return teens[n - 10];
+      else {
+        let t = Math.floor(n / 10);
+        let o = n % 10;
+        return tens[t] + (o > 0 ? " " + ones[o] : "");
+      }
+    }
+
+    let word = "";
+
+    let crore = Math.floor(num / 10000000);
+    num = num % 10000000;
+
+    let lakh = Math.floor(num / 100000);
+    num = num % 100000;
+
+    let thousand = Math.floor(num / 1000);
+    num = num % 1000;
+
+    let hundred = Math.floor(num / 100);
+    num = num % 100;
+
+    if (crore > 0) {
+      word += numberToBanglaWords(crore) + " " + crores + " ";
+    }
+    if (lakh > 0) {
+      word += numberToBanglaWords(lakh) + " " + lakhs + " ";
+    }
+    if (thousand > 0) {
+      word += numberToBanglaWords(thousand) + " " + thousands + " ";
+    }
+    if (hundred > 0) {
+      word += ones[hundred] + " " + hundreds + " ";
+    }
+    if (num > 0) {
+      word += twoDigitWords(num);
+    }
+    return word.trim();
+  }
+
+  // English number to words converter (supports up to billions)
+  function numberToEnglishWords(num) {
+    if (num === 0) return "zero";
+
+    const a = [
+      "", "one", "two", "three", "four", "five", "six", "seven", "eight", "nine", "ten",
+      "eleven", "twelve", "thirteen", "fourteen", "fifteen", "sixteen",
+      "seventeen", "eighteen", "nineteen"
+    ];
+    const b = ["", "", "twenty", "thirty", "forty", "fifty", "sixty", "seventy", "eighty", "ninety"];
+
+    function inWords(num) {
+      if (num < 20) return a[num];
+      if (num < 100) return b[Math.floor(num / 10)] + (num % 10 ? "-" + a[num % 10] : "");
+      if (num < 1000) return a[Math.floor(num / 100)] + " hundred" + (num % 100 ? " and " + inWords(num % 100) : "");
+      if (num < 1000000) return inWords(Math.floor(num / 1000)) + " thousand " + (num % 1000 ? inWords(num % 1000) : "");
+      if (num < 1000000000) return inWords(Math.floor(num / 1000000)) + " million " + (num % 1000000 ? inWords(num % 1000000) : "");
+      return inWords(Math.floor(num / 1000000000)) + " billion " + (num % 1000000000 ? inWords(num % 1000000000) : "");
+    }
+
+    return inWords(num).trim();
+  }
+
+  function convertNumber() {
+    const numInput = document.getElementById("numberInput").value.trim();
+    const lang = document.getElementById("languageSelect").value;
+    const resultBox = document.getElementById("resultBox");
+
+    if (numInput === "") {
+      resultBox.textContent = "অনুগ্রহ করে একটি সংখ্যা দিন।";
+      return;
+    }
+
+    const num = parseInt(numInput);
+    if (isNaN(num) || num < 0) {
+      resultBox.textContent = "সঠিক এবং ধনাত্মক সংখ্যা দিন।";
+      return;
+    }
+
+    if (lang === "bn") {
+      const banglaWords = numberToBanglaWords(num);
+      resultBox.textContent = banglaWords;
+    } else {
+      const englishWords = numberToEnglishWords(num);
+      resultBox.textContent = englishWords.charAt(0).toUpperCase() + englishWords.slice(1);
+    }
+  }
+</script>
+<script src="/components/header.js"></script>
+<script src="/components/footer.js"></script>
+</body>
+</html>

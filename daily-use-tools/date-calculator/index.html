@@ -1,0 +1,148 @@
+<!DOCTYPE html>
+<html lang="bn">
+<head>
+  <meta charset="UTF-8">
+  <title>ডেট ক্যালকুলেটর - দিন গণনা টুল</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <link rel="stylesheet" href="/components/header.css" />
+  <link rel="stylesheet" href="/components/footer.css" />
+  <style>
+    body {
+      font-family: 'Segoe UI', sans-serif;
+      background: #f0f4f8;
+      margin: 0;
+      padding: 20px;
+      display: flex;
+      justify-content: center;
+    }
+
+    .container {
+      background: #fff;
+      max-width: 500px;
+      width: 100%;
+      padding: 30px;
+      border-radius: 10px;
+      box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+      margin-top: 70px;
+      margin-bottom: 70px;
+    }
+
+    h2 {
+      text-align: center;
+      color: #2c3e50;
+      margin-bottom: 25px;
+    }
+
+    label {
+      font-weight: bold;
+      display: block;
+      margin-top: 10px;
+      margin-bottom: 6px;
+      color: #34495e;
+    }
+
+    input[type="date"] {
+      width: 100%;
+      padding: 10px;
+      border-radius: 6px;
+      border: 1px solid #ccc;
+      font-size: 16px;
+    }
+
+    button {
+      margin-top: 20px;
+      padding: 12px;
+      width: 100%;
+      background-color: #3498db;
+      color: white;
+      font-size: 17px;
+      border: none;
+      border-radius: 8px;
+      cursor: pointer;
+    }
+
+    button:hover {
+      background-color: #2c80b9;
+    }
+
+    .result {
+      margin-top: 20px;
+      background: #ecf0f1;
+      padding: 15px;
+      font-size: 18px;
+      border-radius: 8px;
+      color: #2c3e50;
+      text-align: center;
+    }
+
+    @media(max-width: 480px) {
+      .container {
+        padding: 20px;
+      }
+    }
+  </style>
+</head>
+<body>
+
+  <div class="container">
+    <h2>📅 ডেট ক্যালকুলেটর</h2>
+
+    <label for="startDate">শুরুর তারিখ:</label>
+    <input type="date" id="startDate" />
+
+    <label for="endDate">শেষ তারিখ:</label>
+    <input type="date" id="endDate" />
+
+    <button onclick="calculateDuration()">দিন গণনা করুন</button>
+
+    <div class="result" id="resultBox">ফলাফল এখানে দেখানো হবে</div>
+  </div>
+
+  <script>
+    function calculateDuration() {
+      const start = document.getElementById("startDate").value;
+      const end = document.getElementById("endDate").value;
+      const resultBox = document.getElementById("resultBox");
+
+      if (!start || !end) {
+        resultBox.textContent = "অনুগ্রহ করে দুটি তারিখ নির্বাচন করুন।";
+        return;
+      }
+
+      const startDate = new Date(start);
+      const endDate = new Date(end);
+
+      if (endDate < startDate) {
+        resultBox.textContent = "শেষ তারিখ শুরুর তারিখের আগে হতে পারে না।";
+        return;
+      }
+
+      // দিন পার্থক্য
+      const diffTime = Math.abs(endDate - startDate);
+      const diffDays = Math.ceil(diffTime / (1000 * 60 * 60 * 24));
+
+      // বছর, মাস, দিন হিসাব
+      let years = endDate.getFullYear() - startDate.getFullYear();
+      let months = endDate.getMonth() - startDate.getMonth();
+      let days = endDate.getDate() - startDate.getDate();
+
+      if (days < 0) {
+        months--;
+        const tempDate = new Date(endDate.getFullYear(), endDate.getMonth(), 0);
+        days += tempDate.getDate();
+      }
+      if (months < 0) {
+        years--;
+        months += 12;
+      }
+
+      resultBox.innerHTML = `
+        মোট পার হয়েছে <strong>${diffDays}</strong> দিন<br>
+        অথবা <strong>${years} বছর, ${months} মাস, ${days} দিন</strong>
+      `;
+    }
+  </script>
+<script src="/components/header.js"></script>
+<script src="/components/footer.js"></script>
+</body>
+</html>

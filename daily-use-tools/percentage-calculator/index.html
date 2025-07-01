@@ -1,0 +1,135 @@
+<!DOCTYPE html>
+<html lang="bn">
+<head>
+  <meta charset="UTF-8" />
+  <title>Percentage Calculator - শতাংশ হিসাব</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <link rel="stylesheet" href="/components/header.css" />
+  <link rel="stylesheet" href="/components/footer.css" />
+  <style>
+    body {
+      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+      background: #f9fafb;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      height: 100vh;
+      margin: 0;
+      padding: 20px;
+    }
+
+    .calculator {
+      background: #fff;
+      padding: 30px 35px;
+      border-radius: 10px;
+      box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+      max-width: 400px;
+      width: 100%;
+      margin-top: 70px;
+      margin-bottom: 70px;
+    }
+
+    h2 {
+      text-align: center;
+      color: #2c3e50;
+      margin-bottom: 25px;
+    }
+
+    label {
+      display: block;
+      font-weight: 600;
+      margin-top: 15px;
+      margin-bottom: 8px;
+      color: #34495e;
+    }
+
+    input[type="number"] {
+      width: 100%;
+      padding: 10px 12px;
+      font-size: 16px;
+      border: 1px solid #ccc;
+      border-radius: 6px;
+      box-sizing: border-box;
+    }
+
+    button {
+      margin-top: 25px;
+      width: 100%;
+      padding: 12px;
+      background-color: #27ae60;
+      color: white;
+      border: none;
+      border-radius: 8px;
+      font-size: 18px;
+      cursor: pointer;
+      transition: background-color 0.3s ease;
+    }
+
+    button:hover {
+      background-color: #1e8449;
+    }
+
+    .result {
+      margin-top: 25px;
+      background: #ecf0f1;
+      padding: 15px;
+      border-radius: 8px;
+      font-size: 18px;
+      color: #2c3e50;
+      text-align: center;
+      min-height: 48px;
+    }
+
+    @media (max-width: 400px) {
+      .calculator {
+        padding: 20px;
+      }
+    }
+  </style>
+</head>
+<body>
+
+  <div class="calculator">
+    <h2>শতাংশ ক্যালকুলেটর</h2>
+
+    <label for="originalValue">মূল সংখ্যা দিন:</label>
+    <input type="number" id="originalValue" placeholder="যেমন: ২০০" min="0" />
+
+    <label for="percentage">শতাংশ (%) দিন:</label>
+    <input type="number" id="percentage" placeholder="যেমন: ১৫" min="0" max="100" />
+
+    <button onclick="calculatePercentage()">হিসাব করুন</button>
+
+    <div class="result" id="resultBox">ফলাফল এখানে দেখানো হবে</div>
+  </div>
+
+  <script>
+    function calculatePercentage() {
+      const original = parseFloat(document.getElementById('originalValue').value);
+      const percent = parseFloat(document.getElementById('percentage').value);
+      const resultBox = document.getElementById('resultBox');
+
+      if (isNaN(original) || isNaN(percent)) {
+        resultBox.textContent = 'দয়া করে সঠিক সংখ্যা প্রদান করুন।';
+        return;
+      }
+      if (original < 0 || percent < 0) {
+        resultBox.textContent = 'সংখ্যাগুলো শূন্য বা তার বেশি হতে হবে।';
+        return;
+      }
+      if (percent > 100) {
+        resultBox.textContent = 'শতাংশ ১০০ এর বেশি হতে পারে না।';
+        return;
+      }
+
+      const value = (original * percent) / 100;
+
+      resultBox.innerHTML = `
+        <strong>${percent}%</strong> এর মান: <strong>${value.toFixed(2)}</strong>
+      `;
+    }
+  </script>
+<script src="/components/header.js"></script>
+<script src="/components/footer.js"></script>
+</body>
+</html>
