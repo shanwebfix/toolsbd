@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <title>PDF Tools</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <link rel="stylesheet" href="pdf.css" />
+  <link rel="stylesheet" href="/components/header.css" />
+  <link rel="stylesheet" href="/components/footer.css" />
+</head>
+<body>
+  <h1>PDF Tools</h1>
+
+  <div class="pdf-box"><section>
+    <h2>Merge PDFs</h2>
+    <input type="file" id="merge-files" multiple accept="application/pdf" />
+    <button onclick="mergePdfs()">Merge</button>
+  </section>
+
+  <section>
+    <h2>Split PDF</h2>
+    <input type="file" id="split-file" accept="application/pdf" />
+    <button onclick="splitPdf()">Split</button>
+  </section>
+
+  <section>
+    <h2>PDF to Word</h2>
+    <input type="file" id="pdf-word-file" accept="application/pdf" />
+    <button onclick="pdfToWord()">Convert to Word</button>
+  </section>
+
+  <section>
+    <h2>PDF to Images</h2>
+    <input type="file" id="pdf-images-file" accept="application/pdf" />
+    <button onclick="pdfToImages()">Convert to Images</button>
+  </section>
+
+  <section>
+    <h2>Compress PDF</h2>
+    <input type="file" id="compress-file" accept="application/pdf" />
+    <button onclick="compressPdf()">Compress</button>
+  </section>
+  </div>
+
+  <script src="pdf.js"></script>
+  <script src="/components/header.js"></script>
+<script src="/components/footer.js"></script>
+</body>
+</html>
