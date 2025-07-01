@@ -1,0 +1,153 @@
+<!DOCTYPE html>
+<html lang="bn">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <link rel="stylesheet" href="/components/header.css" />
+  <link rel="stylesheet" href="/components/footer.css" />
+  <title>গাড়ি রেজিস্ট্রেশন তথ্য (BRTA)</title>
+  <style>
+    body {
+      font-family: 'Segoe UI', sans-serif;
+      background: #f9f9fb;
+      margin: 0;
+      padding: 30px 20px;
+      color: #333;
+      text-align: center;
+    }
+
+    .container {
+      max-width: 600px;
+      margin: auto;
+      background: #ffffff;
+      padding: 25px;
+      border-radius: 10px;
+      box-shadow: 0 4px 10px rgba(0,0,0,0.1);
+      margin-top: 70px;
+      margin-bottom: 70px;
+    }
+
+    h1 {
+      font-size: 24px;
+      margin-bottom: 20px;
+      color: #2c3e50;
+    }
+
+    p.description {
+      font-size: 15px;
+      line-height: 1.6;
+      margin-bottom: 25px;
+    }
+
+    input[type="text"] {
+      width: 100%;
+      padding: 12px;
+      font-size: 16px;
+      border: 1px solid #ccc;
+      border-radius: 6px;
+      margin-bottom: 20px;
+    }
+
+    .link-box {
+      background: #e9f3ff;
+      border: 1px solid #b8daff;
+      padding: 12px 15px;
+      border-radius: 8px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      gap: 10px;
+      flex-wrap: wrap;
+    }
+
+    .link-text {
+      font-weight: 600;
+      color: #0056b3;
+      font-size: 14px;
+      flex: 1;
+      text-align: left;
+      word-break: break-all;
+    }
+
+    .button-group {
+      display: flex;
+      gap: 8px;
+    }
+
+    .btn {
+      padding: 6px 12px;
+      font-size: 13px;
+      border: none;
+      border-radius: 5px;
+      color: white;
+      background-color: #007bff;
+      cursor: pointer;
+      text-decoration: none;
+      transition: 0.3s;
+      white-space: nowrap;
+      display: inline-block;
+    }
+
+    .btn:hover {
+      background-color: #0056b3;
+    }
+
+    .copied-msg {
+      color: green;
+      font-size: 13px;
+      margin-top: 10px;
+      display: none;
+    }
+
+    @media (max-width: 500px) {
+      .link-box {
+        flex-direction: column;
+        align-items: flex-start;
+      }
+
+      .button-group {
+        width: 100%;
+        justify-content: flex-start;
+      }
+    }
+  </style>
+</head>
+<body>
+
+  <div class="container">
+    <h1>🚗 গাড়ি রেজিস্ট্রেশন তথ্য</h1>
+    <p class="description">
+      গাড়ির নাম্বার দিয়ে বাংলাদেশ রোড ট্রান্সপোর্ট অথরিটি (BRTA) এর ওয়েবসাইটে যাচাই করতে নিচের লিংক ব্যবহার করুন।
+    </p>
+
+    <input type="text" id="vehicleNumber" placeholder="যেমনঃ ঢাকা-মেট্রো-গ ১২৩৪৫৬" />
+
+    <div class="link-box">
+      <div class="link-text" id="brtaLink">
+        https://www.brta.gov.bd/site/page/12fca8a4-84e2-4002-bdf4-34768e5e42bd
+      </div>
+      <div class="button-group">
+        <button class="btn" onclick="copyLink()">Copy</button>
+        <a class="btn" href="https://www.brta.gov.bd/site/page/12fca8a4-84e2-4002-bdf4-34768e5e42bd" target="_blank">Visit</a>
+      </div>
+    </div>
+
+    <div class="copied-msg" id="copiedMsg">✅ লিংক কপি হয়েছে!</div>
+  </div>
+
+  <script>
+    function copyLink() {
+      const link = document.getElementById("brtaLink").textContent;
+      navigator.clipboard.writeText(link).then(() => {
+        const msg = document.getElementById("copiedMsg");
+        msg.style.display = "block";
+        setTimeout(() => {
+          msg.style.display = "none";
+        }, 2000);
+      });
+    }
+  </script>
+<script src="/components/header.js"></script>
+<script src="/components/footer.js"></script>
+</body>
+</html>

@@ -1,0 +1,142 @@
+<!DOCTYPE html>
+<html lang="bn">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <link rel="stylesheet" href="/components/header.css" />
+  <link rel="stylesheet" href="/components/footer.css" />
+  
+  <title>NID Verification Link Info</title>
+  <style>
+    body {
+      font-family: 'Segoe UI', sans-serif;
+      background: #f2f6fc;
+      margin: 0;
+      padding: 30px 20px;
+      text-align: center;
+      color: #333;
+    }
+
+    .container {
+      max-width: 600px;
+      margin: auto;
+      background: #fff;
+      padding: 25px;
+      border-radius: 10px;
+      box-shadow: 0 3px 10px rgba(0,0,0,0.1);
+      margin-top: 70px;
+      margin-bottom: 70px;
+    }
+
+    h1 {
+      color: #2c3e50;
+      margin-bottom: 15px;
+      font-size: 24px;
+    }
+
+    p.description {
+      font-size: 15px;
+      margin-bottom: 25px;
+      line-height: 1.6;
+    }
+
+    .link-box {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      background: #eaf2ff;
+      border: 1px solid #b4d3ff;
+      padding: 10px 15px;
+      border-radius: 8px;
+      word-break: break-word;
+      gap: 10px;
+      flex-wrap: wrap;
+    }
+
+    .link-text {
+      font-weight: 600;
+      color: #2c7be5;
+      font-size: 14px;
+      flex: 1;
+      text-align: left;
+    }
+
+    .button-group {
+      display: flex;
+      gap: 8px;
+    }
+
+    .copy-btn, .visit-btn {
+      background-color: #2c7be5;
+      color: white;
+      border: none;
+      border-radius: 5px;
+      padding: 6px 12px;
+      font-size: 13px;
+      cursor: pointer;
+      transition: background 0.3s;
+      white-space: nowrap;
+      text-decoration: none;
+    }
+
+    .copy-btn:hover, .visit-btn:hover {
+      background-color: #1a5dc9;
+    }
+
+    .copied-msg {
+      margin-top: 12px;
+      color: green;
+      font-size: 13px;
+      display: none;
+    }
+
+    @media (max-width: 500px) {
+      .link-box {
+        flex-direction: column;
+        align-items: flex-start;
+      }
+
+      .button-group {
+        width: 100%;
+        justify-content: flex-start;
+      }
+    }
+  </style>
+</head>
+<body>
+
+  <div class="container">
+    <h1>🔎 NID Verification Link Info</h1>
+    <p class="description">
+      আপনি যদি আপনার জাতীয় পরিচয়পত্র (NID) অনলাইনে যাচাই করতে চান, তাহলে নিচের অফিসিয়াল লিংকে গিয়ে আপনার তথ্য যাচাই করতে পারবেন।
+    </p>
+
+    <div class="link-box">
+      <div class="link-text" id="nidLink">
+        https://services.nidw.gov.bd/nid-pub/
+      </div>
+      <div class="button-group">
+        <button class="copy-btn" onclick="copyLink()">Copy</button>
+        <a class="visit-btn" href="https://services.nidw.gov.bd/nid-pub/" target="_blank">Visit</a>
+      </div>
+    </div>
+
+    <div class="copied-msg" id="copiedMsg">✅ Link copied to clipboard!</div>
+  </div>
+
+  <script>
+    function copyLink() {
+      const link = document.getElementById("nidLink").textContent;
+      navigator.clipboard.writeText(link).then(() => {
+        const msg = document.getElementById("copiedMsg");
+        msg.style.display = "block";
+        setTimeout(() => {
+          msg.style.display = "none";
+        }, 2000);
+      });
+    }
+  </script>
+<script src="/components/header.js"></script>
+<script src="/components/footer.js"></script>
+</body>
+</html>

@@ -1,0 +1,221 @@
+<!DOCTYPE html>
+<html lang="bn">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <link rel="stylesheet" href="/components/header.css" />
+  <link rel="stylesheet" href="/components/footer.css" />
+  <title>বাস ভাড়া ক্যালকুলেটর</title>
+  <style>
+    body {
+      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+      background: #f7f9fc;
+      margin: 0;
+      padding: 30px 15px;
+      text-align: center;
+      color: #222;
+    }
+    .container {
+      max-width: 480px;
+      background: white;
+      margin: auto;
+      padding: 25px 20px;
+      border-radius: 10px;
+      box-shadow: 0 4px 10px rgba(0,0,0,0.1);
+      margin-top: 70px;
+      margin-bottom: 70px;
+    }
+    h1 {
+      color: #2a4d69;
+      margin-bottom: 25px;
+    }
+    label {
+      display: block;
+      margin: 15px 0 8px;
+      font-weight: 600;
+      font-size: 16px;
+      text-align: left;
+    }
+    select, input[type="number"] {
+      width: 100%;
+      padding: 10px 12px;
+      font-size: 16px;
+      border-radius: 6px;
+      border: 1px solid #ccc;
+      box-sizing: border-box;
+    }
+    button {
+      margin-top: 20px;
+      background-color: #2a4d69;
+      color: white;
+      padding: 12px 25px;
+      font-size: 16px;
+      border: none;
+      border-radius: 7px;
+      cursor: pointer;
+      transition: background-color 0.3s ease;
+      width: 100%;
+    }
+    button:hover {
+      background-color: #1e3550;
+    }
+    .result {
+      margin-top: 30px;
+      font-size: 20px;
+      font-weight: 700;
+      color: #1e3550;
+      white-space: pre-line;
+    }
+    @media (max-width: 480px) {
+      .container {
+        padding: 20px 15px;
+      }
+    }
+  </style>
+</head>
+<body>
+
+  <div class="container">
+    <h1>From - To ভিত্তিক বাস ভাড়া ক্যালকুলেটর</h1>
+
+    <label for="fromDivision">From বিভাগ নির্বাচন করুন:</label>
+    <select id="fromDivision" onchange="loadFromDistricts()">
+      <option value="">-- নির্বাচন করুন --</option>
+    </select>
+
+    <label for="fromDistrict">From জেলা নির্বাচন করুন:</label>
+    <select id="fromDistrict" disabled>
+      <option value="">-- নির্বাচন করুন --</option>
+    </select>
+
+    <label for="toDivision">To বিভাগ নির্বাচন করুন:</label>
+    <select id="toDivision" onchange="loadToDistricts()">
+      <option value="">-- নির্বাচন করুন --</option>
+    </select>
+
+    <label for="toDistrict">To জেলা নির্বাচন করুন:</label>
+    <select id="toDistrict" disabled>
+      <option value="">-- নির্বাচন করুন --</option>
+    </select>
+
+    <label for="distance">দূরত্ব লিখুন (কিলোমিটার):</label>
+    <input type="number" id="distance" placeholder="যেমন: ১০" min="0" />
+
+    <button onclick="calculateFare()">ভাড়া হিসাব করুন</button>
+
+    <div class="result" id="result"></div>
+  </div>
+
+<script>
+  const divisions = {
+    "ঢাকা": ["ঢাকা", "গাজীপুর", "মানিকগঞ্জ", "মুন্সিগঞ্জ", "নারায়ণগঞ্জ", "নরসিংদী", "কিশোরগঞ্জ"],
+    "চট্টগ্রাম": ["চট্টগ্রাম", "কক্সবাজার", "ফেনী", "ব্রাহ্মণবাড়িয়া", "লক্ষ্মীপুর", "বান্দরবান", "রাঙ্গামাটি", "খাগড়াছড়ি"],
+    "রাজশাহী": ["রাজশাহী", "নাটোর", "বগুড়া", "চাঁপাইনবাবগঞ্জ", "জয়পুরহাট", "পাবনা", "নওগাঁ", "সিরাজগঞ্জ"],
+    "খুলনা": ["খুলনা", "যশোর", "বাগেরহাট", "মাগুরা", "মেহেরপুর", "চুয়াডাঙ্গা", "সাতক্ষীরা", "কুষ্টিয়া"],
+    "বরিশাল": ["বরিশাল", "ঝালকাঠি", "পটুয়াখালী", "পিরোজপুর", "ভোলা"],
+    "সিলেট": ["সিলেট", "মৌলভীবাজার", "হবিগঞ্জ", "সুনামগঞ্জ"],
+    "রংপুর": ["রংপুর", "দিনাজপুর", "পঞ্চগড়", "ঠাকুরগাঁও", "গাইবান্ধা", "কুড়িগ্রাম", "লালমনিরহাট", "নীলফামারী"],
+    "ময়মনসিংহ": ["ময়মনসিংহ", "জামালপুর", "নেত্রকোনা", "শেরপুর"]
+  };
+
+  // দূরত্ব অনুযায়ী বাস ভাড়া রেট (টাকা প্রতি কিমি)
+  function getRatePerKm(distance) {
+    if (distance <= 10) return 10;
+    else if (distance <= 20) return 8;
+    else if (distance <= 50) return 6;
+    else if (distance <= 100) return 5;
+    else return 4;
+  }
+
+  const fromDivision = document.getElementById('fromDivision');
+  const fromDistrict = document.getElementById('fromDistrict');
+  const toDivision = document.getElementById('toDivision');
+  const toDistrict = document.getElementById('toDistrict');
+  const result = document.getElementById('result');
+
+  window.onload = function() {
+    populateSelect(fromDivision);
+    populateSelect(toDivision);
+  }
+
+  function populateSelect(selectElement) {
+    selectElement.innerHTML = '<option value="">-- নির্বাচন করুন --</option>';
+    for (let div in divisions) {
+      const opt = document.createElement('option');
+      opt.value = div;
+      opt.textContent = div;
+      selectElement.appendChild(opt);
+    }
+  }
+
+  function loadFromDistricts() {
+    loadDistricts(fromDivision, fromDistrict);
+  }
+
+  function loadToDistricts() {
+    loadDistricts(toDivision, toDistrict);
+  }
+
+  function loadDistricts(divisionSelect, districtSelect) {
+    const division = divisionSelect.value;
+    districtSelect.innerHTML = '<option value="">-- নির্বাচন করুন --</option>';
+
+    if (!division) {
+      districtSelect.disabled = true;
+      return;
+    }
+
+    divisions[division].forEach(district => {
+      const opt = document.createElement('option');
+      opt.value = district;
+      opt.textContent = district;
+      districtSelect.appendChild(opt);
+    });
+    districtSelect.disabled = false;
+  }
+
+  function calculateFare() {
+    const fromDiv = fromDivision.value;
+    const fromDist = fromDistrict.value;
+    const toDiv = toDivision.value;
+    const toDist = toDistrict.value;
+    const distance = Number(document.getElementById('distance').value);
+
+    if (!fromDiv) {
+      showError('From বিভাগ নির্বাচন করুন।');
+      return;
+    }
+    if (!fromDist) {
+      showError('From জেলা নির্বাচন করুন।');
+      return;
+    }
+    if (!toDiv) {
+      showError('To বিভাগ নির্বাচন করুন।');
+      return;
+    }
+    if (!toDist) {
+      showError('To জেলা নির্বাচন করুন।');
+      return;
+    }
+    if (isNaN(distance) || distance <= 0) {
+      showError('সঠিক দূরত্ব লিখুন।');
+      return;
+    }
+
+    const rate = getRatePerKm(distance);
+    const fare = distance * rate;
+
+    result.style.color = '#1e3550';
+    result.textContent = `আপনার ভাড়া হবে: ${fare.toFixed(2)} টাকা\n\n` +
+      `From: ${fromDiv} - ${fromDist}\nTo: ${toDiv} - ${toDist}\nদূরত্ব: ${distance} কিমি\nরেট: ${rate} টাকা প্রতি কিমি`;
+  }
+
+  function showError(msg) {
+    result.style.color = 'red';
+    result.textContent = msg;
+  }
+</script>
+<script src="/components/header.js"></script>
+<script src="/components/footer.js"></script>
+</body>
+</html>

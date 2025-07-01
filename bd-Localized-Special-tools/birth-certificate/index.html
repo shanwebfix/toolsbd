@@ -1,0 +1,157 @@
+<!DOCTYPE html>
+<html lang="bn">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <link rel="stylesheet" href="/components/header.css" />
+  <link rel="stylesheet" href="/components/footer.css" />
+  <title>জন্ম সনদ আবেদন তথ্য</title>
+  <style>
+    body {
+      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+      background: #f9fafb;
+      margin: 0;
+      padding: 30px 20px;
+      color: #222;
+      text-align: center;
+    }
+
+    .container {
+      max-width: 700px;
+      background: #fff;
+      margin: auto;
+      padding: 30px 25px;
+      border-radius: 10px;
+      box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+      margin-top: 70px;
+      margin-bottom: 70px;
+    }
+
+    h1 {
+      font-size: 26px;
+      margin-bottom: 20px;
+      color: #2a4d69;
+    }
+
+    p {
+      font-size: 16px;
+      line-height: 1.7;
+      margin-bottom: 20px;
+      color: #444;
+      text-align: justify;
+    }
+
+    .link-section {
+      background: #e6f0ff;
+      border: 1px solid #b8d0ff;
+      padding: 15px 20px;
+      border-radius: 8px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      gap: 12px;
+      flex-wrap: wrap;
+      word-break: break-word;
+    }
+
+    .link-text {
+      font-weight: 600;
+      color: #1565c0;
+      font-size: 15px;
+      flex: 1;
+      text-align: left;
+    }
+
+    .button-group {
+      display: flex;
+      gap: 10px;
+    }
+
+    button, .visit-btn {
+      background-color: #1565c0;
+      color: white;
+      border: none;
+      border-radius: 6px;
+      padding: 8px 15px;
+      font-size: 14px;
+      cursor: pointer;
+      transition: background-color 0.3s ease;
+      white-space: nowrap;
+      user-select: none;
+    }
+
+    button:hover, .visit-btn:hover {
+      background-color: #0d3b7a;
+    }
+
+    .visit-btn {
+      text-decoration: none;
+      display: inline-block;
+      line-height: 1;
+    }
+
+    .copied-msg {
+      margin-top: 15px;
+      color: green;
+      font-size: 14px;
+      display: none;
+    }
+
+    @media (max-width: 500px) {
+      .link-section {
+        flex-direction: column;
+        align-items: flex-start;
+      }
+      .button-group {
+        width: 100%;
+        justify-content: flex-start;
+      }
+    }
+  </style>
+</head>
+<body>
+
+  <div class="container">
+    <h1>📝 জন্ম সনদ আবেদন তথ্য</h1>
+
+    <p>
+      জন্ম সনদ হলো একজন নাগরিকের জন্মের তথ্য নিশ্চিত করার একটি সরকারি দলিল। বাংলাদেশে জন্ম সনদ সাধারণত স্থানীয় ইউনিয়ন পরিষদ বা পৌরসভা অফিস থেকে পাওয়া যায়।
+    </p>
+
+    <p>
+      আবেদন করার জন্য প্রয়োজনীয় কাগজপত্র এবং প্রক্রিয়া সম্পর্কে বিস্তারিত জানতে অফিসিয়াল ওয়েবসাইট বা সংশ্লিষ্ট উপজেলা/জেলা সিভিল সার্জন অফিসে যোগাযোগ করতে পারেন।
+    </p>
+
+    <p>
+      এখন অনলাইনে জন্ম সনদের জন্য আবেদন করা যায় বাংলাদেশ সরকারের <strong>জাতীয় ই-সেবা</strong> পোর্টালের মাধ্যমে।
+    </p>
+
+    <div class="link-section">
+      <div class="link-text" id="birthCertLink">
+        https://eservice.bangladesh.gov.bd/birthcertificate
+      </div>
+      <div class="button-group">
+        <button onclick="copyLink()">Copy Link</button>
+        <a href="https://eservice.bangladesh.gov.bd/birthcertificate" target="_blank" class="visit-btn">Visit Site</a>
+      </div>
+    </div>
+
+    <div class="copied-msg" id="copiedMsg">✅ লিংক কপি হয়েছে!</div>
+  </div>
+
+  <script>
+    function copyLink() {
+      const link = document.getElementById("birthCertLink").textContent;
+      navigator.clipboard.writeText(link).then(() => {
+        const msg = document.getElementById("copiedMsg");
+        msg.style.display = "block";
+        setTimeout(() => {
+          msg.style.display = "none";
+        }, 2000);
+      });
+    }
+  </script>
+<script src="/components/header.js"></script>
+<script src="/components/footer.js"></script>
+</body>
+</html>
