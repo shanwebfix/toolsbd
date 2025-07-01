@@ -1,0 +1,138 @@
+<!DOCTYPE html>
+<html lang="bn">
+<head>
+  <meta charset="UTF-8" />
+  <title>GPA / CGPA Calculator</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <link rel="stylesheet" href="/components/header.css" />
+  <link rel="stylesheet" href="/components/footer.css" />
+  <style>
+    body {
+      font-family: 'Segoe UI', sans-serif;
+      background: #eef3f7;
+      margin: 0;
+      padding: 20px;
+      display: flex;
+      justify-content: center;
+    }
+    .container {
+      max-width: 600px;
+      width: 100%;
+      background: #fff;
+      border-radius: 10px;
+      padding: 30px;
+      box-shadow: 0 4px 10px rgba(0,0,0,0.1);
+      margin-top: 70px;
+      margin-bottom: 70px;
+    }
+    h2 {
+      text-align: center;
+      color: #2c3e50;
+      margin-bottom: 20px;
+    }
+    .subject {
+      display: flex;
+      gap: 10px;
+      margin-bottom: 10px;
+    }
+    .subject input,
+    .subject select {
+      flex: 1;
+      padding: 10px;
+      font-size: 16px;
+      border-radius: 6px;
+      border: 1px solid #ccc;
+    }
+    button {
+      padding: 12px;
+      width: 100%;
+      font-size: 16px;
+      border: none;
+      border-radius: 6px;
+      background-color: #3498db;
+      color: white;
+      cursor: pointer;
+      margin-top: 10px;
+    }
+    button:hover {
+      background-color: #2c80b9;
+    }
+    .result {
+      margin-top: 20px;
+      font-size: 18px;
+      text-align: center;
+      color: #2c3e50;
+      background: #ecf0f1;
+      padding: 15px;
+      border-radius: 8px;
+    }
+    @media (max-width: 600px) {
+      .subject {
+        flex-direction: column;
+      }
+    }
+  </style>
+</head>
+<body>
+
+<div class="container">
+  <h2>GPA / CGPA ক্যালকুলেটর</h2>
+
+  <div id="subjectContainer">
+    <div class="subject">
+      <input type="text" placeholder="বিষয়ের নাম" class="sub-name" />
+      <select class="sub-grade">
+        <option value="5">A+ (5.00)</option>
+        <option value="4">A (4.00)</option>
+        <option value="3.5">A− (3.50)</option>
+        <option value="3">B (3.00)</option>
+        <option value="2">C (2.00)</option>
+        <option value="1">D (1.00)</option>
+        <option value="0">F (0.00)</option>
+      </select>
+    </div>
+  </div>
+
+  <button onclick="addSubject()">➕ আরেকটি বিষয় যোগ করুন</button>
+  <button onclick="calculateGPA()">📊 হিসাব করুন</button>
+
+  <div class="result" id="result">ফলাফল এখানে দেখানো হবে</div>
+</div>
+
+<script>
+  function addSubject() {
+    const container = document.getElementById('subjectContainer');
+    const subjectDiv = document.createElement('div');
+    subjectDiv.classList.add('subject');
+    subjectDiv.innerHTML = `
+      <input type="text" placeholder="বিষয়ের নাম" class="sub-name" />
+      <select class="sub-grade">
+        <option value="5">A+ (5.00)</option>
+        <option value="4">A (4.00)</option>
+        <option value="3.5">A− (3.50)</option>
+        <option value="3">B (3.00)</option>
+        <option value="2">C (2.00)</option>
+        <option value="1">D (1.00)</option>
+        <option value="0">F (0.00)</option>
+      </select>
+    `;
+    container.appendChild(subjectDiv);
+  }
+
+  function calculateGPA() {
+    const grades = document.querySelectorAll('.sub-grade');
+    let total = 0;
+
+    grades.forEach(grade => {
+      total += parseFloat(grade.value);
+    });
+
+    const gpa = (grades.length > 0) ? (total / grades.length).toFixed(2) : 0;
+
+    document.getElementById('result').textContent = `মোট GPA / CGPA: ${gpa}`;
+  }
+</script>
+<script src="/components/header.js"></script>
+<script src="/components/footer.js"></script>
+</body>
+</html>

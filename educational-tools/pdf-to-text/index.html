@@ -1,0 +1,98 @@
+<!DOCTYPE html>
+<html lang="bn">
+<head>
+  <meta charset="UTF-8">
+  <title>PDF to Text Converter</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="stylesheet" href="/components/header.css" />
+  <link rel="stylesheet" href="/components/footer.css" />
+  <style>
+    body {
+      font-family: 'Segoe UI', sans-serif;
+      background: #f4f7f9;
+      margin: 0;
+      padding: 20px;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+    }
+
+    h2 {
+      color: #2c3e50;
+      margin-bottom: 20px;
+    }
+
+    .container {
+      max-width: 700px;
+      width: 100%;
+      background: #fff;
+      padding: 25px;
+      border-radius: 10px;
+      box-shadow: 0 4px 10px rgba(0,0,0,0.1);
+      margin-top: 70px;
+      margin-bottom: 70px;
+    }
+
+    input[type="file"] {
+      margin-bottom: 20px;
+    }
+
+    .output {
+      white-space: pre-wrap;
+      background: #ecf0f1;
+      padding: 15px;
+      border-radius: 8px;
+      height: 300px;
+      overflow-y: auto;
+      font-size: 16px;
+      color: #2c3e50;
+    }
+  </style>
+</head>
+<body>
+
+  <div class="container">
+    <h2>📄 PDF to Text (নোট রূপান্তর)</h2>
+    <input type="file" id="fileInput" accept="application/pdf" />
+    <div class="output" id="textOutput">এখানে টেক্সট দেখা যাবে...</div>
+  </div>
+
+  <!-- PDF.js library -->
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/pdf.js/3.4.120/pdf.min.js"></script>
+  <script>
+    document.getElementById('fileInput').addEventListener('change', function (e) {
+      const file = e.target.files[0];
+      if (file && file.type === "application/pdf") {
+        const fileReader = new FileReader();
+        fileReader.onload = function () {
+          const typedArray = new Uint8Array(this.result);
+          pdfjsLib.getDocument(typedArray).promise.then(function (pdf) {
+            let allText = '';
+            const numPages = pdf.numPages;
+            const loadPage = (pageNumber) => {
+              pdf.getPage(pageNumber).then(function (page) {
+                page.getTextContent().then(function (textContent) {
+                  const pageText = textContent.items.map(item => item.str).join(' ');
+                  allText += pageText + '\n\n';
+
+                  if (pageNumber < numPages) {
+                    loadPage(pageNumber + 1);
+                  } else {
+                    document.getElementById('textOutput').textContent = allText.trim();
+                  }
+                });
+              });
+            };
+            loadPage(1);
+          });
+        };
+        fileReader.readAsArrayBuffer(file);
+      } else {
+        alert("দয়া করে একটি সঠিক PDF ফাইল নির্বাচন করুন!");
+      }
+    });
+  </script>
+<script src="/components/header.js"></script>
+<script src="/components/footer.js"></script>
+</body>
+</html>

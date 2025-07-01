@@ -1,0 +1,161 @@
+<!DOCTYPE html>
+<html lang="bn">
+<head>
+  <meta charset="UTF-8" />
+  <title>জাতীয় দিবস ক্যালেন্ডার</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+   <link rel="stylesheet" href="/components/header.css" />
+  <link rel="stylesheet" href="/components/footer.css" />
+  <style>
+    body {
+      font-family: 'Siyam Rupali', Arial, sans-serif;
+      background: #f4f7fb;
+      margin: 0;
+      padding: 20px;
+      display: flex;
+      justify-content: center;
+      min-height: 100vh;
+      box-sizing: border-box;
+    }
+    .container {
+      max-width: 700px;
+      width: 100%;
+      background: #fff;
+      border-radius: 12px;
+      padding: 25px 30px;
+      box-shadow: 0 6px 15px rgba(0,0,0,0.1);
+      margin-top: 70px;
+      margin-bottom: 70px;
+    }
+    h1 {
+      text-align: center;
+      color: #2c3e50;
+      margin-bottom: 25px;
+    }
+    label {
+      font-weight: 600;
+      color: #34495e;
+      display: block;
+      margin-bottom: 10px;
+      font-size: 18px;
+    }
+    input[type="number"] {
+      width: 100px;
+      padding: 8px 12px;
+      font-size: 16px;
+      border: 1px solid #ccc;
+      border-radius: 6px;
+      margin-bottom: 25px;
+    }
+    table {
+      width: 100%;
+      border-collapse: collapse;
+      margin-top: 10px;
+    }
+    th, td {
+      padding: 12px 10px;
+      border-bottom: 1px solid #ddd;
+      text-align: left;
+      font-size: 16px;
+    }
+    th {
+      background-color: #2980b9;
+      color: white;
+    }
+    tr:hover {
+      background-color: #f1f7ff;
+    }
+    @media (max-width: 600px) {
+      body {
+        padding: 10px;
+      }
+      .container {
+        padding: 20px 15px;
+      }
+      table, th, td {
+        font-size: 14px;
+      }
+      input[type="number"] {
+        width: 100%;
+      }
+    }
+  </style>
+</head>
+<body>
+
+<div class="container">
+  <h1>জাতীয় দিবস ক্যালেন্ডার</h1>
+  
+  <label for="yearInput">বছর নির্বাচন করুন</label>
+  <input type="number" id="yearInput" min="2000" max="2100" value="2025" />
+  
+  <table>
+    <thead>
+      <tr>
+        <th>তারিখ</th>
+        <th>দিবস</th>
+        <th>বিবরণ</th>
+      </tr>
+    </thead>
+    <tbody id="calendarBody"></tbody>
+  </table>
+</div>
+
+<script>
+  // জাতীয় দিবস তালিকা (date format: "MM-DD")
+  // বিবরণ সহ
+  const nationalDays = [
+    { date: "01-01", name: "নতুন বছর", description: "বিশ্বব্যাপী নতুন বছর উদযাপন" },
+    { date: "02-21", name: "ভাষা শহীদ দিবস", description: "বাংলা ভাষার জন্য শহীদদের স্মরণ" },
+    { date: "03-17", name: "জাতীয় গণহত্যা দিবস", description: "১৯৭১ সালের গণহত্যা স্মরণ" },
+    { date: "03-26", name: "স্বাধীনতা দিবস", description: "বাংলাদেশের স্বাধীনতা ঘোষণা" },
+    { date: "04-14", name: "বাংলা নববর্ষ", description: "বাংলা বছরের নতুন সূচনা" },
+    { date: "05-01", name: "শ্রমিক দিবস", description: "শ্রমিকদের অধিকার ও সম্মান" },
+    { date: "06-26", name: "আন্তর্জাতিক মাতৃভাষা দিবস", description: "মাতৃভাষার প্রতি সম্মান" },
+    { date: "08-15", name: "জাতীয় শোক দিবস", description: "জাতির পিতার মৃত্যুবার্ষিকী" },
+    { date: "10-16", name: "দুর্গা পূজা", description: "হিন্দু সম্প্রদায়ের প্রধান উৎসব" },
+    { date: "12-16", name: "বিজয় দিবস", description: "মুক্তিযুদ্ধের বিজয় স্মরণ" },
+    { date: "12-25", name: "বড়দিন", description: "খ্রিস্টান সম্প্রদায়ের বড়দিন উৎসব" }
+  ];
+
+  const calendarBody = document.getElementById('calendarBody');
+  const yearInput = document.getElementById('yearInput');
+
+  function loadCalendar() {
+    const year = parseInt(yearInput.value) || new Date().getFullYear();
+    calendarBody.innerHTML = '';
+
+    nationalDays.forEach(day => {
+      const fullDate = `${year}-${day.date}`;
+      const dateObj = new Date(fullDate);
+      const options = { weekday: 'long', year: 'numeric', month: 'long', day: 'numeric' };
+      const formattedDate = dateObj.toLocaleDateString('bn-BD', options);
+
+      const tr = document.createElement('tr');
+
+      const tdDate = document.createElement('td');
+      tdDate.textContent = formattedDate;
+
+      const tdName = document.createElement('td');
+      tdName.textContent = day.name;
+
+      const tdDesc = document.createElement('td');
+      tdDesc.textContent = day.description;
+
+      tr.appendChild(tdDate);
+      tr.appendChild(tdName);
+      tr.appendChild(tdDesc);
+
+      calendarBody.appendChild(tr);
+    });
+  }
+
+  yearInput.addEventListener('change', loadCalendar);
+
+  // প্রথমে লোড হবে
+  loadCalendar();
+</script>
+<script src="/components/header.js"></script>
+<script src="/components/footer.js"></script>
+</body>
+</html>

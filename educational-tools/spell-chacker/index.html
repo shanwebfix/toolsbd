@@ -1,0 +1,122 @@
+<!DOCTYPE html>
+<html lang="bn">
+<head>
+  <meta charset="UTF-8">
+  <title>স্পেল চেকার (Bangla-English)</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="stylesheet" href="/components/header.css" />
+  <link rel="stylesheet" href="/components/footer.css" />
+  <style>
+    body {
+      font-family: 'Segoe UI', sans-serif;
+      background: #f4f7f9;
+      padding: 30px 20px;
+      margin: 0;
+      display: flex;
+      justify-content: center;
+    }
+
+    .container {
+      max-width: 600px;
+      width: 100%;
+      background: #fff;
+      padding: 25px;
+      border-radius: 10px;
+      box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+      margin-top: 70px;
+      margin-bottom: 70px;
+    }
+
+    h2 {
+      text-align: center;
+      color: #2c3e50;
+      margin-bottom: 20px;
+    }
+
+    textarea {
+      width: 100%;
+      height: 120px;
+      padding: 10px;
+      font-size: 16px;
+      border-radius: 6px;
+      border: 1px solid #ccc;
+      box-sizing: border-box;
+      resize: vertical;
+    }
+
+    button {
+      margin-top: 15px;
+      padding: 10px 16px;
+      width: 100%;
+      font-size: 16px;
+      background: #3498db;
+      border: none;
+      border-radius: 6px;
+      color: white;
+      cursor: pointer;
+    }
+
+    .result {
+      margin-top: 20px;
+      background: #ecf0f1;
+      padding: 15px;
+      border-radius: 8px;
+      min-height: 60px;
+    }
+
+    .highlight {
+      background-color: #f8d7da;
+      color: #a94442;
+      padding: 2px 4px;
+      border-radius: 3px;
+      font-weight: bold;
+    }
+  </style>
+</head>
+<body>
+
+<div class="container">
+  <h2>স্পেল চেকার (বাংলা-ইংরেজি)</h2>
+
+  <textarea id="inputText" placeholder="এখানে লিখুন..."></textarea>
+  <button onclick="checkSpelling()">স্পেল চেক করুন</button>
+
+  <div class="result" id="resultArea">ফলাফল এখানে দেখানো হবে</div>
+</div>
+
+<script>
+  const englishDict = ["education", "university", "language", "hello", "science", "beautiful", "computer", "student"];
+  const banglaDict = ["বাংলাদেশ", "শিক্ষা", "বিশ্ববিদ্যালয়", "কম্পিউটার", "ছাত্র", "ভাষা", "প্রযুক্তি"];
+
+  function checkSpelling() {
+    const input = document.getElementById('inputText').value;
+    const words = input.trim().split(/\s+/);
+    let resultHTML = '';
+
+    words.forEach(word => {
+      const isEnglish = /^[a-zA-Z]+$/.test(word);
+      const isBangla = /^[\u0980-\u09FF]+$/.test(word);
+      let valid = false;
+
+      if (isEnglish) {
+        valid = englishDict.includes(word.toLowerCase());
+      } else if (isBangla) {
+        valid = banglaDict.includes(word);
+      } else {
+        valid = true; // numbers or symbols etc
+      }
+
+      if (valid) {
+        resultHTML += word + ' ';
+      } else {
+        resultHTML += `<span class="highlight">${word}</span> `;
+      }
+    });
+
+    document.getElementById('resultArea').innerHTML = resultHTML.trim();
+  }
+</script>
+<script src="/components/header.js"></script>
+<script src="/components/footer.js"></script>
+</body>
+</html>

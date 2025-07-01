@@ -1,0 +1,161 @@
+<!DOCTYPE html>
+<html lang="bn">
+<head>
+  <meta charset="UTF-8" />
+  <title>টাইম টেবিল জেনারেটর</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <link rel="stylesheet" href="/components/header.css" />
+  <link rel="stylesheet" href="/components/footer.css" />
+  <style>
+    body {
+      font-family: 'Segoe UI', sans-serif;
+      background: #f2f4f7;
+      padding: 20px;
+      margin: 0;
+      display: flex;
+      justify-content: center;
+    }
+    .container {
+      max-width: 700px;
+      width: 100%;
+      background: #fff;
+      padding: 30px;
+      border-radius: 12px;
+      box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+      margin-top: 70px;
+      margin-bottom: 70px;
+    }
+    h2 {
+      text-align: center;
+      color: #2c3e50;
+      margin-bottom: 25px;
+    }
+    .input-group {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 10px;
+      margin-bottom: 15px;
+    }
+    .input-group input, .input-group select {
+      flex: 1 1 150px;
+      padding: 10px;
+      border: 1px solid #ccc;
+      border-radius: 6px;
+      font-size: 16px;
+    }
+    button {
+      padding: 10px 18px;
+      border: none;
+      border-radius: 6px;
+      background-color: #3498db;
+      color: white;
+      cursor: pointer;
+      font-size: 16px;
+      margin-top: 5px;
+    }
+    button:hover {
+      background-color: #2c80b9;
+    }
+    table {
+      width: 100%;
+      margin-top: 25px;
+      border-collapse: collapse;
+    }
+    th, td {
+      padding: 10px 12px;
+      border: 1px solid #ccc;
+      text-align: center;
+    }
+    th {
+      background: #2980b9;
+      color: white;
+    }
+    @media (max-width: 600px) {
+      .input-group {
+        flex-direction: column;
+      }
+    }
+  </style>
+</head>
+<body>
+
+<div class="container">
+  <h2>টাইম টেবিল জেনারেটর</h2>
+
+  <div class="input-group">
+    <input type="text" id="subject" placeholder="বিষয় (যেমন: গণিত)" />
+    <select id="day">
+      <option value="">দিন নির্বাচন করুন</option>
+      <option value="রবিবার">রবিবার</option>
+      <option value="সোমবার">সোমবার</option>
+      <option value="মঙ্গলবার">মঙ্গলবার</option>
+      <option value="বুধবার">বুধবার</option>
+      <option value="বৃহস্পতিবার">বৃহস্পতিবার</option>
+      <option value="শুক্রবার">শুক্রবার</option>
+      <option value="শনিবার">শনিবার</option>
+    </select>
+    <input type="time" id="startTime" />
+    <input type="time" id="endTime" />
+  </div>
+
+  <button onclick="addClass()">➕ ক্লাস যোগ করুন</button>
+  <button onclick="resetTable()" style="background-color: #e74c3c; margin-left:10px;">❌ রিসেট</button>
+
+  <table id="timetable">
+    <thead>
+      <tr>
+        <th>দিন</th>
+        <th>বিষয়</th>
+        <th>সময়</th>
+      </tr>
+    </thead>
+    <tbody id="tableBody">
+    </tbody>
+  </table>
+</div>
+
+<script>
+  function addClass() {
+    const subject = document.getElementById('subject').value.trim();
+    const day = document.getElementById('day').value;
+    const start = document.getElementById('startTime').value;
+    const end = document.getElementById('endTime').value;
+
+    if (!subject || !day || !start || !end) {
+      alert("সব ইনপুট পূরণ করুন");
+      return;
+    }
+
+    const tbody = document.getElementById('tableBody');
+    const row = document.createElement('tr');
+
+    const dayCell = document.createElement('td');
+    dayCell.textContent = day;
+
+    const subjectCell = document.createElement('td');
+    subjectCell.textContent = subject;
+
+    const timeCell = document.createElement('td');
+    timeCell.textContent = `${start} - ${end}`;
+
+    row.appendChild(dayCell);
+    row.appendChild(subjectCell);
+    row.appendChild(timeCell);
+
+    tbody.appendChild(row);
+
+    // Reset input
+    document.getElementById('subject').value = "";
+    document.getElementById('day').value = "";
+    document.getElementById('startTime').value = "";
+    document.getElementById('endTime').value = "";
+  }
+
+  function resetTable() {
+    document.getElementById('tableBody').innerHTML = '';
+  }
+</script>
+<script src="/components/header.js"></script>
+<script src="/components/footer.js"></script>
+</body>
+</html>
