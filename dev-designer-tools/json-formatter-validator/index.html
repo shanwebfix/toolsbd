@@ -1,0 +1,133 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <link rel="stylesheet" href="/components/header.css" />
+  <link rel="stylesheet" href="/components/footer.css" />
+  <title>JSON Formatter & Validator</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      background: #f7f9fb;
+      margin: 0;
+      padding: 30px;
+      text-align: center;
+    }
+    h1 {
+      margin-bottom: 20px;
+      color: #333;
+    }
+    .margin {
+        margin-top: 70px;
+        margin-bottom: 70px;
+    }
+    textarea {
+      width: 90%;
+      max-width: 700px;
+      height: 220px;
+      font-family: monospace;
+      font-size: 15px;
+      padding: 12px;
+      border: 1px solid #ccc;
+      border-radius: 8px;
+      resize: vertical;
+      margin-bottom: 15px;
+    }
+    button {
+      padding: 10px 18px;
+      font-size: 15px;
+      border: none;
+      border-radius: 5px;
+      cursor: pointer;
+      background-color: #3498db;
+      color: white;
+      margin-right: 10px;
+    }
+    button:hover {
+      background-color: #2980b9;
+    }
+    #copyBtn {
+      background-color: #2ecc71;
+    }
+    #copyBtn:hover {
+      background-color: #27ae60;
+    }
+    #output {
+      margin-top: 20px;
+      max-width: 700px;
+      margin-left: auto;
+      margin-right: auto;
+      text-align: left;
+      background: #fff;
+      padding: 20px;
+      border-radius: 8px;
+      box-shadow: 0 0 10px rgba(0,0,0,0.1);
+      white-space: pre-wrap;
+      font-family: monospace;
+      font-size: 15px;
+      min-height: 150px;
+    }
+    #error {
+      color: red;
+      font-weight: bold;
+      margin-top: 10px;
+    }
+    @media (max-width: 600px) {
+      textarea {
+        width: 95%;
+        height: 180px;
+      }
+      #output {
+        font-size: 14px;
+        padding: 15px;
+      }
+    }
+  </style>
+</head>
+<body>
+
+  <div class="margin"><h1>JSON Formatter & Validator</h1>
+
+  <textarea id="jsonInput" placeholder="Paste your JSON here...">{ "name": "John", "age": 30, "city": "New York" }</textarea>
+  <br />
+  <button onclick="formatJSON()">Format JSON</button>
+  <button id="copyBtn" onclick="copyOutput()">Copy</button>
+
+  <div id="error"></div>
+  <pre id="output"></pre></div>
+
+  <script>
+    function formatJSON() {
+      const input = document.getElementById('jsonInput').value;
+      const output = document.getElementById('output');
+      const error = document.getElementById('error');
+      output.textContent = "";
+      error.textContent = "";
+
+      try {
+        const obj = JSON.parse(input);
+        const pretty = JSON.stringify(obj, null, 2);
+        output.textContent = pretty;
+      } catch (e) {
+        error.textContent = "❌ Invalid JSON! Please check your input.";
+      }
+    }
+
+    function copyOutput() {
+      const text = document.getElementById('output').textContent;
+      if (!text.trim()) {
+        alert("Nothing to copy!");
+        return;
+      }
+      navigator.clipboard.writeText(text).then(() => {
+        const btn = document.getElementById('copyBtn');
+        btn.textContent = "Copied!";
+        setTimeout(() => btn.textContent = "Copy", 1000);
+      });
+    }
+  </script>
+<script src="/components/header.js"></script>
+<script src="/components/footer.js"></script>
+</body>
+</html>

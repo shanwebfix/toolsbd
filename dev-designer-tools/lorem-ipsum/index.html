@@ -1,0 +1,161 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Lorem Ipsum Generator</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+  <link rel="stylesheet" href="/components/header.css" />
+  <link rel="stylesheet" href="/components/footer.css" />
+  <style>
+    * {
+      box-sizing: border-box;
+    }
+
+    body {
+      font-family: Arial, sans-serif;
+      background: #f0f4f8;
+      padding: 20px;
+      margin: 0;
+      text-align: center;
+    }
+    .margin {
+        margin-top: 70px;
+        margin-bottom: 70px;
+    }
+    h1 {
+      color: #333;
+      margin-bottom: 20px;
+      font-size: 24px;
+    }
+
+    .input-group {
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: center;
+      gap: 10px;
+      margin-bottom: 20px;
+    }
+
+    input[type="number"] {
+      width: 80px;
+      padding: 10px;
+      font-size: 16px;
+      border: 1px solid #ccc;
+      border-radius: 5px;
+    }
+
+    button {
+      padding: 10px 18px;
+      font-size: 15px;
+      background-color: #3498db;
+      color: white;
+      border: none;
+      border-radius: 5px;
+      cursor: pointer;
+    }
+
+    button:hover {
+      background-color: #2980b9;
+    }
+
+    #copyBtn {
+      background-color: #2ecc71;
+    }
+
+    #copyBtn:hover {
+      background-color: #27ae60;
+    }
+
+    #output {
+      margin-top: 25px;
+      text-align: left;
+      background: #fff;
+      padding: 20px;
+      border-radius: 8px;
+      max-width: 900px;
+      margin-left: auto;
+      margin-right: auto;
+      box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+    }
+
+    p {
+      margin-bottom: 16px;
+      line-height: 1.6;
+    }
+
+    @media (max-width: 600px) {
+      h1 {
+        font-size: 20px;
+      }
+
+      .input-group {
+        flex-direction: column;
+        align-items: center;
+      }
+
+      input[type="number"], button {
+        width: 90%;
+        max-width: 300px;
+      }
+
+      #output {
+        padding: 15px;
+      }
+    }
+  </style>
+</head>
+<body>
+
+  <div class="margin"><h1>Lorem Ipsum Generator</h1>
+
+  <div class="input-group">
+    <input type="number" id="paragraphs" value="3" min="1" max="20" />
+    <button onclick="generateLorem()">Generate</button>
+    <button id="copyBtn" onclick="copyText()">Copy</button>
+  </div>
+
+  <div id="output"></div></div>
+
+  <script>
+    const loremText = "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nulla nec purus eu elit consequat viverra. Aenean at semper nisi. Integer in tincidunt magna. Sed facilisis fermentum leo, nec pulvinar libero feugiat non. Donec nec lacus eu libero dignissim dignissim.";
+
+    function generateLorem() {
+      const count = parseInt(document.getElementById('paragraphs').value);
+      const output = document.getElementById('output');
+      output.innerHTML = "";
+
+      if (isNaN(count) || count < 1) {
+        output.innerHTML = "<p>Please enter a valid number of paragraphs.</p>";
+        return;
+      }
+
+      for (let i = 0; i < count; i++) {
+        const para = document.createElement("p");
+        para.textContent = loremText;
+        output.appendChild(para);
+      }
+    }
+
+    function copyText() {
+      const text = document.getElementById("output").innerText;
+      if (!text.trim()) {
+        alert("Nothing to copy!");
+        return;
+      }
+
+      navigator.clipboard.writeText(text).then(() => {
+        document.getElementById("copyBtn").textContent = "Copied!";
+        setTimeout(() => {
+          document.getElementById("copyBtn").textContent = "Copy";
+        }, 1000);
+      });
+    }
+
+    // Load default content
+    generateLorem();
+  </script>
+<script src="/components/header.js"></script>
+<script src="/components/footer.js"></script>
+</body>
+</html>
