@@ -23,14 +23,19 @@
   </div>
 
   <!-- Mobile Full Canvas -->
-  <div id="mobileCanvas" class="mobile-canvas">
-    <div class="canvas-header">
-      <h2>Menu</h2>
-      <button id="closeCanvas" title="Close Menu">&times;</button>
-    </div>
+<div id="mobileCanvas" class="mobile-canvas">
+  <div class="canvas-header">
+    <h2>Menu</h2>
+    <button id="closeCanvas" title="Close Menu">&times;</button>
+  </div>
 
-    <div class="canvas-content">
-      <!-- Main Menu -->
+  <div class="canvas-content">
+    <!-- Section: Menu -->
+    <section class="canvas-section">
+      <div class="section-header">
+        <h3>Menu</h3>
+        <!-- যদি Menu সেকশনের কাছে button দরকার হয়, এখানে রাখতে পারো -->
+      </div>
       <nav class="canvas-nav">
         <ul>
           <li><a href="index.html" class="canvas-link">Home</a></li>
@@ -39,10 +44,14 @@
           <li><a href="contact.html" class="canvas-link">Contact</a></li>
         </ul>
       </nav>
+    </section>
 
-      <!-- Others -->
-      <div class="canvas-header">
-        <h2>Others</h2>
+    <!-- Section: Others -->
+    <section class="canvas-section">
+      <div class="section-header">
+        <h3>Others</h3>
+        <!-- Example button next to Others title -->
+        <button class="section-btn" title="More Options">⚙️</button>
       </div>
       <nav class="canvas-nav">
         <ul>
@@ -52,12 +61,16 @@
           <li><a href="privacy.html" class="canvas-link">Privacy & Policy</a></li>
         </ul>
       </nav>
+    </section>
 
-      <!-- Settings -->
-      <div class="canvas-footer">
+    <!-- Section: Settings -->
+    <section class="canvas-section">
+      <div class="section-header">
         <h3>Settings</h3>
         <button id="toggleThemeCanvas" title="Toggle Dark Mode">🌓</button>
       </div>
-    </div>
+    </section>
   </div>
+</div>
+
 </header>
