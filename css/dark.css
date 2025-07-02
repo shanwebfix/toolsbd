@@ -1,0 +1,208 @@
+/* Body */
+body.dark-mode {
+  background: #0f172a !important;
+  color: #e2e8f0;
+}
+
+
+
+
+/* Dark Mode Override for Header */
+
+/* Body background & text */
+body.dark-mode {
+  background-color: #121212 !important;
+  background-image: none !important;
+  color: #e0e0e0;
+}
+
+/* Header background */
+body.dark-mode header {
+  background: rgba(30, 41, 59, 0.7); /* dark translucent blue-gray */
+  box-shadow: 0 2px 5px rgba(255, 255, 255, 0.1);
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
+  color: #e0e0e0;
+}
+
+/* Logo img filter (optional: lighten logo for dark bg) */
+body.dark-mode .logo img {
+  filter: brightness(0) invert(1);
+}
+
+/* Toggle button */
+body.dark-mode #toggleTheme,
+body.dark-mode #toggleThemeMobile {
+  background-color: #3b82f6;  /* blue-500 */
+  color: white;
+  transition: background-color 0.3s ease;
+}
+
+body.dark-mode #toggleTheme:hover,
+body.dark-mode #toggleThemeMobile:hover {
+  background-color: #2563eb; /* blue-600 */
+}
+
+/* Navigation menu background */
+body.dark-mode .nav-menu ul li a {
+  background-color: #2563eb; /* blue-600 */
+  color: white;
+  transition: background-color 0.3s ease;
+  border-radius: 8px;
+}
+
+body.dark-mode .nav-menu ul li a:hover {
+  background-color: #3b82f6; /* blue-500 */
+  transform: translateY(-2px);
+}
+
+/* Responsive adjustments */
+@media (max-width: 768px) {
+  body.dark-mode .nav-menu {
+    background-color: transparent !important;
+    box-shadow: none !important;
+  }
+
+  /* Toggle buttons hover bg transparent on mobile */
+  body.dark-mode #toggleTheme:hover,
+  body.dark-mode #toggleThemeMobile:hover,
+  body.dark-mode #toggleTheme,
+  body.dark-mode #toggleThemeMobile {
+    background-color: transparent !important;
+    color: #60a5fa; /* lighter blue */
+  }
+
+  /* Nav menu links on mobile */
+  body.dark-mode .nav-menu ul li a {
+    background-color: transparent !important;
+    color: #bfdbfe; /* light blue text */
+    padding: 12px 20px;
+  }
+
+  body.dark-mode .nav-menu ul li a:hover {
+    background-color: rgba(96, 165, 250, 0.2) !important;
+    color: #3b82f6;
+    transform: none;
+  }
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+/* Namaj Box */
+body.dark-mode .namaj-box {
+  background: #1e293b;
+  box-shadow: 0 0 15px rgba(0, 255, 255, 0.05);
+}
+
+body.dark-mode .left-box h2 {
+  color: #60a5fa;
+}
+
+body.dark-mode .left-box p.date-line {
+  color: #cbd5e1;
+}
+
+body.dark-mode #location {
+  color: #fde047;
+}
+
+body.dark-mode .date-box {
+  background: #1e293b;
+  box-shadow: 0 0 10px #0284c7;
+}
+
+body.dark-mode .date-name {
+  color: #60a5fa;
+}
+
+body.dark-mode .date-name::after {
+  background: #60a5fa;
+}
+
+body.dark-mode .right-box p {
+  background: #334155;
+  color: #bef264;
+}
+
+/* Clickable Boxes */
+body.dark-mode .clickable-box {
+  background: #1e293b;
+  color: #f1f5f9;
+  border: 1px solid rgba(255, 255, 255, 0.05);
+}
+
+body.dark-mode .clickable-box:hover {
+  box-shadow: 0 4px 12px rgba(96, 165, 250, 0.3);
+}
+
+/* Category Section */
+body.dark-mode .category-item {
+  background: #1e293b;
+  box-shadow: 0 2px 5px rgba(255, 255, 255, 0.05);
+}
+
+body.dark-mode .category-icon {
+  color: #38bdf8;
+}
+
+body.dark-mode .category-title {
+  color: #e0f2fe;
+}
+
+body.dark-mode .category-desc {
+  color: #94a3b8;
+}
+
+/* Links */
+body.dark-mode a {
+  color: inherit;
+  text-decoration: none;
+}
+
+/* Optional: Headings */
+body.dark-mode h2 {
+  color: #e2e8f0;
+}
+
+
+
+
+
+
+
+
+
+/* ==== Footer Dark Mode ==== */
+body.dark-mode footer {
+  background: #1e293b;
+  border-top: 1px solid #334155;
+  box-shadow: 0 -1px 5px rgba(255, 255, 255, 0.05);
+}
+
+body.dark-mode .footer-menu a {
+  color: #cbd5e1;
+}
+
+body.dark-mode .footer-menu a:hover {
+  color: #38bdf8;
+}

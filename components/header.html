@@ -1,18 +1,45 @@
-<!-- header.html -->
 <header>
   <div class="header-container">
     <div class="logo">
       <a href="/"><img src="/assets/logo.png" alt="ToolsBD" /></a>
     </div>
-    <div class="menu-toggle" id="menuToggle">☰</div>
+
+    <!-- Desktop Nav -->
     <nav class="nav-menu" id="navMenu">
       <ul>
         <li><a href="index.html">Home</a></li>
         <li><a href="about.html">About</a></li>
         <li><a href="services.html">Services</a></li>
         <li><a href="contact.html">Contact</a></li>
+        <li class="desktop-toggle">
+          <button id="toggleTheme" title="Toggle Dark Mode">🌓</button>
+        </li>
       </ul>
     </nav>
+
+    <div class="menu-group">
+      <!-- মোবাইল toggler পাশে night mode icon বাদ দিলাম -->
+      <div class="menu-toggle" id="menuToggle">☰</div>
+    </div>
+  </div>
+
+  <!-- Mobile full canvas menu -->
+  <div id="mobileCanvas" class="mobile-canvas">
+    <div class="canvas-header">
+      <h2>About</h2>
+      <button id="closeCanvas" title="Close Menu">&times;</button>
+    </div>
+    <nav class="canvas-nav">
+      <ul>
+        <li><a href="index.html" class="canvas-link">Home</a></li>
+        <li><a href="about.html" class="canvas-link">About</a></li>
+        <li><a href="services.html" class="canvas-link">Services</a></li>
+        <li><a href="contact.html" class="canvas-link">Contact</a></li>
+      </ul>
+    </nav>
+    <div class="canvas-footer">
+      <h3>Settings</h3>
+      <button id="toggleThemeCanvas" title="Toggle Dark Mode">🌓</button>
+    </div>
   </div>
 </header>
-
