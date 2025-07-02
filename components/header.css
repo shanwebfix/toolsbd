@@ -1,23 +1,4 @@
-/* Global Reset */
-body {
-  font-family: sans-serif;
-  margin: 0;
-  background: linear-gradient(to bottom, #ffffff 0%, #e0f3ff 30%, #c2e9ff 60%, #87cefa 100%);
-  background-attachment: fixed;
-  background-repeat: no-repeat;
-  background-size: cover;
-  min-height: 100vh;
-  padding: 100px 80px 50px;
-  transition: background 0.3s, color 0.3s;
-}
-
-body.dark-mode {
-  background-color: #121212;
-  background-image: none;
-  color: #ffffff;
-}
-
-/* Header */
+/* Header Styles */
 header {
   background: rgba(255, 255, 255, 0.7);
   backdrop-filter: blur(10px);
@@ -32,8 +13,6 @@ header {
   height: 70px;
   display: flex;
   align-items: center;
-  margin: 0;
-  padding: 0;
 }
 
 .header-container {
@@ -46,24 +25,22 @@ header {
   align-items: center;
 }
 
-/* Logo */
 .logo img {
   height: 40px;
 }
 
-/* Menu Toggle & Group */
 .menu-toggle {
   font-size: 26px;
   cursor: pointer;
   display: none;
 }
+
 .menu-group {
   display: none;
   gap: 10px;
   align-items: center;
 }
 
-/* Toggle Button Style */
 #toggleTheme,
 #toggleThemeCanvas {
   background-color: #5bbef9;
@@ -86,7 +63,6 @@ header {
   align-items: center;
 }
 
-/* Navigation */
 .nav-menu {
   display: flex;
 }
@@ -115,7 +91,7 @@ header {
   transform: translateY(-2px);
 }
 
-/* Mobile full canvas menu styles */
+/* Mobile Canvas */
 .mobile-canvas {
   position: fixed;
   top: 0;
@@ -128,20 +104,11 @@ header {
   z-index: 2000;
   display: flex;
   flex-direction: column;
-  padding: 30px 20px;
-  box-sizing: border-box;
-  overflow-y: auto;
-  -webkit-overflow-scrolling: touch;
+  overflow: hidden;
 }
 
-/* Optional scrollbar style */
-.mobile-canvas::-webkit-scrollbar {
-  width: 8px;
-}
-
-.mobile-canvas::-webkit-scrollbar-thumb {
-  background-color: rgba(255,255,255,0.3);
-  border-radius: 4px;
+.mobile-canvas.active {
+  left: 0;
 }
 
 body.dark-mode .mobile-canvas {
@@ -149,48 +116,48 @@ body.dark-mode .mobile-canvas {
   color: #fff;
 }
 
-/* When active, show the canvas */
-.mobile-canvas.active {
-  left: 0;
-}
-
-/* Canvas header */
+/* Canvas Header */
 .canvas-header {
+  flex-shrink: 0;
   display: flex;
   justify-content: space-between;
   align-items: center;
   border-bottom: 2px solid rgba(255,255,255,0.3);
-  padding-bottom: 10px;
-  margin-bottom: 30px;
+  padding: 20px;
 }
 
 .canvas-header h2 {
-  font-size: 28px;
+  font-size: 24px;
   font-weight: 700;
   margin: 0;
 }
 
-/* Close button */
 #closeCanvas {
-  font-size: 32px;
+  font-size: 28px;
   background: transparent;
   border: none;
   color: inherit;
   cursor: pointer;
   line-height: 1;
-  padding: 0 10px;
-  transition: color 0.3s;
 }
 
-#closeCanvas:hover {
-  color: #ddd;
-}
-
-/* Canvas navigation */
-.canvas-nav {
+/* Scrollable Canvas Content */
+.canvas-content {
   flex-grow: 1;
+  overflow-y: auto;
+  padding: 20px;
+  -webkit-overflow-scrolling: touch;
 }
 
+.canvas-content::-webkit-scrollbar {
+  width: 6px;
+}
+.canvas-content::-webkit-scrollbar-thumb {
+  background: rgba(255,255,255,0.3);
+  border-radius: 3px;
+}
+
+/* Navigation Links */
 .canvas-nav ul {
   list-style: none;
   padding: 0;
@@ -198,51 +165,43 @@ body.dark-mode .mobile-canvas {
 }
 
 .canvas-nav ul li {
-  margin-bottom: 20px;
+  margin-bottom: 18px;
 }
 
 .canvas-nav ul li a {
   text-decoration: none;
-  font-size: 22px;
+  font-size: 20px;
   color: inherit;
   font-weight: 600;
-  padding: 8px 0;
-  display: inline-block;
-
-  /* background removed */
-  background-color: transparent !important;
-  border: none !important;
-  box-shadow: none !important;
+  display: block;
+  padding: 6px 0;
+  transition: color 0.3s;
 }
 
 .canvas-nav ul li a:hover {
-  background-color: transparent !important;
   color: #ddd;
 }
 
-/* Canvas footer for settings */
+/* Footer */
 .canvas-footer {
-  margin-top: auto;
   border-top: 2px solid rgba(255,255,255,0.3);
   padding-top: 20px;
+  margin-top: 30px;
 }
 
 .canvas-footer h3 {
-  margin: 0 0 12px 0;
-  font-size: 20px;
+  font-size: 18px;
   font-weight: 700;
+  margin-bottom: 10px;
 }
 
-/* Canvas night mode button */
 #toggleThemeCanvas {
   background: transparent !important;
   color: inherit;
   border: none;
-  padding: 6px 12px;
   font-size: 24px;
   cursor: pointer;
   transition: color 0.3s;
-  border-radius: 0;
 }
 
 #toggleThemeCanvas:hover {
@@ -252,7 +211,7 @@ body.dark-mode .mobile-canvas {
 /* Responsive */
 @media (max-width: 768px) {
   .header-container {
-    padding: 30px 20px;
+    padding: 20px;
   }
 
   .logo img {

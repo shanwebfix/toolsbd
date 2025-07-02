@@ -18,28 +18,46 @@
     </nav>
 
     <div class="menu-group">
-      <!-- মোবাইল toggler পাশে night mode icon বাদ দিলাম -->
       <div class="menu-toggle" id="menuToggle">☰</div>
     </div>
   </div>
 
-  <!-- Mobile full canvas menu -->
+  <!-- Mobile Full Canvas -->
   <div id="mobileCanvas" class="mobile-canvas">
     <div class="canvas-header">
-      <h2>About</h2>
+      <h2>Menu</h2>
       <button id="closeCanvas" title="Close Menu">&times;</button>
     </div>
-    <nav class="canvas-nav">
-      <ul>
-        <li><a href="index.html" class="canvas-link">Home</a></li>
-        <li><a href="about.html" class="canvas-link">About</a></li>
-        <li><a href="services.html" class="canvas-link">Services</a></li>
-        <li><a href="contact.html" class="canvas-link">Contact</a></li>
-      </ul>
-    </nav>
-    <div class="canvas-footer">
-      <h3>Settings</h3>
-      <button id="toggleThemeCanvas" title="Toggle Dark Mode">🌓</button>
+
+    <div class="canvas-content">
+      <!-- Main Menu -->
+      <nav class="canvas-nav">
+        <ul>
+          <li><a href="index.html" class="canvas-link">Home</a></li>
+          <li><a href="about.html" class="canvas-link">About</a></li>
+          <li><a href="services.html" class="canvas-link">Services</a></li>
+          <li><a href="contact.html" class="canvas-link">Contact</a></li>
+        </ul>
+      </nav>
+
+      <!-- Others -->
+      <div class="canvas-header">
+        <h2>Others</h2>
+      </div>
+      <nav class="canvas-nav">
+        <ul>
+          <li><a href="faq.html" class="canvas-link">Faq</a></li>
+          <li><a href="feedback.html" class="canvas-link">Feedback</a></li>
+          <li><a href="rules.html" class="canvas-link">Rules</a></li>
+          <li><a href="privacy.html" class="canvas-link">Privacy & Policy</a></li>
+        </ul>
+      </nav>
+
+      <!-- Settings -->
+      <div class="canvas-footer">
+        <h3>Settings</h3>
+        <button id="toggleThemeCanvas" title="Toggle Dark Mode">🌓</button>
+      </div>
     </div>
   </div>
 </header>
