@@ -1,33 +1,65 @@
 /* Main Section */
 .main-section {
-  margin-top: 30px;
-  margin-bottom: 50px;
+  margin-top: 100px;
+  margin-bottom: 100px;
+  padding: 0 15px;
 }
 
+/* Tools Grid */
 .tools-grid {
   display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+  grid-template-columns: repeat(3, 1fr);
   gap: 20px;
+  max-width: 1080px;
+  margin: 0 auto;
 }
 
+/* Box styling */
 .clickable-box {
   background: #fff;
   border: 1px solid rgba(0, 0, 0, 0.1);
-  padding: 30px;
+  height: 150px;
+  padding: 20px 15px;
   border-radius: 10px;
   font-size: 17px;
   font-weight: 500;
   color: #000;
   transition: box-shadow 0.3s ease, transform 0.2s ease;
   text-decoration: none !important;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+  cursor: pointer;
+  overflow: hidden;
+  box-sizing: border-box;
 }
 
+/* Hover effect */
 .clickable-box:hover {
   box-shadow: 0 4px 12px rgba(135, 206, 250, 0.6);
   transform: translateY(-3px);
 }
 
-/* Link Cleanup */
+/* Icon inside box */
+.box-icon {
+  font-size: 40px;
+  color: #007bff;
+  margin-bottom: 12px;
+  flex-shrink: 0;
+}
+
+/* Text with ellipsis */
+.clickable-box span.text {
+  white-space: nowrap;
+  text-overflow: ellipsis;
+  overflow: hidden;
+  width: 100%;
+  display: block;
+}
+
+/* Link cleanup */
 .box-link {
   text-decoration: none !important;
 }
@@ -41,57 +73,24 @@
   text-decoration: none !important;
 }
 
+/* Responsive */
+@media (max-width: 768px) {
+  .tools-grid {
+    grid-template-columns: repeat(2, 1fr);
+    gap: 15px;
+  }
 
+  .clickable-box {
+    height: 120px;
+    padding: 12px 10px;
+  }
 
+  .box-icon {
+    font-size: 26px;
+    margin-bottom: 8px;
+  }
 
-
- h2 {
-      text-align: center;
-      margin-bottom: 20px;
-    }
-
-    .category-grid {
-      display: grid;
-      grid-template-columns: repeat(2, 1fr); /* Always 2 per row */
-      gap: 20px;
-    }
-
-    .category-item {
-      background: #fff;
-      padding: 20px;
-      border-radius: 8px;
-      box-shadow: 0 2px 5px rgba(0,0,0,0.1);
-      display: flex;
-      flex-direction: column;
-      align-items: center;
-      text-align: center;
-      transition: transform 0.2s ease;
-    }
-
-    .category-item:hover {
-      transform: translateY(-5px);
-    }
-
-    .category-icon {
-      font-size: 36px;
-      color: #007bff;
-      margin-bottom: 10px;
-    }
-
-    .category-title {
-      font-size: 18px;
-      font-weight: bold;
-      margin-bottom: 6px;
-    }
-
-    .category-desc {
-      font-size: 14px;
-      color: #555;
-    }
-
-    /* মোবাইলে ১ কলামে দেখাবে */
-    @media (max-width: 600px) {
-      .category-grid {
-        grid-template-columns: 1fr;
-      }
-    }
+  .clickable-box span.text {
+    font-size: 14px;
+  }
+}
