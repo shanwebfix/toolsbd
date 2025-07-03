@@ -60,9 +60,10 @@ header {
   background-color: #066264;
 }
 
-.desktop-toggle {
-  display: flex;
-  align-items: center;
+.desktop-toggle {background-color: #077A7D;
+  border-radius: 8px;
+  padding: 6px 10px;
+  transition: background-color 0.3s ease;
 }
 
 .nav-menu {
@@ -126,6 +127,7 @@ body.dark-mode .mobile-canvas {
   align-items: center;
   border-bottom: 2px solid rgba(255,255,255,0.3);
   padding: 20px;
+  background-color: azure;
 }
 
 .canvas-header h2 {
@@ -141,6 +143,7 @@ body.dark-mode .mobile-canvas {
   color: inherit;
   cursor: pointer;
   line-height: 1;
+  color: #077A7D;
 }
 
 /* Scrollable Canvas Content */
