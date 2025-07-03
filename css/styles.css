@@ -2,12 +2,19 @@
 body {
   font-family: sans-serif;
   margin: 0;
-  background: linear-gradient(to bottom, #ffffff 0%, #ffffff 30%, #e0f3ff 45%, #c2e9ff 60%, #a8ddff 75%, #87cefa 100%);
+  background: linear-gradient(to top, 
+  #ffffff 0%, 
+  #ffffff 30%, 
+  #e0f3ff 45%, 
+  #c2e9ff 60%, 
+  #a8ddff 75%, 
+  #87cefa 100%);
+
   background-attachment: fixed;
   background-repeat: no-repeat;
   background-size: cover;
   min-height: 100vh;
-  padding: 100px 20px 50px;
+  padding: 100px 70px 50px;
 }
 
 /* Responsive body padding */
@@ -34,11 +41,16 @@ body {
   justify-content: space-between;
   gap: 10px;
   flex-wrap: wrap;
+  border: 1px solid #077A7D;
+  padding: 20px;
+  border-radius: 25px;
+  box-shadow: 0 4px 15px rgba(7, 122, 125, 0.3);
 }
+
 
 .left-box {
   width: 100%;
-  max-width: 160px;
+  max-width: 400px;
   text-align: left;
 }
 
@@ -46,11 +58,19 @@ body {
   color: #077A7D;
   font-size: 18px;
   margin-bottom: 5px;
+  justify-content: left;
+}
+.left-box h3 {
+  color: #077A7D;
+  font-size: 18px;
+  margin-bottom: 5px;
+  justify-content: left;
 }
 .left-box p.date-line {
   font-size: 14px;
   margin: 4px 0;
   color: #f1f5f9;
+  align-items: start;
 }
 
 #location {
@@ -76,7 +96,7 @@ h2 {
   font-size: 28px;
   font-weight: bold;
   padding-bottom: 10px;
-  color: #077A7D;
+  color: #077A7D !important;
   margin-bottom: 30px;
 }
 
@@ -87,7 +107,7 @@ h2 {
   left: 0;
   height: 3px;
   width: 100%;
-  background: #077A7D;
+  background: #077A7D !important;
   border-radius: 5px;
 }
 
@@ -98,10 +118,10 @@ h2 {
 .right-box p {
   margin: 8px 0;
   padding: 8px 10px;
-  background: #334155;
+  background: #077A7D;
   border-radius: 6px;
   font-size: 16px;
-  color: #a3e635;
+  color: #ffffff;
 }
 
 
@@ -164,6 +184,38 @@ h2 {
       gap: 20px;
     }
 
+    .cat-title {
+  font-size: 24px;
+  font-weight: bold;
+  margin-bottom: 6px;
+  text-align: center;
+  display: block;
+}
+
+.cat-title-name {
+  display: inline-block;
+  position: relative;
+  font-size: 28px;
+  font-weight: bold;
+  padding-bottom: 10px;
+  color: #077A7D !important;
+  margin-bottom: 30px;
+}
+
+
+.cat-title-name::after {
+  content: "";
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  width: 100%;
+  height: 4px;
+  background-color: #077A7D;
+  border-radius: 2px;
+}
+
+
+
     .category-item {
       background: #fff;
       padding: 20px;
@@ -206,4 +258,106 @@ a {
       .category-grid {
         grid-template-columns: 1fr;
       }
+      .cat-title-name {
+  font-size: 18px;
+  
+               
+}
     }
+
+
+
+
+
+
+
+
+    /* 🌙 Dark Mode Styles */
+
+body.dark-mode {
+  background: linear-gradient(to bottom, #0f172a 0%, #1e293b 30%, #1e3a5f 60%, #0f4c75 100%);
+  color: #f1f5f9;
+}
+
+body.dark-mode .namaj-box,
+body.dark-mode .date-box {
+  background: #0f172a;
+  box-shadow: 0 0 15px rgba(0, 255, 255, 0.05);
+}
+
+body.dark-mode .left-box h2,
+body.dark-mode .date-name::after {
+  color: #077A7D !important;
+  
+}
+
+body.dark-mode .left-box p.date-line,
+body.dark-mode #location {
+  color: #ffffff !important;
+}
+
+body.dark-mode .right-box p {
+  background: #1e293b;
+  color: #bef264;
+}
+
+body.dark-mode .clickable-box {
+  background: #1e293b;
+  color: #f1f5f9;
+  border-color: rgba(255, 255, 255, 0.1);
+}
+
+body.dark-mode .clickable-box:hover {
+  box-shadow: 0 4px 12px rgba(56, 189, 248, 0.5);
+}
+
+body.dark-mode .category-item {
+  background: #1e293b;
+  color: #f1f5f9;
+  box-shadow: 0 2px 5px rgba(255, 255, 255, 0.05);
+}
+body.dark-mode .cat-title-name {
+  color: #ffffff !important;
+}
+
+body.dark-mode .cat-title-name::after {
+  background-color: #077A7D;
+}
+
+body.dark-mode .category-icon {
+  color: #077A7D !important;
+}
+
+body.dark-mode .category-desc {
+  color: #cbd5e1;
+}
+
+body.dark-mode a {
+  color: inherit;
+  text-decoration: none;
+}
+
+/* Optional form/input/button dark mode styling */
+body.dark-mode input[type="date"] {
+  background: #1e293b;
+  border: 1px solid #077A7D;
+  color: #cbd5e1;
+}
+
+body.dark-mode button {
+  background: #077A7D;
+  color: white;
+  border: none;
+}
+
+body.dark-mode button:hover {
+  background: #066264;
+}
+
+body.dark-mode #result {
+  color: #93fdc3;
+}
+
+body.dark-mode .right-box p { 
+  background: #334155;
+}
