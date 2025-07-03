@@ -8,77 +8,112 @@
   <link rel="stylesheet" href="/components/footer.css" />
   <style>
     body {
-      font-family: 'Siyam Rupali', Arial, sans-serif;
-      background: #f4f7fb;
-      margin: 0;
-      padding: 20px;
-      display: flex;
-      justify-content: center;
-      min-height: 100vh;
-      box-sizing: border-box;
-    }
-    .container {
-      max-width: 700px;
-      width: 100%;
-      background: #fff;
-      border-radius: 12px;
-      padding: 25px 30px;
-      box-shadow: 0 6px 15px rgba(0,0,0,0.1);
-      margin-top: 70px;
-      margin-bottom: 70px;
-    }
-    h1 {
-      text-align: center;
-      color: #2c3e50;
-      margin-bottom: 25px;
-    }
-    label {
-      font-weight: 600;
-      color: #34495e;
-      display: block;
-      margin-bottom: 10px;
-      font-size: 18px;
-    }
-    input[type="number"] {
-      width: 100px;
-      padding: 8px 12px;
-      font-size: 16px;
-      border: 1px solid #ccc;
-      border-radius: 6px;
-      margin-bottom: 25px;
-    }
-    table {
-      width: 100%;
-      border-collapse: collapse;
-      margin-top: 10px;
-    }
-    th, td {
-      padding: 12px 10px;
-      border-bottom: 1px solid #ddd;
-      text-align: left;
-      font-size: 16px;
-    }
-    th {
-      background-color: #077A7D;
-      color: white;
-    }
-    tr:hover {
-      background-color: #f1f7ff;
-    }
-    @media (max-width: 600px) {
-      body {
-        padding: 10px;
-      }
-      .container {
-        padding: 20px 15px;
-      }
-      table, th, td {
-        font-size: 14px;
-      }
-      input[type="number"] {
-        width: 100%;
-      }
-    }
+  font-family: 'Siyam Rupali', Arial, sans-serif;
+  background: #f4f7fb;
+  margin: 0;
+  padding: 20px;
+  display: flex;
+  justify-content: center;
+  min-height: 100vh;
+  box-sizing: border-box;
+}
+.container {
+  max-width: 700px;
+  width: 100%;
+  background: #fff;
+  border-radius: 12px;
+  padding: 25px 30px;
+  box-shadow: 0 6px 15px rgba(0,0,0,0.1);
+  margin-top: 70px;
+  margin-bottom: 70px;
+}
+h1 {
+  text-align: center;
+  color: #2c3e50;
+  margin-bottom: 25px;
+}
+label {
+  font-weight: 600;
+  color: #34495e;
+  display: block;
+  margin-bottom: 10px;
+  font-size: 18px;
+}
+input[type="number"] {
+  width: 100px;
+  padding: 8px 12px;
+  font-size: 16px;
+  border: 1px solid #ccc;
+  border-radius: 6px;
+  margin-bottom: 25px;
+}
+table {
+  width: 100%;
+  border-collapse: collapse;
+  margin-top: 10px;
+}
+th, td {
+  padding: 12px 10px;
+  border-bottom: 1px solid #ddd;
+  text-align: left;
+  font-size: 16px;
+}
+th {
+  background-color: #077A7D;
+  color: white;
+}
+tr:hover {
+  background-color: #f1f7ff;
+}
+@media (max-width: 600px) {
+  body {
+    padding: 10px;
+  }
+  .container {
+    padding: 20px 15px;
+  }
+  table, th, td {
+    font-size: 14px;
+  }
+  input[type="number"] {
+    width: 100%;
+  }
+}
+
+/* ===== Dark Mode ===== */
+body.dark-mode {
+  background: #121212;
+  color: #ccc;
+}
+body.dark-mode .container {
+  background: #1e1e1e;
+  box-shadow: 0 6px 15px rgba(0,0,0,0.7);
+}
+body.dark-mode h1 {
+  color: #80cbc4;
+}
+body.dark-mode label {
+  color: #a0d8d8;
+}
+body.dark-mode input[type="number"] {
+  background: #2a2a2a;
+  border: 1px solid #555;
+  color: #ddd;
+}
+body.dark-mode table {
+  border-color: #333;
+}
+body.dark-mode th {
+  background-color: #009688;
+  color: #e0f2f1;
+}
+body.dark-mode td {
+  border-bottom: 1px solid #444;
+}
+body.dark-mode tr:hover {
+  background-color: #004d40;
+}
+
   </style>
 </head>
 <body>

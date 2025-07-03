@@ -13,8 +13,8 @@
   padding: 20px;
   color: #333;
   margin: 0;
-  
 }
+
 .container {
   display: flex;
   max-width: 1000px;
@@ -30,77 +30,84 @@
   margin-right: auto;
 }
 
-    .left-panel {
-      width: 30%;
-      border-right: 1px solid #ddd;
-      overflow-y: auto;
-      padding: 20px;
-    }
-    .left-panel h1 {
-      margin-top: 0;
-      font-size: 22px;
-      color: #077A7D;
-      text-align: center;
-      margin-bottom: 20px;
-    }
-    #surahList {
-      list-style: none;
-      padding: 0;
-      margin: 0;
-    }
-    #surahList li {
-      padding: 10px 8px;
-      cursor: pointer;
-      border-bottom: 1px solid #eee;
-      transition: background-color 0.2s;
-      user-select: none;
-    }
-    #surahList li:hover, #surahList li.active {
-      background-color: #e6f2f0;
-      font-weight: bold;
-      color: #066264;
-    }
-    .right-panel {
-      width: 70%;
-      padding: 20px;
-      overflow-y: auto;
-    }
-    .right-panel h2 {
-      margin-top: 0;
-      color: #007B5E;
-      border-bottom: 2px solid #007B5E;
-      padding-bottom: 10px;
-    }
-    .ayah {
-      margin-bottom: 15px;
-      border-bottom: 1px dashed #ddd;
-      padding-bottom: 10px;
-    }
-    .arabic {
-      font-size: 28px;
-      direction: rtl;
-      text-align: right;
-      color: #222;
-      font-weight: 700;
-      margin-bottom: 6px;
-    }
-    .translation {
-      margin-top: 4px;
-      font-size: 18px;
-      color: #555;
-      line-height: 1.4;
-    }
-    .ayah-number {
-      font-weight: bold;
-      color: #077A7D;
-      margin-bottom: 5px;
-    }
+.left-panel {
+  width: 30%;
+  border-right: 1px solid #ddd;
+  overflow-y: auto;
+  padding: 20px;
+}
 
+.left-panel h1 {
+  margin-top: 0;
+  font-size: 22px;
+  color: #077A7D;
+  text-align: center;
+  margin-bottom: 20px;
+}
 
+#surahList {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+}
 
-    /* ================== মোবাইল রেস্পন্সিভ ================== */
+#surahList li {
+  padding: 10px 8px;
+  cursor: pointer;
+  border-bottom: 1px solid #eee;
+  transition: background-color 0.2s;
+  user-select: none;
+}
+
+#surahList li:hover, #surahList li.active {
+  background-color: #e6f2f0;
+  font-weight: bold;
+  color: #066264;
+}
+
+.right-panel {
+  width: 70%;
+  padding: 20px;
+  overflow-y: auto;
+}
+
+.right-panel h2 {
+  margin-top: 0;
+  color: #007B5E;
+  border-bottom: 2px solid #007B5E;
+  padding-bottom: 10px;
+}
+
+.ayah {
+  margin-bottom: 15px;
+  border-bottom: 1px dashed #ddd;
+  padding-bottom: 10px;
+}
+
+.arabic {
+  font-size: 28px;
+  direction: rtl;
+  text-align: right;
+  color: #222;
+  font-weight: 700;
+  margin-bottom: 6px;
+}
+
+.translation {
+  margin-top: 4px;
+  font-size: 18px;
+  color: #555;
+  line-height: 1.4;
+}
+
+.ayah-number {
+  font-weight: bold;
+  color: #077A7D;
+  margin-bottom: 5px;
+}
+
+/* ================== মোবাইল রেস্পন্সিভ ================== */
 @media screen and (max-width: 600px) {
-  
   .left-panel, .right-panel {
     width: 100%;
     padding: 10px;
@@ -130,6 +137,64 @@
     font-size: 14px;
   }
 }
+
+/* ====== Dark mode styles ====== */
+body.dark-mode {
+  background: #121b1a;
+  color: #b2dfdb;
+}
+
+body.dark-mode .container {
+  background: #1e2c2b;
+  box-shadow: 0 0 15px rgba(0, 128, 128, 0.5);
+}
+
+body.dark-mode .left-panel {
+  border-color: #3a5a59;
+  background: #22443d;
+}
+
+body.dark-mode .left-panel h1 {
+  color: #4db6ac;
+}
+
+body.dark-mode #surahList li {
+  border-bottom: 1px solid #3a5a59;
+  color: #b2dfdb;
+}
+
+body.dark-mode #surahList li:hover,
+body.dark-mode #surahList li.active {
+  background-color: #357a72;
+  color: #a7ffeb;
+  font-weight: bold;
+}
+
+body.dark-mode .right-panel {
+  background: #22443d;
+}
+
+body.dark-mode .right-panel h2 {
+  color: #4db6ac;
+  border-color: #4db6ac;
+}
+
+body.dark-mode .ayah {
+  border-bottom-color: #3a5a59;
+}
+
+body.dark-mode .arabic {
+  color: #a7ffeb;
+}
+
+body.dark-mode .translation {
+  color: #b2dfdb;
+}
+
+body.dark-mode .ayah-number {
+  color: #4db6ac;
+}
+
   </style>
 </head>
 <body>

@@ -8,6 +8,7 @@ body {
   padding: 100px 20px 20px;
   color: #ffffff;
   font-family: Arial, sans-serif;
+  background: #1e293b;
 }
 
 .container {
@@ -20,9 +21,9 @@ body {
   box-shadow: 0 0 15px rgba(0,0,0,0.3);
 }
 
-
 h1 {
   margin-bottom: 20px;
+  color: #a6dfe0;
 }
 
 input[type="date"] {
@@ -34,8 +35,13 @@ input[type="date"] {
   margin: 0 auto 15px;
   display: block;
   text-align: center;
+  background: #334155;
+  color: #e0f2f1;
 }
 
+input[type="date"]::placeholder {
+  color: #94a3b8;
+}
 
 button {
   padding: 10px 20px;
@@ -46,6 +52,7 @@ button {
   font-size: 16px;
   cursor: pointer;
   width: 100%;
+  transition: background-color 0.3s ease;
 }
 
 button:hover {
@@ -56,4 +63,27 @@ button:hover {
   margin-top: 20px;
   font-size: 18px;
   line-height: 1.5;
+  color: #a6dfe0;
+}
+
+/* Dark Mode Support */
+body.dark-mode {
+  background: #0f172a;
+  color: #cbd5e1;
+}
+
+body.dark-mode .container {
+  background: #1e293b;
+  box-shadow: 0 0 20px rgba(0, 119, 125, 0.7);
+}
+
+body.dark-mode h1,
+body.dark-mode .result {
+  color: #81e6d9;
+}
+
+body.dark-mode input[type="date"] {
+  background: #475569;
+  color: #cbd5e1;
+  border: 1px solid #64748b;
 }

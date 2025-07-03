@@ -10,152 +10,230 @@
     * {
       box-sizing: border-box;
     }
-    body {
-      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-      background: #f9fafb;
-      margin: 0;
-      padding: 20px;
-      display: flex;
-      justify-content: center;
-      min-height: 100vh;
-      align-items: flex-start;
-    }
-    .container {
-      background: #fff;
-      padding: 25px 30px;
-      border-radius: 10px;
-      max-width: 420px;
-      width: 100%;
-      box-shadow: 0 4px 12px rgba(0,0,0,0.1);
-      margin-top: 70px;
-      margin-bottom: 70px;
-    }
-    h2 {
-      text-align: center;
-      color: #2c3e50;
-      margin-bottom: 25px;
-    }
-    form {
-      display: flex;
-      flex-wrap: wrap;
-      gap: 12px;
-      margin-bottom: 20px;
-    }
-    input[type="text"], input[type="number"], select {
-      padding: 10px 12px;
-      font-size: 15px;
-      border: 1px solid #ccc;
-      border-radius: 6px;
-      flex: 1 1 100%;
-      min-width: 100%;
-    }
-    select {
-      flex: 1 1 45%;
-    }
-    input[type="number"] {
-      flex: 1 1 45%;
-    }
-    button {
-      background-color: #077A7D;
-      color: white;
-      border: none;
-      border-radius: 8px;
-      padding: 12px;
-      font-size: 17px;
-      cursor: pointer;
-      flex: 1 1 100%;
-      transition: background-color 0.3s ease;
-    }
-    button:hover {
-      background-color: #066264;
-    }
-    .summary {
-      display: flex;
-      justify-content: space-between;
-      margin-bottom: 20px;
-      font-weight: 600;
-      font-size: 16px;
-      color: #2c3e50;
-    }
-    .summary div {
-      background: #ecf0f1;
-      padding: 12px 18px;
-      border-radius: 8px;
-      width: 32%;
-      text-align: center;
-      box-shadow: inset 0 1px 2px rgba(0,0,0,0.1);
-    }
-    .income {
-      color: #27ae60;
-    }
-    .expense {
-      color: #c0392b;
-    }
-    .balance {
-      color: #2980b9;
-    }
-    ul#transactionList {
-      list-style: none;
-      padding: 0;
-      max-height: 300px;
-      overflow-y: auto;
-      border: 1px solid #ddd;
-      border-radius: 8px;
-    }
-    ul#transactionList li {
-      display: flex;
-      justify-content: space-between;
-      padding: 12px 15px;
-      border-bottom: 1px solid #eee;
-      font-size: 15px;
-    }
-    ul#transactionList li:last-child {
-      border-bottom: none;
-    }
-    .transaction-name {
-      flex: 1;
-      white-space: nowrap;
-      overflow: hidden;
-      text-overflow: ellipsis;
-    }
-    .transaction-amount {
-      width: 100px;
-      text-align: right;
-      font-weight: 600;
-    }
-    .income-amount {
-      color: #27ae60;
-    }
-    .expense-amount {
-      color: #c0392b;
-    }
-    .delete-btn {
-      background: none;
-      border: none;
-      color: #888;
-      cursor: pointer;
-      font-size: 18px;
-      margin-left: 12px;
-      transition: color 0.2s ease;
-    }
-    .delete-btn:hover {
-      color: #c0392b;
-    }
-    @media (max-width: 480px) {
-      form {
-        flex-direction: column;
-      }
-      select, input[type="number"] {
-        flex: 1 1 100%;
-      }
-      .summary div {
-        width: 100%;
-        margin-bottom: 12px;
-      }
-      .summary {
-        flex-direction: column;
-      }
-    }
+   body {
+  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+  background: #f9fafb;
+  margin: 0;
+  padding: 20px;
+  display: flex;
+  justify-content: center;
+  min-height: 100vh;
+  align-items: flex-start;
+}
+.container {
+  background: #fff;
+  padding: 25px 30px;
+  border-radius: 10px;
+  max-width: 420px;
+  width: 100%;
+  box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+  margin-top: 70px;
+  margin-bottom: 70px;
+}
+h2 {
+  text-align: center;
+  color: #2c3e50;
+  margin-bottom: 25px;
+}
+form {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 12px;
+  margin-bottom: 20px;
+}
+input[type="text"], input[type="number"], select {
+  padding: 10px 12px;
+  font-size: 15px;
+  border: 1px solid #ccc;
+  border-radius: 6px;
+  flex: 1 1 100%;
+  min-width: 100%;
+}
+select {
+  flex: 1 1 45%;
+}
+input[type="number"] {
+  flex: 1 1 45%;
+}
+button {
+  background-color: #077A7D;
+  color: white;
+  border: none;
+  border-radius: 8px;
+  padding: 12px;
+  font-size: 17px;
+  cursor: pointer;
+  flex: 1 1 100%;
+  transition: background-color 0.3s ease;
+}
+button:hover {
+  background-color: #066264;
+}
+.summary {
+  display: flex;
+  justify-content: space-between;
+  margin-bottom: 20px;
+  font-weight: 600;
+  font-size: 16px;
+  color: #2c3e50;
+}
+.summary div {
+  background: #ecf0f1;
+  padding: 12px 18px;
+  border-radius: 8px;
+  width: 32%;
+  text-align: center;
+  box-shadow: inset 0 1px 2px rgba(0,0,0,0.1);
+}
+.income {
+  color: #27ae60;
+}
+.expense {
+  color: #c0392b;
+}
+.balance {
+  color: #2980b9;
+}
+ul#transactionList {
+  list-style: none;
+  padding: 0;
+  max-height: 300px;
+  overflow-y: auto;
+  border: 1px solid #ddd;
+  border-radius: 8px;
+}
+ul#transactionList li {
+  display: flex;
+  justify-content: space-between;
+  padding: 12px 15px;
+  border-bottom: 1px solid #eee;
+  font-size: 15px;
+}
+ul#transactionList li:last-child {
+  border-bottom: none;
+}
+.transaction-name {
+  flex: 1;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+.transaction-amount {
+  width: 100px;
+  text-align: right;
+  font-weight: 600;
+}
+.income-amount {
+  color: #27ae60;
+}
+.expense-amount {
+  color: #c0392b;
+}
+.delete-btn {
+  background: none;
+  border: none;
+  color: #888;
+  cursor: pointer;
+  font-size: 18px;
+  margin-left: 12px;
+  transition: color 0.2s ease;
+}
+.delete-btn:hover {
+  color: #c0392b;
+}
+@media (max-width: 480px) {
+  form {
+    flex-direction: column;
+  }
+  select, input[type="number"] {
+    flex: 1 1 100%;
+  }
+  .summary div {
+    width: 100%;
+    margin-bottom: 12px;
+  }
+  .summary {
+    flex-direction: column;
+  }
+}
+
+/* ======= Dark Mode Styles ======= */
+body.dark-mode {
+  background: #121212;
+  color: #ccc;
+}
+
+body.dark-mode .container {
+  background: #1e1e1e;
+  box-shadow: 0 4px 15px rgba(0,0,0,0.7);
+}
+
+body.dark-mode h2 {
+  color: #80cbc4;
+}
+
+body.dark-mode input[type="text"],
+body.dark-mode input[type="number"],
+body.dark-mode select {
+  background: #2a2a2a;
+  border: 1px solid #555;
+  color: #ddd;
+  box-shadow: none;
+}
+
+body.dark-mode input[type="text"]::placeholder,
+body.dark-mode input[type="number"]::placeholder,
+body.dark-mode select::placeholder {
+  color: #999;
+}
+
+body.dark-mode button {
+  background-color: #009688;
+}
+
+body.dark-mode button:hover {
+  background-color: #00695c;
+}
+
+body.dark-mode .summary {
+  color: #b2dfdb;
+}
+
+body.dark-mode .summary div {
+  background: #263238;
+  box-shadow: none;
+}
+
+body.dark-mode .income {
+  color: #66bb6a;
+}
+
+body.dark-mode .expense {
+  color: #ef5350;
+}
+
+body.dark-mode .balance {
+  color: #42a5f5;
+}
+
+body.dark-mode ul#transactionList {
+  border-color: #555;
+  background: #212121;
+}
+
+body.dark-mode ul#transactionList li {
+  border-bottom: 1px solid #444;
+  color: #ccc;
+}
+
+body.dark-mode .delete-btn {
+  color: #aaa;
+}
+
+body.dark-mode .delete-btn:hover {
+  color: #ef5350;
+}
+
   </style>
 </head>
 <body>

@@ -77,6 +77,85 @@
       padding: 10px;
       border-radius: 8px;
     }
+
+
+    body.dark-mode {
+  font-family: 'Segoe UI', sans-serif;
+  background: #121a26;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100vh;
+  margin: 0;
+  padding: 20px;
+}
+
+body.dark-mode .calculator {
+  background: #1f2a38;
+  padding: 30px 25px;
+  border-radius: 12px;
+  box-shadow: 0 5px 15px rgba(0,0,0,0.7);
+  max-width: 380px;
+  width: 100%;
+  margin-top: 70px;
+  margin-bottom: 70px;
+}
+
+body.dark-mode h2 {
+  text-align: center;
+  color: #a0aec0;
+  margin-bottom: 20px;
+}
+
+body.dark-mode input[type="number"] {
+  width: 100%;
+  padding: 10px;
+  font-size: 17px;
+  margin-bottom: 15px;
+  border: 1px solid #4a5568;
+  border-radius: 6px;
+  box-sizing: border-box;
+  background-color: #2d3748;
+  color: #e2e8f0;
+}
+
+body.dark-mode input[type="number"]::placeholder {
+  color: #718096;
+}
+
+body.dark-mode .buttons {
+  display: flex;
+  justify-content: space-between;
+  flex-wrap: wrap;
+  gap: 10px;
+}
+
+body.dark-mode .buttons button {
+  flex: 1 1 45%;
+  padding: 12px;
+  font-size: 18px;
+  border: none;
+  background-color: #077A7D;
+  color: white;
+  border-radius: 6px;
+  cursor: pointer;
+  transition: 0.3s;
+}
+
+body.dark-mode .buttons button:hover {
+  background-color: #066264;
+}
+
+body.dark-mode .result {
+  margin-top: 20px;
+  text-align: center;
+  font-size: 20px;
+  color: #cbd5e0;
+  background: #2d3748;
+  padding: 10px;
+  border-radius: 8px;
+}
+
   </style>
 </head>
 <body>

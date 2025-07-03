@@ -8,58 +8,114 @@
   <link rel="stylesheet" href="/components/footer.css" />
   <style>
     body {
-      font-family: 'Noto Sans Bengali', sans-serif;
-      background: #f5f5f5;
-      padding: 20px;
-      color: #333;
-    }
-    .margin {
-        margin-top: 100px;
-        margin-bottom: 100px;
-    }
-    .container {
-      max-width: 600px;
-      margin: 40px auto;
-      background: white;
-      padding: 30px;
-      border-radius: 10px;
-      box-shadow: 0 0 10px rgba(0,0,0,0.1);
-    }
-    h2 {
-      text-align: center;
-      color: #007B5E;
-    }
-    label {
-      display: block;
-      margin-top: 15px;
-      font-weight: bold;
-    }
-    input {
-      width: 100%;
-      padding: 10px;
-      margin-top: 5px;
-      font-size: 16px;
-      border: 1px solid #ccc;
-      border-radius: 6px;
-    }
-    button {
-      margin-top: 20px;
-      width: 100%;
-      background: #077A7D;
-      color: white;
-      padding: 12px;
-      font-size: 18px;
-      border: none;
-      border-radius: 6px;
-      cursor: pointer;
-    }
-    .result {
-      margin-top: 25px;
-      padding: 15px;
-      background: #e1f7f3;
-      border-radius: 8px;
-      font-size: 18px;
-    }
+  font-family: 'Noto Sans Bengali', sans-serif;
+  background: #f5f5f5;
+  padding: 20px;
+  color: #333;
+}
+
+.margin {
+  margin-top: 100px;
+  margin-bottom: 100px;
+}
+
+.container {
+  max-width: 600px;
+  margin: 40px auto;
+  background: white;
+  padding: 30px;
+  border-radius: 10px;
+  box-shadow: 0 0 10px rgba(0,0,0,0.1);
+}
+
+h2 {
+  text-align: center;
+  color: #007B5E;
+}
+
+label {
+  display: block;
+  margin-top: 15px;
+  font-weight: bold;
+}
+
+input {
+  width: 100%;
+  padding: 10px;
+  margin-top: 5px;
+  font-size: 16px;
+  border: 1px solid #ccc;
+  border-radius: 6px;
+}
+
+button {
+  margin-top: 20px;
+  width: 100%;
+  background: #077A7D;
+  color: white;
+  padding: 12px;
+  font-size: 18px;
+  border: none;
+  border-radius: 6px;
+  cursor: pointer;
+}
+
+.result {
+  margin-top: 25px;
+  padding: 15px;
+  background: #e1f7f3;
+  border-radius: 8px;
+  font-size: 18px;
+}
+
+/* Dark mode styles */
+body.dark-mode {
+  background: #121b1a;
+  color: #b2dfdb;
+}
+
+body.dark-mode .container {
+  background: #1e2c2b;
+  box-shadow: 0 0 15px rgba(0, 128, 128, 0.5);
+}
+
+body.dark-mode h2 {
+  color: #4db6ac;
+}
+
+body.dark-mode label {
+  color: #a0d8d3;
+}
+
+body.dark-mode input {
+  background: #2a4242;
+  border: 1px solid #4db6ac;
+  color: #b2dfdb;
+}
+
+body.dark-mode input:focus {
+  border-color: #66ccc7;
+  box-shadow: 0 0 8px rgba(102, 204, 199, 0.5);
+  outline: none;
+}
+
+body.dark-mode button {
+  background: #4db6ac;
+  color: #00332e;
+  transition: background 0.3s ease;
+}
+
+body.dark-mode button:hover {
+  background: #357a72;
+  color: #a7ffeb;
+}
+
+body.dark-mode .result {
+  background: #004d40;
+  color: #a7ffeb;
+  box-shadow: 0 0 10px #66ccc7;
+}
+
   </style>
 </head>
 <body>

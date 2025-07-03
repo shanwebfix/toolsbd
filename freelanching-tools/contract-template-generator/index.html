@@ -84,6 +84,110 @@
         font-size: 14px;
       }
     }
+
+
+
+    body.dark-mode {
+  font-family: 'Segoe UI', sans-serif;
+  background: #121a26;
+  margin: 0;
+  padding: 20px;
+  color: #cbd5e0;
+}
+
+body.dark-mode .container {
+  max-width: 900px;
+  margin: auto;
+  background: #1e293b;
+  padding: 25px;
+  border-radius: 10px;
+  box-shadow: 0 4px 12px rgba(0,0,0,0.8);
+  margin-top: 70px;
+  margin-bottom: 70px;
+}
+
+body.dark-mode h1 {
+  text-align: center;
+  color: #7f9cf5;
+  margin-bottom: 25px;
+}
+
+body.dark-mode label {
+  font-weight: 600;
+  display: block;
+  margin: 15px 0 5px;
+  color: #cbd5e0;
+}
+
+body.dark-mode input,
+body.dark-mode textarea {
+  width: 100%;
+  padding: 10px;
+  font-size: 15px;
+  border: 1px solid #475569;
+  border-radius: 6px;
+  box-sizing: border-box;
+  background-color: #334155;
+  color: #cbd5e0;
+}
+
+body.dark-mode textarea {
+  resize: vertical;
+  min-height: 80px;
+}
+
+body.dark-mode input::placeholder,
+body.dark-mode textarea::placeholder {
+  color: #94a3b8;
+}
+
+body.dark-mode button {
+  margin-top: 20px;
+  padding: 12px 20px;
+  background-color: #0f766e;
+  color: white;
+  border: none;
+  border-radius: 6px;
+  font-size: 16px;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+}
+
+body.dark-mode button:hover {
+  background-color: #115e59;
+}
+
+body.dark-mode .contract-box {
+  background: #1e293b;
+  padding: 20px;
+  margin-top: 30px;
+  border: 1px solid #475569;
+  border-radius: 8px;
+  white-space: pre-wrap;
+  color: #cbd5e0;
+}
+
+body.dark-mode .action-buttons {
+  display: flex;
+  gap: 10px;
+  flex-wrap: wrap;
+  margin-top: 10px;
+}
+
+body.dark-mode .action-buttons button {
+  flex: 1;
+}
+
+@media (max-width: 600px) {
+  body.dark-mode input,
+  body.dark-mode textarea {
+    font-size: 14px;
+  }
+  body.dark-mode button {
+    font-size: 14px;
+  }
+}
+
   </style>
 </head>
 <body>

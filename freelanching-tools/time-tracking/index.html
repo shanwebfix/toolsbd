@@ -73,6 +73,86 @@
       font-size: 14px;
     }
   }
+
+
+
+
+  body.dark-mode {
+  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+  background: #121820;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100vh;
+  margin: 0;
+  padding: 15px;
+  color: #cbd5e0;
+}
+
+body.dark-mode .tracker {
+  background: #1e293b;
+  padding: 30px 40px;
+  border-radius: 12px;
+  box-shadow: 0 6px 15px rgba(0,0,0,0.7);
+  max-width: 320px;
+  width: 100%;
+  text-align: center;
+}
+
+body.dark-mode h1 {
+  margin-bottom: 25px;
+  color: #93c5fd;
+}
+
+body.dark-mode #timeDisplay {
+  font-size: 48px;
+  font-weight: 700;
+  margin-bottom: 25px;
+  font-family: 'Courier New', Courier, monospace;
+  letter-spacing: 3px;
+  color: #a5b4fc;
+}
+
+body.dark-mode .buttons {
+  display: flex;
+  justify-content: center;
+  gap: 15px;
+}
+
+body.dark-mode button {
+  background: #0f766e;
+  color: white;
+  border: none;
+  padding: 12px 20px;
+  font-size: 16px;
+  border-radius: 8px;
+  cursor: pointer;
+  flex: 1;
+  transition: background 0.3s ease;
+}
+
+body.dark-mode button:hover {
+  background: #115e59;
+}
+
+body.dark-mode button:disabled {
+  background: #475569;
+  cursor: default;
+}
+
+@media (max-width: 400px) {
+  body.dark-mode .tracker {
+    padding: 20px;
+  }
+  body.dark-mode #timeDisplay {
+    font-size: 36px;
+  }
+  body.dark-mode button {
+    padding: 10px 12px;
+    font-size: 14px;
+  }
+}
+
 </style>
 </head>
 <body>

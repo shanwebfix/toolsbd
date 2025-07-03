@@ -8,58 +8,88 @@
   <link rel="stylesheet" href="/components/footer.css" />
   <style>
     body {
-      font-family: Arial, sans-serif;
-      background: #f4f6f8;
-      margin: 0;
-      padding: 20px;
-      display: flex;
-      justify-content: center;
-      min-height: 100vh;
-    }
-    .container {
-      max-width: 480px;
-      width: 100%;
-      background: #fff;
-      padding: 30px;
-      border-radius: 10px;
-      box-shadow: 0 6px 15px rgba(0,0,0,0.1);
-      margin-top: 70px;
-      margin-bottom: 70px;
-    }
-    h2 {
-      text-align: center;
-      color: #2c3e50;
-      margin-bottom: 25px;
-    }
-    input[type="file"] {
-      width: 100%;
-      margin-bottom: 20px;
-    }
-    button {
-      width: 100%;
-      padding: 12px;
-      font-size: 16px;
-      background-color: #077A7D;
-      color: white;
-      border: none;
-      border-radius: 6px;
-      cursor: pointer;
-      transition: background 0.3s ease;
-    }
-    button:hover {
-      background-color: #066264;
-    }
-    .result {
-      margin-top: 20px;
-      font-size: 15px;
-      background: #ecf0f1;
-      padding: 15px;
-      border-radius: 8px;
-      word-break: break-word;
-    }
-    .hidden {
-      display: none;
-    }
+  font-family: Arial, sans-serif;
+  background: #f4f6f8;
+  margin: 0;
+  padding: 20px;
+  display: flex;
+  justify-content: center;
+  min-height: 100vh;
+}
+.container {
+  max-width: 480px;
+  width: 100%;
+  background: #fff;
+  padding: 30px;
+  border-radius: 10px;
+  box-shadow: 0 6px 15px rgba(0,0,0,0.1);
+  margin-top: 70px;
+  margin-bottom: 70px;
+}
+h2 {
+  text-align: center;
+  color: #2c3e50;
+  margin-bottom: 25px;
+}
+input[type="file"] {
+  width: 100%;
+  margin-bottom: 20px;
+}
+button {
+  width: 100%;
+  padding: 12px;
+  font-size: 16px;
+  background-color: #077A7D;
+  color: white;
+  border: none;
+  border-radius: 6px;
+  cursor: pointer;
+  transition: background 0.3s ease;
+}
+button:hover {
+  background-color: #066264;
+}
+.result {
+  margin-top: 20px;
+  font-size: 15px;
+  background: #ecf0f1;
+  padding: 15px;
+  border-radius: 8px;
+  word-break: break-word;
+}
+.hidden {
+  display: none;
+}
+
+/* ==== Dark Mode ==== */
+body.dark-mode {
+  background: #121212;
+  color: #ccc;
+}
+body.dark-mode .container {
+  background: #1e1e1e;
+  box-shadow: 0 6px 15px rgba(0,0,0,0.7);
+}
+body.dark-mode h2 {
+  color: #80cbc4;
+}
+body.dark-mode input[type="file"] {
+  background: #2a2a2a;
+  border: 1px solid #555;
+  color: #ddd;
+}
+body.dark-mode button {
+  background-color: #009688;
+}
+body.dark-mode button:hover {
+  background-color: #00695c;
+}
+body.dark-mode .result {
+  background: #263238;
+  color: #b2dfdb;
+  box-shadow: none;
+}
+
   </style>
 </head>
 <body>
