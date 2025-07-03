@@ -7,75 +7,116 @@
   <link rel="stylesheet" href="/components/footer.css" />
   <title>বিদ্যুৎ বিল ক্যালকুলেটর</title>
   <style>
-    body {
-      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-      background-color: #f4f8fb;
-      margin: 0;
-      padding: 30px 15px;
-      text-align: center;
-      color: #222;
-    }
+   /* Light Mode (Default) */
+body {
+  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+  background-color: #f4f8fb;
+  margin: 0;
+  padding: 30px 15px;
+  text-align: center;
+  color: #222;
+}
 
-    .container {
-      max-width: 450px;
-      background-color: #fff;
-      margin: auto;
-      padding: 25px 20px;
-      border-radius: 10px;
-      box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
-      margin-top: 70px;
-      margin-bottom: 70px;
-    }
+.container {
+  max-width: 450px;
+  background-color: #fff;
+  margin: auto;
+  padding: 25px 20px;
+  border-radius: 10px;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+  margin-top: 70px;
+  margin-bottom: 70px;
+}
 
-    h1 {
-      margin-bottom: 25px;
-      color: #2a4d69;
-    }
+h1 {
+  margin-bottom: 25px;
+  color: #2a4d69;
+}
 
-    label {
-      display: block;
-      margin: 15px 0 6px;
-      font-weight: 600;
-      font-size: 16px;
-    }
+label {
+  display: block;
+  margin: 15px 0 6px;
+  font-weight: 600;
+  font-size: 16px;
+}
 
-    input[type="number"] {
-      width: 100%;
-      padding: 10px 12px;
-      font-size: 16px;
-      border-radius: 6px;
-      border: 1px solid #ccc;
-      box-sizing: border-box;
-    }
+input[type="number"] {
+  width: 100%;
+  padding: 10px 12px;
+  font-size: 16px;
+  border-radius: 6px;
+  border: 1px solid #ccc;
+  box-sizing: border-box;
+}
 
-    button {
-      margin-top: 20px;
-      background-color: #2a4d69;
-      color: white;
-      padding: 12px 25px;
-      font-size: 16px;
-      border: none;
-      border-radius: 7px;
-      cursor: pointer;
-      transition: background-color 0.3s ease;
-    }
+button {
+  margin-top: 20px;
+  background-color: #2a4d69;
+  color: white;
+  padding: 12px 25px;
+  font-size: 16px;
+  border: none;
+  border-radius: 7px;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+}
 
-    button:hover {
-      background-color: #1e3550;
-    }
+button:hover {
+  background-color: #1e3550;
+}
 
-    .result {
-      margin-top: 30px;
-      font-size: 20px;
-      font-weight: 700;
-      color: #1e3550;
-    }
+.result {
+  margin-top: 30px;
+  font-size: 20px;
+  font-weight: 700;
+  color: #1e3550;
+}
 
-    @media (max-width: 480px) {
-      .container {
-        padding: 20px 15px;
-      }
-    }
+@media (max-width: 480px) {
+  .container {
+    padding: 20px 15px;
+  }
+}
+
+/* Dark Mode Overrides */
+body.dark-mode {
+  background-color: #0f172a;
+  color: #e2e8f0;
+}
+
+body.dark-mode .container {
+  background-color: #1e293b;
+  box-shadow: 0 4px 12px rgba(255, 255, 255, 0.05);
+  color: #e2e8f0;
+}
+
+body.dark-mode h1 {
+  color: #bfdbfe;
+}
+
+body.dark-mode label {
+  color: #cbd5e1;
+}
+
+body.dark-mode input[type="number"] {
+  background-color: #334155;
+  color: #e2e8f0;
+  border: 1px solid #475569;
+}
+
+body.dark-mode button {
+  background-color: #2a4d69; /* keep same as light mode button color */
+  color: white;
+}
+
+body.dark-mode button:hover {
+  background-color: #1e3550; /* keep same hover */
+}
+
+body.dark-mode .result {
+  color: #93c5fd;
+}
+
   </style>
 </head>
 <body>

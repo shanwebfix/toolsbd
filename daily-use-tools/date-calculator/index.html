@@ -7,79 +7,129 @@
   <link rel="stylesheet" href="/components/header.css" />
   <link rel="stylesheet" href="/components/footer.css" />
   <style>
-    body {
-      font-family: 'Segoe UI', sans-serif;
-      background: #f0f4f8;
-      margin: 0;
-      padding: 20px;
-      display: flex;
-      justify-content: center;
-    }
+   /* Light Mode (default) */
+body {
+  font-family: 'Segoe UI', sans-serif;
+  background: #f0f4f8;
+  margin: 0;
+  padding: 20px;
+  display: flex;
+  justify-content: center;
+  color: #2c3e50;
+}
 
-    .container {
-      background: #fff;
-      max-width: 500px;
-      width: 100%;
-      padding: 30px;
-      border-radius: 10px;
-      box-shadow: 0 5px 15px rgba(0,0,0,0.1);
-      margin-top: 70px;
-      margin-bottom: 70px;
-    }
+.container {
+  background: #fff;
+  max-width: 500px;
+  width: 100%;
+  padding: 30px;
+  border-radius: 10px;
+  box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+  margin-top: 70px;
+  margin-bottom: 70px;
+}
 
-    h2 {
-      text-align: center;
-      color: #2c3e50;
-      margin-bottom: 25px;
-    }
+h2 {
+  text-align: center;
+  color: #2c3e50;
+  margin-bottom: 25px;
+}
 
-    label {
-      font-weight: bold;
-      display: block;
-      margin-top: 10px;
-      margin-bottom: 6px;
-      color: #34495e;
-    }
+label {
+  font-weight: bold;
+  display: block;
+  margin-top: 10px;
+  margin-bottom: 6px;
+  color: #34495e;
+}
 
-    input[type="date"] {
-      width: 100%;
-      padding: 10px;
-      border-radius: 6px;
-      border: 1px solid #ccc;
-      font-size: 16px;
-    }
+input[type="date"] {
+  width: 100%;
+  padding: 10px;
+  border-radius: 6px;
+  border: 1px solid #ccc;
+  font-size: 16px;
+  color: #2c3e50;
+  background: #fff;
+}
 
-    button {
-      margin-top: 20px;
-      padding: 12px;
-      width: 100%;
-      background-color: #077A7D;
-      color: white;
-      font-size: 17px;
-      border: none;
-      border-radius: 8px;
-      cursor: pointer;
-    }
+button {
+  margin-top: 20px;
+  padding: 12px;
+  width: 100%;
+  background-color: #077A7D;
+  color: white;
+  font-size: 17px;
+  border: none;
+  border-radius: 8px;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+}
 
-    button:hover {
-      background-color: #066264;
-    }
+button:hover {
+  background-color: #066264;
+}
 
-    .result {
-      margin-top: 20px;
-      background: #ecf0f1;
-      padding: 15px;
-      font-size: 18px;
-      border-radius: 8px;
-      color: #2c3e50;
-      text-align: center;
-    }
+.result {
+  margin-top: 20px;
+  background: #ecf0f1;
+  padding: 15px;
+  font-size: 18px;
+  border-radius: 8px;
+  color: #2c3e50;
+  text-align: center;
+}
 
-    @media(max-width: 480px) {
-      .container {
-        padding: 20px;
-      }
-    }
+/* Responsive */
+@media(max-width: 480px) {
+  .container {
+    padding: 20px;
+  }
+}
+
+
+/* Dark Mode */
+body.dark-mode {
+  background: #121b22;
+  color: #cbd5e1;
+  display: flex;
+  justify-content: center;
+}
+
+body.dark-mode .container {
+  background: #1e293b;
+  box-shadow: 0 5px 15px rgba(0,0,0,0.6);
+}
+
+body.dark-mode h2 {
+  color: #93c5fd;
+}
+
+body.dark-mode label {
+  color: #a0aec0;
+}
+
+body.dark-mode input[type="date"] {
+  background: #334155;
+  border: 1px solid #475569;
+  color: #e2e8f0;
+}
+
+body.dark-mode button {
+  background-color: #077A7D;
+  color: white;
+  border: none;
+}
+
+body.dark-mode button:hover {
+  background-color: #066264;
+}
+
+body.dark-mode .result {
+  background: #334155;
+  color: #93fdc3;
+}
+
   </style>
 </head>
 <body>

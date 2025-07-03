@@ -1,3 +1,37 @@
+/* Light Mode (default) */
+:root {
+  --bg-color: #ffffff;
+  --text-color: #000000;
+  --container-bg: #ffffff;
+  --container-border: #ddd;
+  --container-shadow: rgba(0, 0, 0, 0.15);
+  --sample-text-bg: #f3f4f6;
+  --correct-bg: #22c55e;
+  --correct-color: black;
+  --incorrect-bg: #ef4444;
+  --incorrect-color: white;
+  --button-bg: #077A7D;
+  --button-bg-hover: #066264;
+  --textarea-color: black;
+}
+
+/* Dark Mode */
+body.dark-mode {
+  --bg-color: #1e293b;
+  --text-color: #e2e8f0;
+  --container-bg: #334155;
+  --container-border: #475569;
+  --container-shadow: rgba(0, 0, 0, 0.8);
+  --sample-text-bg: #1e293b;
+  --correct-bg: #22c55e;
+  --correct-color: black;
+  --incorrect-bg: #ef4444;
+  --incorrect-color: white;
+  --button-bg: #0f766e;
+  --button-bg-hover: #115e59;
+  --textarea-color: #e2e8f0;
+}
+
 /* Global */
 * {
   box-sizing: border-box;
@@ -6,19 +40,20 @@
 body {
   margin: 0;
   padding: 100px 20px 20px;
-  color: #ffffff;
+  color: var(--text-color);
+  background-color: var(--bg-color);
   font-family: Arial, sans-serif;
 }
 
 .container {
   max-width: 600px;
   margin: 0 auto;
-  background: #ffffff;
+  background: var(--container-bg);
   padding: 30px;
   border-radius: 15px;
   text-align: center;
-  box-shadow: 0 0 15px rgba(0,0,0,0.3);
-  border: solid 1px #ddd;
+  box-shadow: 0 0 15px var(--container-shadow);
+  border: solid 1px var(--container-border);
 }
 
 h1 {
@@ -27,7 +62,7 @@ h1 {
 
 /* Sample text styled with spans */
 #sample-text {
-  background: #334155;
+  background: var(--sample-text-bg);
   padding: 15px;
   border-radius: 8px;
   margin-bottom: 15px;
@@ -41,13 +76,13 @@ h1 {
 
 /* Span styling */
 .correct {
-  background-color: #22c55e;  /* green */
-  color: black;
+  background-color: var(--correct-bg);
+  color: var(--correct-color);
 }
 
 .incorrect {
-  background-color: #ef4444;  /* red */
-  color: white;
+  background-color: var(--incorrect-bg);
+  color: var(--incorrect-color);
 }
 
 textarea {
@@ -58,12 +93,13 @@ textarea {
   border: none;
   resize: none;
   margin-bottom: 15px;
-  color: black;
+  color: var(--textarea-color);
+  background-color: transparent;
 }
 
 button {
   padding: 10px 20px;
-  background: #077A7D;
+  background: var(--button-bg);
   border: none;
   border-radius: 6px;
   color: white;
@@ -71,10 +107,11 @@ button {
   cursor: pointer;
   width: 100%;
   margin-bottom: 10px;
+  transition: background-color 0.3s ease;
 }
 
 button:hover {
-  background: #066264;
+  background: var(--button-bg-hover);
 }
 
 #timer, #wpm-result {

@@ -7,106 +7,155 @@
   <link rel="stylesheet" href="/components/footer.css" />
   <title>জন্ম সনদ আবেদন তথ্য</title>
   <style>
-    body {
-      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-      background: #f9fafb;
-      margin: 0;
-      padding: 30px 20px;
-      color: #222;
-      text-align: center;
-    }
+/* 🌞 Light Mode (Default) */
+* {
+  box-sizing: border-box;
+}
 
-    .container {
-      max-width: 700px;
-      background: #fff;
-      margin: auto;
-      padding: 30px 25px;
-      border-radius: 10px;
-      box-shadow: 0 4px 12px rgba(0,0,0,0.1);
-      margin-top: 70px;
-      margin-bottom: 70px;
-    }
+body {
+  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+  background: #f9fafb;
+  margin: 0;
+  padding: 30px 20px;
+  color: #222;
+  text-align: center;
+}
 
-    h1 {
-      font-size: 26px;
-      margin-bottom: 20px;
-      color: #2a4d69;
-    }
+.container {
+  max-width: 700px;
+  background: #fff;
+  margin: auto;
+  padding: 30px 25px;
+  border-radius: 10px;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+  margin-top: 70px;
+  margin-bottom: 70px;
+}
 
-    p {
-      font-size: 16px;
-      line-height: 1.7;
-      margin-bottom: 20px;
-      color: #444;
-      text-align: justify;
-    }
+h1 {
+  font-size: 26px;
+  margin-bottom: 20px;
+  color: #2a4d69;
+}
 
-    .link-section {
-      background: #e6f0ff;
-      border: 1px solid #b8d0ff;
-      padding: 15px 20px;
-      border-radius: 8px;
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-      gap: 12px;
-      flex-wrap: wrap;
-      word-break: break-word;
-    }
+p {
+  font-size: 16px;
+  line-height: 1.7;
+  margin-bottom: 20px;
+  color: #444;
+  text-align: justify;
+}
 
-    .link-text {
-      font-weight: 600;
-      color: #1565c0;
-      font-size: 15px;
-      flex: 1;
-      text-align: left;
-    }
+.link-section {
+  background: #e6f0ff;
+  border: 1px solid #b8d0ff;
+  padding: 15px 20px;
+  border-radius: 8px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 12px;
+  flex-wrap: wrap;
+  word-break: break-word;
+}
 
-    .button-group {
-      display: flex;
-      gap: 10px;
-    }
+.link-text {
+  font-weight: 600;
+  color: #1565c0;
+  font-size: 15px;
+  flex: 1;
+  text-align: left;
+}
 
-    button, .visit-btn {
-      background-color: #1565c0;
-      color: white;
-      border: none;
-      border-radius: 6px;
-      padding: 8px 15px;
-      font-size: 14px;
-      cursor: pointer;
-      transition: background-color 0.3s ease;
-      white-space: nowrap;
-      user-select: none;
-    }
+.button-group {
+  display: flex;
+  gap: 10px;
+}
 
-    button:hover, .visit-btn:hover {
-      background-color: #0d3b7a;
-    }
+button,
+.visit-btn {
+  background-color: #077A7D;
+  color: white;
+  border: none;
+  border-radius: 6px;
+  padding: 8px 15px;
+  font-size: 14px;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+  white-space: nowrap;
+  user-select: none;
+  text-decoration: none;
+  display: inline-block;
+  line-height: 1;
+}
 
-    .visit-btn {
-      text-decoration: none;
-      display: inline-block;
-      line-height: 1;
-    }
+button:hover,
+.visit-btn:hover {
+  background-color: #066264;
+}
 
-    .copied-msg {
-      margin-top: 15px;
-      color: green;
-      font-size: 14px;
-      display: none;
-    }
+.copied-msg {
+  margin-top: 15px;
+  color: green;
+  font-size: 14px;
+  display: none;
+}
 
-    @media (max-width: 500px) {
-      .link-section {
-        flex-direction: column;
-        align-items: flex-start;
-      }
-      .button-group {
-        width: 100%;
-        justify-content: flex-start;
-      }
-    }
+@media (max-width: 500px) {
+  .link-section {
+    flex-direction: column;
+    align-items: flex-start;
+  }
+
+  .button-group {
+    width: 100%;
+    justify-content: flex-start;
+  }
+}
+/* 🌙 Dark Mode Overrides */
+body.dark-mode {
+  background-color: #0f172a;
+  color: #f1f5f9;
+}
+
+body.dark-mode .container {
+  background-color: #1e293b;
+  color: #f1f5f9;
+  box-shadow: 0 4px 12px rgba(255, 255, 255, 0.05);
+}
+
+body.dark-mode h1 {
+  color: #bfdbfe;
+}
+
+body.dark-mode p {
+  color: #cbd5e1;
+}
+
+body.dark-mode .link-section {
+  background: #c7ebf1;
+  border: 1px solid #a6bfe6;
+}
+
+body.dark-mode .link-text {
+  color: #000000;
+}
+
+body.dark-mode button,
+body.dark-mode .visit-btn {
+  background-color: #077A7D;
+  color: white;
+}
+
+body.dark-mode button:hover,
+body.dark-mode .visit-btn:hover {
+  background-color: #066264;
+}
+
+body.dark-mode .copied-msg {
+  color: #34d399;
+}
+
   </style>
 </head>
 <body>

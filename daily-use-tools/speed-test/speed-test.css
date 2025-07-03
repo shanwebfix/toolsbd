@@ -106,3 +106,46 @@ button:hover {
     font-size: 14px;
   }
 }
+
+
+
+body.dark-mode {
+  background-color: #121212;
+  color: #ddd;
+}
+
+body.dark-mode .speed-test {
+  background: #1a1a2e;
+  box-shadow: 0 0 15px rgba(255, 255, 255, 0.1);
+  color: #ccc;
+}
+
+body.dark-mode h2 {
+  color: #e0e0e0;
+}
+
+body.dark-mode .main-speed {
+  color: #7efc7e;
+}
+
+body.dark-mode .sub-speed {
+  color: #a0a0a0;
+}
+
+body.dark-mode button {
+  background: #0d9488;
+  color: #eee;
+}
+
+body.dark-mode button:hover {
+  background: #0a6f6f;
+}
+
+body.dark-mode .status {
+  color: #888;
+}
+
+body.dark-mode .info {
+  color: #aaa;
+  border-top: 1px solid #444a5a;
+}

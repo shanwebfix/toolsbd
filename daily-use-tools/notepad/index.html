@@ -8,114 +8,193 @@
   <link rel="stylesheet" href="/components/footer.css" />
   <style>
     body {
-      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-      background: #f9fafb;
-      margin: 0;
-      padding: 20px;
-      display: flex;
-      justify-content: center;
-      min-height: 100vh;
-      box-sizing: border-box;
-    }
-    .container {
-      width: 100%;
-      max-width: 700px;
-      background: #fff;
-      border-radius: 10px;
-      box-shadow: 0 5px 15px rgba(0,0,0,0.1);
-      padding: 20px;
-      display: flex;
-      flex-direction: column;
-      margin-top: 70px;
-      margin-bottom: 70px;
-    }
-    h2 {
-      text-align: center;
-      color: #2c3e50;
-      margin-bottom: 15px;
-    }
-    textarea {
-      width: 100%;
-      height: 150px;
-      padding: 15px;
-      font-size: 16px;
-      border: 1px solid #ccc;
-      border-radius: 8px;
-      font-family: monospace;
-      resize: vertical;
-      box-sizing: border-box;
-    }
-    .buttons {
-      margin-top: 12px;
-      display: flex;
-      justify-content: flex-end;
-      gap: 10px;
-    }
-    button {
-      padding: 10px 18px;
-      font-size: 16px;
-      font-weight: 600;
-      border-radius: 8px;
-      border: none;
-      cursor: pointer;
-      color: white;
-      transition: background-color 0.3s ease;
-    }
-    button#saveBtn {
-      background-color: #077A7D;
-    }
-    button#saveBtn:hover {
-      background-color: #066264;
-    }
-    button#clearBtn {
-      background-color: #e74c3c;
-    }
-    button#clearBtn:hover {
-      background-color: #c0392b;
-    }
-    .notes-list {
-      margin-top: 25px;
-      display: flex;
-      flex-direction: column;
-      gap: 15px;
-      max-height: 350px;
-      overflow-y: auto;
-      border-top: 1px solid #ddd;
-      padding-top: 15px;
-    }
-    .note-item {
-      background: #ecf0f1;
-      padding: 15px;
-      border-radius: 8px;
-      position: relative;
-      white-space: pre-wrap;
-      font-family: monospace;
-      color: #2c3e50;
-    }
-    .note-item button.delete-btn {
-      position: absolute;
-      top: 8px;
-      right: 8px;
-      background: #e74c3c;
-      border: none;
-      border-radius: 5px;
-      color: white;
-      cursor: pointer;
-      padding: 4px 8px;
-      font-size: 12px;
-      transition: background-color 0.3s ease;
-    }
-    .note-item button.delete-btn:hover {
-      background: #c0392b;
-    }
-    @media (max-width: 600px) {
-      .container {
-        padding: 15px;
-      }
-      textarea {
-        height: 120px;
-      }
-    }
+  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+  background: #f9fafb;
+  margin: 0;
+  padding: 20px;
+  display: flex;
+  justify-content: center;
+  min-height: 100vh;
+  box-sizing: border-box;
+}
+
+.container {
+  width: 100%;
+  max-width: 700px;
+  background: #fff;
+  border-radius: 10px;
+  box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+  padding: 20px;
+  display: flex;
+  flex-direction: column;
+  margin-top: 70px;
+  margin-bottom: 70px;
+}
+
+h2 {
+  text-align: center;
+  color: #2c3e50;
+  margin-bottom: 15px;
+}
+
+textarea {
+  width: 100%;
+  height: 150px;
+  padding: 15px;
+  font-size: 16px;
+  border: 1px solid #ccc;
+  border-radius: 8px;
+  font-family: monospace;
+  resize: vertical;
+  box-sizing: border-box;
+}
+
+.buttons {
+  margin-top: 12px;
+  display: flex;
+  justify-content: flex-end;
+  gap: 10px;
+}
+
+button {
+  padding: 10px 18px;
+  font-size: 16px;
+  font-weight: 600;
+  border-radius: 8px;
+  border: none;
+  cursor: pointer;
+  color: white;
+  transition: background-color 0.3s ease;
+}
+
+button#saveBtn {
+  background-color: #077A7D;
+}
+
+button#saveBtn:hover {
+  background-color: #066264;
+}
+
+button#clearBtn {
+  background-color: #e74c3c;
+}
+
+button#clearBtn:hover {
+  background-color: #c0392b;
+}
+
+.notes-list {
+  margin-top: 25px;
+  display: flex;
+  flex-direction: column;
+  gap: 15px;
+  max-height: 350px;
+  overflow-y: auto;
+  border-top: 1px solid #ddd;
+  padding-top: 15px;
+}
+
+.note-item {
+  background: #ecf0f1;
+  padding: 15px;
+  border-radius: 8px;
+  position: relative;
+  white-space: pre-wrap;
+  font-family: monospace;
+  color: #2c3e50;
+}
+
+.note-item button.delete-btn {
+  position: absolute;
+  top: 8px;
+  right: 8px;
+  background: #e74c3c;
+  border: none;
+  border-radius: 5px;
+  color: white;
+  cursor: pointer;
+  padding: 4px 8px;
+  font-size: 12px;
+  transition: background-color 0.3s ease;
+}
+
+.note-item button.delete-btn:hover {
+  background: #c0392b;
+}
+
+@media (max-width: 600px) {
+  .container {
+    padding: 15px;
+  }
+  textarea {
+    height: 120px;
+  }
+}
+body.dark-mode {
+  background: #121b22;
+  color: #cbd5e1;
+  display: flex;
+  justify-content: center;
+  min-height: 100vh;
+  box-sizing: border-box;
+}
+
+body.dark-mode .container {
+  background: #1e293b;
+  box-shadow: 0 5px 15px rgba(0,0,0,0.6);
+}
+
+body.dark-mode h2 {
+  color: #93c5fd;
+}
+
+body.dark-mode textarea {
+  background: #334155;
+  border: 1px solid #475569;
+  color: #e2e8f0;
+  font-family: monospace;
+}
+
+body.dark-mode .buttons button#saveBtn {
+  background-color: #077A7D;
+  color: white;
+}
+
+body.dark-mode .buttons button#saveBtn:hover {
+  background-color: #066264;
+}
+
+body.dark-mode .buttons button#clearBtn {
+  background-color: #e74c3c;
+  color: white;
+}
+
+body.dark-mode .buttons button#clearBtn:hover {
+  background-color: #c0392b;
+}
+
+body.dark-mode .notes-list {
+  border-top: 1px solid #475569;
+}
+
+body.dark-mode .note-item {
+  background: #334155;
+  color: #cbd5e1;
+  position: relative;
+  white-space: pre-wrap;
+  font-family: monospace;
+  border-radius: 8px;
+}
+
+body.dark-mode .note-item button.delete-btn {
+  background: #e74c3c;
+  color: white;
+}
+
+body.dark-mode .note-item button.delete-btn:hover {
+  background: #c0392b;
+}
+
   </style>
 </head>
 <body>

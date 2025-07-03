@@ -3,26 +3,30 @@
   box-sizing: border-box;
 }
 
+/* Light Mode (default) */
 body {
   margin: 0;
   padding: 100px 20px 20px;
-  color: #ffffff;
+  color: #222;
   font-family: Arial, sans-serif;
+  background: #f9fafb;
+  text-align: center;
 }
 
 .container {
   max-width: 600px;
   margin: 0 auto;
-  background: #1e293b;
+  background: #fff;
   padding: 30px;
   border-radius: 15px;
+  box-shadow: 0 0 15px rgba(0,0,0,0.1);
   text-align: center;
-  box-shadow: 0 0 15px rgba(0,0,0,0.3);
 }
 
 h1 {
   margin-bottom: 20px;
   font-size: 24px;
+  color: #222;
 }
 
 /* Unified styles for input and button */
@@ -33,7 +37,7 @@ button {
   padding: 12px 16px;
   font-size: 16px;
   border-radius: 6px;
-  border: none;
+  border: 1px solid #ccc;
   margin: 10px auto;
   display: block;
   text-align: center;
@@ -44,6 +48,7 @@ button {
   background: #077A7D;
   color: white;
   cursor: pointer;
+  border: none;
   transition: background 0.3s ease;
 }
 
@@ -55,5 +60,40 @@ button:hover {
   margin-top: 20px;
   font-size: 18px;
   font-weight: bold;
+  color: #077A7D;
+}
+
+/* Dark Mode */
+body.dark-mode {
+  background: #1e293b;
+  color: #e0e0e0;
+}
+
+body.dark-mode .container {
+  background: #1e293b;
+  box-shadow: 0 0 15px rgba(0,0,0,0.3);
+}
+
+body.dark-mode h1 {
+  color: #8fe5e1;
+}
+
+body.dark-mode input[type="number"] {
+  background: #334155;
+  border: none;
+  color: #cbd5e1;
+}
+
+body.dark-mode button {
+  background: #077A7D; /* same button color */
+  color: white;
+  border: none;
+}
+
+body.dark-mode button:hover {
+  background: #066264; /* same hover */
+}
+
+body.dark-mode .result {
   color: #8fe5e1;
 }

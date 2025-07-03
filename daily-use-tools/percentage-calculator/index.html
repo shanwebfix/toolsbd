@@ -7,84 +7,127 @@
   <link rel="stylesheet" href="/components/header.css" />
   <link rel="stylesheet" href="/components/footer.css" />
   <style>
-    body {
-      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-      background: #f9fafb;
-      display: flex;
-      justify-content: center;
-      align-items: center;
-      height: 100vh;
-      margin: 0;
-      padding: 20px;
-    }
+    /* Light Mode (তোমার দেওয়া) */
+body {
+  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+  background: #f9fafb;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100vh;
+  margin: 0;
+  padding: 20px;
+}
 
-    .calculator {
-      background: #fff;
-      padding: 30px 35px;
-      border-radius: 10px;
-      box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
-      max-width: 400px;
-      width: 100%;
-      margin-top: 70px;
-      margin-bottom: 70px;
-    }
+.calculator {
+  background: #fff;
+  padding: 30px 35px;
+  border-radius: 10px;
+  box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+  max-width: 400px;
+  width: 100%;
+  margin-top: 70px;
+  margin-bottom: 70px;
+}
 
-    h2 {
-      text-align: center;
-      color: #2c3e50;
-      margin-bottom: 25px;
-    }
+h2 {
+  text-align: center;
+  color: #2c3e50;
+  margin-bottom: 25px;
+}
 
-    label {
-      display: block;
-      font-weight: 600;
-      margin-top: 15px;
-      margin-bottom: 8px;
-      color: #34495e;
-    }
+label {
+  display: block;
+  font-weight: 600;
+  margin-top: 15px;
+  margin-bottom: 8px;
+  color: #34495e;
+}
 
-    input[type="number"] {
-      width: 100%;
-      padding: 10px 12px;
-      font-size: 16px;
-      border: 1px solid #ccc;
-      border-radius: 6px;
-      box-sizing: border-box;
-    }
+input[type="number"] {
+  width: 100%;
+  padding: 10px 12px;
+  font-size: 16px;
+  border: 1px solid #ccc;
+  border-radius: 6px;
+  box-sizing: border-box;
+  background: white;
+  color: #333;
+}
 
-    button {
-      margin-top: 25px;
-      width: 100%;
-      padding: 12px;
-      background-color: #077A7D;
-      color: white;
-      border: none;
-      border-radius: 8px;
-      font-size: 18px;
-      cursor: pointer;
-      transition: background-color 0.3s ease;
-    }
+button {
+  margin-top: 25px;
+  width: 100%;
+  padding: 12px;
+  background-color: #077A7D;
+  color: white;
+  border: none;
+  border-radius: 8px;
+  font-size: 18px;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+}
 
-    button:hover {
-      background-color: #066264;
-    }
+button:hover {
+  background-color: #066264;
+}
 
-    .result {
-      margin-top: 25px;
-      background: #ecf0f1;
-      padding: 15px;
-      border-radius: 8px;
-      font-size: 18px;
-      color: #2c3e50;
-      text-align: center;
-      min-height: 48px;
-    }
+.result {
+  margin-top: 25px;
+  background: #ecf0f1;
+  padding: 15px;
+  border-radius: 8px;
+  font-size: 18px;
+  color: #2c3e50;
+  text-align: center;
+  min-height: 48px;
+}
 
-    @media (max-width: 400px) {
-      .calculator {
-        padding: 20px;
-      }
-    }
+@media (max-width: 400px) {
+  .calculator {
+    padding: 20px;
+  }
+}
+
+/* Dark Mode */
+body.dark-mode {
+  background: #121212;
+  color: #ddd;
+}
+
+body.dark-mode .calculator {
+  background: #1e1e1e;
+  box-shadow: 0 5px 15px rgba(255, 255, 255, 0.1);
+}
+
+body.dark-mode h2 {
+  color: #e0e0e0;
+}
+
+body.dark-mode label {
+  color: #bbb;
+}
+
+body.dark-mode input[type="number"] {
+  background: #2c2c2c;
+  color: #eee;
+  border: 1px solid #555;
+}
+
+body.dark-mode button {
+  background-color: #0d9488;
+  color: white;
+}
+
+body.dark-mode button:hover {
+  background-color: #0a6f6f;
+}
+
+body.dark-mode .result {
+  background: #333;
+  color: #a0f0e0;
+}
+
   </style>
 </head>
 <body>
