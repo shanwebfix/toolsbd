@@ -12,8 +12,11 @@
         <li><a href="services.html">Services</a></li>
         <li><a href="contact.html">Contact</a></li>
         <li class="desktop-toggle">
-          <button id="toggleTheme" title="Toggle Dark Mode">🌓</button>
-        </li>
+  <label class="theme-switch" title="Toggle Dark Mode">
+    <input type="checkbox" id="toggleTheme">
+    <span class="slider"></span>
+  </label>
+</li>
       </ul>
     </nav>
 
@@ -25,7 +28,11 @@
   <!-- Mobile Full Canvas -->
 <div id="mobileCanvas" class="mobile-canvas">
   <div class="canvas-header">
+    
     <h2></h2>
+   
+
+  
     <button id="closeCanvas" title="Close Menu">&times;</button>
   </div>
 
@@ -46,6 +53,31 @@
       </nav>
     </section>
 
+
+
+<!-- Section: Settings -->
+<section class="canvas-section">
+  <div class="section-header">
+    <h3>Settings</h3>
+  </div>
+
+  <nav class="canvas-nav">
+    <ul>
+      <li class="setting-item">
+        <span class="setting-label">Dark Mode</span>
+        <label class="theme-switch" title="Toggle Dark Mode">
+          <input type="checkbox" id="toggleThemeCanvas">
+          <span class="slider"></span>
+        </label>
+      </li>
+      <li><a href="index.html" class="canvas-link">Profile</a></li>
+      <li><a href="about.html" class="canvas-link">Deshboard</a></li>
+      <li><a href="services.html" class="canvas-link">Information</a></li>
+    </ul>
+  </nav>
+</section>
+
+
     <!-- Section: Others -->
     <section class="canvas-section">
       <div class="section-header">
@@ -63,14 +95,6 @@
       </nav>
     </section>
 
-    <!-- Section: Settings -->
-    <section class="canvas-section">
-      <div class="section-header">
-        <h3>Settings</h3>
-        <button id="toggleThemeCanvas" title="Toggle Dark Mode">🌓</button>
-      </div>
-    </section>
-  </div>
-</div>
+    
 
 </header>
