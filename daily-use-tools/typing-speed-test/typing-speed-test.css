@@ -13,11 +13,12 @@ body {
 .container {
   max-width: 600px;
   margin: 0 auto;
-  background: #1e293b;
+  background: #ffffff;
   padding: 30px;
   border-radius: 15px;
   text-align: center;
   box-shadow: 0 0 15px rgba(0,0,0,0.3);
+  border: solid 1px #ddd;
 }
 
 h1 {
@@ -62,7 +63,7 @@ textarea {
 
 button {
   padding: 10px 20px;
-  background: #3b82f6;
+  background: #077A7D;
   border: none;
   border-radius: 6px;
   color: white;
@@ -73,7 +74,7 @@ button {
 }
 
 button:hover {
-  background: #2563eb;
+  background: #066264;
 }
 
 #timer, #wpm-result {

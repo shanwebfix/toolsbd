@@ -38,7 +38,7 @@ input[type="text"] {
 button {
   width: 100%;
   padding: 12px 0;
-  background: #3b82f6;
+  background: #077A7D;
   border: none;
   border-radius: 6px;
   color: white;
@@ -47,7 +47,7 @@ button {
 }
 
 button:hover {
-  background: #2563eb;
+  background: #066264;
 }
 
 #qrcode {

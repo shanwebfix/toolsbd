@@ -24,7 +24,7 @@ footer {
       align-items: center;
       justify-content: center;
       text-decoration: none;
-      color: #555;
+      color: #077A7D;
       font-size: 13px;
     }
 
@@ -34,5 +34,5 @@ footer {
     }
 
     .footer-menu a:hover {
-      color: #007bff;
+      color: #066264;
     }
