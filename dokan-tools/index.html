@@ -2,7 +2,28 @@
 <html lang="en">
 <head>
 
-  <script>(function(){const t=localStorage.getItem("theme");const d=window.matchMedia("(prefers-color-scheme: dark)").matches;if(t==="dark"||(!t&&d)){document.documentElement.classList.add("dark");}})();</script>
+  <script>
+  (function () {
+    try {
+      const theme = localStorage.getItem('theme');
+      const prefersDark = window.matchMedia('(prefers-color-scheme: dark)').matches;
+
+      if (theme === 'dark' || (!theme && prefersDark)) {
+        document.documentElement.classList.add('dark-mode');
+
+        // Load dark.css synchronously (before render)
+        const link = document.createElement('link');
+        link.rel = 'stylesheet';
+        link.href = '/css/dark.css';
+        link.id = 'darkCSS';
+        document.head.appendChild(link);
+      }
+    } catch (e) {
+      console.error('Theme preload error:', e);
+    }
+  })();
+</script>
+
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
   <title>ToolsBD - Free Tools Collections</title>
