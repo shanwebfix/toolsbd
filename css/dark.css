@@ -4,7 +4,10 @@ body.dark-mode {
   color: #e2e8f0;
 }
 
-
+html.dark-mode {
+    background: #121212;
+    color: #e0e0e0;
+  }
 
 
 /* Dark Mode Override for Header */

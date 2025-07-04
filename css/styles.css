@@ -16,6 +16,10 @@ body {
   min-height: 100vh;
   padding: 100px 70px 50px;
 }
+html.dark-mode {
+    background: #121212;
+    color: #e0e0e0;
+  }
 
 /* Responsive body padding */
 @media (max-width: 768px) {
