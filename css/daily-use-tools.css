@@ -1,5 +1,5 @@
 /* Main Section */
-html.dark-mode {
+html.dark-mode body{
     background: #121212;
     
   }
@@ -98,3 +98,8 @@ html.dark-mode {
     font-size: 14px;
   }
 }
+
+
+
+html.dark-mode .clickable-box {
+  background: #121212;}

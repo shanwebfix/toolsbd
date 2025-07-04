@@ -20,7 +20,7 @@ body.dark-mode {
 }
 
 /* Header background */
-body.dark-mode header {
+html.dark-mode header {
   background: rgba(30, 41, 59, 0.7); /* dark translucent blue-gray */
   box-shadow: 0 2px 5px rgba(255, 255, 255, 0.1);
   backdrop-filter: blur(12px);
@@ -29,67 +29,67 @@ body.dark-mode header {
 }
 
 /* Logo img filter (optional: lighten logo for dark bg) */
-body.dark-mode .logo img {
+html.dark-mode .logo img {
   filter: brightness(0) invert(1);
 }
 
 /* Toggle button */
-body.dark-mode #toggleTheme,
-body.dark-mode #toggleThemeMobile {
+html.dark-mode #toggleTheme,
+html.dark-mode #toggleThemeMobile {
   background-color: #077A7D;  /* blue-500 */
   color: white;
   transition: background-color 0.3s ease;
 }
 
-body.dark-mode #toggleTheme:hover,
-body.dark-mode #toggleThemeMobile:hover {
+html.dark-mode #toggleTheme:hover,
+html.dark-mode #toggleThemeMobile:hover {
   background-color: #066264; /* blue-600 */
 }
 
 /* Navigation menu background */
-body.dark-mode .nav-menu ul li a {
+html.dark-mode .nav-menu ul li a {
   background-color: #077A7D; /* blue-600 */
   color: white;
   transition: background-color 0.3s ease;
   border-radius: 8px;
 }
 
-body.dark-mode .nav-menu ul li a:hover {
+html.dark-mode .nav-menu ul li a:hover {
   background-color: #066264; /* blue-500 */
   transform: translateY(-2px);
 }
 
 /* Responsive adjustments */
 @media (max-width: 768px) {
-  body.dark-mode .nav-menu {
+  html.dark-mode .nav-menu {
     background-color: transparent !important;
     box-shadow: none !important;
   }
 
   /* Toggle buttons hover bg transparent on mobile */
-  body.dark-mode #toggleTheme:hover,
-  body.dark-mode #toggleThemeMobile:hover,
-  body.dark-mode #toggleTheme,
-  body.dark-mode #toggleThemeMobile {
+  html.dark-mode #toggleTheme:hover,
+  html.dark-mode #toggleThemeMobile:hover,
+  html.dark-mode #toggleTheme,
+  html.dark-mode #toggleThemeMobile {
     background-color: transparent !important;
     color: #066264; /* lighter blue */
   }
 
   /* Nav menu links on mobile */
-  body.dark-mode .nav-menu ul li a {
+  html.dark-mode .nav-menu ul li a {
     background-color: transparent !important;
     color: #bfdbfe; /* light blue text */
     padding: 12px 20px;
   }
 
-  body.dark-mode .nav-menu ul li a:hover {
+  html.dark-mode .nav-menu ul li a:hover {
     background-color: rgba(96, 165, 250, 0.2) !important;
     color: #066264;
     transform: none;
   }
 
 
-  body.dark-mode .menu-toggle {
+  html.dark-mode .menu-toggle {
     
     color: rgb(255, 255, 255);
   }

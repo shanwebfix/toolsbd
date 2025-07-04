@@ -16,10 +16,7 @@ body {
   min-height: 100vh;
   padding: 100px 70px 50px;
 }
-html.dark-mode {
-    background: #121212;
-    
-  }
+
 
 /* Responsive body padding */
 @media (max-width: 768px) {
@@ -278,90 +275,90 @@ a {
 
     /* 🌙 Dark Mode Styles */
 
-body.dark-mode {
+html.dark-mode body {
   background: linear-gradient(to bottom, #0f172a 0%, #1e293b 30%, #1e3a5f 60%, #0f4c75 100%);
   color: #f1f5f9;
 }
 
-body.dark-mode .namaj-box,
-body.dark-mode .date-box {
+html.dark-mode .namaj-box,
+html.dark-mode .date-box {
   background: #0f172a;
   box-shadow: 0 0 15px rgba(0, 255, 255, 0.05);
 }
 
-body.dark-mode .left-box h2,
-body.dark-mode .date-name::after {
+html.dark-mode .left-box h2,
+html.dark-mode .date-name::after {
   color: #077A7D !important;
   
 }
 
-body.dark-mode .left-box p.date-line,
-body.dark-mode #location {
+html.dark-mode .left-box p.date-line,
+html.dark-mode #location {
   color: #ffffff !important;
 }
 
-body.dark-mode .right-box p {
+html.dark-mode .right-box p {
   background: #1e293b;
   color: #bef264;
 }
 
-body.dark-mode .clickable-box {
+html.dark-mode .clickable-box {
   background: #1e293b;
   color: #f1f5f9;
   border-color: rgba(255, 255, 255, 0.1);
 }
 
-body.dark-mode .clickable-box:hover {
+html.dark-mode .clickable-box:hover {
   box-shadow: 0 4px 12px rgba(56, 189, 248, 0.5);
 }
 
-body.dark-mode .category-item {
+html.dark-mode .category-item {
   background: #1e293b;
   color: #f1f5f9;
   box-shadow: 0 2px 5px rgba(255, 255, 255, 0.05);
 }
-body.dark-mode .cat-title-name {
+html.dark-mode .cat-title-name {
   color: #ffffff !important;
 }
 
-body.dark-mode .cat-title-name::after {
+html.dark-mode .cat-title-name::after {
   background-color: #077A7D;
 }
 
-body.dark-mode .category-icon {
+html.dark-mode .category-icon {
   color: #077A7D !important;
 }
 
-body.dark-mode .category-desc {
+html.dark-mode .category-desc {
   color: #cbd5e1;
 }
 
-body.dark-mode a {
+html.dark-mode a {
   color: inherit;
   text-decoration: none;
 }
 
 /* Optional form/input/button dark mode styling */
-body.dark-mode input[type="date"] {
+html.dark-mode input[type="date"] {
   background: #1e293b;
   border: 1px solid #077A7D;
   color: #cbd5e1;
 }
 
-body.dark-mode button {
+html.dark-mode button {
   background: #077A7D;
   color: white;
   border: none;
 }
 
-body.dark-mode button:hover {
+html.dark-mode button:hover {
   background: #066264;
 }
 
-body.dark-mode #result {
+html.dark-mode #result {
   color: #93fdc3;
 }
 
-body.dark-mode .right-box p { 
+html.dark-mode .right-box p { 
   background: #334155;
 }

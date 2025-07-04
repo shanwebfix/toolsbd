@@ -13,7 +13,7 @@
         document.documentElement.classList.add('dark-mode');
         const link = document.createElement('link');
         link.rel = 'stylesheet';
-        link.href = '/css/dark.css';
+        link.href = '/css/styles.css';
         link.id = 'darkCSS';
         link.media = 'all'; // force apply early
         document.head.appendChild(link);
@@ -26,7 +26,7 @@
 <!-- Force dark-mode early via JS + preload CSS via media query -->
 <link 
   rel="stylesheet" 
-  href="/css/dark.css" 
+  href="/css/styles.css" 
   id="darkCSS" 
   media="(prefers-color-scheme: dark)" 
   onload="this.media='all'">
