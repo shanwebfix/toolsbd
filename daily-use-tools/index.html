@@ -6,22 +6,51 @@
     try {
       const theme = localStorage.getItem('theme');
       const prefersDark = window.matchMedia('(prefers-color-scheme: dark)').matches;
+      const isDark = theme === 'dark' || (!theme && prefersDark);
 
-      if (theme === 'dark' || (!theme && prefersDark)) {
+      if (isDark) {
         document.documentElement.classList.add('dark-mode');
-
-        // Load dark.css synchronously (before render)
         const link = document.createElement('link');
         link.rel = 'stylesheet';
         link.href = '/css/dark.css';
         link.id = 'darkCSS';
+        link.media = 'all'; // force apply early
         document.head.appendChild(link);
       }
     } catch (e) {
-      console.error('Theme preload error:', e);
+      console.error('Dark mode preload error:', e);
     }
   })();
 </script>
+<script>
+  (function () {
+    try {
+      const theme = localStorage.getItem('theme');
+      const prefersDark = window.matchMedia('(prefers-color-scheme: dark)').matches;
+      const isDark = theme === 'dark' || (!theme && prefersDark);
+
+      if (isDark) {
+        document.documentElement.classList.add('dark-mode');
+        const link = document.createElement('link');
+        link.rel = 'stylesheet';
+        link.href = '/css/dark.css';
+        link.id = 'darkCSS';
+        link.media = 'all'; // force apply early
+        document.head.appendChild(link);
+      }
+    } catch (e) {
+      console.error('Dark mode preload error:', e);
+    }
+  })();
+</script>
+
+<!-- Force dark-mode early via JS + preload CSS via media query -->
+<link 
+  rel="stylesheet" 
+  href="/css/dark.css" 
+  id="darkCSS" 
+  media="(prefers-color-scheme: dark)" 
+  onload="this.media='all'">
 
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
