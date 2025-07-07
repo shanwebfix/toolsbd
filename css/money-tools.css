@@ -1,8 +1,8 @@
 /* Main Section */
 html.dark-mode {
-    background: #121212;
-    
-  }
+  background: #121212;
+}
+
 .main-section {
   margin-top: 100px;
   margin-bottom: 100px;
@@ -46,12 +46,24 @@ html.dark-mode {
   transform: translateY(-3px);
 }
 
+/* Dark mode for box */
+html.dark-mode .clickable-box {
+  background: #1e293b;
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  color: #f0f0f0;
+}
+
 /* Icon inside box */
 .box-icon {
   font-size: 40px;
   color: #077A7D;
   margin-bottom: 12px;
   flex-shrink: 0;
+}
+
+/* Dark mode icon */
+html.dark-mode .box-icon {
+  color: #077A7D;
 }
 
 /* Text with ellipsis */

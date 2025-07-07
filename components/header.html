@@ -1,4 +1,20 @@
 <header>
+
+  <head>
+  <script>
+    (function () {
+      try {
+        const theme = localStorage.getItem('theme');
+        const prefersDark = window.matchMedia('(prefers-color-scheme: dark)').matches;
+        if (theme === 'dark' || (!theme && prefersDark)) {
+          document.documentElement.classList.add('dark-mode');
+        }
+      } catch (e) {
+        console.error('Theme preload error:', e);
+      }
+    })();
+  </script>
+  </head>
   <div class="header-container">
     <div class="logo">
       <a href="/"><img src="/assets/logo.png" alt="ToolsBD" /></a>
@@ -12,11 +28,11 @@
         <li><a href="services.html">Services</a></li>
         <li><a href="contact.html">Contact</a></li>
         <li class="desktop-toggle">
-  <label class="theme-switch" title="Toggle Dark Mode">
-    <input type="checkbox" id="toggleTheme">
-    <span class="slider"></span>
-  </label>
-</li>
+          <label class="theme-switch" title="Toggle Dark Mode">
+            <input type="checkbox" class="toggle-theme" id="toggleThemeDesktop" />
+            <span class="slider"></span>
+          </label>
+        </li>
       </ul>
     </nav>
 
@@ -26,75 +42,89 @@
   </div>
 
   <!-- Mobile Full Canvas -->
-<div id="mobileCanvas" class="mobile-canvas">
-  <div class="canvas-header">
-    
-    <h2><img src="/assets/logo.png" alt="ToolsBD" height="20px"/></h2>
-   
+  <div id="mobileCanvas" class="mobile-canvas">
+    <div class="canvas-header">
+      <h2><img src="/assets/logo.png" alt="ToolsBD" height="20px" /></h2>
+      <button id="closeCanvas" title="Close Menu">&times;</button>
+    </div>
 
-  
-    <button id="closeCanvas" title="Close Menu">&times;</button>
+    <div class="canvas-content">
+      <!-- Section: Menu -->
+      <section class="canvas-section">
+        <div class="section-header">
+          <h3>Menu</h3>
+        </div>
+        <nav class="canvas-nav">
+          <ul>
+            <li><a href="index.html" class="canvas-link">Home</a></li>
+            <li><a href="about.html" class="canvas-link">About</a></li>
+            <li><a href="services.html" class="canvas-link">Services</a></li>
+            <li><a href="contact.html" class="canvas-link">Contact</a></li>
+          </ul>
+        </nav>
+      </section>
+
+      <!-- Section: Settings -->
+      <section class="canvas-section">
+        <div class="section-header">
+          <h3>Settings</h3>
+        </div>
+
+        <nav class="canvas-nav">
+          <ul>
+            <li class="setting-item">
+              <span class="setting-label">Dark Mode</span>
+              <label class="theme-switch" title="Toggle Dark Mode">
+                <input type="checkbox" class="toggle-theme" id="toggleThemeMobile" />
+                <span class="slider"></span>
+              </label>
+            </li>
+            <li><a href="index.html" class="canvas-link">Profile</a></li>
+            <li><a href="about.html" class="canvas-link">Deshboard</a></li>
+            <li><a href="services.html" class="canvas-link">Information</a></li>
+          </ul>
+        </nav>
+      </section>
+
+      <!-- Section: Others -->
+      <section class="canvas-section">
+        <div class="section-header">
+          <h3>Others</h3>
+          <button class="section-btn" title="More Options">⚙️</button>
+        </div>
+        <nav class="canvas-nav">
+          <ul>
+            <li><a href="faq.html" class="canvas-link">Faq</a></li>
+            <li><a href="feedback.html" class="canvas-link">Feedback</a></li>
+            <li><a href="rules.html" class="canvas-link">Rules</a></li>
+            <li><a href="privacy.html" class="canvas-link">Privacy & Policy</a></li>
+          </ul>
+        </nav>
+      </section>
+    </div>
   </div>
-
-  <div class="canvas-content">
-    <!-- Section: Menu -->
-    <section class="canvas-section">
-      <div class="section-header">
-        <h3>Menu</h3>
-        <!-- যদি Menu সেকশনের কাছে button দরকার হয়, এখানে রাখতে পারো -->
-      </div>
-      <nav class="canvas-nav">
-        <ul>
-          <li><a href="index.html" class="canvas-link">Home</a></li>
-          <li><a href="about.html" class="canvas-link">About</a></li>
-          <li><a href="services.html" class="canvas-link">Services</a></li>
-          <li><a href="contact.html" class="canvas-link">Contact</a></li>
-        </ul>
-      </nav>
-    </section>
-
-
-
-<!-- Section: Settings -->
-<section class="canvas-section">
-  <div class="section-header">
-    <h3>Settings</h3>
-  </div>
-
-  <nav class="canvas-nav">
-    <ul>
-      <li class="setting-item">
-        <span class="setting-label">Dark Mode</span>
-        <label class="theme-switch" title="Toggle Dark Mode">
-          <input type="checkbox" id="toggleThemeCanvas">
-          <span class="slider"></span>
-        </label>
-      </li>
-      <li><a href="index.html" class="canvas-link">Profile</a></li>
-      <li><a href="about.html" class="canvas-link">Deshboard</a></li>
-      <li><a href="services.html" class="canvas-link">Information</a></li>
-    </ul>
-  </nav>
-</section>
-
-
-    <!-- Section: Others -->
-    <section class="canvas-section">
-      <div class="section-header">
-        <h3>Others</h3>
-        <!-- Example button next to Others title -->
-        <button class="section-btn" title="More Options">⚙️</button>
-      </div>
-      <nav class="canvas-nav">
-        <ul>
-          <li><a href="faq.html" class="canvas-link">Faq</a></li>
-          <li><a href="feedback.html" class="canvas-link">Feedback</a></li>
-          <li><a href="rules.html" class="canvas-link">Rules</a></li>
-          <li><a href="privacy.html" class="canvas-link">Privacy & Policy</a></li>
-        </ul>
-      </nav>
-    </section>
-
-    
-
 </header>
+
+<!-- ✅ Dark Mode Script (put at end of header or in footer) -->
+<script>
+  document.addEventListener("DOMContentLoaded", function () {
+    const toggles = document.querySelectorAll(".toggle-theme");
+    const savedTheme = localStorage.getItem("theme");
+    const prefersDark = window.matchMedia("(prefers-color-scheme: dark)").matches;
+    const isDark = savedTheme === "dark" || (!savedTheme && prefersDark);
+
+    // Set initial mode
+    document.documentElement.classList.toggle("dark-mode", isDark);
+    toggles.forEach(t => t.checked = isDark);
+
+    // Handle toggle change
+    toggles.forEach(toggle => {
+      toggle.addEventListener("change", () => {
+        const enableDark = toggle.checked;
+        document.documentElement.classList.toggle("dark-mode", enableDark);
+        localStorage.setItem("theme", enableDark ? "dark" : "light");
+        toggles.forEach(t => t.checked = enableDark); // sync both toggles
+      });
+    });
+  });
+</script>

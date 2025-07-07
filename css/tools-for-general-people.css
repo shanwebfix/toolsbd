@@ -1,8 +1,8 @@
 /* Main Section */
 html.dark-mode {
-    background: #121212;
-    
-  }
+  background: #121212;
+}
+
 .main-section {
   margin-top: 100px;
   margin-bottom: 100px;
@@ -40,6 +40,13 @@ html.dark-mode {
   box-sizing: border-box;
 }
 
+/* Dark Mode Box */
+html.dark-mode .clickable-box {
+  background: #1e293b;
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  color: #eee;
+}
+
 /* Hover effect */
 .clickable-box:hover {
   box-shadow: 0 4px 12px rgba(135, 206, 250, 0.6);
@@ -54,8 +61,13 @@ html.dark-mode {
   flex-shrink: 0;
 }
 
+html.dark-mode .box-icon {
+  color: #077A7D;
+}
+
 /* Text with ellipsis */
-.clickable-box span.text {
+.clickable-box span.text,
+.clickable-box span.box-text {
   white-space: nowrap;
   text-overflow: ellipsis;
   overflow: hidden;
@@ -94,7 +106,8 @@ html.dark-mode {
     margin-bottom: 8px;
   }
 
-  .clickable-box span.text {
+  .clickable-box span.text,
+  .clickable-box span.box-text {
     font-size: 14px;
   }
 }

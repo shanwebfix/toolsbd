@@ -1,134 +1,118 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
- 
-<script>
-  (function () {
-    try {
-      const theme = localStorage.getItem('theme');
-      const prefersDark = window.matchMedia('(prefers-color-scheme: dark)').matches;
-      const isDark = theme === 'dark' || (!theme && prefersDark);
-
-      if (isDark) {
-        document.documentElement.classList.add('dark-mode');
-        const link = document.createElement('link');
-        link.rel = 'stylesheet';
-        link.href = '/css/daily-use-tools.css';
-        link.id = 'darkCSS';
-        link.media = 'all'; // force apply early
-        document.head.appendChild(link);
-      }
-    } catch (e) {
-      console.error('Dark mode preload error:', e);
-    }
-  })();
-</script>
-
-<!-- Force dark-mode early via JS + preload CSS via media query -->
-<link 
-  rel="stylesheet" 
-  href="/css/daily-use-tools.css" 
-  id="darkCSS" 
-  media="(prefers-color-scheme: dark)" 
-  onload="this.media='all'">
-
   <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
   <title>ToolsBD - Free Tools Collections</title>
+
+  <!-- Dark Mode Early Setup -->
+  <script>
+    (function () {
+      try {
+        const theme = localStorage.getItem('theme');
+        const prefersDark = window.matchMedia('(prefers-color-scheme: dark)').matches;
+        const isDark = theme === 'dark' || (!theme && prefersDark);
+        if (isDark) {
+          document.documentElement.classList.add('dark-mode');
+        }
+      } catch (e) {
+        console.error('Dark mode preload error:', e);
+      }
+    })();
+  </script>
+
+  <!-- Styles -->
   <link rel="stylesheet" href="/css/daily-use-tools.css" />
   <link rel="stylesheet" href="/components/header.css" />
   <link rel="stylesheet" href="/components/footer.css" />
-
-  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
- 
-
+  <link
+    rel="stylesheet"
+    href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css"
+  />
 </head>
 <body>
+  <main class="main-section">
+    <div class="tools-grid">
+      <a href="/daily-use-tools/speed-test/" class="box-link">
+        <div class="clickable-box">
+          <div class="box-icon"><i class="fas fa-tachometer-alt"></i></div>
+          <span class="box-text">Internet Speed Test</span>
+        </div>
+      </a>
 
+      <a href="/daily-use-tools/typing-speed-test/" class="box-link">
+        <div class="clickable-box">
+          <div class="box-icon"><i class="fas fa-keyboard"></i></div>
+          <span class="box-text">Typing Speed Test</span>
+        </div>
+      </a>
 
- <main class="main-section">
-  <div class="tools-grid">
-    <a href="/daily-use-tools/speed-test/" class="box-link">
-      <div class="clickable-box">
-        <div class="box-icon"><i class="fas fa-tachometer-alt"></i></div>
-        <span class="box-text">Internet Speed Test</span>
-      </div>
-    </a>
+      <a href="/daily-use-tools/bangla-calendar/" class="box-link">
+        <div class="clickable-box">
+          <div class="box-icon"><i class="fas fa-calendar-alt"></i></div>
+          <span class="box-text">Bangla Calendar</span>
+        </div>
+      </a>
 
-    <a href="/daily-use-tools/typing-speed-test/" class="box-link">
-      <div class="clickable-box">
-        <div class="box-icon"><i class="fas fa-keyboard"></i></div>
-        <span class="box-text">Typing Speed Test</span>
-      </div>
-    </a>
+      <a href="/daily-use-tools/pdf-tools/" class="box-link">
+        <div class="clickable-box">
+          <div class="box-icon"><i class="fas fa-file-pdf"></i></div>
+          <span class="box-text">PDF Tools</span>
+        </div>
+      </a>
 
-    <a href="/daily-use-tools/bangla-calendar/" class="box-link">
-      <div class="clickable-box">
-        <div class="box-icon"><i class="fas fa-calendar-alt"></i></div>
-        <span class="box-text">Bangla Calendar</span>
-      </div>
-    </a>
+      <a href="/daily-use-tools/bmi-calculator/" class="box-link">
+        <div class="clickable-box">
+          <div class="box-icon"><i class="fas fa-weight"></i></div>
+          <span class="box-text">BMI Calculator</span>
+        </div>
+      </a>
 
-    <a href="/daily-use-tools/pdf-tools/" class="box-link">
-      <div class="clickable-box">
-        <div class="box-icon"><i class="fas fa-file-pdf"></i></div>
-        <span class="box-text">PDF Tools</span>
-      </div>
-    </a>
+      <a href="/daily-use-tools/date-calculator/" class="box-link">
+        <div class="clickable-box">
+          <div class="box-icon"><i class="fas fa-calendar-plus"></i></div>
+          <span class="box-text">ডেট ক্যালকুলেটর</span>
+        </div>
+      </a>
 
-    <a href="/daily-use-tools/bmi-calculator/" class="box-link">
-      <div class="clickable-box">
-        <div class="box-icon"><i class="fas fa-weight"></i></div>
-        <span class="box-text">BMI Calculator</span>
-      </div>
-    </a>
+      <a href="/daily-use-tools/percentage-calculator/" class="box-link">
+        <div class="clickable-box">
+          <div class="box-icon"><i class="fas fa-percent"></i></div>
+          <span class="box-text">Percentage Calculator</span>
+        </div>
+      </a>
 
-    <a href="/daily-use-tools/date-calculator/" class="box-link">
-      <div class="clickable-box">
-        <div class="box-icon"><i class="fas fa-calendar-plus"></i></div>
-        <span class="box-text">ডেট ক্যালকুলেটর</span>
-      </div>
-    </a>
+      <a href="/daily-use-tools/notepad/" class="box-link">
+        <div class="clickable-box">
+          <div class="box-icon"><i class="fas fa-sticky-note"></i></div>
+          <span class="box-text">Notepad / Quick Notes</span>
+        </div>
+      </a>
 
-    <a href="/daily-use-tools/percentage-calculator/" class="box-link">
-      <div class="clickable-box">
-        <div class="box-icon"><i class="fas fa-percent"></i></div>
-        <span class="box-text">Percentage Calculator</span>
-      </div>
-    </a>
+      <a href="/daily-use-tools/number-to-word/" class="box-link">
+        <div class="clickable-box">
+          <div class="box-icon"><i class="fas fa-language"></i></div>
+          <span class="box-text">Number to Words (BN/EN)</span>
+        </div>
+      </a>
 
-    <a href="/daily-use-tools/notepad/" class="box-link">
-      <div class="clickable-box">
-        <div class="box-icon"><i class="fas fa-sticky-note"></i></div>
-        <span class="box-text">Notepad / Quick Notes</span>
-      </div>
-    </a>
+      <a href="#" class="box-link">
+        <div class="clickable-box">
+          <div class="box-icon"><i class="fas fa-spinner fa-spin"></i></div>
+          <span class="box-text">Loading...</span>
+        </div>
+      </a>
 
-    <a href="/daily-use-tools/number-to-word/" class="box-link">
-      <div class="clickable-box">
-        <div class="box-icon"><i class="fas fa-language"></i></div>
-        <span class="box-text">Number to Words (BN/EN)</span>
-      </div>
-    </a>
+      <a href="#" class="box-link">
+        <div class="clickable-box">
+          <div class="box-icon"><i class="fas fa-spinner fa-spin"></i></div>
+          <span class="box-text">Loading...</span>
+        </div>
+      </a>
+    </div>
+  </main>
 
-    <a href="#" class="box-link">
-      <div class="clickable-box">
-        <div class="box-icon"><i class="fas fa-spinner fa-spin"></i></div>
-        <span class="box-text">Loading...</span>
-      </div>
-    </a>
-
-    <a href="#" class="box-link">
-      <div class="clickable-box">
-        <div class="box-icon"><i class="fas fa-spinner fa-spin"></i></div>
-        <span class="box-text">Loading...</span>
-      </div>
-    </a>
-  </div>
-</main>
-
-
-<script src="/components/header.js"></script>
-<script src="/components/footer.js"></script>
+  <script src="/components/header.js"></script>
+  <script src="/components/footer.js"></script>
 </body>
 </html>

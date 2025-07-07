@@ -1,15 +1,12 @@
+/* =============================
+   🌞 Light Mode (Default)
+============================= */
+
 /* Reset & Global */
 body {
   font-family: sans-serif;
   margin: 0;
-  background: linear-gradient(to top, 
-  #ffffff 0%, 
-  #ffffff 30%, 
-  #e0f3ff 45%, 
-  #c2e9ff 60%, 
-  #a8ddff 75%, 
-  #87cefa 100%);
-
+  background: linear-gradient(to top, #ffffff 0%, #ffffff 30%, #e0f3ff 45%, #c2e9ff 60%, #a8ddff 75%, #87cefa 100%);
   background-attachment: fixed;
   background-repeat: no-repeat;
   background-size: cover;
@@ -17,17 +14,13 @@ body {
   padding: 100px 70px 50px;
 }
 
-
-/* Responsive body padding */
 @media (max-width: 768px) {
   body {
     padding: 100px 20px 50px;
   }
 }
 
-
-
-/* Namaj css */
+/* Namaj Section */
 .namaj-box {
   background: #1e293b;
   padding: 20px;
@@ -48,37 +41,29 @@ body {
   box-shadow: 0 4px 15px rgba(7, 122, 125, 0.3);
 }
 
-
 .left-box {
   width: 100%;
   max-width: 400px;
   text-align: left;
 }
 
-.left-box h2 {
-  color: #077A7D;
-  font-size: 18px;
-  margin-bottom: 5px;
-  justify-content: left;
-}
+.left-box h2,
 .left-box h3 {
   color: #077A7D;
   font-size: 18px;
   margin-bottom: 5px;
-  justify-content: left;
 }
+
 .left-box p.date-line {
   font-size: 14px;
   margin: 4px 0;
   color: #f1f5f9;
-  align-items: start;
 }
 
 #location {
   font-size: 14px;
   color: #555;
 }
-
 
 .date-box {
   background: #1e293b;
@@ -88,16 +73,13 @@ body {
   box-shadow: 0 0 10px #077A7D;
 }
 
-h2 {
-  margin-bottom: 20px;
-}
 .date-name {
   display: inline-block;
   position: relative;
   font-size: 28px;
   font-weight: bold;
   padding-bottom: 10px;
-  color: #077A7D !important;
+  color: #077A7D;
   margin-bottom: 30px;
 }
 
@@ -108,7 +90,7 @@ h2 {
   left: 0;
   height: 3px;
   width: 100%;
-  background: #077A7D !important;
+  background: #077A7D;
   border-radius: 5px;
 }
 
@@ -125,9 +107,7 @@ h2 {
   color: #ffffff;
 }
 
-
-
-/* Main Section */
+/* Main Tools Section */
 .main-section {
   margin-top: 30px;
   margin-bottom: 50px;
@@ -156,41 +136,28 @@ h2 {
   transform: translateY(-3px);
 }
 
-/* Link Cleanup */
-.box-link {
-  text-decoration: none !important;
+/* Links */
+a {
+  text-decoration: none;
+  color: inherit;
 }
 
 .box-link .clickable-box {
-  text-decoration: none !important;
+  text-decoration: none;
 }
 
-.box-link:hover,
-.box-link:focus {
-  text-decoration: none !important;
+/* Category Section */
+.category-grid {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 20px;
 }
 
-
-
-
-
- h2 {
-      text-align: center;
-      margin-bottom: 20px;
-    }
-
-    .category-grid {
-      display: grid;
-      grid-template-columns: repeat(2, 1fr); /* Always 2 per row */
-      gap: 20px;
-    }
-
-    .cat-title {
+.cat-title {
   font-size: 24px;
   font-weight: bold;
   margin-bottom: 6px;
   text-align: center;
-  display: block;
 }
 
 .cat-title-name {
@@ -199,81 +166,69 @@ h2 {
   font-size: 28px;
   font-weight: bold;
   padding-bottom: 10px;
-  color: #077A7D !important;
+  color: #077A7D;
   margin-bottom: 30px;
 }
-
 
 .cat-title-name::after {
   content: "";
   position: absolute;
   bottom: 0;
   left: 0;
-  width: 100%;
   height: 4px;
-  background-color: #077A7D;
+  width: 100%;
+  background: #077A7D;
   border-radius: 2px;
 }
 
-
-
-    .category-item {
-      background: #fff;
-      padding: 20px;
-      border-radius: 8px;
-      box-shadow: 0 2px 5px rgba(0,0,0,0.1);
-      display: flex;
-      flex-direction: column;
-      align-items: center;
-      text-align: center;
-      transition: transform 0.2s ease;
-    }
-
-    .category-item:hover {
-      transform: translateY(-5px);
-    }
-
-    .category-icon {
-      font-size: 36px;
-      color: #077A7D;
-      margin-bottom: 10px;
-    }
-
-    .category-title {
-      font-size: 18px;
-      font-weight: bold;
-      margin-bottom: 6px;
-    }
-
-    .category-desc {
-      font-size: 14px;
-      color: #555;
-    }
-a {
-  text-decoration: none;
-  color: inherit; 
+.category-item {
+  background: #fff;
+  padding: 20px;
+  border-radius: 8px;
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
+  transition: transform 0.2s ease;
 }
 
-    /* মোবাইলে ১ কলামে দেখাবে */
-    @media (max-width: 600px) {
-      .category-grid {
-        grid-template-columns: 1fr;
-      }
-      .cat-title-name {
+.category-item:hover {
+  transform: translateY(-5px);
+}
+
+.category-icon {
+  font-size: 36px;
+  color: #077A7D;
+  margin-bottom: 10px;
+}
+
+.category-title {
   font-size: 18px;
-  
-               
+  font-weight: bold;
+  margin-bottom: 6px;
 }
-    }
+
+.category-desc {
+  font-size: 14px;
+  color: #555;
+}
+
+/* Mobile */
+@media (max-width: 600px) {
+  .category-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .cat-title-name {
+    font-size: 18px;
+  }
+}
 
 
-
-
-
-
-
-
-    /* 🌙 Dark Mode Styles */
+/* =============================
+   🌙 Dark Mode (html.dark-mode)
+============================= */
 
 html.dark-mode body {
   background: linear-gradient(to bottom, #0f172a 0%, #1e293b 30%, #1e3a5f 60%, #0f4c75 100%);
@@ -287,18 +242,25 @@ html.dark-mode .date-box {
 }
 
 html.dark-mode .left-box h2,
+html.dark-mode .left-box h3 {
+  color: #077A7D;
+}
+
+html.dark-mode .date-name {
+  color: #077A7D;
+}
+
 html.dark-mode .date-name::after {
-  color: #077A7D !important;
-  
+  background-color: #077A7D;
 }
 
 html.dark-mode .left-box p.date-line,
 html.dark-mode #location {
-  color: #ffffff !important;
+  color: #ffffff;
 }
 
 html.dark-mode .right-box p {
-  background: #1e293b;
+  background: #334155;
   color: #bef264;
 }
 
@@ -317,16 +279,17 @@ html.dark-mode .category-item {
   color: #f1f5f9;
   box-shadow: 0 2px 5px rgba(255, 255, 255, 0.05);
 }
+
+html.dark-mode .category-icon {
+  color: #077A7D;
+}
+
 html.dark-mode .cat-title-name {
-  color: #ffffff !important;
+  color: #ffffff;
 }
 
 html.dark-mode .cat-title-name::after {
   background-color: #077A7D;
-}
-
-html.dark-mode .category-icon {
-  color: #077A7D !important;
 }
 
 html.dark-mode .category-desc {
@@ -335,10 +298,9 @@ html.dark-mode .category-desc {
 
 html.dark-mode a {
   color: inherit;
-  text-decoration: none;
 }
 
-/* Optional form/input/button dark mode styling */
+/* Inputs / Buttons / Results */
 html.dark-mode input[type="date"] {
   background: #1e293b;
   border: 1px solid #077A7D;
@@ -357,8 +319,4 @@ html.dark-mode button:hover {
 
 html.dark-mode #result {
   color: #93fdc3;
-}
-
-html.dark-mode .right-box p { 
-  background: #334155;
 }

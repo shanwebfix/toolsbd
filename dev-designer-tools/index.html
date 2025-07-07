@@ -1,136 +1,135 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <script>
-  (function () {
-    try {
-      const theme = localStorage.getItem('theme');
-      const prefersDark = window.matchMedia('(prefers-color-scheme: dark)').matches;
-
-      if (theme === 'dark' || (!theme && prefersDark)) {
-        document.documentElement.classList.add('dark-mode');
-
-        // Load dark.css synchronously (before render)
-        const link = document.createElement('link');
-        link.rel = 'stylesheet';
-        link.href = '/css/dark.css';
-        link.id = 'darkCSS';
-        document.head.appendChild(link);
-      }
-    } catch (e) {
-      console.error('Theme preload error:', e);
-    }
-  })();
-</script>
-
   <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
   <title>ToolsBD - Free Tools Collections</title>
+
+  <!-- Dark Mode Early Setup -->
+  <script>
+    (function () {
+      try {
+        const theme = localStorage.getItem('theme');
+        const prefersDark = window.matchMedia('(prefers-color-scheme: dark)').matches;
+        if (theme === 'dark' || (!theme && prefersDark)) {
+          document.documentElement.classList.add('dark-mode');
+
+          // Optional: load a separate dark.css if you want
+          // const link = document.createElement('link');
+          // link.rel = 'stylesheet';
+          // link.href = '/css/dark.css';
+          // link.id = 'darkCSS';
+          // document.head.appendChild(link);
+        }
+      } catch (e) {
+        console.error('Theme preload error:', e);
+      }
+    })();
+  </script>
+
+  <!-- Styles -->
   <link rel="stylesheet" href="/css/dev-designer-tools.css" />
   <link rel="stylesheet" href="/components/header.css" />
   <link rel="stylesheet" href="/components/footer.css" />
-
-  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
- 
-
+  <link
+    rel="stylesheet"
+    href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css"
+  />
 </head>
 <body>
 
-
   <main class="main-section">
-  <div class="tools-grid">
+    <div class="tools-grid">
 
-    <a href="/dev-designer-tools/gradiant-mixer/" class="box-link">
-      <div class="clickable-box">
-        <div class="box-icon"><i class="fas fa-fill-drip"></i></div>
-        <span class="box-text">CSS গ্র্যাডিয়েন্ট জেনারেটর টুল</span>
-      </div>
-    </a>
+      <a href="/dev-designer-tools/gradiant-mixer/" class="box-link">
+        <div class="clickable-box">
+          <div class="box-icon"><i class="fas fa-fill-drip"></i></div>
+          <span class="box-text">CSS গ্র্যাডিয়েন্ট জেনারেটর টুল</span>
+        </div>
+      </a>
 
-    <a href="/dev-designer-tools/password-generator/" class="box-link">
-      <div class="clickable-box">
-        <div class="box-icon"><i class="fas fa-key"></i></div>
-        <span class="box-text">Password Generator</span>
-      </div>
-    </a>
+      <a href="/dev-designer-tools/password-generator/" class="box-link">
+        <div class="clickable-box">
+          <div class="box-icon"><i class="fas fa-key"></i></div>
+          <span class="box-text">Password Generator</span>
+        </div>
+      </a>
 
-    <a href="/dev-designer-tools/color-similarity/" class="box-link">
-      <div class="clickable-box">
-        <div class="box-icon"><i class="fas fa-eye-dropper"></i></div>
-        <span class="box-text">Color Similarity Suggestion</span>
-      </div>
-    </a>
+      <a href="/dev-designer-tools/color-similarity/" class="box-link">
+        <div class="clickable-box">
+          <div class="box-icon"><i class="fas fa-eye-dropper"></i></div>
+          <span class="box-text">Color Similarity Suggestion</span>
+        </div>
+      </a>
 
-    <a href="/dev-designer-tools/color-picker/" class="box-link">
-      <div class="clickable-box">
-        <div class="box-icon"><i class="fas fa-palette"></i></div>
-        <span class="box-text">Color Picker & Palette Generator</span>
-      </div>
-    </a>
+      <a href="/dev-designer-tools/color-picker/" class="box-link">
+        <div class="clickable-box">
+          <div class="box-icon"><i class="fas fa-palette"></i></div>
+          <span class="box-text">Color Picker & Palette Generator</span>
+        </div>
+      </a>
 
-    <a href="/dev-designer-tools/Formatter/" class="box-link">
-      <div class="clickable-box">
-        <div class="box-icon"><i class="fas fa-code"></i></div>
-        <span class="box-text">HTML, CSS, JS Formatter & Beautifier</span>
-      </div>
-    </a>
+      <a href="/dev-designer-tools/Formatter/" class="box-link">
+        <div class="clickable-box">
+          <div class="box-icon"><i class="fas fa-code"></i></div>
+          <span class="box-text">HTML, CSS, JS Formatter & Beautifier</span>
+        </div>
+      </a>
 
-    <a href="/dev-designer-tools/responsive-design-checker/" class="box-link">
-      <div class="clickable-box">
-        <div class="box-icon"><i class="fas fa-desktop"></i></div>
-        <span class="box-text">Responsive Design Checker</span>
-      </div>
-    </a>
+      <a href="/dev-designer-tools/responsive-design-checker/" class="box-link">
+        <div class="clickable-box">
+          <div class="box-icon"><i class="fas fa-desktop"></i></div>
+          <span class="box-text">Responsive Design Checker</span>
+        </div>
+      </a>
 
-    <a href="/dev-designer-tools/lorem-ipsum/" class="box-link">
-      <div class="clickable-box">
-        <div class="box-icon"><i class="fas fa-paragraph"></i></div>
-        <span class="box-text">Lorem Ipsum Generator</span>
-      </div>
-    </a>
+      <a href="/dev-designer-tools/lorem-ipsum/" class="box-link">
+        <div class="clickable-box">
+          <div class="box-icon"><i class="fas fa-paragraph"></i></div>
+          <span class="box-text">Lorem Ipsum Generator</span>
+        </div>
+      </a>
 
-    <a href="/dev-designer-tools/regex-tester/" class="box-link">
-      <div class="clickable-box">
-        <div class="box-icon"><i class="fas fa-terminal"></i></div>
-        <span class="box-text">Regex Tester</span>
-      </div>
-    </a>
+      <a href="/dev-designer-tools/regex-tester/" class="box-link">
+        <div class="clickable-box">
+          <div class="box-icon"><i class="fas fa-terminal"></i></div>
+          <span class="box-text">Regex Tester</span>
+        </div>
+      </a>
 
-    <a href="/dev-designer-tools/base64-encoder/" class="box-link">
-      <div class="clickable-box">
-        <div class="box-icon"><i class="fas fa-file-code"></i></div>
-        <span class="box-text">Base64 Encoder / Decoder</span>
-      </div>
-    </a>
+      <a href="/dev-designer-tools/base64-encoder/" class="box-link">
+        <div class="clickable-box">
+          <div class="box-icon"><i class="fas fa-file-code"></i></div>
+          <span class="box-text">Base64 Encoder / Decoder</span>
+        </div>
+      </a>
 
-    <a href="/dev-designer-tools/json-formatter-validator/" class="box-link">
-      <div class="clickable-box">
-        <div class="box-icon"><i class="fas fa-file-alt"></i></div>
-        <span class="box-text">JSON Formatter & Validator</span>
-      </div>
-    </a>
+      <a href="/dev-designer-tools/json-formatter-validator/" class="box-link">
+        <div class="clickable-box">
+          <div class="box-icon"><i class="fas fa-file-alt"></i></div>
+          <span class="box-text">JSON Formatter & Validator</span>
+        </div>
+      </a>
 
-    <!-- Loading placeholders -->
-    <a href="#" class="box-link">
-      <div class="clickable-box">
-        <div class="box-icon"><i class="fas fa-spinner fa-spin"></i></div>
-        <span class="box-text">Loading...</span>
-      </div>
-    </a>
+      <!-- Loading placeholders -->
+      <a href="#" class="box-link">
+        <div class="clickable-box">
+          <div class="box-icon"><i class="fas fa-spinner fa-spin"></i></div>
+          <span class="box-text">Loading...</span>
+        </div>
+      </a>
 
-    <a href="#" class="box-link">
-      <div class="clickable-box">
-        <div class="box-icon"><i class="fas fa-spinner fa-spin"></i></div>
-        <span class="box-text">Loading...</span>
-      </div>
-    </a>
+      <a href="#" class="box-link">
+        <div class="clickable-box">
+          <div class="box-icon"><i class="fas fa-spinner fa-spin"></i></div>
+          <span class="box-text">Loading...</span>
+        </div>
+      </a>
 
-  </div>
-</main>
+    </div>
+  </main>
 
-
-
-<script src="/components/header.js"></script>
-<script src="/components/footer.js"></script>
+  <script src="/components/header.js"></script>
+  <script src="/components/footer.js"></script>
 </body>
 </html>

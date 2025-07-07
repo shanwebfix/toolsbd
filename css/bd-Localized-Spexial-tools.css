@@ -1,8 +1,8 @@
 /* Main Section */
 html.dark-mode {
-    background: #121212;
-   
-  }
+  background: #121212;
+}
+
 .main-section {
   margin-top: 100px;
   margin-bottom: 100px;
@@ -97,4 +97,23 @@ html.dark-mode {
   .clickable-box span.text {
     font-size: 14px;
   }
+}
+
+/* 🌙 Dark Mode Styles */
+html.dark-mode .clickable-box {
+  background: #1e293b;
+  color: #f1f5f9;
+  border: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+html.dark-mode .clickable-box:hover {
+  box-shadow: 0 4px 12px rgba(56, 189, 248, 0.5);
+}
+
+html.dark-mode .box-icon {
+  color: #077A7D;
+}
+
+html.dark-mode .box-text {
+  color: #e2e8f0;
 }

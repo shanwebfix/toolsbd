@@ -1,8 +1,8 @@
 /* Main Section */
 html.dark-mode {
-    background: #121212;
-    
-  }
+  background: #121212;
+}
+
 .main-section {
   margin-top: 100px;
   margin-bottom: 100px;
@@ -98,3 +98,27 @@ html.dark-mode {
     font-size: 14px;
   }
 }
+
+/* ============================= */
+/* Dark Mode Overrides */
+html.dark-mode .main-section {
+  /* যদি প্রয়োজন হয়, ব্যাকগ্রাউন্ড পরিবর্তন করতে পারো */
+  /* background: #121212; */
+}
+
+html.dark-mode .clickable-box {
+  background: #1e293b;
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  color: #ddd;
+  box-shadow: none;
+}
+
+html.dark-mode .clickable-box:hover {
+  box-shadow: 0 4px 12px rgba(0, 123, 255, 0.6);
+  transform: translateY(-3px);
+}
+
+html.dark-mode .box-icon {
+  color: #077A7D;
+}
+

@@ -14,35 +14,35 @@ document.addEventListener("DOMContentLoaded", function () {
       const mobileCanvas = document.getElementById('mobileCanvas');
       const closeCanvasBtn = document.getElementById('closeCanvas');
 
-      const toggleThemeDesktop = document.getElementById('toggleTheme');
-      const toggleThemeCanvas = document.getElementById('toggleThemeCanvas');
+      const toggleThemeDesktop = document.getElementById('toggleThemeDesktop');
+      const toggleThemeMobile = document.getElementById('toggleThemeMobile');
 
       // 🌙 Apply saved theme
       const savedTheme = localStorage.getItem('theme');
-      if (savedTheme === 'dark') {
-        body.classList.add('dark-mode');
-        loadDarkCSS();
-      }
+      const prefersDark = window.matchMedia("(prefers-color-scheme: dark)").matches;
+      const isDark = savedTheme === 'dark' || (!savedTheme && prefersDark);
+
+      document.documentElement.classList.toggle('dark-mode', isDark);
+      if (toggleThemeDesktop) toggleThemeDesktop.checked = isDark;
+      if (toggleThemeMobile) toggleThemeMobile.checked = isDark;
 
       // 🌙 Toggle theme logic
       function toggleDarkMode() {
-        const isDark = body.classList.toggle('dark-mode');
-        localStorage.setItem('theme', isDark ? 'dark' : 'light');
+        const enableDark = !document.documentElement.classList.contains("dark-mode");
+        document.documentElement.classList.toggle("dark-mode", enableDark);
+        localStorage.setItem("theme", enableDark ? "dark" : "light");
 
-        if (isDark) {
-          loadDarkCSS();
-        } else {
-          removeDarkCSS();
-        }
+        // Sync both toggle checkboxes
+        if (toggleThemeDesktop) toggleThemeDesktop.checked = enableDark;
+        if (toggleThemeMobile) toggleThemeMobile.checked = enableDark;
       }
 
-      toggleThemeDesktop?.addEventListener('click', toggleDarkMode);
-      toggleThemeCanvas?.addEventListener('click', toggleDarkMode);
+      toggleThemeDesktop?.addEventListener('change', toggleDarkMode);
+      toggleThemeMobile?.addEventListener('change', toggleDarkMode);
 
       // Open mobile canvas menu
       menuToggle?.addEventListener('click', () => {
         mobileCanvas.classList.add('active');
-        // disable body scroll when menu is open
         body.style.overflow = 'hidden';
       });
 
@@ -52,32 +52,13 @@ document.addEventListener("DOMContentLoaded", function () {
         body.style.overflow = '';
       });
 
-      // Close menu if clicking on any canvas nav link
+      // Close menu when link clicked
       document.querySelectorAll('.canvas-link').forEach(link => {
         link.addEventListener('click', () => {
           mobileCanvas.classList.remove('active');
           body.style.overflow = '';
         });
       });
-
-      // 🔗 Load dark.css
-      function loadDarkCSS() {
-        if (!document.getElementById('darkCSS')) {
-          const link = document.createElement('link');
-          link.rel = 'stylesheet';
-          link.href = '/css/dark.css';
-          link.id = 'darkCSS';
-          document.head.appendChild(link);
-        }
-      }
-
-      // 🔗 Remove dark.css
-      function removeDarkCSS() {
-        const existing = document.getElementById('darkCSS');
-        if (existing) {
-          existing.remove();
-        }
-      }
     })
     .catch(error => {
       console.error("Header load error:", error.message);

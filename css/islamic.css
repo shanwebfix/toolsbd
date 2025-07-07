@@ -1,8 +1,9 @@
 /* Main Section */
 html.dark-mode {
     background: #121212;
-    
-  }
+    /* ডার্ক মোডে ব্যাকগ্রাউন্ড কালার */
+}
+
 .main-section {
   margin-top: 100px;
   margin-bottom: 100px;
@@ -40,6 +41,13 @@ html.dark-mode {
   box-sizing: border-box;
 }
 
+/* Dark mode styles for clickable box */
+html.dark-mode .clickable-box {
+  background: #1e293b;
+  border-color: rgba(255, 255, 255, 0.1);
+  color: #ddd;
+}
+
 /* Hover effect */
 .clickable-box:hover {
   box-shadow: 0 4px 12px rgba(135, 206, 250, 0.6);
@@ -52,6 +60,11 @@ html.dark-mode {
   color: #077A7D;
   margin-bottom: 12px;
   flex-shrink: 0;
+}
+
+/* Dark mode icon color */
+html.dark-mode .box-icon {
+  color: #077A7D;
 }
 
 /* Text with ellipsis */

@@ -1,8 +1,9 @@
 /* Main Section */
-html.dark-mode body{
-    background: #121212;
-    
-  }
+html.dark-mode body {
+  background: #121212;
+  color: #e0e0e0;
+}
+
 .main-section {
   margin-top: 100px;
   margin-bottom: 100px;
@@ -28,7 +29,7 @@ html.dark-mode body{
   font-size: 17px;
   font-weight: 500;
   color: #000;
-  transition: box-shadow 0.3s ease, transform 0.2s ease;
+  transition: box-shadow 0.3s ease, transform 0.2s ease, background-color 0.3s ease, color 0.3s ease;
   text-decoration: none !important;
   display: flex;
   flex-direction: column;
@@ -99,7 +100,21 @@ html.dark-mode body{
   }
 }
 
-
-
+/* Dark Mode Styles */
 html.dark-mode .clickable-box {
-  background: #121212;}
+  background: #1e293b; /* dark navy */
+  color: #e0e0e0;
+  border: 1px solid rgba(255, 255, 255, 0.15);
+}
+
+html.dark-mode .clickable-box:hover {
+  box-shadow: 0 4px 12px rgba(56, 189, 248, 0.7);
+}
+
+html.dark-mode .box-icon {
+  color: #077A7D;
+}
+
+html.dark-mode .box-text {
+  color: #e0e0e0;
+}

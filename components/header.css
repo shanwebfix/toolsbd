@@ -349,5 +349,91 @@ body.dark-mode .mobile-canvas {
 }
 
 
+/* DARK MODE STYLES */
 
+html.dark-mode {
+  background: #121212;
+  color: #f0f0f0;
+}
 
+html.dark-mode header {
+  background: rgba(18, 18, 18, 0.8);
+  box-shadow: 0 2px 5px rgba(255, 255, 255, 0.05);
+}
+
+html.dark-mode .menu-toggle {
+  color: #ffffff;
+}
+
+html.dark-mode .nav-menu ul li a {
+  background-color: #1e293b;
+  color: #fff;
+}
+
+html.dark-mode .nav-menu ul li a:hover {
+  background-color: #1e293b;
+}
+
+/* Mobile Canvas */
+html.dark-mode .mobile-canvas {
+  background-color: #1e1e1e;
+  color: #f5f5f5;
+}
+
+/* Canvas Header */
+html.dark-mode .canvas-header {
+  background-color: #1e293b;
+  border-bottom: 2px solid rgba(255, 255, 255, 0.1);
+}
+
+html.dark-mode #closeCanvas {
+  color: #ffffff;
+}
+
+/* Canvas Sections & Links */
+html.dark-mode .canvas-section {
+  border-color: rgba(255, 255, 255, 0.1);
+}
+
+html.dark-mode .section-header h3,
+html.dark-mode .canvas-nav ul li a,
+html.dark-mode .setting-item,
+html.dark-mode .canvas-footer h3 {
+  color: #f5f5f5;
+}
+
+html.dark-mode .canvas-nav ul li a:hover {
+  color: #ddd;
+}
+
+/* Theme Switcher */
+html.dark-mode .theme-switch .slider {
+  background-color: #555;
+}
+
+html.dark-mode .theme-switch input:checked + .slider {
+  background-color: #fff;
+}
+
+html.dark-mode .theme-switch .slider::before {
+  background-color: #000;
+}
+
+/* Button Styles */
+html.dark-mode #toggleTheme,
+html.dark-mode #toggleThemeCanvas {
+  background-color: #444;
+  color: #fff;
+}
+
+html.dark-mode #toggleTheme:hover,
+html.dark-mode #toggleThemeCanvas:hover {
+  background-color: #666;
+}
+html.dark-mode .desktop-toggle {background-color: #1e293b;
+  }
+
+ html.dark-mode .menu-toggle {
+    
+    color: #077A7D;
+  }

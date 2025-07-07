@@ -1,43 +1,62 @@
-
 html.dark-mode {
-    background: #121212;
-  }
+  background: #121212;
+  color: #f0f0f0;
+}
+
 footer {
-      position: fixed;
-      bottom: 0;
-      left: 0;
-      width: 100%;
-      background: #fff;
-      border-top: 1px solid #ccc;
-      box-shadow: 0 -1px 5px rgba(0,0,0,0.1);
-      z-index: 1000;
-    
-    }
+  position: fixed;
+  bottom: 0;
+  left: 0;
+  width: 100%;
+  background: #fff;
+  border-top: 1px solid #ccc;
+  box-shadow: 0 -1px 5px rgba(0,0,0,0.1);
+  z-index: 1000;
+  transition: background-color 0.3s ease, border-color 0.3s ease;
+}
 
-    .footer-menu {
-      display: grid;
-      grid-template-columns: repeat(4, 1fr); /* ৪টি গ্রিড কলাম */
-      text-align: center;
-      height: 60px;
-      
-    }
+.footer-menu {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr); /* ৪টি গ্রিড কলাম */
+  text-align: center;
+  height: 60px;
+}
 
-    .footer-menu a {
-      display: flex;
-      flex-direction: column;
-      align-items: center;
-      justify-content: center;
-      text-decoration: none;
-      color: #077A7D;
-      font-size: 13px;
-    }
+.footer-menu a {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  text-decoration: none;
+  color: #077A7D;
+  font-size: 13px;
+  font-weight: 600;
+  transition: color 0.3s ease;
+}
 
-    .footer-menu a i {
-      font-size: 20px;
-      margin-bottom: 3px;
-      color: #077A7D;
-    }
+.footer-menu a i {
+  font-size: 20px;
+  margin-bottom: 3px;
+  color: #077A7D;
+  transition: color 0.3s ease;
+}
 
-    .footer-menu a:hover {
-      color: #066264;
-    }
+.footer-menu a:hover {
+  color: #066264;
+}
+
+/* Dark Mode Styles for Footer */
+html.dark-mode footer {
+  background: #1a1a1a;
+  border-top: 1px solid #333;
+  box-shadow: 0 -1px 5px rgba(255, 255, 255, 0.1);
+}
+
+html.dark-mode .footer-menu a,
+html.dark-mode .footer-menu a i {
+  color: #077A7D;
+}
+
+html.dark-mode .footer-menu a:hover {
+  color: #077A7D;
+}

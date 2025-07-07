@@ -4,101 +4,112 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
   <title>ToolsBD - Free Tools Collections</title>
+
+  <!-- Force dark mode CSS early load -->
+  <script>
+    (function () {
+      try {
+        const theme = localStorage.getItem('theme');
+        const prefersDark = window.matchMedia('(prefers-color-scheme: dark)').matches;
+        const isDark = theme === 'dark' || (!theme && prefersDark);
+        if (isDark) {
+          document.documentElement.classList.add('dark-mode');
+        }
+      } catch (e) {}
+    })();
+  </script>
+
   <link rel="stylesheet" href="/css/bd-Localized-Spexial-tools.css" />
   <link rel="stylesheet" href="/components/header.css" />
   <link rel="stylesheet" href="/components/footer.css" />
-
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
- 
-
 </head>
 <body>
 
-
   <main class="main-section">
-  <div class="tools-grid">
-    <a href="/bd-Localized-Special-tools/bd-mobile-validator/" class="box-link">
-      <div class="clickable-box">
-        <i class="fas fa-mobile-alt box-icon"></i>
-        <span class="box-text">BD Mobile Validator</span>
-      </div>
-    </a>
+    <div class="tools-grid">
 
-    <a href="/bd-Localized-Special-tools/nid-verification/" class="box-link">
-      <div class="clickable-box">
-        <i class="fas fa-id-card box-icon"></i>
-        <span class="box-text">NID Verification Link Info</span>
-      </div>
-    </a>
+      <a href="/bd-Localized-Special-tools/bd-mobile-validator/" class="box-link">
+        <div class="clickable-box">
+          <i class="fas fa-mobile-alt box-icon"></i>
+          <span class="box-text">BD Mobile Validator</span>
+        </div>
+      </a>
 
-    <a href="/bd-Localized-Special-tools/btrc/" class="box-link">
-      <div class="clickable-box">
-        <i class="fas fa-car box-icon"></i>
-        <span class="box-text">BRTC গাড়ি রেজিস্ট্রেশন তথ্য</span>
-      </div>
-    </a>
+      <a href="/bd-Localized-Special-tools/nid-verification/" class="box-link">
+        <div class="clickable-box">
+          <i class="fas fa-id-card box-icon"></i>
+          <span class="box-text">NID Verification Link Info</span>
+        </div>
+      </a>
 
-    <a href="/bd-Localized-Special-tools/birth-certificate/" class="box-link">
-      <div class="clickable-box">
-        <i class="fas fa-file-alt box-icon"></i>
-        <span class="box-text">জন্ম সনদ আবেদন তথ্য</span>
-      </div>
-    </a>
+      <a href="/bd-Localized-Special-tools/btrc/" class="box-link">
+        <div class="clickable-box">
+          <i class="fas fa-car box-icon"></i>
+          <span class="box-text">BRTC গাড়ি রেজিস্ট্রেশন তথ্য</span>
+        </div>
+      </a>
 
-    <a href="/bd-Localized-Special-tools/current-bill/" class="box-link">
-      <div class="clickable-box">
-        <i class="fas fa-bolt box-icon"></i>
-        <span class="box-text">বিদ্যুৎ বিল হিসাব ক্যালকুলেটর</span>
-      </div>
-    </a>
+      <a href="/bd-Localized-Special-tools/birth-certificate/" class="box-link">
+        <div class="clickable-box">
+          <i class="fas fa-file-alt box-icon"></i>
+          <span class="box-text">জন্ম সনদ আবেদন তথ্য</span>
+        </div>
+      </a>
 
-    <a href="/bd-Localized-Special-tools/bara-calculator/" class="box-link">
-      <div class="clickable-box">
-        <i class="fas fa-calculator box-icon"></i>
-        <span class="box-text">ভাড়া ক্যালকুলেটর</span>
-      </div>
-    </a>
+      <a href="/bd-Localized-Special-tools/current-bill/" class="box-link">
+        <div class="clickable-box">
+          <i class="fas fa-bolt box-icon"></i>
+          <span class="box-text">বিদ্যুৎ বিল হিসাব ক্যালকুলেটর</span>
+        </div>
+      </a>
 
-    <a href="/bd-Localized-Special-tools/bank-chacker/" class="box-link">
-      <div class="clickable-box">
-        <i class="fas fa-university box-icon"></i>
-        <span class="box-text">স্থানীয় ব্যাংক কোড চেকার</span>
-      </div>
-    </a>
+      <a href="/bd-Localized-Special-tools/bara-calculator/" class="box-link">
+        <div class="clickable-box">
+          <i class="fas fa-calculator box-icon"></i>
+          <span class="box-text">ভাড়া ক্যালকুলেটর</span>
+        </div>
+      </a>
 
-    <a href="#" class="box-link">
-      <div class="clickable-box">
-        <i class="fas fa-spinner fa-spin box-icon"></i>
-        <span class="box-text">Loading...</span>
-      </div>
-    </a>
+      <a href="/bd-Localized-Special-tools/bank-chacker/" class="box-link">
+        <div class="clickable-box">
+          <i class="fas fa-university box-icon"></i>
+          <span class="box-text">স্থানীয় ব্যাংক কোড চেকার</span>
+        </div>
+      </a>
 
-    <a href="#" class="box-link">
-      <div class="clickable-box">
-        <i class="fas fa-spinner fa-spin box-icon"></i>
-        <span class="box-text">Loading...</span>
-      </div>
-    </a>
+      <!-- Placeholder Loading Boxes -->
+      <a href="#" class="box-link">
+        <div class="clickable-box">
+          <i class="fas fa-spinner fa-spin box-icon"></i>
+          <span class="box-text">Loading...</span>
+        </div>
+      </a>
 
-    <a href="#" class="box-link">
-      <div class="clickable-box">
-        <i class="fas fa-spinner fa-spin box-icon"></i>
-        <span class="box-text">Loading...</span>
-      </div>
-    </a>
+      <a href="#" class="box-link">
+        <div class="clickable-box">
+          <i class="fas fa-spinner fa-spin box-icon"></i>
+          <span class="box-text">Loading...</span>
+        </div>
+      </a>
 
-    <a href="#" class="box-link">
-      <div class="clickable-box">
-        <i class="fas fa-spinner fa-spin box-icon"></i>
-        <span class="box-text">Loading...</span>
-      </div>
-    </a>
-  </div>
-</main>
+      <a href="#" class="box-link">
+        <div class="clickable-box">
+          <i class="fas fa-spinner fa-spin box-icon"></i>
+          <span class="box-text">Loading...</span>
+        </div>
+      </a>
 
+      <a href="#" class="box-link">
+        <div class="clickable-box">
+          <i class="fas fa-spinner fa-spin box-icon"></i>
+          <span class="box-text">Loading...</span>
+        </div>
+      </a>
+    </div>
+  </main>
 
-
-<script src="/components/header.js"></script>
-<script src="/components/footer.js"></script>
+  <script src="/components/header.js"></script>
+  <script src="/components/footer.js"></script>
 </body>
 </html>
