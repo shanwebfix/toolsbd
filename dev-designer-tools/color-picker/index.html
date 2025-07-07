@@ -73,7 +73,7 @@
     }
 
 
-    body.dark-mode {
+html.dark-mode body {
   background: #121619;
   color: #e0e0e0;
   padding: 40px;
@@ -81,11 +81,11 @@
   font-family: Arial, sans-serif;
 }
 
-body.dark-mode h1 {
+html.dark-mode h1 {
   color: #ccc;
 }
 
-body.dark-mode input[type="color"] {
+html.dark-mode input[type="color"] {
   filter: brightness(1.1);
   cursor: pointer;
   border: none;
@@ -94,7 +94,7 @@ body.dark-mode input[type="color"] {
   height: 100px;
 }
 
-body.dark-mode .palette {
+html.dark-mode .palette {
   display: flex;
   flex-wrap: wrap;
   justify-content: center;
@@ -102,7 +102,7 @@ body.dark-mode .palette {
   margin-top: 30px;
 }
 
-body.dark-mode .color-box {
+html.dark-mode .color-box {
   width: 100px;
   height: 100px;
   border-radius: 8px;
@@ -120,12 +120,12 @@ body.dark-mode .color-box {
   box-shadow: 0 0 10px rgba(255, 255, 255, 0.1);
 }
 
-body.dark-mode .color-box:hover {
+html.dark-mode .color-box:hover {
   transform: scale(1.05);
   box-shadow: 0 0 15px rgba(255, 255, 255, 0.25);
 }
 
-body.dark-mode .color-box.copied::after {
+html.dark-mode .color-box.copied::after {
   content: '✔';
   position: absolute;
   top: 6px;

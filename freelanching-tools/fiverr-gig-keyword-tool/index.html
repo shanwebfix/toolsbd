@@ -7,7 +7,7 @@
   <link rel="stylesheet" href="/components/header.css" />
   <link rel="stylesheet" href="/components/footer.css" />
   <style>
-    body {
+body {
       font-family: 'Segoe UI', sans-serif;
       background: #f4f6f9;
       margin: 0;
@@ -95,7 +95,7 @@
     }
 
 
-    body.dark-mode {
+html.dark-mode body{
   font-family: 'Segoe UI', sans-serif;
   background: #121821;
   margin: 0;
@@ -103,7 +103,7 @@
   color: #cbd5e0;
 }
 
-body.dark-mode .container {
+html.dark-mode .container {
   max-width: 850px;
   margin: auto;
   background: #1e293b;
@@ -114,13 +114,13 @@ body.dark-mode .container {
   margin-bottom: 70px;
 }
 
-body.dark-mode h1 {
+html.dark-mode h1 {
   text-align: center;
   margin-bottom: 25px;
   color: #93c5fd;
 }
 
-body.dark-mode input {
+html.dark-mode input {
   width: 100%;
   padding: 12px;
   font-size: 16px;
@@ -132,11 +132,11 @@ body.dark-mode input {
   color: #cbd5e0;
 }
 
-body.dark-mode input::placeholder {
+html.dark-mode input::placeholder {
   color: #94a3b8;
 }
 
-body.dark-mode button {
+html.dark-mode button {
   padding: 12px 20px;
   font-size: 16px;
   background-color: #0f766e;
@@ -148,18 +148,18 @@ body.dark-mode button {
   transition: background-color 0.3s ease;
 }
 
-body.dark-mode button:hover {
+html.dark-mode button:hover {
   background-color: #115e59;
 }
 
-body.dark-mode .keywords {
+html.dark-mode .keywords {
   margin-top: 10px;
   display: flex;
   flex-wrap: wrap;
   gap: 10px;
 }
 
-body.dark-mode .keyword {
+html.dark-mode .keyword {
   background-color: #334155;
   padding: 8px 12px;
   border-radius: 6px;
@@ -170,11 +170,11 @@ body.dark-mode .keyword {
   color: #cbd5e0;
 }
 
-body.dark-mode .keyword:hover {
+html.dark-mode .keyword:hover {
   background-color: #475569;
 }
 
-body.dark-mode .info {
+html.dark-mode .info {
   font-size: 13px;
   color: #94a3b8;
   margin-top: 10px;
@@ -182,10 +182,10 @@ body.dark-mode .info {
 }
 
 @media (max-width: 600px) {
-  body.dark-mode .container {
+  html.dark-mode .container {
     padding: 20px;
   }
-  body.dark-mode button {
+  html.dark-mode button {
     font-size: 15px;
   }
 }

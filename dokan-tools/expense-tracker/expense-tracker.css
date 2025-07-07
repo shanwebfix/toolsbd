@@ -98,51 +98,51 @@ button:hover {
 }
 
 
-body.dark-mode {
+html.dark-mode body{
   background: #0f172a;
   color: #ffffff;
 }
 
-body.dark-mode .container {
+html.dark-mode .container {
   background: #1e293b;
   box-shadow: 0 0 15px rgba(0,0,0,0.3);
 }
 
-body.dark-mode h1 {
+html.dark-mode h1 {
   color: #ffffff;
 }
 
-body.dark-mode input[type="number"],
-body.dark-mode input[type="text"] {
+html.dark-mode input[type="number"],
+html.dark-mode input[type="text"] {
   background: #334155;
   color: #e5e7eb;
   border: none;
 }
 
-body.dark-mode button {
+html.dark-mode button {
   background: #077A7D;
   color: white;
 }
 
-body.dark-mode button:hover {
+html.dark-mode button:hover {
   background: #066264;
 }
 
-body.dark-mode .expense-item {
+html.dark-mode .expense-item {
   background: #374151;
   color: #e2e8f0;
 }
 
-body.dark-mode .expense-amount {
+html.dark-mode .expense-amount {
   color: #fbbf24;
 }
 
-body.dark-mode .delete-btn {
+html.dark-mode .delete-btn {
   background: #f87171;
   color: white;
 }
 
-body.dark-mode #total {
+html.dark-mode #total {
   color: #93c5fd;
 }
 

@@ -9,118 +9,98 @@
   <link rel="stylesheet" href="/components/footer.css" />
 <style>
 body {
-    font-family: 'Noto Sans Bengali', sans-serif;
-    padding: 30px;
-    background: #f0f9fb;
-    text-align: center;
-  }
-  
-
-  h2 {
-    color: #00695c;
-    margin-bottom: 20px;
-    margin-top: 100px;
-    
-  }
-
-  input {
-    width: 70%;
-    padding: 12px 16px;
-    font-size: 18px;
-    border: 2px solid #b2dfdb;
-    border-radius: 6px;
-    outline: none;
-    box-shadow: 0 0 5px rgba(0, 121, 107, 0.2);
-    transition: all 0.3s ease;
-
-  }
-
-  input:focus {
-    border-color: #00796b;
-    box-shadow: 0 0 8px rgba(0, 121, 107, 0.4);
-  }
-
-  .result {
-    background: #c5e5e9;
-    padding: 15px;
-    margin: 20px auto;
-    border-radius: 8px;
-    width: 70%;
-    text-align: left;
-    box-shadow: 0 2px 5px rgba(0,0,0,0.1);
-
-  }
-
-  .not-found {
-    color: red;
-    margin-top: 20px;
-    font-weight: bold;
-  }
-
-  strong {
-    color: #004d40;
-  }
-  .bm {
-    margin-bottom: 100px;
-  }
-
-
-  body.dark-mode {
   font-family: 'Noto Sans Bengali', sans-serif;
   padding: 30px;
-  background: #0f2027;
+  background: #f0f9fb;
   text-align: center;
-  color: #a7ffeb;
+  color: #333;
 }
 
-body.dark-mode h2 {
-  color: #4db6ac;
+h2 {
+  color: #00695c;
   margin-bottom: 20px;
   margin-top: 100px;
 }
 
-body.dark-mode input {
+input {
   width: 70%;
   padding: 12px 16px;
   font-size: 18px;
-  border: 2px solid #4db6ac;
+  border: 2px solid #b2dfdb;
   border-radius: 6px;
   outline: none;
-  box-shadow: 0 0 5px rgba(77, 182, 172, 0.6);
-  background-color: #013a3a;
-  color: #a7ffeb;
+  box-shadow: 0 0 5px rgba(0, 121, 107, 0.2);
   transition: all 0.3s ease;
 }
 
-body.dark-mode input:focus {
+input:focus {
+  border-color: #00796b;
+  box-shadow: 0 0 8px rgba(0, 121, 107, 0.4);
+}
+
+.result {
+  background: #c5e5e9;
+  padding: 15px;
+  margin: 20px auto;
+  border-radius: 8px;
+  width: 70%;
+  text-align: left;
+  box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+}
+
+.not-found {
+  color: red;
+  margin-top: 20px;
+  font-weight: bold;
+}
+
+strong {
+  color: #004d40;
+}
+
+.bm {
+  margin-bottom: 100px;
+}
+
+/* 🌙 Dark Mode (based on html.dark-mode) */
+html.dark-mode body {
+  background: #0f2027;
+  color: #a7ffeb;
+}
+
+html.dark-mode h2 {
+  color: #4db6ac;
+}
+
+html.dark-mode input {
+  border: 2px solid #4db6ac;
+  background-color: #013a3a;
+  color: #a7ffeb;
+  box-shadow: 0 0 5px rgba(77, 182, 172, 0.6);
+}
+
+html.dark-mode input:focus {
   border-color: #00796b;
   box-shadow: 0 0 8px rgba(0, 121, 107, 0.8);
   background-color: #014d4d;
   color: #d0f4f1;
 }
 
-body.dark-mode .result {
+html.dark-mode .result {
   background: #004d40;
-  padding: 15px;
-  margin: 20px auto;
-  border-radius: 8px;
-  width: 70%;
-  text-align: left;
   box-shadow: 0 2px 5px rgba(0,0,0,0.7);
   color: #a7ffeb;
 }
 
-body.dark-mode .not-found {
+html.dark-mode .not-found {
   color: #ff6e6e;
-  margin-top: 20px;
-  font-weight: bold;
 }
 
-body.dark-mode strong {
+html.dark-mode strong {
   color: #80cbc4;
 }
 
-body.dark-mode .bm {
+html.dark-mode .bm {
   margin-bottom: 100px;
 }
 

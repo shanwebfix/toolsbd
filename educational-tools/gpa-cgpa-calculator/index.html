@@ -73,7 +73,7 @@
     }
 
 
-    body.dark-mode {
+html.dark-mode body {
   background: #121920;
   display: flex;
   justify-content: center;
@@ -82,7 +82,7 @@
   font-family: 'Segoe UI', sans-serif;
 }
 
-body.dark-mode .container {
+html.dark-mode .container {
   max-width: 600px;
   width: 100%;
   background: #1e293b;
@@ -93,20 +93,20 @@ body.dark-mode .container {
   margin-bottom: 70px;
 }
 
-body.dark-mode h2 {
+html.dark-mode h2 {
   text-align: center;
   color: #a3b1c2;
   margin-bottom: 20px;
 }
 
-body.dark-mode .subject {
+html.dark-mode .subject {
   display: flex;
   gap: 10px;
   margin-bottom: 10px;
 }
 
-body.dark-mode .subject input,
-body.dark-mode .subject select {
+html.dark-mode .subject input,
+html.dark-mode .subject select {
   flex: 1;
   padding: 10px;
   font-size: 16px;
@@ -116,12 +116,12 @@ body.dark-mode .subject select {
   color: #e0e6f1;
 }
 
-body.dark-mode .subject input::placeholder,
-body.dark-mode .subject select::placeholder {
+html.dark-mode .subject input::placeholder,
+html.dark-mode .subject select::placeholder {
   color: #94a3b8;
 }
 
-body.dark-mode button {
+html.dark-mode button {
   padding: 12px;
   width: 100%;
   font-size: 16px;
@@ -134,11 +134,11 @@ body.dark-mode button {
   transition: background-color 0.3s ease;
 }
 
-body.dark-mode button:hover {
+html.dark-mode button:hover {
   background-color: #066264;
 }
 
-body.dark-mode .result {
+html.dark-mode .result {
   margin-top: 20px;
   font-size: 18px;
   text-align: center;
@@ -149,7 +149,7 @@ body.dark-mode .result {
 }
 
 @media (max-width: 600px) {
-  body.dark-mode .subject {
+  html.dark-mode .subject {
     flex-direction: column;
   }
 }

@@ -78,33 +78,33 @@ button:hover {
 }
 
 /* ===== Dark Mode ===== */
-body.dark-mode {
+html.dark-mode body{
   background: #0f172a;
   color: #cbd5e1;
 }
 
-body.dark-mode .container {
+html.dark-mode .container {
   background: #1e293b;
   box-shadow: 0 0 20px rgba(0, 119, 125, 0.7);
 }
 
-body.dark-mode h1,
-body.dark-mode label,
-body.dark-mode #result {
+html.dark-mode h1,
+html.dark-mode label,
+html.dark-mode #result {
   color: #81e6d9;
 }
 
-body.dark-mode input[type="number"],
-body.dark-mode select {
+html.dark-mode input[type="number"],
+html.dark-mode select {
   background: #334155;
   color: #cbd5e1;
   border: 1px solid #475569;
 }
 
-body.dark-mode button {
+html.dark-mode button {
   background: #0e8388;
 }
 
-body.dark-mode button:hover {
+html.dark-mode button:hover {
   background: #07666a;
 }

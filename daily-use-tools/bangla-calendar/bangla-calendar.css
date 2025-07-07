@@ -2,9 +2,7 @@
 * {
   box-sizing: border-box;
 }
-html.dark-mode {
-    background: #121212;
-  }
+
 /* Light Mode (default) */
 body {
   margin: 0;
@@ -67,36 +65,39 @@ button:hover {
 }
 
 /* Dark Mode */
-body.dark-mode {
+html.dark-mode body {
+    background: #121212;
+  }
+html.dark-mode {
   background: #1e293b;
   color: #e0e0e0;
 }
 
-body.dark-mode .container {
+html.dark-mode .container {
   background: #0f172a;
   box-shadow: 0 0 15px rgba(0, 0, 0, 0.5);
 }
 
-body.dark-mode h1 {
+html.dark-mode h1 {
   color: #93fdc3;
 }
 
-body.dark-mode input[type="date"] {
+html.dark-mode input[type="date"] {
   background: #1e293b;
   border: 1px solid #3b82f6;
   color: #cbd5e1;
 }
 
-body.dark-mode button {
+html.dark-mode button {
   background: #077A7D; /* same button color */
   color: white;
   border: none;
 }
 
-body.dark-mode button:hover {
+html.dark-mode button:hover {
   background: #066264; /* same hover */
 }
 
-body.dark-mode #result {
+html.dark-mode #result {
   color: #93fdc3;
 }

@@ -110,7 +110,7 @@
 
 
 
-    body.dark-mode {
+html.dark-mode body{
   font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
   background: #121821;
   margin: 0;
@@ -121,7 +121,7 @@
   color: #cbd5e0;
 }
 
-body.dark-mode .container {
+html.dark-mode .container {
   max-width: 800px;
   width: 100%;
   background: #1e293b;
@@ -132,21 +132,21 @@ body.dark-mode .container {
   margin-bottom: 70px;
 }
 
-body.dark-mode h1 {
+html.dark-mode h1 {
   text-align: center;
   margin-bottom: 25px;
   color: #93c5fd;
 }
 
-body.dark-mode label {
+html.dark-mode label {
   display: block;
   margin: 15px 0 8px;
   font-weight: 600;
   color: #cbd5e0;
 }
 
-body.dark-mode input[type="text"],
-body.dark-mode input[type="number"] {
+html.dark-mode input[type="text"],
+html.dark-mode input[type="number"] {
   width: 100%;
   padding: 10px 12px;
   font-size: 16px;
@@ -157,11 +157,11 @@ body.dark-mode input[type="number"] {
   color: #cbd5e0;
 }
 
-body.dark-mode input::placeholder {
+html.dark-mode input::placeholder {
   color: #94a3b8;
 }
 
-body.dark-mode button {
+html.dark-mode button {
   background: #0f766e;
   color: white;
   padding: 12px 20px;
@@ -174,11 +174,11 @@ body.dark-mode button {
   transition: background 0.3s ease;
 }
 
-body.dark-mode button:hover {
+html.dark-mode button:hover {
   background: #115e59;
 }
 
-body.dark-mode .invoice {
+html.dark-mode .invoice {
   margin-top: 30px;
   border: 1px solid #475569;
   padding: 20px;
@@ -188,45 +188,45 @@ body.dark-mode .invoice {
   color: #cbd5e0;
 }
 
-body.dark-mode .invoice h2 {
+html.dark-mode .invoice h2 {
   margin-top: 0;
   text-align: center;
   margin-bottom: 20px;
   color: #93c5fd;
 }
 
-body.dark-mode table {
+html.dark-mode table {
   width: 100%;
   border-collapse: collapse;
   margin-bottom: 20px;
 }
 
-body.dark-mode th,
-body.dark-mode td {
+html.dark-mode th,
+html.dark-mode td {
   padding: 10px 12px;
   border: 1px solid #475569;
   text-align: left;
 }
 
-body.dark-mode th {
+html.dark-mode th {
   background: #334155;
   color: #cbd5e0;
 }
 
-body.dark-mode .total-row td {
+html.dark-mode .total-row td {
   font-weight: 700;
   color: #e0e7ff;
 }
 
 @media print {
-  body.dark-mode * {
+  html.dark-mode * {
     visibility: hidden;
   }
-  body.dark-mode .invoice,
-  body.dark-mode .invoice * {
+  html.dark-mode .invoice,
+  html.dark-mode .invoice * {
     visibility: visible;
   }
-  body.dark-mode .invoice {
+  html.dark-mode .invoice {
     position: absolute;
     top: 0; left: 0;
     width: 100%;

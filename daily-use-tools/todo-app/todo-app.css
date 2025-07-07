@@ -89,59 +89,59 @@ button:hover {
 }
 
 
-body.dark-mode {
+html.dark-mode body{
   background: #121212;
   color: #ddd;
 }
 
-body.dark-mode .container {
+html.dark-mode .container {
   background: #222831;
   box-shadow: 0 0 15px rgba(255,255,255,0.1);
 }
 
-body.dark-mode input[type="text"] {
+html.dark-mode input[type="text"] {
   background: #2a2e3e;
   color: #ddd;
   border: 1px solid #444;
 }
 
-body.dark-mode input[type="text"]::placeholder {
+html.dark-mode input[type="text"]::placeholder {
   color: #888;
 }
 
-body.dark-mode button {
+html.dark-mode button {
   background: #0d9488;
   color: #eee;
 }
 
-body.dark-mode button:hover {
+html.dark-mode button:hover {
   background: #0a6f6f;
 }
 
-body.dark-mode #task-list {
+html.dark-mode #task-list {
   /* no change needed */
 }
 
-body.dark-mode .task-item {
+html.dark-mode .task-item {
   background: #333a56;
   color: #ccc;
 }
 
-body.dark-mode .task-item.completed {
+html.dark-mode .task-item.completed {
   color: #999;
   opacity: 0.7;
   text-decoration: line-through;
 }
 
-body.dark-mode .task-actions button {
+html.dark-mode .task-actions button {
   background: #ef4444;  /* red */
   color: #fff;
 }
 
-body.dark-mode .task-actions button.done-btn {
+html.dark-mode .task-actions button.done-btn {
   background: #22c55e; /* green */
 }
 
-body.dark-mode .task-actions button:hover {
+html.dark-mode .task-actions button:hover {
   filter: brightness(0.85);
 }
