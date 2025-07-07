@@ -47,7 +47,7 @@ footer {
 
 /* Dark Mode Styles for Footer */
 html.dark-mode footer {
-  background: #1a1a1a;
+  background: #1e293b;
   border-top: 1px solid #333;
   box-shadow: 0 -1px 5px rgba(255, 255, 255, 0.1);
 }
