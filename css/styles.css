@@ -6,13 +6,15 @@
 body {
   font-family: sans-serif;
   margin: 0;
- background: linear-gradient(to top, #edf6fc 0%, #cce7f8 30%, #c4e6fc 45%, #b0dcf5 60%, #a0d8fc 75%, #87cefa 100%);
+  background: linear-gradient(to top, #edf6fc 0%, #cce7f8 30%, #c4e6fc 45%, #b0dcf5 60%, #a0d8fc 75%, #87cefa 100%);
   background-attachment: fixed;
   background-repeat: no-repeat;
   background-size: cover;
   min-height: 100vh;
   padding: 100px 70px 50px;
+  color: #000; /* light mode text */
 }
+
 
 @media (max-width: 768px) {
   body {
@@ -191,6 +193,7 @@ a {
   align-items: center;
   text-align: center;
   transition: transform 0.2s ease;
+  height: 150px;
 }
 
 .category-item:hover {
@@ -204,13 +207,14 @@ a {
 }
 
 .category-title {
-  font-size: 18px;
+  font-size: 24px;
   font-weight: bold;
   margin-bottom: 6px;
+  margin-bottom: 10px;
 }
 
 .category-desc {
-  font-size: 14px;
+  font-size: 18px;
   color: #555;
 }
 
@@ -223,6 +227,16 @@ a {
   .cat-title-name {
     font-size: 18px;
   }
+
+  .category-title {
+  font-size: 16px;
+  margin-bottom: 10px;
+}
+
+.category-desc {
+  font-size: 12px;
+
+}
 }
 
 
@@ -231,9 +245,10 @@ a {
 ============================= */
 
 html.dark-mode body {
-  background: linear-gradient(to bottom, #0f172a 0%, #1e293b 30%, #1e3a5f 60%, #0f4c75 100%);
-  color: #f1f5f9;
+  background: #000 !important;
+  color: #f1f5f9 !important;
 }
+
 
 html.dark-mode .namaj-box,
 html.dark-mode .date-box {
