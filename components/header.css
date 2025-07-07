@@ -28,6 +28,7 @@ header {
   display: flex;
   justify-content: space-between;
   align-items: center;
+
 }
 
 .logo img {
@@ -113,6 +114,7 @@ header {
   display: flex;
   flex-direction: column;
   overflow: hidden;
+ 
 }
 
 .mobile-canvas.active {
