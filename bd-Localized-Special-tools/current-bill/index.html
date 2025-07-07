@@ -8,14 +8,13 @@
   <title>বিদ্যুৎ বিল ক্যালকুলেটর</title>
   <style>
    /* Light Mode (Default) */
-body {
-  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-  background-color: #f4f8fb;
-  margin: 0;
-  padding: 30px 15px;
-  text-align: center;
-  color: #222;
-}
+ body {
+      font-family: 'Segoe UI', sans-serif;
+      background: #f4f6f9;
+      margin: 0;
+      padding: 20px;
+      color: #333;
+    }
 
 .container {
   max-width: 450px;
@@ -79,41 +78,41 @@ button:hover {
 }
 
 /* Dark Mode Overrides */
-body.dark-mode {
+html.dark-mode body {
   background-color: #0f172a;
   color: #e2e8f0;
 }
 
-body.dark-mode .container {
+html.dark-mode .container {
   background-color: #1e293b;
   box-shadow: 0 4px 12px rgba(255, 255, 255, 0.05);
   color: #e2e8f0;
 }
 
-body.dark-mode h1 {
+html.dark-mode h1 {
   color: #bfdbfe;
 }
 
-body.dark-mode label {
+html.dark-mode label {
   color: #cbd5e1;
 }
 
-body.dark-mode input[type="number"] {
+html.dark-mode input[type="number"] {
   background-color: #334155;
   color: #e2e8f0;
   border: 1px solid #475569;
 }
 
-body.dark-mode button {
+html.dark-mode button {
   background-color: #2a4d69; /* keep same as light mode button color */
   color: white;
 }
 
-body.dark-mode button:hover {
+html.dark-mode button:hover {
   background-color: #1e3550; /* keep same hover */
 }
 
-body.dark-mode .result {
+html.dark-mode .result {
   color: #93c5fd;
 }
 

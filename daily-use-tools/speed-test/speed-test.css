@@ -1,14 +1,10 @@
-/* Global */
-* {
-  box-sizing: border-box;
-}
-
-body {
-  margin: 0;
-  padding: 0;
-  color: #fff;
-  font-family: Arial, sans-serif;
-}
+ body {
+      font-family: 'Segoe UI', sans-serif;
+      background: #f4f6f9;
+      margin: 0;
+      padding: 20px;
+      color: #333;
+    }
 
 
 /* Page Wrapper */

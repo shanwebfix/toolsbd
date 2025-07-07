@@ -4,11 +4,11 @@
 }
 
 body {
-  margin: 0;
-  padding: 100px 20px 20px;
-  color: #ffffff;
+background: #f4f6f9;
+margin: 0;
+padding: 20px;
+color: #333;
   font-family: Arial, sans-serif;
-  background: #1e293b;
 }
 
 .container {
