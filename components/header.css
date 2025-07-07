@@ -17,6 +17,7 @@ header {
   height: 70px;
   display: flex;
   align-items: center;
+  margin-bottom: 100px;
 }
 
 .header-container {

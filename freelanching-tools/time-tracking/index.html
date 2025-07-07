@@ -1,23 +1,41 @@
 <!DOCTYPE html>
 <html lang="bn">
 <head>
-<meta charset="UTF-8" />
-<meta name="viewport" content="width=device-width, initial-scale=1" />
-<link rel="stylesheet" href="/components/header.css" />
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <link rel="stylesheet" href="/components/header.css" />
   <link rel="stylesheet" href="/components/footer.css" />
+ 
 <title>টাইম ট্র্যাকিং টুল</title>
 <style>
-  body {
-    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-    background: #f0f4f8;
+   html, body {
+      margin: 0;
+      padding: 0;
+      height: 100%;
+      overflow: auto;
+    }
+
+    body {
+      font-family: 'Segoe UI', sans-serif;
+      background: #f4f6f9;
+      color: #333;
+      display: flex;
+      justify-content: center;
+      min-height: 100vh;
+      padding: 20px;
+      box-sizing: border-box;
+    }
+
+  .container {
     display: flex;
+    flex-direction: column;
     justify-content: center;
     align-items: center;
-    height: 100vh;
-    margin: 0;
-    padding: 15px;
-    color: #222;
+    flex: 1;
+    width: 100%;
+    padding: 20px 0;
   }
+
   .tracker {
     background: #fff;
     padding: 30px 40px;
@@ -26,11 +44,14 @@
     max-width: 320px;
     width: 100%;
     text-align: center;
+    margin: auto;
   }
+
   h1 {
     margin-bottom: 25px;
     color: #2a4d69;
   }
+
   #timeDisplay {
     font-size: 48px;
     font-weight: 700;
@@ -38,11 +59,13 @@
     font-family: 'Courier New', Courier, monospace;
     letter-spacing: 3px;
   }
+
   .buttons {
     display: flex;
     justify-content: center;
     gap: 15px;
   }
+
   button {
     background: #077A7D;
     color: white;
@@ -54,118 +77,77 @@
     flex: 1;
     transition: background 0.3s ease;
   }
+
   button:hover {
     background: #066264;
   }
+
   button:disabled {
     background: #8aa7c7;
     cursor: default;
   }
+
   @media (max-width: 400px) {
     .tracker {
       padding: 20px;
     }
+
     #timeDisplay {
       font-size: 36px;
     }
+
     button {
       padding: 10px 12px;
       font-size: 14px;
     }
   }
 
+  /* Dark mode styles */
+  html.dark-mode body {
+    background: #121820;
+    color: #cbd5e0;
+  }
 
-
-
-html.dark-mode body{
-  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-  background: #121820;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  height: 100vh;
-  margin: 0;
-  padding: 15px;
-  color: #cbd5e0;
-}
-
-html.dark-mode .tracker {
-  background: #1e293b;
-  padding: 30px 40px;
-  border-radius: 12px;
-  box-shadow: 0 6px 15px rgba(0,0,0,0.7);
-  max-width: 320px;
-  width: 100%;
-  text-align: center;
-}
-
-html.dark-mode h1 {
-  margin-bottom: 25px;
-  color: #93c5fd;
-}
-
-html.dark-mode #timeDisplay {
-  font-size: 48px;
-  font-weight: 700;
-  margin-bottom: 25px;
-  font-family: 'Courier New', Courier, monospace;
-  letter-spacing: 3px;
-  color: #a5b4fc;
-}
-
-html.dark-mode .buttons {
-  display: flex;
-  justify-content: center;
-  gap: 15px;
-}
-
-html.dark-mode button {
-  background: #0f766e;
-  color: white;
-  border: none;
-  padding: 12px 20px;
-  font-size: 16px;
-  border-radius: 8px;
-  cursor: pointer;
-  flex: 1;
-  transition: background 0.3s ease;
-}
-
-html.dark-mode button:hover {
-  background: #115e59;
-}
-
-html.dark-mode button:disabled {
-  background: #475569;
-  cursor: default;
-}
-
-@media (max-width: 400px) {
   html.dark-mode .tracker {
-    padding: 20px;
+    background: #1e293b;
+    box-shadow: 0 6px 15px rgba(0,0,0,0.7);
   }
-  html.dark-mode #timeDisplay {
-    font-size: 36px;
-  }
-  html.dark-mode button {
-    padding: 10px 12px;
-    font-size: 14px;
-  }
-}
 
+  html.dark-mode h1 {
+    color: #93c5fd;
+  }
+
+  html.dark-mode #timeDisplay {
+    color: #a5b4fc;
+  }
+
+  html.dark-mode button {
+    background: #0f766e;
+  }
+
+  html.dark-mode button:hover {
+    background: #115e59;
+  }
+
+  html.dark-mode button:disabled {
+    background: #475569;
+  }
 </style>
 </head>
 <body>
 
-<div class="tracker">
-  <h1>টাইম ট্র্যাকিং টুল</h1>
-  <div id="timeDisplay">00:00:00</div>
-  <div class="buttons">
-    <button id="startBtn">শুরু করুন</button>
-    <button id="pauseBtn" disabled>বিরতি দিন</button>
-    <button id="resetBtn" disabled>রিসেট</button>
+  <div class="container">
+    <div class="tracker">
+      <h1>টাইম ট্র্যাকিং টুল</h1>
+      <div id="timeDisplay">00:00:00</div>
+      <div class="buttons">
+        <button id="startBtn">শুরু করুন</button>
+        <button id="pauseBtn" disabled>বিরতি দিন</button>
+        <button id="resetBtn" disabled>রিসেট</button>
+      </div>
+    </div>
   </div>
-</div>
+ 
 
 <script>
   let startTime = 0;
@@ -222,6 +204,6 @@ html.dark-mode button:disabled {
   resetBtn.addEventListener('click', resetTimer);
 </script>
 <script src="/components/header.js"></script>
-<script src="/components/footer.js"></script>
+  <script src="/components/footer.js"></script>
 </body>
 </html>

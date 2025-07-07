@@ -49,8 +49,7 @@ footer {
 html.dark-mode footer {
   background: #1e293b;
   border-top: 1px solid #333;
-  box-shadow: 0 -1px 5px rgba(255, 255, 255, 0.1);
-}
+  box-shadow: 0 -1px 5px rgba(255, 255, 255, 0.1);}
 
 html.dark-mode .footer-menu a,
 html.dark-mode .footer-menu a i {
