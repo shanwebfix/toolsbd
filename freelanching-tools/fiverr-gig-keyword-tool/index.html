@@ -7,36 +7,23 @@
   <link rel="stylesheet" href="/components/header.css" />
   <link rel="stylesheet" href="/components/footer.css" />
   <style>
-    html, body {
-      margin: 0;
-      padding: 0;
-      width: 100%;
-      height: 100%;
-    }
-
-    body {
+body {
       font-family: 'Segoe UI', sans-serif;
       background: #f4f6f9;
-      color: #333;
-      display: flex;
-      flex-direction: column;
-      align-items: center;
-      min-height: 100vh;
+      margin: 0;
       padding: 20px;
-      box-sizing: border-box;
-      overflow-x: hidden;
+      color: #333;
     }
 
     .container {
       max-width: 850px;
-      width: 100%;
-      margin: 70px auto;
+      margin: auto;
       background: #fff;
       padding: 30px;
       border-radius: 10px;
       box-shadow: 0 4px 12px rgba(0,0,0,0.08);
-      overflow-y: auto;
-      flex: 0 1 auto;
+      margin-top: 70px;
+      margin-bottom: 70px;
     }
 
     h1 {
@@ -98,71 +85,111 @@
       text-align: center;
     }
 
-    /* Mobile responsive */
-    @media (max-width: 768px) {
-      body {
-        padding: 10px;
-        height: auto;
-        min-height: 100vh;
-      }
-
+    @media (max-width: 600px) {
       .container {
-        margin: 20px auto;
         padding: 20px;
-        max-height: calc(100vh - 40px);
-        width: calc(100% - 20px);
+      }
+      button {
+        font-size: 15px;
       }
     }
 
-    /* Dark mode styles */
-    html.dark-mode {
-      background: #121821;
-    }
-    
-    html.dark-mode body {
-      background: #121821;
-      color: #cbd5e0;
-    }
 
-    html.dark-mode .container {
-      background: #1e293b;
-      box-shadow: 0 4px 12px rgba(0,0,0,0.7);
-    }
+html.dark-mode {
+  font-family: 'Segoe UI', sans-serif;
+  background: #121821;
+  margin: 0;
+  padding: 20px;
+  color: #cbd5e0;
+}
 
-    html.dark-mode h1 {
-      color: #93c5fd;
-    }
+html.dark-mode .container {
+  max-width: 850px;
+  margin: auto;
+  background: #1e293b;
+  padding: 30px;
+  border-radius: 10px;
+  box-shadow: 0 4px 12px rgba(0,0,0,0.7);
+  margin-top: 70px;
+  margin-bottom: 70px;
+}
 
-    html.dark-mode input {
-      border: 1px solid #475569;
-      background-color: #334155;
-      color: #cbd5e0;
-    }
+html.dark-mode h1 {
+  text-align: center;
+  margin-bottom: 25px;
+  color: #93c5fd;
+}
 
-    html.dark-mode input::placeholder {
-      color: #94a3b8;
-    }
+html.dark-mode input {
+  width: 100%;
+  padding: 12px;
+  font-size: 16px;
+  border: 1px solid #475569;
+  border-radius: 6px;
+  box-sizing: border-box;
+  margin-bottom: 20px;
+  background-color: #334155;
+  color: #cbd5e0;
+}
 
-    html.dark-mode button {
-      background-color: #0f766e;
-    }
+html.dark-mode input::placeholder {
+  color: #94a3b8;
+}
 
-    html.dark-mode button:hover {
-      background-color: #115e59;
-    }
+html.dark-mode button {
+  padding: 12px 20px;
+  font-size: 16px;
+  background-color: #0f766e;
+  color: white;
+  border: none;
+  border-radius: 6px;
+  cursor: pointer;
+  margin-bottom: 15px;
+  transition: background-color 0.3s ease;
+}
 
-    html.dark-mode .keyword {
-      background-color: #334155;
-      color: #cbd5e0;
-    }
+html.dark-mode button:hover {
+  background-color: #115e59;
+}
 
-    html.dark-mode .keyword:hover {
-      background-color: #475569;
-    }
+html.dark-mode .keywords {
+  margin-top: 10px;
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px;
+}
 
-    html.dark-mode .info {
-      color: #94a3b8;
-    }
+html.dark-mode .keyword {
+  background-color: #334155;
+  padding: 8px 12px;
+  border-radius: 6px;
+  cursor: pointer;
+  font-size: 14px;
+  user-select: none;
+  transition: background 0.2s;
+  color: #cbd5e0;
+}
+
+html.dark-mode .keyword:hover {
+  background-color: #475569;
+}
+
+html.dark-mode .info {
+  font-size: 13px;
+  color: #94a3b8;
+  margin-top: 10px;
+  text-align: center;
+}
+
+@media (max-width: 600px) {
+  html.dark-mode .container {
+    padding: 20px;
+  }
+  html.dark-mode button {
+    font-size: 15px;
+  }
+}
+
   </style>
 </head>
 <body>
@@ -229,12 +256,11 @@
       div.textContent = word;
       div.onclick = () => {
         navigator.clipboard.writeText(word);
-        const isDarkMode = document.documentElement.classList.contains('dark-mode');
-        div.style.backgroundColor = isDarkMode ? "#4d7c0f" : "#c1e1c1";
+        div.style.backgroundColor = "#c1e1c1";
         div.textContent = "✅ কপি হয়েছে: " + word;
         setTimeout(() => {
           div.textContent = word;
-          div.style.backgroundColor = "";
+          div.style.backgroundColor = "#e6f0ff";
         }, 1200);
       };
       keywordBox.appendChild(div);
