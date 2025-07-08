@@ -37,8 +37,8 @@
   border-radius: 10px;
   box-shadow: 0 0 10px rgba(0,0,0,.1);
   overflow: hidden;
-  margin-top: 100px !important;
-  margin-bottom: 100px !important;
+  margin-top: 70px !important;
+  margin-bottom: 70px !important;
   margin-left: auto;
   margin-right: auto;
 }
@@ -74,7 +74,7 @@
   width: 70%;
   padding: 20px;
   overflow-y: auto;
-  text-align: center;
+  
 }
 
 .right-panel h2 {
@@ -82,6 +82,7 @@
   color: #077A7D;
   border-bottom: 2px solid #077A7D;
   padding-bottom: 5px;
+  text-align: left;
 }
 
 audio {
@@ -89,10 +90,37 @@ audio {
   margin-top: 15px;
 }
 
-@media (max-width:600px) {
-  .left-panel, .right-panel { width:100%; padding:10px; }
+/* ================== মোবাইল রেস্পন্সিভ ================== */
+@media screen and (max-width: 600px) {
+  .left-panel, .right-panel {
+    width: 100%;
+    padding: 10px;
+  }
+  .left-panel {
+    border-right: none;
+    border-bottom: 1px solid #ddd;
+  }
+  .left-panel h1 {
+    font-size: 18px;
+  }
+  #surahList li {
+    padding: 8px 6px;
+    font-size: 14px;
+  }
+  .right-panel h2 {
+    font-size: 20px;
+    padding-bottom: 6px;
+  }
+  .arabic {
+    font-size: 20px;
+  }
+  .translation {
+    font-size: 14px;
+  }
+  .ayah-number {
+    font-size: 14px;
+  }
 }
-
 /* ====== Dark Mode Styles ====== */
 html.dark-mode body{
   background: #000;
@@ -106,7 +134,7 @@ html.dark-mode .container {
 
 html.dark-mode .left-panel {
   border-color: #3a5a59;
-  background: #22443d;
+  background: transparent;
 }
 
 html.dark-mode .left-panel h1 {
@@ -149,8 +177,7 @@ body.dark-mode audio {
     <div class="right-panel" id="surahContent">
   <h2>সূরা নির্বাচন করুন</h2>
   <p>বাম থেকে সূরা নির্বাচন করে শ্রবণ শুরু করুন।</p>
-  <p style="color: #00aa55; font-size: 14px; margin: 20px;">
-    🔊 অনেক সময় সূরা লোড হতে কিছুটা সময় লাগতে পারে। দয়া করে একটু অপেক্ষা করুন অথবা অডিও বন্ধ করে আবার প্লে করুন।<br/>
+  <p style="color: #00aa55; font-size: 14px; margin-top: 20px; margin-bottom: 10px;">🔊 অনেক সময় সূরা লোড হতে কিছুটা সময় লাগতে পারে। দয়া করে একটু অপেক্ষা করুন অথবা অডিও বন্ধ করে আবার প্লে করুন।<br/>
     </p><p>📥 অডিও সংগ্রহ করা হয়েছে <strong>alquran.cloud</strong> থেকে।
   </p>
 </div>

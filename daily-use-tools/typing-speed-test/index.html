@@ -20,62 +20,25 @@
 <link rel="stylesheet" href="/components/header.css">
 <link rel="stylesheet" href="/components/footer.css">
 <style>
-/* Light Mode (default) */
-:root {
-  --bg-color: #ffffff;
-  --text-color: #000000;
-  --container-bg: #ffffff;
-  --container-border: #ddd;
-  --container-shadow: rgba(0, 0, 0, 0.15);
-  --sample-text-bg: #f3f4f6;
-  --correct-bg: #22c55e;
-  --correct-color: black;
-  --incorrect-bg: #ef4444;
-  --incorrect-color: white;
-  --button-bg: #077A7D;
-  --button-bg-hover: #066264;
-  --textarea-color: black;
-}
+   body {
+  font-family: 'Segoe UI', sans-serif;
+  background: #f4f6f9;
+  margin: 0;
+  padding: 20px;
+  color: #333;}
 
-/* Dark Mode */
-html.dark-mode {
-  --bg-color: #000;
-  --text-color: #e2e8f0;
-  --container-bg: #334155;
-  --container-border: #475569;
-  --container-shadow: rgba(0, 0, 0, 0.8);
-  --sample-text-bg: #1e293b;
-  --correct-bg: #22c55e;
-  --correct-color: black;
-  --incorrect-bg: #ef4444;
-  --incorrect-color: white;
-  --button-bg: #0f766e;
-  --button-bg-hover: #115e59;
-  --textarea-color: #e2e8f0;
-}
-
-/* Global */
-* {
-  box-sizing: border-box;
-}
-
- body {
-      font-family: 'Segoe UI', sans-serif;
-      background: #f4f6f9;
-      margin: 0;
-      padding: 20px;
-      color: #333;
-    }
 
 .container {
-  max-width: 600px;
-  margin: 0 auto;
-  background: var(--container-bg);
+  max-width: 850px;
+  margin: auto;
+  background: #fff;
   padding: 30px;
-  border-radius: 15px;
+  border-radius: 10px;
+  box-shadow: 0 4px 12px rgba(0,0,0,0.08);
+  margin-top: 70px;
+  margin-bottom: 70px;
+  align-items: center;
   text-align: center;
-  box-shadow: 0 0 15px var(--container-shadow);
-  border: solid 1px var(--container-border);
 }
 
 h1 {
@@ -84,7 +47,7 @@ h1 {
 
 /* Sample text styled with spans */
 #sample-text {
-  background: var(--sample-text-bg);
+  background: #f4f6f9;
   padding: 15px;
   border-radius: 8px;
   margin-bottom: 15px;
@@ -98,30 +61,31 @@ h1 {
 
 /* Span styling */
 .correct {
-  background-color: var(--correct-bg);
-  color: var(--correct-color);
+  background-color: #05db29;
+  color: #fff;
 }
 
 .incorrect {
-  background-color: var(--incorrect-bg);
-  color: var(--incorrect-color);
+  background-color: #c62828;
+  color: #fff;
 }
 
 textarea {
-  width: 100%;
+  width: 97%;
   padding: 12px;
   font-size: 16px;
   border-radius: 6px;
   border: none;
   resize: none;
   margin-bottom: 15px;
-  color: var(--textarea-color);
+  color: #000000;
   background-color: transparent;
+  border: 1px solid #a7ffeb;
 }
 
 button {
   padding: 10px 20px;
-  background: var(--button-bg);
+  background: #077A7D;
   border: none;
   border-radius: 6px;
   color: white;
@@ -133,13 +97,71 @@ button {
 }
 
 button:hover {
-  background: var(--button-bg-hover);
+  background: #066264;
 }
 
 #timer, #wpm-result {
   font-size: 18px;
   margin-top: 10px;
 }
+
+
+
+@media (max-width: 480px) {
+  textarea {
+  width: 90%;}}
+
+/* ===== DARK MODE STYLES ===== */
+html.dark-mode body {
+  background: #000;
+  color: #a7ffeb;
+}
+html.dark-mode .container {
+  background: #0f172a;
+  box-shadow: 0 0 15px rgba(0, 0, 0, 0.5);
+}
+
+html.dark-mode h1 {
+  color: #e0e0e0;
+}
+
+html.dark-mode #sample-text {
+  background: #000;
+  color: #fff;
+  box-shadow: 0 0 15px rgba(0, 46, 39, 0.5);
+}
+
+html.dark-mode .correct {
+  background-color: #2e7d32; /* dark green */
+  color: #ffffff;
+}
+
+html.dark-mode .incorrect {
+  background-color: #c62828; /* dark red */
+  color: #ffffff;
+}
+
+html.dark-mode textarea {
+  background-color: transparent;
+  color: #e0e0e0;
+  border: 1px solid #a7ffeb;
+}
+
+html.dark-mode button {
+  background: #077A7D;
+  color: #fff;
+}
+
+html.dark-mode button:hover {
+  background: #066264;
+}
+
+html.dark-mode #timer,
+html.dark-mode #wpm-result {
+  color: #ffffff;
+}
+
+
 </style>
 </head>
 <body>
@@ -157,7 +179,8 @@ button:hover {
   <div id="wpm-result"></div>
 </div>
 
-<script>const startBtn = document.getElementById('start-btn');
+<script>
+const startBtn = document.getElementById('start-btn');
 const inputText = document.getElementById('input-text');
 const timerDisplay = document.getElementById('timer');
 const wpmResult = document.getElementById('wpm-result');
@@ -176,6 +199,7 @@ let startTime;
 let intervalId;
 const testDuration = 60; // seconds
 let testActive = false;
+let totalTyped = ''; // ✅ store total typed text
 
 function setSampleSentence() {
   const sentence = sampleSentences[currentIndex];
@@ -195,6 +219,7 @@ function calculateWPM(text, timeInSeconds) {
 
 function startTest() {
   inputText.value = '';
+  totalTyped = ''; // ✅ reset typed tracker
   inputText.disabled = false;
   inputText.focus();
   wpmResult.textContent = '';
@@ -224,9 +249,8 @@ function endTest() {
   testActive = false;
 
   const timeElapsed = (Date.now() - startTime) / 1000;
-  const typedText = inputText.value;
+  const wpm = calculateWPM(totalTyped, timeElapsed);
 
-  const wpm = calculateWPM(typedText, timeElapsed);
   wpmResult.textContent = `Your typing speed: ${wpm} WPM`;
 
   currentIndex = 0;
@@ -249,29 +273,13 @@ function checkCompletionAndHighlight() {
     }
   }
 
-  if (userInput.trim() === sentence) {
+  // ✅ যদি পুরা বাক্য টাইপ করে ফেলেছে (ভুল সহ), তাহলে true
+  if (userInput.length >= sentence.length) {
     return true;
   }
 
   return false;
 }
-
-startBtn.addEventListener('click', () => {
-  startTest();
-});
-
-inputText.addEventListener('input', () => {
-  if (!testActive) return;
-
-  const complete = checkCompletionAndHighlight();
-
-  if (complete) {
-    currentIndex = (currentIndex + 1) % sampleSentences.length;
-    setSampleSentence();
-    inputText.value = '';
-    updateHighlight();
-  }
-});
 
 function updateHighlight() {
   const sentenceSpans = sampleTextElem.querySelectorAll('span');
@@ -288,7 +296,28 @@ function updateHighlight() {
     }
   }
 }
+
+startBtn.addEventListener('click', () => {
+  startTest();
+});
+
+inputText.addEventListener('input', () => {
+  if (!testActive) return;
+
+  totalTyped += inputText.value[inputText.value.length - 1] || ''; // ✅ accumulate typed characters
+
+  const complete = checkCompletionAndHighlight();
+
+  if (complete) {
+    currentIndex = (currentIndex + 1) % sampleSentences.length;
+    setSampleSentence();
+    inputText.value = '';
+    updateHighlight();
+  }
+});
 </script>
+
+
 <script src="/components/header.js"></script>
 <script src="/components/footer.js"></script>
 </body>

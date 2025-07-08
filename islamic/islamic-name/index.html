@@ -32,15 +32,15 @@ body {
   max-width: 850px;
   margin: auto;
   background: #fff;
-  padding: 30px;
+  padding: 2px;
   border-radius: 10px;
   box-shadow: 0 4px 12px rgba(0,0,0,0.08);
-  margin-top: 70px;
-  margin-bottom: 70px;
+  margin-top: 0px;
+  margin-bottom: 0px;
 }
 .inputtext {
   margin: auto;
-  padding: 30px;
+  padding: 5px;
   text-align: center;
 }
 
@@ -48,7 +48,7 @@ body {
 h2 {
   color: #00695c;
   margin-bottom: 20px;
-  margin-top: 100px;
+  margin-top: 20px;
   text-align: center;
 }
 
@@ -93,33 +93,11 @@ strong {
 }
 
 
-/* 🔽 Mobile responsive design */
-@media (max-width: 600px) {
- 
 
-  .inputtext {
-    padding: 20px;
-  }
-
-  input {
-    width: 100%;
-    font-size: 16px;
-  }
-
-  .result {
-    width: 100%;
-    font-size: 15px;
-  }
-
-  h2 {
-    font-size: 20px;
-    margin-top: 60px;
-  }
-}
 /* 🌙 Dark Mode (based on html.dark-mode) */
 html.dark-mode body {
   background: #000;
-  color: #a7ffeb;
+  color: #fff;
 }
 html.dark-mode .container {
   max-width: 850px;
@@ -132,20 +110,20 @@ html.dark-mode .container {
   margin-bottom: 70px;
 }
 html.dark-mode h2 {
-  color: #4db6ac;
+  color: #fff;
 }
 
 html.dark-mode input {
-  border: 2px solid #4db6ac;
-  background-color: #013a3a;
+  border: 1px solid #4db6ac;
+  background-color: transparent;
   color: #a7ffeb;
-  box-shadow: 0 0 5px rgba(77, 182, 172, 0.6);
+  box-shadow: 0 0 2px rgba(77, 182, 172, 0.6);
 }
 
 html.dark-mode input:focus {
   border-color: #00796b;
   box-shadow: 0 0 8px rgba(0, 121, 107, 0.8);
-  background-color: #014d4d;
+  background-color: transparent;
   color: #d0f4f1;
 }
 
