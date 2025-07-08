@@ -157,34 +157,35 @@ body.dark-mode audio {
 
 
   <script>
-    const surahListEl = document.getElementById('surahList');
-    const contentEl = document.getElementById('surahContent');
+  const surahListEl = document.getElementById('surahList');
+  const contentEl = document.getElementById('surahContent');
 
-    // সূরা তালিকা লোড করা
-    fetch('https://api.alquran.cloud/v1/surah')
-      .then(r => r.json())
-      .then(r => {
-        r.data.forEach(s => {
-          const li = document.createElement('li');
-          li.textContent = `${s.name} (${s.englishName})`;
-          li.onclick = () => selectSurah(s);
-          surahListEl.appendChild(li);
-        });
+  // সূরা তালিকা লোড করা
+  fetch('https://api.alquran.cloud/v1/surah')
+    .then(r => r.json())
+    .then(r => {
+      r.data.forEach(s => {
+        const li = document.createElement('li');
+        li.textContent = `${s.englishName}`; // ✅ শুধু ইংরেজি নাম
+        li.onclick = () => selectSurah(s);
+        surahListEl.appendChild(li);
       });
+    });
 
-    function selectSurah(surah) {
-      document.querySelectorAll('#surahList li').forEach(li => li.classList.remove('active'));
-      const activeItem = Array.from(surahListEl.children).find(li => li.textContent.includes(surah.englishName));
-      if (activeItem) activeItem.classList.add('active');
+  function selectSurah(surah) {
+    document.querySelectorAll('#surahList li').forEach(li => li.classList.remove('active'));
+    const activeItem = Array.from(surahListEl.children).find(li => li.textContent === surah.englishName);
+    if (activeItem) activeItem.classList.add('active');
 
-      const audioSrc = `https://cdn.islamic.network/quran/audio-surah/128/ar.alafasy/${surah.number}.mp3`;
+    const audioSrc = `https://cdn.islamic.network/quran/audio-surah/128/ar.alafasy/${surah.number}.mp3`;
 
-      contentEl.innerHTML = `
-        <h2>${surah.name} (${surah.englishName})</h2>
-        <audio controls autoplay src="${audioSrc}"></audio>
-      `;
-    }
-  </script>
+    contentEl.innerHTML = `
+      <h2>${surah.englishName}</h2> <!-- ✅ শুধু ইংরেজি নাম -->
+      <audio controls autoplay src="${audioSrc}"></audio>
+    `;
+  }
+</script>
+
   <script src="/components/header.js"></script>
 <script src="/components/footer.js"></script>
 </body>
