@@ -21,11 +21,10 @@ header {
   max-width: 1200px;
   margin: 0 auto;
   width: 100%;
-  padding: 0 80px;
+  padding: 0 20px;
   display: flex;
   justify-content: space-between;
   align-items: center;
-
 }
 
 .logo img {
@@ -36,8 +35,11 @@ header {
   font-size: 26px;
   cursor: pointer;
   display: none;
-
-
+  color: #077A7D;
+  background: none;
+  border: none;
+  padding: 0;
+  margin: 0;
 }
 
 .menu-group {
@@ -63,10 +65,13 @@ header {
   background-color: #066264;
 }
 
-.desktop-toggle {background-color: #077A7D;
+.desktop-toggle {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 4px;
   border-radius: 8px;
-  padding: 6px 10px;
-  transition: background-color 0.3s ease;
+  background-color: #077A7D;
 }
 
 .nav-menu {
@@ -144,10 +149,15 @@ body.dark-mode .mobile-canvas {
   font-size: 28px;
   background: transparent;
   border: none;
-  color: inherit;
-  cursor: pointer;
-  line-height: 1;
   color: #077A7D;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 40px;
+  height: 40px;
+  margin: 0;
+  padding: 0;
 }
 
 /* Scrollable Canvas Content */
@@ -250,8 +260,8 @@ body.dark-mode .mobile-canvas {
 
 /* Responsive */
 @media (max-width: 768px) {
-  .header-container {
-    padding: 20px;
+.header-container {
+    padding: 0 20px;
   }
 
   .logo img {
@@ -260,7 +270,6 @@ body.dark-mode .mobile-canvas {
 
   .menu-toggle {
     display: block;
-    color: #077A7D;
   }
 
   .menu-group {
@@ -288,6 +297,8 @@ body.dark-mode .mobile-canvas {
   display: inline-block;
   width: 50px;
   height: 26px;
+  margin: 0;
+  flex-shrink: 0;
 }
 
 .theme-switch input {
@@ -351,6 +362,10 @@ body.dark-mode .mobile-canvas {
 
 /* DARK MODE STYLES */
 
+html.dark-mode {
+  background: #121212;
+  color: #f0f0f0;
+}
 
 html.dark-mode header {
   background: rgba(18, 18, 18, 0.8);
@@ -383,7 +398,7 @@ html.dark-mode .canvas-header {
 }
 
 html.dark-mode #closeCanvas {
-  color: #ffffff;
+  color: #fff;
 }
 
 /* Canvas Sections & Links */
