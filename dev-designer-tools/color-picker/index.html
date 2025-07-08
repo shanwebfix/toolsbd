@@ -26,10 +26,17 @@
       padding: 20px;
       color: #333;
     }
-    .margin {
-        margin-top: 50px;
-        margin-bottom: 50px;
-    }
+.container {
+  max-width: 800px;
+  margin: 0 auto;
+  background: #ffffff;
+  padding: 30px;
+  border-radius: 15px;
+  text-align: center;
+  box-shadow: 0 0 15px rgba(0,0,0,0.3);
+  margin-top: 100px;
+  margin-bottom: 100px;
+}
     h1 {
       margin-bottom: 30px;
       color: #333;
@@ -89,9 +96,11 @@ html.dark-mode body {
   background: #000;
   color: #a7ffeb;
 }
-
+html.dark-mode .container {
+  background-color: #1e293b;
+}
 html.dark-mode h1 {
-  color: #ccc;
+  color: #fff;
 }
 
 html.dark-mode input[type="color"] {
@@ -149,7 +158,7 @@ html.dark-mode .color-box.copied::after {
   </style>
 </head>
 <body>
-<div class="margin">
+<div class="container">
   <h1>🎨 Color Picker & Palette Generator</h1>
 
   <input type="color" id="colorPicker" value="#3498db" onchange="generatePalette()" />

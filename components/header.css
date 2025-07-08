@@ -362,10 +362,6 @@ body.dark-mode .mobile-canvas {
 
 /* DARK MODE STYLES */
 
-html.dark-mode {
-  background: #121212;
-  color: #f0f0f0;
-}
 
 html.dark-mode header {
   background: rgba(18, 18, 18, 0.8);

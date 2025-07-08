@@ -24,12 +24,12 @@
   box-sizing: border-box;
 }
  body {
-      font-family: 'Segoe UI', sans-serif;
-      background: #f4f6f9;
-      margin: 0;
-      padding: 20px;
-      color: #333;
-    }
+ font-family: 'Segoe UI', sans-serif;
+ background: #f4f6f9;
+ margin: 0;
+ padding: 20px;
+ color: #333;
+}
 
 .container {
   max-width: 600px;
@@ -39,6 +39,8 @@
   border-radius: 15px;
   text-align: center;
   box-shadow: 0 0 15px rgba(0,0,0,0.3);
+  margin-top: 100px;
+  margin-bottom: 100px;
 }
 h1 {
   margin-bottom: 25px;
@@ -67,8 +69,24 @@ input[type="text"] {
   font-size: 18px;
   text-align: center;
   background: #ffffff;
-  color: #e5e7eb;
-  user-select: all; /* যাতে সহজে copy করা যায় */
+  color: #000000;
+  user-select: all;
+  border: 1px solid #a7ffeb;
+}
+#password-output {
+  margin-top: 15px;
+  padding: 10px;
+  font-size: 18px;
+  width: 100%;
+  max-width: 300px;
+  text-align: center;
+  cursor: pointer;
+}
+
+#copy-msg {
+  color: green;
+  margin-top: 5px;
+  font-size: 14px;
 }
 
 
@@ -78,13 +96,13 @@ html.dark-mode body {
 }
 
 html.dark-mode .container {
-  background: #ffffff;
+  background: #1e293b;
   box-shadow: 0 0 15px rgba(0,0,0,0.1);
   color: #077A7D;
 }
 
 html.dark-mode h1 {
-  color: #066264;
+  color: #fff;
 }
 
 html.dark-mode button {
@@ -100,7 +118,7 @@ html.dark-mode input[type="text"] {
   background: #1f2937;
   color: #e5e7eb;
   user-select: all;
-  border: 1px solid #cbd5e1;
+  border: 1px solid #a7ffeb;
   text-align: center;
 }
 </style>
@@ -112,42 +130,59 @@ html.dark-mode input[type="text"] {
   <h1>Strong Password Generator</h1>
   <button id="generate-btn">Generate Password</button>
   <input type="text" id="password-output" readonly placeholder="Your password will appear here" />
+<small id="copy-msg" style="display: none;">Copied!</small>
 </div>
 
-<script>const generateBtn = document.getElementById('generate-btn');
+<script>
+const generateBtn = document.getElementById('generate-btn');
 const passwordOutput = document.getElementById('password-output');
+const copyMsg = document.getElementById('copy-msg');
 
-function generatePassword(length = 12) {
-  const upperCase = "ABCDEFGHIJKLMNOPQRSTUVWXYZ";
-  const lowerCase = "abcdefghijklmnopqrstuvwxyz";
-  const numbers = "0123456789";
+function generatePassword(length = 14) {
+  const upper = "ABCDEFGHIJKLMNOPQRSTUVWXYZ";
+  const lower = "abcdefghijklmnopqrstuvwxyz";
+  const nums = "0123456789";
   const symbols = "!@#$%^&*()-_=+[]{}|;:',.<>/?";
+  const all = upper + lower + nums + symbols;
 
-  const allChars = upperCase + lowerCase + numbers + symbols;
-
-  let password = "";
-
-  // Ensure password has at least one char from each category
-  password += upperCase[Math.floor(Math.random() * upperCase.length)];
-  password += lowerCase[Math.floor(Math.random() * lowerCase.length)];
-  password += numbers[Math.floor(Math.random() * numbers.length)];
-  password += symbols[Math.floor(Math.random() * symbols.length)];
+  let password = upper[Math.floor(Math.random() * upper.length)] +
+                 lower[Math.floor(Math.random() * lower.length)] +
+                 nums[Math.floor(Math.random() * nums.length)] +
+                 symbols[Math.floor(Math.random() * symbols.length)];
 
   for (let i = 4; i < length; i++) {
-    password += allChars[Math.floor(Math.random() * allChars.length)];
+    password += all[Math.floor(Math.random() * all.length)];
   }
 
-  // Shuffle the password characters so fixed-position chars are randomized
-  password = password.split('').sort(() => 0.5 - Math.random()).join('');
-
-  return password;
+  return password.split('').sort(() => 0.5 - Math.random()).join('');
 }
 
 generateBtn.addEventListener('click', () => {
-  const newPassword = generatePassword(14);  // 14 char length
-  passwordOutput.value = newPassword;
+  const newPass = generatePassword(14);
+  passwordOutput.value = newPass;
+  copyMsg.style.display = 'none'; // hide previous message
+});
+
+// Click to copy
+passwordOutput.addEventListener('click', () => {
+  const password = passwordOutput.value;
+  if (!password) return;
+
+  navigator.clipboard.writeText(password)
+    .then(() => {
+      copyMsg.style.display = 'block';
+      copyMsg.textContent = "Copied!";
+      setTimeout(() => {
+        copyMsg.style.display = 'none';
+      }, 1500);
+    })
+    .catch(err => {
+      copyMsg.textContent = "Failed to copy!";
+      copyMsg.style.display = 'block';
+    });
 });
 </script>
+
 <script src="/components/header.js"></script>
 <script src="/components/footer.js"></script>
 </body>

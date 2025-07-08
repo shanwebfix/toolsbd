@@ -28,10 +28,17 @@
       color: #333;
     }
     
-    .margin {
-        margin-top: 50px;
-        margin-bottom: 50px;
-    }
+    .container {
+  max-width: 1000px;
+  margin: 0 auto;
+  background: #ffffff;
+  padding: 30px;
+  border-radius: 15px;
+  text-align: center;
+  box-shadow: 0 0 15px rgba(0,0,0,0.3);
+  margin-top: 100px;
+  margin-bottom: 100px;
+}
     h1 {
       text-align: center;
       margin-bottom: 30px;
@@ -48,6 +55,13 @@
     }
     .btn {
       margin-top: 15px;
+      color: #fff;
+      background-color: #077A7D;
+    }
+   .btn:hover {
+      margin-top: 15px;
+      color: #fff;
+      background-color: #066264;
     }
     .output {
       margin-top: 25px;
@@ -55,13 +69,15 @@
 
 html.dark-mode body {
   background: #000;
-  color: #a7ffeb;
+  color: #fff;
 }
-
+html.dark-mode .container {
+  background-color: #1e293b;
+}
 html.dark-mode h1 {
   text-align: center;
   margin-bottom: 30px;
-  color: #ccc;
+  color: #fff;
 }
 
 html.dark-mode textarea {
@@ -74,7 +90,7 @@ html.dark-mode textarea {
   border: 1px solid #475569;
   resize: vertical;
   background-color: #1e293b;
-  color: #e0e0e0;
+  color: #fff;
 }
 
 html.dark-mode .btn {
@@ -83,13 +99,13 @@ html.dark-mode .btn {
 
 html.dark-mode .output {
   margin-top: 25px;
-  color: #e0e0e0;
+  color: #fff;
 }
 
   </style>
 </head>
 <body>
-<div class="margin">
+<div class="container">
   <h1>HTML, CSS, JS Formatter</h1>
 
   <label for="language" class="form-label">Choose Language:</label>

@@ -35,6 +35,47 @@
       margin: auto;
       box-shadow: 0 4px 12px rgba(0,0,0,0.1);
     }
+
+    .color-row {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 10px;
+  flex-wrap: wrap; /* ছোট স্ক্রিনে ভেঙে না পড়ে রাখতে চাইলে এইটা বাদ দিতে পারো */
+}
+
+.color-row label {
+  font-weight: bold;
+}
+
+.color-row input[type="color"] {
+  width: 40px;
+  height: 40px;
+  border: none;
+  padding: 0;
+  cursor: pointer;
+}
+
+.center-row {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 10px;
+  flex-wrap: wrap;
+  margin: 10px 0;
+}
+
+.center-row label {
+  font-weight: bold;
+}
+
+.center-row select {
+  padding: 6px 12px;
+  font-size: 16px;
+  border-radius: 4px;
+}
+
+
     label {
       font-weight: bold;
       display: block;
@@ -75,14 +116,15 @@
         margin-top: 50px;
         margin-bottom: 50px;
     }
+
     
 html.dark-mode body {
   background: #000;
-  color: #a7ffeb;
+  color: #fff;
 }
 
 html.dark-mode .generator {
-  background: #1e1e1e;
+  background: #1f2937;
   box-shadow: 0 4px 12px rgba(255, 255, 255, 0.1);
 }
 
@@ -124,20 +166,26 @@ html.dark-mode button:hover {
   ,<div class="margin"><div class="generator">
     <h2>🎨 CSS গ্র্যাডিয়েন্ট জেনারেটর</h2>
 
-    <label>রং ১</label>
-    <input type="color" id="color1" value="#ff7e5f">
+  <div class="color-row">
+  <label for="color1">রং ১</label>
+  <input type="color" id="color1" value="#ff00ff">
 
-    <label>রং ২</label>
-    <input type="color" id="color2" value="#feb47b">
+  <label for="color2">রং ২</label>
+  <input type="color" id="color2" value="#9e7afe">
+</div>
 
-    <label>গ্র্যাডিয়েন্টের দিক</label>
-    <select id="direction">
-      <option value="to right">ডান দিকে</option>
-      <option value="to left">বামে</option>
-      <option value="to bottom">নিচে</option>
-      <option value="to top">উপরে</option>
-      <option value="135deg">তির্যক (135deg)</option>
-    </select>
+
+    <div class="center-row">
+  <label for="direction">গ্র্যাডিয়েন্টের দিক</label>
+  <select id="direction">
+    <option value="to right">ডান দিকে</option>
+    <option value="to left">বামে</option>
+    <option value="to bottom">নিচে</option>
+    <option value="to top">উপরে</option>
+    <option value="135deg">তির্যক (135deg)</option>
+  </select>
+</div>
+
 
     <div id="preview"></div>
 

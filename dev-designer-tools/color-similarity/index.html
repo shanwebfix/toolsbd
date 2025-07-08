@@ -26,10 +26,18 @@
       padding: 20px;
       color: #333;
     }
-.margin {
-        margin-top: 70px;
-        margin-bottom: 70px;
-    }
+.container {
+  max-width: 600px;
+  margin: 0 auto;
+  background: #ffffff;
+  padding: 30px;
+  border-radius: 15px;
+  text-align: center;
+  box-shadow: 0 0 15px rgba(0,0,0,0.3);
+  margin-top: 100px;
+  margin-bottom: 100px;
+}
+
 h1 {
   margin-bottom: 25px;
   color: #333;
@@ -61,59 +69,29 @@ button:hover {
   background-color: #066264;
 }
 
-/* Main color box container */
+/* Main color box container - One column layout */
 .colors-container {
   display: flex;
-  flex-wrap: nowrap;
-  gap: 12px;
-  margin: 0 auto;
-  padding: 10px 15px;
-  overflow-x: auto;
-  scroll-snap-type: x mandatory;
-  scroll-behavior: smooth;
-  justify-content: center; /* ✅ Desktop এ মাঝখানে */
-
-  /* Hide scrollbar in Firefox but still scrollable */
-  scrollbar-width: thin;
-  scrollbar-color: #888 transparent;
+  flex-direction: column;
+  gap: 15px;
+  padding: 10px 0;
+  justify-content: flex-start;
+  align-items: center;
+  margin-top: 20px;
 }
 
-/* Scrollbar for WebKit browsers */
-.colors-container::-webkit-scrollbar {
-  height: 6px;
-}
-.colors-container::-webkit-scrollbar-thumb {
-  background-color: #888;
-  border-radius: 3px;
-}
-
-/* Optional edge padding effect for scroll */
-.colors-container::before,
-.colors-container::after {
-  content: "";
-  flex: 0 0 10px;
-}
-
-/* Responsive scroll alignment for small screens */
-@media (max-width: 768px) {
-  .colors-container {
-    justify-content: flex-start; /* Mobile: left aligned, scrollable */
-  }
-}
-
+/* Individual color box */
 .color-box {
-  flex: 0 0 auto;
-  scroll-snap-align: center;
-  width: 80px;
-  height: 70px;
+  width: 100%;
+  max-width: 300px;
+  height: 80px;
   border-radius: 8px;
-  position: relative;
   cursor: pointer;
   user-select: none;
-  box-shadow: 0 3px 7px rgba(0,0,0,0.12);
+  box-shadow: 0 3px 7px rgba(0, 0, 0, 0.12);
   display: flex;
-  flex-direction: column;
-  justify-content: flex-end;
+  align-items: flex-end;
+  justify-content: center;
   padding-bottom: 6px;
   color: white;
   font-weight: 600;
@@ -122,8 +100,8 @@ button:hover {
 }
 
 .color-box:hover {
-  transform: scale(1.1);
-  box-shadow: 0 6px 15px rgba(0,0,0,0.25);
+  transform: scale(1.05);
+  box-shadow: 0 6px 15px rgba(0, 0, 0, 0.25);
 }
 
 .label {
@@ -133,10 +111,11 @@ button:hover {
   color: #555;
   user-select: none;
   white-space: normal;
+  text-align: center;
 }
 
 .color-code {
-  background: rgba(0,0,0,0.3);
+  background: rgba(0, 0, 0, 0.3);
   border-radius: 4px;
   padding: 2px 6px;
   margin: 0 auto;
@@ -146,75 +125,36 @@ button:hover {
 
 
 
+
+
 html.dark-mode body {
   background: #000;
   color: #a7ffeb;
 }
-
+html.dark-mode .container {
+  background-color: #1e293b;
+}
 html.dark-mode h1 {
   color: #ccc;
 }
 
 html.dark-mode input[type="text"] {
-  width: 180px;
-  padding: 10px 12px;
-  font-size: 16px;
   border: 1px solid #475569;
-  border-radius: 6px;
-  margin-bottom: 25px;
   background-color: #1e293b;
   color: #e0e0e0;
-  letter-spacing: 1px;
-  text-transform: none;
 }
 
 html.dark-mode button {
-  padding: 10px 20px;
-  font-size: 15px;
   background-color: #0f766e;
-  border: none;
-  border-radius: 6px;
   color: white;
-  cursor: pointer;
-  margin-left: 10px;
-  transition: background-color 0.3s ease;
+
 }
 
 html.dark-mode button:hover {
   background-color: #115e59;
 }
 
-html.dark-mode .colors-container {
-  display: flex;
-  flex-wrap: nowrap;
-  gap: 12px;
-  margin: 0 auto;
-  padding: 10px 15px;
-  overflow-x: auto;
-  scroll-snap-type: x mandatory;
-  scroll-behavior: smooth;
-  justify-content: center;
 
-  scrollbar-width: thin;
-  scrollbar-color: #888 transparent;
-  background-color: #1e293b;
-  border-radius: 8px;
-}
-
-html.dark-mode .colors-container::-webkit-scrollbar {
-  height: 6px;
-}
-
-html.dark-mode .colors-container::-webkit-scrollbar-thumb {
-  background-color: #888;
-  border-radius: 3px;
-}
-
-html.dark-mode .colors-container::before,
-html.dark-mode .colors-container::after {
-  content: "";
-  flex: 0 0 10px;
-}
 
 @media (max-width: 768px) {
   body.dark-mode .colors-container {
@@ -223,23 +163,9 @@ html.dark-mode .colors-container::after {
 }
 
 html.dark-mode .color-box {
-  flex: 0 0 auto;
-  scroll-snap-align: center;
-  width: 80px;
-  height: 70px;
-  border-radius: 8px;
-  position: relative;
-  cursor: pointer;
-  user-select: none;
   box-shadow: 0 3px 7px rgba(0,0,0,0.6);
-  display: flex;
-  flex-direction: column;
-  justify-content: flex-end;
-  padding-bottom: 6px;
   color: #e0e0e0;
-  font-weight: 600;
-  font-size: 11px;
-  transition: transform 0.2s ease;
+ 
 }
 
 html.dark-mode .color-box:hover {
@@ -248,21 +174,12 @@ html.dark-mode .color-box:hover {
 }
 
 html.dark-mode .label {
-  margin-bottom: 4px;
-  font-weight: 600;
-  font-size: 10px;
   color: #a0aec0;
-  user-select: none;
-  white-space: normal;
+
 }
 
 html.dark-mode .color-code {
   background: rgba(255, 255, 255, 0.1);
-  border-radius: 4px;
-  padding: 2px 6px;
-  margin: 0 auto;
-  user-select: text;
-  font-size: 10px;
   color: #e0e0e0;
 }
 
@@ -270,7 +187,7 @@ html.dark-mode .color-code {
 </head>
 <body>
 
-  <div class="margin"><h1>Color Similarity Suggestion</h1>
+  <div class="container"><h1>Color Similarity Suggestion</h1>
 
   <input type="text" id="colorInput" placeholder="#3498DB or 3498DB" maxlength="7" />
   <button onclick="suggestColors()">Suggest</button>

@@ -30,10 +30,17 @@
       margin-bottom: 20px;
       color: #333;
     }
-    .margin {
-        margin-top: 70px;
-        margin-bottom: 70px;
-    }
+.container {
+  max-width: 1000px;
+  margin: 0 auto;
+  background: #ffffff;
+  padding: 30px;
+  border-radius: 15px;
+  text-align: center;
+  box-shadow: 0 0 15px rgba(0,0,0,0.3);
+  margin-top: 100px;
+  margin-bottom: 100px;
+}
     textarea {
       width: 90%;
       max-width: 700px;
@@ -100,7 +107,9 @@ html.dark-mode body {
   background: #000;
   color: #a7ffeb;
 }
-
+html.dark-mode .container {
+  background-color: #1e293b;
+}
 html.dark-mode h1 {
   color: #ddd;
 }
@@ -143,7 +152,7 @@ html.dark-mode #error {
 </head>
 <body>
 
-  <div class="margin"><h1>JSON Formatter & Validator</h1>
+  <div class="container"><h1>JSON Formatter & Validator</h1>
 
   <textarea id="jsonInput" placeholder="Paste your JSON here...">{ "name": "John", "age": 30, "city": "New York" }</textarea>
   <br />
