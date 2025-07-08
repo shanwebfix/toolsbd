@@ -4,9 +4,119 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <title>Unit Converter</title>
-  <link rel="stylesheet" href="unit-converter.css" />
 <link rel="stylesheet" href="/components/header.css">
 <link rel="stylesheet" href="/components/footer.css">
+<style>
+/* Global */
+* {
+  box-sizing: border-box;
+}
+
+body {
+ background: #f4f6f9;
+margin: 0;
+padding: 20px;
+color: #333;
+}
+
+.container {
+  max-width: 600px;
+  margin: 0 auto;
+  background: #1e293b;
+  padding: 30px;
+  border-radius: 15px;
+  text-align: center;
+  box-shadow: 0 0 15px rgba(0,0,0,0.3);
+}
+
+h1 {
+  margin-bottom: 25px;
+  color: #a6dfe0;
+}
+
+.converter {
+  margin-bottom: 20px;
+  text-align: left;
+}
+
+label {
+  display: block;
+  margin-bottom: 6px;
+  font-weight: 600;
+  color: #a6dfe0;
+}
+
+input[type="number"],
+select {
+  width: 100%;
+  padding: 10px 12px;
+  border-radius: 6px;
+  border: none;
+  font-size: 16px;
+  box-sizing: border-box;
+  background: #334155;
+  color: #e0f2f1;
+}
+
+input[type="number"]::placeholder {
+  color: #94a3b8;
+}
+
+button {
+  padding: 12px 25px;
+  background: #077A7D;
+  border: none;
+  border-radius: 6px;
+  color: white;
+  font-size: 18px;
+  cursor: pointer;
+  width: 100%;
+  transition: background 0.3s ease;
+}
+
+button:hover {
+  background: #066264;
+}
+
+#result {
+  margin-top: 25px;
+  font-size: 22px;
+  font-weight: bold;
+  color: #a6dfe0;
+}
+
+/* ===== Dark Mode ===== */
+html.dark-mode body{
+  background: #0f172a;
+  color: #cbd5e1;
+}
+
+html.dark-mode .container {
+  background: #1e293b;
+  box-shadow: 0 0 20px rgba(0, 119, 125, 0.7);
+}
+
+html.dark-mode h1,
+html.dark-mode label,
+html.dark-mode #result {
+  color: #81e6d9;
+}
+
+html.dark-mode input[type="number"],
+html.dark-mode select {
+  background: #334155;
+  color: #cbd5e1;
+  border: 1px solid #475569;
+}
+
+html.dark-mode button {
+  background: #0e8388;
+}
+
+html.dark-mode button:hover {
+  background: #07666a;
+}
+</style>
 </head>
 <body>
 
@@ -43,7 +153,132 @@
   <div id="result"></div>
 </div>
 
-<script src="unit-converter.js"></script>
+<script>const converterType = document.getElementById('converter-type');
+const inputValue = document.getElementById('input-value');
+const inputUnit = document.getElementById('input-unit');
+const outputUnit = document.getElementById('output-unit');
+const convertBtn = document.getElementById('convert-btn');
+const resultDiv = document.getElementById('result');
+
+// Units data
+const units = {
+  length: [
+    { name: "Meter", value: "m" },
+    { name: "Kilometer", value: "km" }
+  ],
+  weight: [
+    { name: "Gram", value: "g" },
+    { name: "Kilogram", value: "kg" }
+  ],
+  temperature: [
+    { name: "Celsius", value: "c" },
+    { name: "Fahrenheit", value: "f" }
+  ],
+  currency: [
+    { name: "USD", value: "usd" },
+    { name: "BDT", value: "bdt" }
+  ]
+};
+
+// Currency manual rate (BDT per 1 USD)
+const currencyRate = 105; // change as needed
+
+// Populate input/output unit selects based on selected converter type
+function populateUnits(type) {
+  inputUnit.innerHTML = "";
+  outputUnit.innerHTML = "";
+  units[type].forEach(unit => {
+    const option1 = document.createElement('option');
+    option1.value = unit.value;
+    option1.textContent = unit.name;
+    inputUnit.appendChild(option1);
+
+    const option2 = document.createElement('option');
+    option2.value = unit.value;
+    option2.textContent = unit.name;
+    outputUnit.appendChild(option2);
+  });
+
+  // Default selections
+  inputUnit.selectedIndex = 0;
+  outputUnit.selectedIndex = 1;
+  resultDiv.textContent = "";
+  inputValue.value = "";
+}
+
+converterType.addEventListener('change', () => {
+  populateUnits(converterType.value);
+});
+
+function convert() {
+  const val = parseFloat(inputValue.value);
+  if (isNaN(val)) {
+    alert("Please enter a valid number");
+    return;
+  }
+  const from = inputUnit.value;
+  const to = outputUnit.value;
+
+  if (from === to) {
+    resultDiv.textContent = `Result: ${val} (same units)`;
+    return;
+  }
+
+  let converted;
+
+  switch (converterType.value) {
+    case "length":
+      // Meter ↔ Kilometer
+      if (from === "m" && to === "km") {
+        converted = val / 1000;
+      } else if (from === "km" && to === "m") {
+        converted = val * 1000;
+      }
+      break;
+
+    case "weight":
+      // Gram ↔ Kilogram
+      if (from === "g" && to === "kg") {
+        converted = val / 1000;
+      } else if (from === "kg" && to === "g") {
+        converted = val * 1000;
+      }
+      break;
+
+    case "temperature":
+      // Celsius ↔ Fahrenheit
+      if (from === "c" && to === "f") {
+        converted = (val * 9/5) + 32;
+      } else if (from === "f" && to === "c") {
+        converted = (val - 32) * 5/9;
+      }
+      break;
+
+    case "currency":
+      // USD ↔ BDT
+      if (from === "usd" && to === "bdt") {
+        converted = val * currencyRate;
+      } else if (from === "bdt" && to === "usd") {
+        converted = val / currencyRate;
+      }
+      break;
+
+    default:
+      converted = null;
+  }
+
+  if (converted !== null) {
+    resultDiv.textContent = `Result: ${converted.toFixed(4)}`;
+  } else {
+    resultDiv.textContent = "Conversion not supported.";
+  }
+}
+
+// Initial populate
+populateUnits(converterType.value);
+
+convertBtn.addEventListener('click', convert);
+</script>
 <script src="/components/header.js"></script>
 <script src="/components/footer.js"></script>
 </body>

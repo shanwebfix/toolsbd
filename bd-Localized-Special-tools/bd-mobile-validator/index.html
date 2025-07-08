@@ -4,9 +4,105 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <title>BD Mobile Validator</title>
-  <link rel="stylesheet" href="bd-mobile-validator.css" />
 <link rel="stylesheet" href="/components/header.css">
 <link rel="stylesheet" href="/components/footer.css">
+<style>
+ body {
+      font-family: 'Segoe UI', sans-serif;
+      background: #f4f6f9;
+      margin: 0;
+      padding: 20px;
+      color: #333;
+    }
+
+.container {
+  max-width: 700px;
+  margin: 0 auto;
+  background: #ffffff;
+  padding: 30px;
+  border-radius: 15px;
+  text-align: center;
+  box-shadow: 0 0 15px rgba(0, 0, 0, 0.1);
+}
+
+h1 {
+  margin-bottom: 20px;
+  font-size: 22px;
+  color: #2a2a2a;
+}
+
+input[type="text"] {
+  width: 80%;
+  padding: 12px 15px;
+  border-radius: 6px;
+  border: 1px solid #ccc;
+  font-size: 16px;
+  margin: 0 auto 15px;
+  display: block;
+  text-align: center;
+  background-color: #ffffff;
+  color: #333;
+}
+
+button {
+  width: 100%;
+  padding: 12px;
+  background: #077A7D;
+  border: none;
+  border-radius: 6px;
+  color: white;
+  font-size: 18px;
+  cursor: pointer;
+  transition: background 0.3s ease;
+}
+
+button:hover {
+  background: #066264;
+}
+
+#result {
+  margin-top: 20px;
+  font-size: 18px;
+  font-weight: bold;
+  color: #2a2a2a;
+}
+
+
+/* 🌙 Dark Mode Overrides */
+html.dark-mode body {
+  background-color: #0f172a;
+  color: #f1f5f9;
+}
+
+html.dark-mode .container {
+  background-color: #1e293b;
+  color: #f1f5f9;
+  box-shadow: 0 0 18px rgba(255, 255, 255, 0.05);
+}
+
+html.dark-mode h1 {
+  color: #e2e8f0;
+}
+
+html.dark-mode input[type="text"] {
+  background-color: #334155;
+  color: #e2e8f0;
+  border: 1px solid #475569;
+}
+
+html.dark-mode button {
+  background-color: #077A7D;
+  color: white;
+}
+
+html.dark-mode button:hover {
+  background-color: #066264;
+}
+
+html.dark-mode #result {
+  color: #93c5fd;
+}
+</style>
 </head>
 <body>
 
@@ -17,7 +113,25 @@
   <div id="result"></div>
 </div>
 
-<script src="bd-mobile-validator.js"></script>
+<script>const input = document.getElementById('mobile-input');
+const validateBtn = document.getElementById('validate-btn');
+const resultDiv = document.getElementById('result');
+
+// Regex to match Bangladeshi mobile numbers
+const bdMobileRegex = /^(013|014|015|016|017|018|019)\d{8}$/;
+
+validateBtn.addEventListener('click', () => {
+  const number = input.value.trim();
+
+  if (bdMobileRegex.test(number)) {
+    resultDiv.textContent = "✅ Valid BD Mobile Number";
+    resultDiv.style.color = "#22c55e"; // green
+  } else {
+    resultDiv.textContent = "❌ Invalid Number";
+    resultDiv.style.color = "#f43f5e"; // red
+  }
+});
+</script>
 <script src="/components/header.js"></script>
 <script src="/components/footer.js"></script>
 </body>

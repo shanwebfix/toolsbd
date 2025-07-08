@@ -4,9 +4,115 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <title>Bangla Calendar Converter</title>
-  <link rel="stylesheet" href="bangla-calendar.css" />
+  
 <link rel="stylesheet" href="/components/header.css">
 <link rel="stylesheet" href="/components/footer.css">
+
+<style>
+
+/* Global */
+* {
+  box-sizing: border-box;
+}
+
+/* Light Mode (default) */
+ body {
+      font-family: 'Segoe UI', sans-serif;
+      background: #f4f6f9;
+      margin: 0;
+      padding: 20px;
+      color: #333;
+    }
+
+.container {
+  max-width: 700px;
+  margin: 0 auto;
+  background: #fff;
+  padding: 30px;
+  border-radius: 15px;
+  box-shadow: 0 0 15px rgba(0,0,0,0.1);
+  text-align: center;
+}
+
+h1 {
+  margin-bottom: 20px;
+  width: 100%;
+  color: #222;
+}
+
+input[type="date"],
+button {
+  width: 100%;
+  max-width: 300px;
+  padding: 12px;
+  font-size: 16px;
+  border-radius: 6px;
+  border: 1px solid #ccc;
+  margin-bottom: 20px;
+  box-sizing: border-box;
+  text-align: center;
+  cursor: pointer;
+}
+
+button {
+  background: #077A7D;
+  color: white;
+  border: none;
+  transition: background 0.3s ease;
+}
+
+button:hover {
+  background: #066264;
+}
+
+#result {
+  margin-top: 20px;
+  font-size: 20px;
+  font-weight: bold;
+  color: #077A7D;
+  width: 100%;
+  max-width: 300px;
+  text-align: center;
+}
+
+/* Dark Mode */
+html.dark-mode body {
+    background: #121212;
+  }
+html.dark-mode {
+  background: #1e293b;
+  color: #e0e0e0;
+}
+
+html.dark-mode .container {
+  background: #0f172a;
+  box-shadow: 0 0 15px rgba(0, 0, 0, 0.5);
+}
+
+html.dark-mode h1 {
+  color: #93fdc3;
+}
+
+html.dark-mode input[type="date"] {
+  background: #1e293b;
+  border: 1px solid #3b82f6;
+  color: #cbd5e1;
+}
+
+html.dark-mode button {
+  background: #077A7D; /* same button color */
+  color: white;
+  border: none;
+}
+
+html.dark-mode button:hover {
+  background: #066264; /* same hover */
+}
+
+html.dark-mode #result {
+  color: #93fdc3;
+}
+</style>
 </head>
 <body>
 
@@ -20,10 +126,122 @@
     <button id="convert-btn">রূপান্তর করো</button>
     <div id="result"></div>
   </div>
+<script>
+ // বাংলা মাসের নাম
+const banglaMonths = [
+  "বৈশাখ", "জ্যৈষ্ঠ", "আষাঢ়", "শ্রাবণ", "ভাদ্র", "আশ্বিন",
+  "কার্তিক", "অগ্রহায়ণ", "পৌষ", "মাঘ", "ফাল্গুন", "চৈত্র"
+];
 
-  <!-- ✅ JS Scripts -->
+// Gregorian Leap Year Check
+function isLeapYear(year) {
+  return (year % 400 === 0) || (year % 4 === 0 && year % 100 !== 0);
+}
+
+// ইংরেজি তারিখ থেকে বাংলা তারিখ রূপান্তর ফাংশন
+function convertToBanglaDate(gregorianDate) {
+  const date = new Date(gregorianDate);
+  if (isNaN(date)) return null;
+
+  const gy = date.getFullYear();
+  const gm = date.getMonth() + 1; // 1-based
+  const gd = date.getDate();
+
+  // বাংলা বছর হিসাব
+  let banglaYear;
+  if (gm > 4 || (gm === 4 && gd >= 14)) {
+    banglaYear = gy - 593;
+  } else {
+    banglaYear = gy - 594;
+  }
+
+  // বাংলা মাসের শুরু ইংরেজি তারিখ ও মাস
+  const banglaMonthStartDates = [
+    { month: 4, day: 14 },  // বৈশাখ
+    { month: 5, day: 15 },  // জ্যৈষ্ঠ
+    { month: 6, day: 15 },  // আষাঢ়
+    { month: 7, day: 16 },  // শ্রাবণ
+    { month: 8, day: 16 },  // ভাদ্র
+    { month: 9, day: 16 },  // আশ্বিন
+    { month: 10, day: 16 }, // কার্তিক
+    { month: 11, day: 15 }, // অগ্রহায়ণ
+    { month: 12, day: 15 }, // পৌষ
+    { month: 1, day: 14 },  // মাঘ
+    { month: 2, day: 13 },  // ফাল্গুন
+    { month: 3, day: 15 },  // চৈত্র
+  ];
+
+  const falgunLength = isLeapYear(gy) ? 30 : 29;
+
+  // মাসের দৈর্ঘ্য
+  const monthLengths = [
+    31, 31, 31, 31, 31, 30, 30, 30, 30, 30, falgunLength, 30
+  ];
+
+  // দুই তারিখের মধ্যে দিনের পার্থক্য হিসাব
+  function daysDiff(year, month, day, baseMonth, baseDay) {
+    let d1 = new Date(year, month - 1, day);
+    let d2;
+    if (baseMonth < month || (baseMonth === month && baseDay <= day)) {
+      d2 = new Date(year, baseMonth - 1, baseDay);
+    } else {
+      d2 = new Date(year - 1, baseMonth - 1, baseDay);
+    }
+    let diffTime = d1 - d2;
+    return Math.floor(diffTime / (1000 * 60 * 60 * 24));
+  }
+
+  // বাংলা মাস ও তারিখ বের করা
+  let banglaMonthIndex = 0;
+  let banglaDay = 0;
+
+  for (let i = 0; i < banglaMonthStartDates.length; i++) {
+    const { month: bm, day: bd } = banglaMonthStartDates[i];
+    const diff = daysDiff(gy, gm, gd, bm, bd);
+
+    if (diff >= 0) {
+      banglaMonthIndex = i;
+      banglaDay = diff + 1;
+    }
+  }
+
+  // মাসের দৈর্ঘ্যের বাইরে গেলে পরের মাসের ১ তারিখ
+  if (banglaDay > monthLengths[banglaMonthIndex]) {
+    banglaDay = 1;
+    banglaMonthIndex = (banglaMonthIndex + 1) % 12;
+
+    // বছর পরিবর্তন (চৈত্র থেকে বৈশাখ গেলে)
+    if (banglaMonthIndex === 0 && gm >= 4) {
+      banglaYear += 1;
+    }
+  }
+
+  return {
+    year: banglaYear,
+    month: banglaMonths[banglaMonthIndex],
+    day: banglaDay
+  };
+}
+
+document.getElementById('convert-btn').addEventListener('click', () => {
+  const inputDate = document.getElementById('gregorian-date').value;
+  if (!inputDate) {
+    alert('অনুগ্রহ করে ইংরেজি তারিখ নির্বাচন করুন।');
+    return;
+  }
+
+  const banglaDate = convertToBanglaDate(inputDate);
+  if (!banglaDate) {
+    document.getElementById('result').textContent = 'অবৈধ তারিখ';
+    return;
+  }
+
+  document.getElementById('result').textContent =
+    `${banglaDate.year} সন, ${banglaDate.month} ${banglaDate.day} তারিখ`;
+});
+</script>
   <script src="/components/header.js"></script>
   <script src="/components/footer.js"></script>
-  <script src="bangla-calendar.js"></script>
+  
 </body>
 </html>

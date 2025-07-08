@@ -4,9 +4,159 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <title>Expense Tracker</title>
-  <link rel="stylesheet" href="expense-tracker.css" />
+
 <link rel="stylesheet" href="/components/header.css">
 <link rel="stylesheet" href="/components/footer.css">
+<style>
+/* Global */
+* {
+  box-sizing: border-box;
+}
+ body {
+      font-family: 'Segoe UI', sans-serif;
+      background: #f4f6f9;
+      margin: 0;
+      padding: 20px;
+      color: #333;
+    }
+
+.container {
+  max-width: 600px;
+  margin: 0 auto;
+  background: #1e293b;
+  padding: 30px;
+  border-radius: 15px;
+  text-align: center;
+  box-shadow: 0 0 15px rgba(0,0,0,0.3);
+}
+
+h1 {
+  margin-bottom: 20px;
+  font-size: 24px;
+}
+
+input[type="number"],
+input[type="text"],
+button {
+  width: 80%;
+  max-width: 300px;
+  padding: 12px 16px;
+  font-size: 16px;
+  border-radius: 6px;
+  border: none;
+  margin: 10px auto;
+  display: block;
+  text-align: center;
+}
+
+button {
+  background: #077A7D;
+  color: white;
+  cursor: pointer;
+  transition: background 0.3s ease;
+}
+
+button:hover {
+  background: #066264;
+}
+
+#expense-list {
+  list-style: none;
+  padding: 0;
+  margin-top: 20px;
+  max-height: 200px;
+  overflow-y: auto;
+  text-align: left;
+}
+
+.expense-item {
+  background: #374151;
+  padding: 10px 15px;
+  border-radius: 6px;
+  margin-bottom: 10px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.expense-desc {
+  flex: 1;
+}
+
+.expense-amount {
+  font-weight: bold;
+  margin-left: 15px;
+  white-space: nowrap;
+}
+
+.delete-btn {
+  background: #f87171;
+  border: none;
+  border-radius: 4px;
+  color: white;
+  padding: 5px 8px;
+  margin-left: 10px;
+  cursor: pointer;
+  font-size: 14px;
+}
+
+#total {
+  margin-top: 20px;
+  font-size: 20px;
+  font-weight: bold;
+  color: #93c5fd;
+}
+
+
+html.dark-mode body{
+  background: #0f172a;
+  color: #ffffff;
+}
+
+html.dark-mode .container {
+  background: #1e293b;
+  box-shadow: 0 0 15px rgba(0,0,0,0.3);
+}
+
+html.dark-mode h1 {
+  color: #ffffff;
+}
+
+html.dark-mode input[type="number"],
+html.dark-mode input[type="text"] {
+  background: #334155;
+  color: #e5e7eb;
+  border: none;
+}
+
+html.dark-mode button {
+  background: #077A7D;
+  color: white;
+}
+
+html.dark-mode button:hover {
+  background: #066264;
+}
+
+html.dark-mode .expense-item {
+  background: #374151;
+  color: #e2e8f0;
+}
+
+html.dark-mode .expense-amount {
+  color: #fbbf24;
+}
+
+html.dark-mode .delete-btn {
+  background: #f87171;
+  color: white;
+}
+
+html.dark-mode #total {
+  color: #93c5fd;
+}
+</style>
+
 </head>
 <body>
 
@@ -23,7 +173,73 @@
   <div id="total">Total Expense: ৳0</div>
 </div>
 
-<script src="expense-tracker.js"></script>
+<script>const amountInput = document.getElementById('amount');
+const descInput = document.getElementById('desc');
+const addBtn = document.getElementById('add-btn');
+const expenseList = document.getElementById('expense-list');
+const totalDiv = document.getElementById('total');
+
+let expenses = JSON.parse(localStorage.getItem('expenses')) || [];
+
+// Render expenses
+function renderExpenses() {
+  expenseList.innerHTML = '';
+
+  let total = 0;
+  expenses.forEach((expense, index) => {
+    total += expense.amount;
+
+    const li = document.createElement('li');
+    li.className = 'expense-item';
+
+    li.innerHTML = `
+      <div class="expense-desc">${expense.description}</div>
+      <div>
+        <span class="expense-amount">৳${expense.amount.toFixed(2)}</span>
+        <button class="delete-btn" onclick="deleteExpense(${index})">✖</button>
+      </div>
+    `;
+
+    expenseList.appendChild(li);
+  });
+
+  totalDiv.textContent = `Total Expense: ৳${total.toFixed(2)}`;
+
+  localStorage.setItem('expenses', JSON.stringify(expenses));
+}
+
+// Add expense
+addBtn.addEventListener('click', () => {
+  const amount = parseFloat(amountInput.value);
+  const description = descInput.value.trim();
+
+  if (isNaN(amount) || amount <= 0) {
+    alert('Please enter a valid amount');
+    return;
+  }
+
+  if (description === '') {
+    alert('Please enter a description');
+    return;
+  }
+
+  expenses.push({ amount, description });
+
+  amountInput.value = '';
+  descInput.value = '';
+
+  renderExpenses();
+});
+
+// Delete expense
+function deleteExpense(index) {
+  expenses.splice(index, 1);
+  renderExpenses();
+}
+
+// Initial render
+renderExpenses();
+</script>
 <script src="/components/header.js"></script>
 <script src="/components/footer.js"></script>
 </body>

@@ -4,9 +4,97 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <title>Password Generator</title>
-  <link rel="stylesheet" href="password-generator.css" />
+
 <link rel="stylesheet" href="/components/header.css">
 <link rel="stylesheet" href="/components/footer.css">
+<style>
+* {
+  box-sizing: border-box;
+}
+ body {
+      font-family: 'Segoe UI', sans-serif;
+      background: #f4f6f9;
+      margin: 0;
+      padding: 20px;
+      color: #333;
+    }
+
+.container {
+  max-width: 600px;
+  margin: 0 auto;
+  background: #ffffff;
+  padding: 30px;
+  border-radius: 15px;
+  text-align: center;
+  box-shadow: 0 0 15px rgba(0,0,0,0.3);
+}
+h1 {
+  margin-bottom: 25px;
+}
+
+button {
+  padding: 12px 25px;
+  background: #077A7D;
+  border: none;
+  border-radius: 6px;
+  color: white;
+  font-size: 18px;
+  cursor: pointer;
+  margin-bottom: 20px;
+}
+
+button:hover {
+  background: #066264;
+}
+
+input[type="text"] {
+  width: 100%;
+  padding: 12px 15px;
+  border-radius: 6px;
+  border: none;
+  font-size: 18px;
+  text-align: center;
+  background: #ffffff;
+  color: #e5e7eb;
+  user-select: all; /* যাতে সহজে copy করা যায় */
+}
+
+
+html.dark-mode body{
+  background: #1f2937;
+  color: #f0f4f8; /* dark text */
+  padding: 100px 20px 20px;
+  font-family: Arial, sans-serif;
+}
+
+html.dark-mode .container {
+  background: #ffffff;
+  box-shadow: 0 0 15px rgba(0,0,0,0.1);
+  color: #077A7D;
+}
+
+html.dark-mode h1 {
+  color: #066264;
+}
+
+html.dark-mode button {
+  background: #077a7d;
+  color: white;
+}
+
+html.dark-mode button:hover {
+  background: #066264;
+}
+
+html.dark-mode input[type="text"] {
+  background: #1f2937;
+  color: #e5e7eb;
+  user-select: all;
+  border: 1px solid #cbd5e1;
+  text-align: center;
+}
+</style>
+
 </head>
 <body>
 
@@ -16,7 +104,40 @@
   <input type="text" id="password-output" readonly placeholder="Your password will appear here" />
 </div>
 
-<script src="password-generator.js"></script>
+<script>const generateBtn = document.getElementById('generate-btn');
+const passwordOutput = document.getElementById('password-output');
+
+function generatePassword(length = 12) {
+  const upperCase = "ABCDEFGHIJKLMNOPQRSTUVWXYZ";
+  const lowerCase = "abcdefghijklmnopqrstuvwxyz";
+  const numbers = "0123456789";
+  const symbols = "!@#$%^&*()-_=+[]{}|;:',.<>/?";
+
+  const allChars = upperCase + lowerCase + numbers + symbols;
+
+  let password = "";
+
+  // Ensure password has at least one char from each category
+  password += upperCase[Math.floor(Math.random() * upperCase.length)];
+  password += lowerCase[Math.floor(Math.random() * lowerCase.length)];
+  password += numbers[Math.floor(Math.random() * numbers.length)];
+  password += symbols[Math.floor(Math.random() * symbols.length)];
+
+  for (let i = 4; i < length; i++) {
+    password += allChars[Math.floor(Math.random() * allChars.length)];
+  }
+
+  // Shuffle the password characters so fixed-position chars are randomized
+  password = password.split('').sort(() => 0.5 - Math.random()).join('');
+
+  return password;
+}
+
+generateBtn.addEventListener('click', () => {
+  const newPassword = generatePassword(14);  // 14 char length
+  passwordOutput.value = newPassword;
+});
+</script>
 <script src="/components/header.js"></script>
 <script src="/components/footer.js"></script>
 </body>

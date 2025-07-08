@@ -4,9 +4,159 @@
   <meta charset="UTF-8" />
   <title>Internet Speed Test</title>
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <link rel="stylesheet" href="speed-test.css" />
+
   <link rel="stylesheet" href="/components/header.css">
   <link rel="stylesheet" href="/components/footer.css">
+  
+  <style>
+   body {
+      font-family: 'Segoe UI', sans-serif;
+      background: #f4f6f9;
+      margin: 0;
+      padding: 20px;
+      color: #333;
+    }
+
+
+/* Page Wrapper */
+.speed-test-wrapper {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  min-height: calc(100vh - 70px); /* leave space for header */
+  padding: 20px;
+}
+
+/* Speed Test Box */
+.speed-test {
+  background: #1e293b;
+  padding: 30px 40px;
+  border-radius: 15px;
+  text-align: center;
+  box-shadow: 0 0 15px rgba(0,0,0,0.3);
+  max-width: 600px;
+  width: 100%;
+}
+
+h2 {
+  margin-bottom: 10px;
+  font-size: 24px;
+}
+
+.main-speed {
+  font-size: 48px;
+  font-weight: bold;
+  margin: 20px 0 10px;
+  color: #4ade80;
+}
+
+.sub-speed {
+  font-size: 20px;
+  margin: 5px 0;
+}
+
+button {
+  padding: 10px 25px;
+  background: #077A7D;
+  border: none;
+  border-radius: 5px;
+  color: white;
+  font-size: 18px;
+  cursor: pointer;
+  margin-top: 15px;
+}
+
+button:hover {
+  background: #066264;
+}
+
+.status {
+  margin-top: 15px;
+  font-size: 16px;
+  color: #a1a1aa;
+}
+
+.info {
+  margin-top: 20px;
+  font-size: 15px;
+  color: #cbd5e1;
+  text-align: left;
+  border-top: 1px solid #334155;
+  padding-top: 10px;
+}
+
+/* Responsive */
+@media (max-width: 480px) {
+  .speed-test {
+    padding: 25px 20px;
+  }
+
+  h2 {
+    font-size: 20px;
+  }
+
+  .main-speed {
+    font-size: 36px;
+  }
+
+  .sub-speed {
+    font-size: 18px;
+  }
+
+  button {
+    font-size: 16px;
+    padding: 10px 20px;
+  }
+
+  .status,
+  .info {
+    font-size: 14px;
+  }
+}
+
+
+
+html.dark-mode body{
+  background-color: #121212;
+  color: #ddd;
+}
+
+html.dark-mode .speed-test {
+  background: #1a1a2e;
+  box-shadow: 0 0 15px rgba(255, 255, 255, 0.1);
+  color: #ccc;
+}
+
+html.dark-mode h2 {
+  color: #e0e0e0;
+}
+
+html.dark-mode .main-speed {
+  color: #7efc7e;
+}
+
+html.dark-mode .sub-speed {
+  color: #a0a0a0;
+}
+
+html.dark-mode button {
+  background: #0d9488;
+  color: #eee;
+}
+
+html.dark-mode button:hover {
+  background: #0a6f6f;
+}
+
+html.dark-mode .status {
+  color: #888;
+}
+
+html.dark-mode .info {
+  color: #aaa;
+  border-top: 1px solid #444a5a;
+}
+</style>
 </head>
 <body>
 
@@ -26,9 +176,87 @@
       <div class="info" id="info">Loading network info...</div>
     </div>
   </main>
+<script>
+  // ✅ Load network info using geolocation-db.com (no token needed)
+async function fetchNetworkInfo() {
+  const infoDiv = document.getElementById("info");
+
+  try {
+    const res = await fetch("https://geolocation-db.com/json/");
+    const data = await res.json();
+
+    infoDiv.innerHTML = `
+      <strong>IP:</strong> ${data.IPv4}<br>
+      <strong>City:</strong> ${data.city || 'N/A'}<br>
+      <strong>State:</strong> ${data.state || 'N/A'}<br>
+      <strong>Country:</strong> ${data.country_name}<br>
+      <strong>Device:</strong> ${navigator.userAgent}
+    `;
+  } catch (e) {
+    infoDiv.innerHTML = `<span style="color: #f87171;">Failed to load network info.</span>`;
+    console.error("Info error:", e);
+  }
+}
+
+fetchNetworkInfo();
+
+
+// ✅ Speed test function
+async function startSpeedTest() {
+  const status = document.getElementById("status");
+  const mainSpeed = document.getElementById("main-speed");
+  const downloadEl = document.getElementById("download");
+  const uploadEl = document.getElementById("upload");
+
+  status.textContent = "Testing download speed...";
+  mainSpeed.textContent = "--";
+
+  // 🔽 Download speed test
+  try {
+    const start = performance.now();
+    const response = await fetch("https://upload.wikimedia.org/wikipedia/commons/3/3f/Fronalpstock_big.jpg", {
+      method: "GET",
+      headers: { 'Range': 'bytes=0-1000000' }
+    });
+    const blob = await response.blob();
+    const end = performance.now();
+    const duration = (end - start) / 1000;
+    const bits = blob.size * 8;
+    const speedMbps = (bits / duration / 1024 / 1024).toFixed(2);
+
+    downloadEl.textContent = `↓ Download: ${speedMbps} Mbps`;
+    mainSpeed.textContent = `${speedMbps} Mbps`;
+  } catch (e) {
+    downloadEl.textContent = `↓ Download: Failed`;
+    console.error("Download error:", e);
+  }
+
+  status.textContent = "Testing upload speed...";
+
+  // 🔼 Upload speed test
+  try {
+    const data = new Blob([new Uint8Array(1_000_000)]); // 1MB dummy data
+    const start = performance.now();
+    await fetch("https://api.sofy.ai/api/v1/test/upload", {
+      method: "POST",
+      body: data,
+    });
+    const end = performance.now();
+    const duration = (end - start) / 1000;
+    const bits = data.size * 8;
+    const speedMbps = (bits / duration / 1024 / 1024).toFixed(2);
+
+    uploadEl.textContent = `↑ Upload: ${speedMbps} Mbps`;
+  } catch (e) {
+    uploadEl.textContent = `↑ Upload: Failed`;
+    console.error("Upload error:", e);
+  }
+
+  status.textContent = "Test completed.";
+}
+</script>
 <script src="/components/header.js"></script>
 <script src="/components/footer.js"></script>
 
-  <script src="speed-test.js"></script>
 </body>
 </html>

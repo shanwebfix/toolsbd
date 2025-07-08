@@ -4,9 +4,131 @@
 <meta charset="UTF-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1" />
 <title>Typing Speed Test with Real-time Validation</title>
-<link rel="stylesheet" href="typing-speed-test.css" />
+
 <link rel="stylesheet" href="/components/header.css">
 <link rel="stylesheet" href="/components/footer.css">
+<style>
+/* Light Mode (default) */
+:root {
+  --bg-color: #ffffff;
+  --text-color: #000000;
+  --container-bg: #ffffff;
+  --container-border: #ddd;
+  --container-shadow: rgba(0, 0, 0, 0.15);
+  --sample-text-bg: #f3f4f6;
+  --correct-bg: #22c55e;
+  --correct-color: black;
+  --incorrect-bg: #ef4444;
+  --incorrect-color: white;
+  --button-bg: #077A7D;
+  --button-bg-hover: #066264;
+  --textarea-color: black;
+}
+
+/* Dark Mode */
+html.dark-mode {
+  --bg-color: #1e293b;
+  --text-color: #e2e8f0;
+  --container-bg: #334155;
+  --container-border: #475569;
+  --container-shadow: rgba(0, 0, 0, 0.8);
+  --sample-text-bg: #1e293b;
+  --correct-bg: #22c55e;
+  --correct-color: black;
+  --incorrect-bg: #ef4444;
+  --incorrect-color: white;
+  --button-bg: #0f766e;
+  --button-bg-hover: #115e59;
+  --textarea-color: #e2e8f0;
+}
+
+/* Global */
+* {
+  box-sizing: border-box;
+}
+
+ body {
+      font-family: 'Segoe UI', sans-serif;
+      background: #f4f6f9;
+      margin: 0;
+      padding: 20px;
+      color: #333;
+    }
+
+.container {
+  max-width: 600px;
+  margin: 0 auto;
+  background: var(--container-bg);
+  padding: 30px;
+  border-radius: 15px;
+  text-align: center;
+  box-shadow: 0 0 15px var(--container-shadow);
+  border: solid 1px var(--container-border);
+}
+
+h1 {
+  margin-bottom: 20px;
+}
+
+/* Sample text styled with spans */
+#sample-text {
+  background: var(--sample-text-bg);
+  padding: 15px;
+  border-radius: 8px;
+  margin-bottom: 15px;
+  font-size: 18px;
+  user-select: none;
+  min-height: 80px;
+  line-height: 1.5;
+  white-space: pre-wrap;
+  text-align: left;
+}
+
+/* Span styling */
+.correct {
+  background-color: var(--correct-bg);
+  color: var(--correct-color);
+}
+
+.incorrect {
+  background-color: var(--incorrect-bg);
+  color: var(--incorrect-color);
+}
+
+textarea {
+  width: 100%;
+  padding: 12px;
+  font-size: 16px;
+  border-radius: 6px;
+  border: none;
+  resize: none;
+  margin-bottom: 15px;
+  color: var(--textarea-color);
+  background-color: transparent;
+}
+
+button {
+  padding: 10px 20px;
+  background: var(--button-bg);
+  border: none;
+  border-radius: 6px;
+  color: white;
+  font-size: 16px;
+  cursor: pointer;
+  width: 100%;
+  margin-bottom: 10px;
+  transition: background-color 0.3s ease;
+}
+
+button:hover {
+  background: var(--button-bg-hover);
+}
+
+#timer, #wpm-result {
+  font-size: 18px;
+  margin-top: 10px;
+}
+</style>
 </head>
 <body>
 
@@ -23,7 +145,138 @@
   <div id="wpm-result"></div>
 </div>
 
-<script src="typing-speed-test.js"></script>
+<script>const startBtn = document.getElementById('start-btn');
+const inputText = document.getElementById('input-text');
+const timerDisplay = document.getElementById('timer');
+const wpmResult = document.getElementById('wpm-result');
+const sampleTextElem = document.getElementById('sample-text');
+
+const sampleSentences = [
+  "The quick brown fox jumps over the lazy dog.",
+  "Practice makes perfect.",
+  "Typing speed improves with time.",
+  "JavaScript is fun to learn.",
+  "Stay focused and keep typing."
+];
+
+let currentIndex = 0;
+let startTime;
+let intervalId;
+const testDuration = 60; // seconds
+let testActive = false;
+
+function setSampleSentence() {
+  const sentence = sampleSentences[currentIndex];
+  sampleTextElem.innerHTML = '';
+  for (let char of sentence) {
+    const span = document.createElement('span');
+    span.textContent = char;
+    sampleTextElem.appendChild(span);
+  }
+}
+
+function calculateWPM(text, timeInSeconds) {
+  const wordsTyped = text.trim().split(/\s+/).filter(Boolean).length;
+  const minutes = timeInSeconds / 60;
+  return minutes > 0 ? Math.round(wordsTyped / minutes) : 0;
+}
+
+function startTest() {
+  inputText.value = '';
+  inputText.disabled = false;
+  inputText.focus();
+  wpmResult.textContent = '';
+  timerDisplay.textContent = `Time: ${testDuration}s`;
+  testActive = true;
+
+  startTime = Date.now();
+
+  if (intervalId) clearInterval(intervalId);
+  intervalId = setInterval(() => {
+    const elapsedSeconds = Math.floor((Date.now() - startTime) / 1000);
+    const timeLeft = testDuration - elapsedSeconds;
+    if (timeLeft >= 0) {
+      timerDisplay.textContent = `Time: ${timeLeft}s`;
+    } else {
+      endTest();
+    }
+  }, 300);
+
+  setSampleSentence();
+  updateHighlight();
+}
+
+function endTest() {
+  clearInterval(intervalId);
+  inputText.disabled = true;
+  testActive = false;
+
+  const timeElapsed = (Date.now() - startTime) / 1000;
+  const typedText = inputText.value;
+
+  const wpm = calculateWPM(typedText, timeElapsed);
+  wpmResult.textContent = `Your typing speed: ${wpm} WPM`;
+
+  currentIndex = 0;
+  sampleTextElem.textContent = "Test ended. Click Start to try again.";
+}
+
+function checkCompletionAndHighlight() {
+  const sentence = sampleSentences[currentIndex];
+  const userInput = inputText.value;
+
+  const sentenceSpans = sampleTextElem.querySelectorAll('span');
+  for (let i = 0; i < sentenceSpans.length; i++) {
+    const char = userInput[i];
+    if (char == null) {
+      sentenceSpans[i].className = '';
+    } else if (char === sentenceSpans[i].textContent) {
+      sentenceSpans[i].className = 'correct';
+    } else {
+      sentenceSpans[i].className = 'incorrect';
+    }
+  }
+
+  if (userInput.trim() === sentence) {
+    return true;
+  }
+
+  return false;
+}
+
+startBtn.addEventListener('click', () => {
+  startTest();
+});
+
+inputText.addEventListener('input', () => {
+  if (!testActive) return;
+
+  const complete = checkCompletionAndHighlight();
+
+  if (complete) {
+    currentIndex = (currentIndex + 1) % sampleSentences.length;
+    setSampleSentence();
+    inputText.value = '';
+    updateHighlight();
+  }
+});
+
+function updateHighlight() {
+  const sentenceSpans = sampleTextElem.querySelectorAll('span');
+  const userInput = inputText.value;
+
+  for (let i = 0; i < sentenceSpans.length; i++) {
+    const char = userInput[i];
+    if (char == null) {
+      sentenceSpans[i].className = '';
+    } else if (char === sentenceSpans[i].textContent) {
+      sentenceSpans[i].className = 'correct';
+    } else {
+      sentenceSpans[i].className = 'incorrect';
+    }
+  }
+}
+</script>
 <script src="/components/header.js"></script>
 <script src="/components/footer.js"></script>
 </body>
