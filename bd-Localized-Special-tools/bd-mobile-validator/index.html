@@ -6,6 +6,18 @@
   <title>BD Mobile Validator</title>
 <link rel="stylesheet" href="/components/header.css">
 <link rel="stylesheet" href="/components/footer.css">
+ <script>
+    (function () {
+      try {
+        const theme = localStorage.getItem('theme');
+        const prefersDark = window.matchMedia('(prefers-color-scheme: dark)').matches;
+        const isDark = theme === 'dark' || (!theme && prefersDark);
+        if (isDark) {
+          document.documentElement.classList.add('dark-mode');
+        }
+      } catch (e) {}
+    })();
+  </script>
 <style>
  body {
       font-family: 'Segoe UI', sans-serif;
