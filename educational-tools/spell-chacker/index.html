@@ -29,8 +29,8 @@
 
     .container {
       max-width: 600px;
-      width: 100%;
-      background: #fff;
+      margin: auto;
+      background: white;
       padding: 25px;
       border-radius: 10px;
       box-shadow: 0 4px 12px rgba(0,0,0,0.1);
@@ -92,14 +92,8 @@ html.dark-mode body{
 
 
 html.dark-mode .container {
-  max-width: 600px;
-  width: 100%;
   background: #1e293b;
-  padding: 25px;
-  border-radius: 10px;
   box-shadow: 0 4px 12px rgba(0,0,0,0.8);
-  margin-top: 70px;
-  margin-bottom: 70px;
 }
 
 html.dark-mode h2 {
@@ -169,7 +163,13 @@ html.dark-mode .highlight {
 </div>
 
 <script>
-  const englishDict = ["education", "university", "language", "hello", "science", "beautiful", "computer", "student"];
+  // ✅ Preloaded common English words (তুমি চাইলে বড়তর word list load করতে পারো JSON file থেকে)
+  const englishWordsSet = new Set([
+    "education", "university", "language", "hello", "science", "beautiful", "computer", "student",
+    "book", "teacher", "school", "technology", "keyboard", "mouse", "internet", "online", "dictionary", "library",
+    "exam", "result", "learn", "practice", "hard", "work", "goal", "success", "motivation", "focus"
+  ]);
+
   const banglaDict = ["বাংলাদেশ", "শিক্ষা", "বিশ্ববিদ্যালয়", "কম্পিউটার", "ছাত্র", "ভাষা", "প্রযুক্তি"];
 
   function checkSpelling() {
@@ -183,7 +183,7 @@ html.dark-mode .highlight {
       let valid = false;
 
       if (isEnglish) {
-        valid = englishDict.includes(word.toLowerCase());
+        valid = englishWordsSet.has(word.toLowerCase());
       } else if (isBangla) {
         valid = banglaDict.includes(word);
       } else {
@@ -200,6 +200,7 @@ html.dark-mode .highlight {
     document.getElementById('resultArea').innerHTML = resultHTML.trim();
   }
 </script>
+
 <script src="/components/header.js"></script>
 <script src="/components/footer.js"></script>
 </body>

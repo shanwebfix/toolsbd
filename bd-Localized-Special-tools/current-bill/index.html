@@ -62,7 +62,7 @@ input[type="number"] {
 
 button {
   margin-top: 20px;
-  background-color: #2a4d69;
+  background-color: #077A7D;
   color: white;
   padding: 12px 25px;
   font-size: 16px;
@@ -73,7 +73,7 @@ button {
 }
 
 button:hover {
-  background-color: #1e3550;
+  background-color: #066264;
 }
 
 .result {
@@ -92,21 +92,20 @@ button:hover {
 /* Dark Mode Overrides */
 html.dark-mode body {
   background: #000;
-  color: #a7ffeb;
 }
 
 html.dark-mode .container {
   background-color: #1e293b;
   box-shadow: 0 4px 12px rgba(255, 255, 255, 0.05);
-  color: #e2e8f0;
+  color: #fff;
 }
 
 html.dark-mode h1 {
-  color: #bfdbfe;
+  color: #fff;
 }
 
 html.dark-mode label {
-  color: #cbd5e1;
+  color: #fff;
 }
 
 html.dark-mode input[type="number"] {
@@ -116,17 +115,21 @@ html.dark-mode input[type="number"] {
 }
 
 html.dark-mode button {
-  background-color: #2a4d69; /* keep same as light mode button color */
+  background-color: #077A7D; /* keep same as light mode button color */
   color: white;
 }
 
 html.dark-mode button:hover {
-  background-color: #1e3550; /* keep same hover */
+  background-color: #066264; /* keep same hover */
 }
 
-html.dark-mode .result {
-  color: #93c5fd;
+html.dark-mode #result {
+  margin-top: 30px;
+  font-size: 20px;
+  font-weight: 700;
+  color: #ffffff !important;
 }
+
 
   </style>
 </head>

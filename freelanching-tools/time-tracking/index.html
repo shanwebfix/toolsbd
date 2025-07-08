@@ -28,26 +28,18 @@
       color: #333;
     }
 
-  .container {
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-    align-items: center;
-    flex: 1;
-    width: 100%;
-    padding: 20px 0;
-  }
+    .tracker {
+      max-width: 800px;
+      margin: auto;
+      background: white;
+      padding: 25px;
+      border-radius: 10px;
+      box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+      margin-top: 70px;
+      margin-bottom: 70px;
+    }
 
-  .tracker {
-    background: #fff;
-    padding: 30px 40px;
-    border-radius: 12px;
-    box-shadow: 0 6px 15px rgba(0,0,0,0.1);
-    max-width: 320px;
-    width: 100%;
-    text-align: center;
-    margin: auto;
-  }
+
 
   h1 {
     margin-bottom: 25px;
@@ -116,11 +108,13 @@
   }
 
   html.dark-mode h1 {
-    color: #93c5fd;
+    color: #fff;
+    text-align: center;
   }
 
   html.dark-mode #timeDisplay {
-    color: #a5b4fc;
+    color: #fff;
+    text-align: center;
   }
 
   html.dark-mode button {

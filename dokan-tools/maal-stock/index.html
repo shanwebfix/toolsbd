@@ -20,72 +20,123 @@
   <link rel="stylesheet" href="/components/footer.css" />
   <style>
  body {
-      font-family: 'Segoe UI', sans-serif;
-      background: #f4f6f9;
-      margin: 0;
-      padding: 20px;
-      color: #333;
-    }
-    .container {
-      max-width: 1000px;
-      margin: auto;
-      background: #fff;
-      padding: 25px;
-      border-radius: 10px;
-      box-shadow: 0 4px 12px rgba(0,0,0,0.1);
-      margin-top: 70px;
-      margin-bottom: 70px;
-    }
-    h2 {
-      text-align: center;
-      color: #2a4d69;
-    }
-    label {
-      font-weight: bold;
-      margin-top: 10px;
-      display: block;
-    }
-    input {
-      padding: 10px;
-      width: 100%;
-      margin-top: 5px;
-      margin-bottom: 15px;
-      font-size: 15px;
-      border: 1px solid #ccc;
-      border-radius: 6px;
-      box-sizing: border-box;
-    }
-    button {
-      padding: 10px 18px;
-      font-size: 15px;
-      background: #077A7D;
-      color: white;
-      border: none;
-      border-radius: 6px;
-      cursor: pointer;
-      margin-right: 8px;
-    }
-    button:hover {
-      background: #066264;
-    }
-    table {
-      width: 100%;
-      margin-top: 20px;
-      border-collapse: collapse;
-    }
-    th, td {
-      padding: 10px;
-      border: 1px solid #ccc;
-      text-align: center;
-    }
-    th {
-      background: #f0f4f8;
-    }
-    @media print {
-      button {
-        display: none;
-      }
-    }
+  font-family: 'Segoe UI', sans-serif;
+  background: #f4f6f9;
+  margin: 0;
+  padding: 20px;
+  color: #333;
+}
+
+.container {
+  max-width: 1000px;
+  margin: auto;
+  background: #fff;
+  padding: 25px;
+  border-radius: 10px;
+  box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+  margin-top: 70px;
+  margin-bottom: 70px;
+}
+
+h2 {
+  text-align: center;
+  color: #2a4d69;
+}
+
+label {
+  font-weight: bold;
+  margin-top: 10px;
+  display: block;
+}
+
+input {
+  padding: 10px;
+  width: 100%;
+  margin-top: 5px;
+  margin-bottom: 15px;
+  font-size: 15px;
+  border: 1px solid #ccc;
+  border-radius: 6px;
+  box-sizing: border-box;
+}
+
+button {
+  padding: 10px 18px;
+  font-size: 15px;
+  background: #077A7D;
+  color: white;
+  border: none;
+  border-radius: 6px;
+  cursor: pointer;
+  margin-right: 8px;
+}
+
+button:hover {
+  background: #066264;
+}
+
+table {
+  width: 100%;
+  margin-top: 20px;
+  border-collapse: collapse;
+  overflow-wrap: break-word;
+  word-break: break-word;
+  table-layout: fixed;
+}
+
+th, td {
+  padding: 10px;
+  border: 1px solid #ccc;
+  text-align: center;
+  font-size: 14px;
+}
+
+th {
+  background: #f0f4f8;
+}
+
+
+/* ✅ Print Styles - responsive & fit */
+@media print {
+  body {
+    background: white;
+    padding: 0;
+  }
+
+  button {
+    display: none;
+  }
+
+  .container {
+    max-width: 100%;
+    margin: 0;
+    padding: 10px;
+    box-shadow: none;
+  }
+
+  table {
+    font-size: 12px;
+    table-layout: auto;
+    word-break: break-word;
+    overflow-wrap: break-word;
+    width: 100%;
+  }
+
+  th, td {
+    padding: 6px;
+  }
+
+  input {
+    border: 1px solid #888;
+    padding: 6px;
+    font-size: 13px;
+  }
+
+  h2 {
+    font-size: 20px;
+  }
+}
+
 
 html.dark-mode body {
   background: #000;

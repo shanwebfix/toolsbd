@@ -89,24 +89,68 @@
       display: inline-block;
       min-width: 120px;
     }
-    @media print {
-      body * {
-        visibility: hidden;
-      }
-      .container, .container * {
-        visibility: visible;
-      }
-      .container {
-        position: absolute;
-        top: 0;
-        left: 0;
-        width: 100%;
-      }
-    }
+ @media print {
+  /* Hide everything by default */
+  body * {
+    visibility: hidden;
+  }
+
+  /* Show only .container */
+  .container, .container * {
+    visibility: visible;
+  }
+
+  /* Ensure container fits page */
+  .container {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    padding: 10px;
+    box-sizing: border-box;
+    font-size: 12px;
+  }
+
+  /* Adjust table for print */
+  table {
+    width: 100%;
+    border-collapse: collapse;
+    font-size: 11px;
+  }
+
+  th, td {
+    border: 1px solid #999;
+    padding: 6px;
+    text-align: left;
+  }
+
+  /* Stack buttons vertically (if shown) */
+  .actions {
+    display: flex;
+    flex-direction: column;
+    gap: 6px;
+    margin-top: 10px;
+  }
+
+  /* Totals styling */
+  .totals {
+    font-size: 12px;
+    margin-top: 15px;
+    text-align: right;
+  }
+
+  .totals span {
+    display: inline-block;
+    min-width: 100px;
+  }
+}
+
+
+
 
 html.dark-mode body {
   background: #000;
-  color: #a7ffeb;
+  color: #fff;
 }
 
 html.dark-mode .container {
@@ -140,7 +184,7 @@ html.dark-mode td {
 }
 
 html.dark-mode .actions button {
-  background: #0ea5e9;
+  background: #077A7D;
   color: white;
 }
 

@@ -26,9 +26,15 @@
       padding: 20px;
       color: #333;
     }
-    .margin {
-        margin-top: 70px;
-        margin-bottom: 70px;
+    .container {
+      max-width: 800px;
+      margin: auto;
+      background: white;
+      padding: 25px;
+      border-radius: 10px;
+      box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+      margin-top: 70px;
+      margin-bottom: 70px;
     }
     h2 {
       text-align: center;
@@ -123,7 +129,10 @@ html.dark-mode body {
   background: #000;
   color: #a7ffeb;
 }
-
+html.dark-mode .container {
+  background: #1e293b;
+  box-shadow: 0 4px 12px rgba(0,0,0,0.8);
+}
 html.dark-mode h2 {
   color: #a3b1c2;
 }
@@ -135,6 +144,7 @@ html.dark-mode .form-group {
   flex-direction: column;
   gap: 10px;
   margin-bottom: 30px;
+  margin: auto;
 }
 
 html.dark-mode input,
@@ -225,7 +235,7 @@ html.dark-mode .card-back {
 </head>
 <body>
 
-<div class="margin"><h2>📚 ফ্ল্যাশকার্ড তৈরি টুল</h2>
+<div class="container"><h2>📚 ফ্ল্যাশকার্ড তৈরি টুল</h2>
 
 <div class="form-group">
   <input type="text" id="question" placeholder="প্রশ্ন লিখুন (উদাঃ: রাজধানী কী?)" />
