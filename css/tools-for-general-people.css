@@ -1,7 +1,4 @@
-/* Main Section */
-html.dark-mode {
-  background: #121212;
-}
+
 
 .main-section {
   margin-top: 100px;
@@ -110,4 +107,8 @@ html.dark-mode .box-icon {
   .clickable-box span.box-text {
     font-size: 14px;
   }
+}
+html.dark-mode body{
+  background: #121212;
+  color: #e0e0e0;
 }

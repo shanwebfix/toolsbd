@@ -1,7 +1,4 @@
-/* Main Section */
-html.dark-mode {
-  background: #121212;
-}
+
 
 .main-section {
   margin-top: 100px;
@@ -101,9 +98,8 @@ html.dark-mode {
 
 /* ============================= */
 /* Dark Mode Overrides */
-html.dark-mode .main-section {
-  /* যদি প্রয়োজন হয়, ব্যাকগ্রাউন্ড পরিবর্তন করতে পারো */
-  /* background: #121212; */
+html.dark-mode body{
+  background: #000;
 }
 
 html.dark-mode .clickable-box {

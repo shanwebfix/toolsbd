@@ -1,8 +1,4 @@
-/* Main Section */
-html.dark-mode {
-  background: #121212;
-  color: #ddd;
-}
+
 
 .main-section {
   margin-top: 100px;
@@ -101,6 +97,10 @@ html.dark-mode {
 }
 
 /* Dark Mode Overrides */
+html.dark-mode body{
+  background: #121212;
+  color: #e0e0e0;
+}
 html.dark-mode .clickable-box {
   background: #1e293b;
   border: 1px solid rgba(255, 255, 255, 0.1);
