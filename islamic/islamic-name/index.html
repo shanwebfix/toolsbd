@@ -21,17 +21,35 @@
   <link rel="stylesheet" href="/components/footer.css" />
 <style>
 body {
-  font-family: 'Noto Sans Bengali', sans-serif;
-  padding: 30px;
-  background: #f0f9fb;
-  text-align: center;
+  font-family: 'Segoe UI', sans-serif;
+  background: #f4f6f9;
+  margin: 0;
+  padding: 20px;
   color: #333;
 }
+
+.container {
+  max-width: 850px;
+  margin: auto;
+  background: #fff;
+  padding: 30px;
+  border-radius: 10px;
+  box-shadow: 0 4px 12px rgba(0,0,0,0.08);
+  margin-top: 70px;
+  margin-bottom: 70px;
+}
+.inputtext {
+  margin: auto;
+  padding: 30px;
+  text-align: center;
+}
+
 
 h2 {
   color: #00695c;
   margin-bottom: 20px;
   margin-top: 100px;
+  text-align: center;
 }
 
 input {
@@ -74,12 +92,45 @@ strong {
   margin-bottom: 100px;
 }
 
+
+/* 🔽 Mobile responsive design */
+@media (max-width: 600px) {
+ 
+
+  .inputtext {
+    padding: 20px;
+  }
+
+  input {
+    width: 100%;
+    font-size: 16px;
+  }
+
+  .result {
+    width: 100%;
+    font-size: 15px;
+  }
+
+  h2 {
+    font-size: 20px;
+    margin-top: 60px;
+  }
+}
 /* 🌙 Dark Mode (based on html.dark-mode) */
 html.dark-mode body {
   background: #0f2027;
   color: #a7ffeb;
 }
-
+html.dark-mode .container {
+  max-width: 850px;
+  margin: auto;
+  background: #1e293b;
+  padding: 30px;
+  border-radius: 10px;
+  box-shadow: 0 4px 12px rgba(0,0,0,0.7);
+  margin-top: 70px;
+  margin-bottom: 70px;
+}
 html.dark-mode h2 {
   color: #4db6ac;
 }
@@ -117,10 +168,10 @@ html.dark-mode .bm {
 }
 
 </style>
-
+<div class="container">
 <h2>ইসলামিক নাম অনুসন্ধান</h2>
-<input type="text" id="nameInput" placeholder="ইংরেজি, বাংলা অথবা আরবি নাম লিখুন..."/>
-<div class="bm"><div id="resultArea"></div></div>
+<div class="inputtext"><input type="text" id="nameInput" placeholder="ইংরেজি, বাংলা অথবা আরবি নাম লিখুন..."/></div>
+<div class="bm"><div id="resultArea"></div></div></div>
 
 
 <script>
@@ -221,11 +272,11 @@ document.getElementById('nameInput').addEventListener('input', function () {
     return;
   }
 
-  // যেকোনো ভাষায় নামের মধ্যে query অংশটি খুঁজে বের করা
+  // শুধুমাত্র যেসব নাম query দিয়ে শুরু হয় সেগুলোই দেখাবে
   const matched = islamicNames.filter(name =>
-    name.english.toLowerCase().includes(query) ||
-    name.bangla.toLowerCase().includes(query) ||
-    name.arabic.includes(query) // আরবিতে তো lowercase concept নেই, সরাসরি includes
+    name.english.toLowerCase().startsWith(query) ||
+    name.bangla.toLowerCase().startsWith(query) ||
+    name.arabic.startsWith(query) // আরবি ভাষায় সরাসরি startsWith
   );
 
   if (matched.length > 0) {
@@ -241,6 +292,7 @@ document.getElementById('nameInput').addEventListener('input', function () {
     resultArea.innerHTML = `<p class="not-found">এই নামটি খুঁজে পাওয়া যায়নি।</p>`;
   }
 });
+
 </script>
 
 <script src="/components/header.js"></script>

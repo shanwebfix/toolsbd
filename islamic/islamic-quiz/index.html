@@ -19,24 +19,28 @@
   <link rel="stylesheet" href="/components/header.css" />
   <link rel="stylesheet" href="/components/footer.css" />
   <style>
- body {
-      font-family: 'Segoe UI', sans-serif;
-      background: #f4f6f9;
-      margin: 0;
-      padding: 20px;
-      color: #333;
-    }
-
-.quiz-box {
-  background: white;
-  padding: 30px;
-  border-radius: 10px;
-  max-width: 600px;
-  width: 100%;
-  box-shadow: 0 0 15px rgba(0, 0, 0, 0.1);
+body {
+  font-family: 'Segoe UI', sans-serif;
+  background: #f4f6f9;
+  margin: 0;
+  padding: 20px;
+  color: #333;
 }
 
-.quiz-box h2 {
+.container {
+  max-width: 850px;
+  margin: auto;
+  background: #fff;
+  padding: 30px;
+  border-radius: 10px;
+  box-shadow: 0 4px 12px rgba(0,0,0,0.08);
+  margin-top: 70px;
+  margin-bottom: 70px;
+}
+
+
+
+.container h2 {
   margin-bottom: 20px;
   color: #00796b;
 }
@@ -89,12 +93,12 @@ html.dark-mode body {
   color: #b2dfdb;
 }
 
-html.dark-mode .quiz-box {
+html.dark-mode .container {
   background: #1c2b2b;
-  box-shadow: 0 0 20px rgba(0, 128, 128, 0.5);
+  box-shadow: 0 4px 12px rgba(0,0,0,0.7);
 }
 
-html.dark-mode .quiz-box h2 {
+html.dark-mode .container h2 {
   color: #4db6ac;
 }
 
@@ -131,7 +135,7 @@ html.dark-mode .next-btn:hover {
 </head>
 <body>
 
-<div class="quiz-box">
+<div class="container">
   <h2>ইসলামিক কুইজ</h2>
   <div class="question" id="question"></div>
   <div class="options" id="options"></div>
