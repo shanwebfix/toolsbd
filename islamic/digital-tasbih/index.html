@@ -1,0 +1,293 @@
+<!DOCTYPE html>
+<html lang="bn">
+<head>
+  <meta charset="UTF-8" />
+     <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+    <script>
+  (function () {
+    try {
+      const theme = localStorage.getItem('theme');
+      const prefersDark = window.matchMedia('(prefers-color-scheme: dark)').matches;
+
+      if (theme === 'dark' || (!theme && prefersDark)) {
+        document.documentElement.classList.add('dark-mode');
+      }
+    } catch (e) {
+      console.error('Theme preload error:', e);
+    }
+  })();
+  </script>
+    <link rel="stylesheet" href="/components/header.css" />
+  <link rel="stylesheet" href="/components/footer.css" />
+  <title>Digital Tasbih</title>
+  <style>
+    body {
+      font-family: 'Segoe UI', sans-serif;
+      background: #f1f5f9;
+      padding: 30px;
+    }
+
+    .container {
+      max-width: 600px;
+      margin: auto;
+      background: #fff;
+      border-radius: 12px;
+      padding: 25px;
+      box-shadow: 0 0 20px rgba(0, 0, 0, 0.1);
+      margin-top: 70px;
+      margin-bottom: 70px;
+    }
+
+
+
+    h2 {
+      margin-bottom: 10px;
+      text-align: center;
+    }
+
+    .count {
+      font-size: 48px;
+      font-weight: bold;
+      color: #077A7D;
+      margin-bottom: 10px;
+      text-align: center;
+    }
+
+    html.dark-mode .count {
+      color: #4dd0e1;
+    }
+
+    .total {
+      font-size: 16px;
+      margin-bottom: 15px;
+      color: #555;
+      text-align: center;
+    }
+
+    html.dark-mode .total {
+      color: #ccc;
+    }
+
+.circle-btn {
+  display: block;
+  width: 80px;
+  height: 80px;
+  border-radius: 50%;
+  font-size: 24px;
+  font-weight: bold;
+  background: #077A7D;
+  color: white;
+  border: none;
+  cursor: pointer;
+  margin: 20px auto;  /* vertical 20px, horizontal auto */
+  transition: background 0.3s;
+  text-align: center;
+}
+
+
+    .circle-btn:hover {
+      background: #066264;
+    }
+
+    .btn-group {
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: center;
+      gap: 10px;
+      margin-bottom: 15px;
+    }
+
+    button.action-btn {
+      padding: 10px 16px;
+      font-size: 14px;
+      border: none;
+      border-radius: 8px;
+      cursor: pointer;
+      transition: background 0.3s;
+    }
+
+    .restart {
+      background: #16a34a;
+      color: #fff;
+    }
+
+    .restart:hover {
+      background: #15803d;
+    }
+
+    .reset {
+      background: #e11d48;
+      color: #fff;
+    }
+
+    .reset:hover {
+      background: #9f1239;
+    }
+
+    .save {
+      background: #3b82f6;
+      color: #fff;
+    }
+
+    .save:hover {
+      background: #2563eb;
+    }
+
+    .clear-all {
+      background: #334155;
+      color: #fff;
+    }
+
+    .clear-all:hover {
+      background: #1e293b;
+    }
+
+    .history {
+      margin-top: 20px;
+      text-align: left;
+      max-height: 200px;
+      overflow-y: auto;
+    }
+
+    .history h3 {
+      margin-bottom: 10px;
+      font-size: 16px;
+      border-bottom: 1px solid #ccc;
+      padding-bottom: 5px;
+    }
+
+    .history-item {
+      background: #f1f5f9;
+      margin-bottom: 8px;
+      padding: 10px;
+      border-radius: 6px;
+      font-size: 14px;
+      line-height: 1.4;
+    }
+    html.dark-mode body {
+      background: #0f172a;
+      color: #f1f5f9;
+    }
+
+    html.dark-mode .container {
+      background: #1e293b;
+      color: #f1f5f9;
+    }
+    html.dark-mode .history-item {
+      background: #334155;
+      color: #e0f2f1;
+    }
+
+    html.dark-mode .history h3 {
+      border-color: #444;
+    }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <h2>ডিজিটাল তাসবিহ</h2>
+    <div class="count" id="count">0</div>
+    <div class="total">সর্বমোট: <span id="total">0</span></div>
+
+    <button class="circle-btn" id="incrementBtn">+১</button>
+
+    <div class="btn-group">
+      <button class="action-btn restart" id="restartBtn">🔁 শুরু</button>
+      <button class="action-btn reset" id="resetBtn">🔄 রিসেট</button>
+      <button class="action-btn save" id="saveBtn">💾 সংরক্ষণ</button>
+      <button class="action-btn clear-all" id="clearAllBtn">🗑️ সব মুছুন</button>
+    </div>
+
+    <div class="history" id="history">
+      <h3>সংরক্ষিত হিস্টোরি</h3>
+      <div id="historyList"></div>
+    </div>
+  </div>
+
+  <script>
+    const countEl = document.getElementById("count");
+    const totalEl = document.getElementById("total");
+    const incrementBtn = document.getElementById("incrementBtn");
+    const resetBtn = document.getElementById("resetBtn");
+    const restartBtn = document.getElementById("restartBtn");
+    const clearAllBtn = document.getElementById("clearAllBtn");
+    const saveBtn = document.getElementById("saveBtn");
+    const historyList = document.getElementById("historyList");
+
+    let count = parseInt(localStorage.getItem("tasbih_count")) || 0;
+    let total = parseInt(localStorage.getItem("tasbih_total")) || 0;
+
+    function updateDisplay() {
+      countEl.textContent = count;
+      totalEl.textContent = total;
+    }
+
+    function loadHistory() {
+      historyList.innerHTML = "";
+      const saved = JSON.parse(localStorage.getItem("tasbih_saved") || "[]");
+      if (saved.length === 0) {
+        historyList.innerHTML = "<p>কোনো হিস্টোরি নেই।</p>";
+        return;
+      }
+
+      saved.reverse().forEach(item => {
+        const div = document.createElement("div");
+        div.className = "history-item";
+        div.innerHTML = `
+          <b>${item.time}</b><br>
+          কাউন্ট: ${item.count}, মোট: ${item.total}
+        `;
+        historyList.appendChild(div);
+      });
+    }
+
+    updateDisplay();
+    loadHistory();
+
+    incrementBtn.addEventListener("click", () => {
+      count++;
+      total++;
+      updateDisplay();
+      localStorage.setItem("tasbih_count", count);
+      localStorage.setItem("tasbih_total", total);
+    });
+
+    resetBtn.addEventListener("click", () => {
+      count = 0;
+      updateDisplay();
+      localStorage.setItem("tasbih_count", count);
+    });
+
+    restartBtn.addEventListener("click", () => {
+      count = 0;
+      total = 0;
+      updateDisplay();
+      localStorage.setItem("tasbih_count", count);
+      localStorage.setItem("tasbih_total", total);
+    });
+
+    saveBtn.addEventListener("click", () => {
+      const time = new Date().toLocaleString();
+      const saved = JSON.parse(localStorage.getItem("tasbih_saved") || "[]");
+      saved.push({ count, total, time });
+      localStorage.setItem("tasbih_saved", JSON.stringify(saved));
+      loadHistory();
+      alert("✅ সংরক্ষণ সফল!");
+    });
+
+    clearAllBtn.addEventListener("click", () => {
+      if (confirm("তুমি কি নিশ্চিত সব মুছতে চাও? (কাউন্ট, মোট ও হিস্টোরি)?")) {
+        count = 0;
+        total = 0;
+        localStorage.removeItem("tasbih_count");
+        localStorage.removeItem("tasbih_total");
+        localStorage.removeItem("tasbih_saved");
+        updateDisplay();
+        loadHistory();
+      }
+    });
+  </script>
+<script src="/components/header.js"></script>
+<script src="/components/footer.js"></script>
+</body>
+</html>
