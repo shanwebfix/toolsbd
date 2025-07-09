@@ -1,0 +1,139 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>bKash/Nagad/Rocket Charge Calculator</title>
+  <style>
+    body {
+      font-family: 'Segoe UI', sans-serif;
+      background: #f1f5f9;
+      margin: 0;
+      padding: 20px;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      min-height: 100vh;
+    }
+
+    .container {
+      background: #ffffff;
+      padding: 30px;
+      border-radius: 15px;
+      text-align: center;
+      box-shadow: 0 0 15px rgba(0,0,0,0.1);
+      width: 100%;
+      max-width: 400px;
+    }
+
+    h2 {
+      margin-bottom: 20px;
+    }
+
+    select, input {
+      width: 100%;
+      padding: 12px;
+      font-size: 16px;
+      margin-bottom: 15px;
+      border: 1px solid #ccc;
+      border-radius: 8px;
+    }
+
+    button {
+      background: #077A7D;
+      color: white;
+      padding: 12px 20px;
+      font-size: 16px;
+      border: none;
+      border-radius: 8px;
+      cursor: pointer;
+      width: 100%;
+    }
+
+    button:hover {
+      background: #066264;
+    }
+
+    .result {
+      margin-top: 20px;
+      text-align: left;
+      font-size: 16px;
+    }
+
+    /* ===== Dark Mode Support ===== */
+    html.dark-mode body {
+      background: #0f172a;
+      color: #f1f5f9;
+    }
+
+    html.dark-mode .container {
+      background: #1e293b;
+      color: #f1f5f9;
+    }
+
+    html.dark-mode input,
+    html.dark-mode select {
+      background: #334155;
+      color: #f1f5f9;
+      border: 1px solid #475569;
+    }
+
+    html.dark-mode button {
+      background: #077A7D;
+    }
+
+    html.dark-mode button:hover {
+      background: #066264;
+    }
+  </style>
+</head>
+<body>
+
+<div class="container">
+  <h2>Cash Out Charge Calculator</h2>
+
+  <select id="service">
+    <option value="bKash">bKash</option>
+    <option value="Rocket">Rocket</option>
+    <option value="Nagad">Nagad</option>
+  </select>
+
+  <input type="number" id="amount" placeholder="Enter cash out amount">
+
+  <button onclick="calculateCharge()">Calculate</button>
+
+  <div class="result" id="result"></div>
+</div>
+
+<script>
+  function getChargeAmount(service, amount) {
+    if (service === 'Nagad') {
+      return (amount / 1000) * 9.99; // Nagad: ৳9.99 per 1000
+    } else {
+      return (amount / 1000) * 18.5; // bKash & Rocket: ৳18.50 per 1000
+    }
+  }
+
+  function calculateCharge() {
+    const service = document.getElementById('service').value;
+    const amount = parseFloat(document.getElementById('amount').value);
+    const resultDiv = document.getElementById('result');
+
+    if (isNaN(amount) || amount <= 0) {
+      resultDiv.innerHTML = "Please enter a valid amount.";
+      return;
+    }
+
+    const charge = getChargeAmount(service, amount);
+    const finalAmount = amount - charge;
+
+    resultDiv.innerHTML = `
+      <strong>Service:</strong> ${service}<br>
+      <strong>Cash Out Amount:</strong> ৳${amount.toFixed(2)}<br>
+      <strong>Cash Out Charge:</strong> ৳${charge.toFixed(2)}<br>
+      <strong>You Will Receive:</strong> ৳${finalAmount.toFixed(2)}
+    `;
+  }
+</script>
+
+</body>
+</html>

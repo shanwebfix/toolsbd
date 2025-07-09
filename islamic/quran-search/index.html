@@ -1,0 +1,315 @@
+<!DOCTYPE html>
+<html lang="bn">
+<head>
+  <meta charset="UTF-8" />
+   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+    <script>
+  (function () {
+    try {
+      const theme = localStorage.getItem('theme');
+      const prefersDark = window.matchMedia('(prefers-color-scheme: dark)').matches;
+
+      if (theme === 'dark' || (!theme && prefersDark)) {
+        document.documentElement.classList.add('dark-mode');
+      }
+    } catch (e) {
+      console.error('Theme preload error:', e);
+    }
+  })();
+  </script>
+    <link rel="stylesheet" href="/components/header.css" />
+  <link rel="stylesheet" href="/components/footer.css" />
+  <title>Quran Search Tool (Arabic + Bangla)</title>
+  <style>
+    body {
+      font-family: 'Segoe UI', sans-serif;
+      background: #f1f5f9;
+      margin: 0;
+      padding: 20px;
+      display: flex;
+      justify-content: center;
+    }
+
+    .container {
+      max-width: 1000px;
+      margin: auto;
+      background: #fff;
+      border-radius: 12px;
+      padding: 25px;
+      box-shadow: 0 0 20px rgba(0, 0, 0, 0.1);
+      margin-top: 70px;
+      margin-bottom: 70px;
+    }
+
+    h2 {
+      text-align: center;
+      margin-bottom: 20px;
+    }
+
+    .search-wrapper {
+      position: relative;
+      width: 100%;
+      margin-bottom: 20px;
+    }
+
+    input {
+      width: 100%;
+      padding: 12px 45px 12px 12px;
+      font-size: 16px;
+      border-radius: 8px;
+      border: 1px solid #ccc;
+      box-sizing: border-box;
+    }
+
+    .search-icon {
+      position: absolute;
+      right: 12px;
+      top: 50%;
+      transform: translateY(-50%);
+      width: 22px;
+      height: 22px;
+      cursor: pointer;
+      fill: #077A7D;
+    }
+
+    .search-icon:hover {
+      fill: #066264;
+    }
+
+    .result {
+      max-height: 500px;
+      overflow-y: auto;
+      border-top: 1px solid #ccc;
+      padding-top: 15px;
+    }
+
+    .ayah {
+      background: #f9fafb;
+      margin-bottom: 12px;
+      padding: 12px;
+      border-radius: 8px;
+    }
+
+    .ayah b {
+      display: block;
+      color: #0f172a;
+      margin-bottom: 8px;
+    }
+
+    .arabic-text {
+      font-size: 22px;
+      direction: rtl;
+      font-family: 'Scheherazade New', serif;
+      color: #111;
+      margin-bottom: 6px;
+      line-height: 1.8;
+    }
+
+    .bangla-text {
+      font-size: 16px;
+      color: #444;
+      line-height: 1.6;
+    }
+
+    .loading {
+      text-align: center;
+      color: #077A7D;
+    }
+
+        /* Dark Mode Support */
+    html.dark-mode body {
+      background: #0f172a;
+      color: #f1f5f9;
+    }
+
+    html.dark-mode .container {
+      background: #1e293b;
+      color: #f1f5f9;
+    }
+
+    html.dark-mode .loading {
+      text-align: center;
+      color: #fff;
+    }
+  </style>
+  <link href="https://fonts.googleapis.com/css2?family=Scheherazade+New:wght@400;700&display=swap" rel="stylesheet">
+</head>
+<body>
+  <div class="container">
+    <h2>Quran Search Tool (Arabic + Bangla)</h2>
+    <div class="search-wrapper">
+      <input
+        type="text"
+        id="searchBox"
+        placeholder="আয়াত খুঁজুন (বাংলা বা العربية)..."
+        autocomplete="off"
+      />
+      <svg class="search-icon" viewBox="0 0 24 24">
+        <path
+          d="M21 21l-4.35-4.35M9.5 17a7.5 7.5 0 1 0 0-15 7.5 7.5 0 0 0 0 15z"
+          stroke="#077A7D"
+          stroke-width="2"
+          stroke-linecap="round"
+          stroke-linejoin="round"
+          fill="none"
+        />
+      </svg>
+    </div>
+    <div id="results" class="result">কুরআন লোড হচ্ছে, অপেক্ষা করুন...</div>
+  </div>
+
+  <script>
+(async () => {
+  const arabicURL = 'https://api.alquran.cloud/v1/quran/quran-uthmani';
+  const banglaURL = 'https://api.alquran.cloud/v1/quran/bn.bengali';
+
+  const resultsDiv = document.getElementById('results');
+  const searchBox = document.getElementById('searchBox');
+  const searchIcon = document.querySelector('.search-icon');
+
+  let combinedQuran = [];
+
+  try {
+    resultsDiv.innerHTML = '<div class="loading">কুরআন লোড হচ্ছে, অপেক্ষা করুন...</div>';
+    
+    const [arabicResponse, banglaResponse] = await Promise.all([
+      fetch(arabicURL),
+      fetch(banglaURL)
+    ]);
+    
+    const arabicData = await arabicResponse.json();
+    const banglaData = await banglaResponse.json();
+    
+    if (!arabicData.data || !banglaData.data) {
+      throw new Error("Invalid API response");
+    }
+
+    // Combine the data properly
+    combinedQuran = arabicData.data.surahs.map(surah => {
+      const banglaSurah = banglaData.data.surahs.find(s => s.number === surah.number);
+      return {
+        number: surah.number,
+        name: surah.englishName,
+        nameArabic: surah.name,
+        ayahs: surah.ayahs.map(ayah => {
+          const banglaAyah = banglaSurah?.ayahs.find(a => a.number === ayah.number);
+          return {
+            number: ayah.number,
+            numberInSurah: ayah.numberInSurah,
+            arabicText: ayah.text,
+            banglaText: banglaAyah?.text || 'অনুবাদ পাওয়া যায়নি'
+          };
+        })
+      };
+    });
+
+    resultsDiv.innerHTML = '<div class="loading">কুরআন লোড সম্পন্ন। এখন আয়াত খুঁজুন।</div>';
+
+  } catch (error) {
+    console.error('Error loading Quran data:', error);
+    resultsDiv.innerHTML = '<div class="loading">ডেটা লোড করতে সমস্যা হয়েছে। ইন্টারনেট কানেকশন চেক করুন অথবা পরে আবার চেষ্টা করুন।</div>';
+    return;
+  }
+
+  function removeDiacritics(text) {
+    return text.replace(/[\u064B-\u065F\u0610-\u061A\u06D6-\u06ED]/g, '');
+  }
+
+  function normalizeText(text, isArabic = false) {
+    if (!text) return '';
+    let t = text.toLowerCase().trim();
+    return isArabic
+      ? removeDiacritics(t).replace(/[.,،؛؟]/g, '').replace(/\s+/g, '')
+      : t.replace(/[.,،؛؟]/g, '').replace(/\s+/g, '');
+  }
+
+  function highlightText(text, query) {
+    if (!query) return text;
+    const regex = new RegExp(`(${query})`, 'gi');
+    return text.replace(regex, '<span style="background-color: yellow;">$1</span>');
+  }
+
+  function searchQuran(query) {
+    query = query.trim();
+    if (!query || query.length < 2) {
+      resultsDiv.innerHTML = "<p>দয়া করে অন্তত ২ অক্ষর লিখুন।</p>";
+      return;
+    }
+
+    const normQueryArabic = normalizeText(query, true);
+    const normQueryBangla = normalizeText(query, false);
+    let matches = [];
+
+    for (const surah of combinedQuran) {
+      for (const ayah of surah.ayahs) {
+        const normArabic = normalizeText(ayah.arabicText, true);
+        const normBangla = normalizeText(ayah.banglaText, false);
+
+        if (
+          normArabic.includes(normQueryArabic) ||
+          normBangla.includes(normQueryBangla)
+        ) {
+          matches.push({
+            surahNumber: surah.number,
+            surahName: surah.name,
+            surahNameArabic: surah.nameArabic,
+            ayahNumber: ayah.numberInSurah,
+            arabicText: ayah.arabicText,
+            banglaText: ayah.banglaText,
+            arabicMatch: normArabic.includes(normQueryArabic),
+            banglaMatch: normBangla.includes(normQueryBangla)
+          });
+        }
+      }
+    }
+
+    if (matches.length === 0) {
+      resultsDiv.innerHTML = `<p>"${query}" এর জন্য কোন ফলাফল পাওয়া যায়নি। অন্য শব্দ দিয়ে চেষ্টা করুন।</p>`;
+      return;
+    }
+
+    resultsDiv.innerHTML = '';
+    matches.slice(0, 100).forEach(match => {
+      const div = document.createElement('div');
+      div.className = 'ayah';
+      
+      // Highlight matching text
+      const displayArabic = match.arabicMatch ? 
+        highlightText(match.arabicText, query) : match.arabicText;
+      const displayBangla = match.banglaMatch ? 
+        highlightText(match.banglaText, query) : match.banglaText;
+      
+      div.innerHTML = `
+        <b>সুরা ${match.surahNumber}: ${match.surahName} (${match.surahNameArabic}), আয়াত ${match.ayahNumber}</b>
+        <p class="arabic-text">${displayArabic}</p>
+        <p class="bangla-text">${displayBangla}</p>
+      `;
+      resultsDiv.appendChild(div);
+    });
+  }
+
+  // Event listeners
+  searchIcon.addEventListener('click', () => {
+    searchQuran(searchBox.value);
+  });
+
+  searchBox.addEventListener('keyup', e => {
+    if (e.key === 'Enter') {
+      searchQuran(searchBox.value);
+    }
+  });
+
+  // Enable search after 1 second of typing
+  let searchTimer;
+  searchBox.addEventListener('input', () => {
+    clearTimeout(searchTimer);
+    searchTimer = setTimeout(() => {
+      searchQuran(searchBox.value);
+    }, 1000);
+  });
+})();
+  </script>
+  <script src="/components/header.js"></script>
+<script src="/components/footer.js"></script>
+</body>
+</html>
