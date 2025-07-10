@@ -1,4 +1,3 @@
-
 footer {
   position: fixed;
   bottom: 0;
@@ -13,7 +12,7 @@ footer {
 
 .footer-menu {
   display: grid;
-  grid-template-columns: repeat(4, 1fr); /* ৪টি গ্রিড কলাম */
+  grid-template-columns: repeat(5, 1fr); /* Changed to 5 columns */
   text-align: center;
   height: 60px;
 }
@@ -37,7 +36,16 @@ footer {
   transition: color 0.3s ease;
 }
 
+/* Specific style for the menu icon */
+.footer-menu a.menu-icon i {
+  font-size: 22px; /* Slightly larger for better visibility */
+}
+
 .footer-menu a:hover {
+  color: #066264;
+}
+
+.footer-menu a:hover i {
   color: #066264;
 }
 
@@ -45,13 +53,53 @@ footer {
 html.dark-mode footer {
   background: #1e293b;
   border-top: 1px solid #333;
-  box-shadow: 0 -1px 5px rgba(255, 255, 255, 0.1);}
+  box-shadow: 0 -1px 5px rgba(255, 255, 255, 0.1);
+}
 
 html.dark-mode .footer-menu a,
 html.dark-mode .footer-menu a i {
   color: #077A7D;
 }
 
-html.dark-mode .footer-menu a:hover {
+html.dark-mode .footer-menu a:hover,
+html.dark-mode .footer-menu a:hover i {
   color: #077A7D;
+}
+
+
+
+
+
+
+
+
+
+/* Ultra-bold dots styling */
+.footer-menu a.dots-icon svg {
+  width: 24px; /* Slightly larger container */
+  height: 24px;
+  margin-bottom: 3px;
+}
+
+.footer-menu a.dots-icon svg circle {
+  r: 3.5px; /* 75% larger than original */
+  stroke: #077A7D;
+  stroke-width: 1px; /* Bold outline */
+  paint-order: stroke; /* Ensures stroke doesn't cover fill */
+}
+
+.footer-menu a.dots-icon:hover svg circle {
+  fill: #066264;
+  stroke: #066264;
+}
+
+/* Dark mode adjustments */
+html.dark-mode .footer-menu a.dots-icon svg circle {
+  fill: #077A7D;
+  stroke: #077A7D;
+}
+
+html.dark-mode .footer-menu a.dots-icon:hover svg circle {
+  fill: #077A7D;
+  stroke: #077A7D;
 }
