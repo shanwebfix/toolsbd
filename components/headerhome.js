@@ -1,5 +1,5 @@
 document.addEventListener("DOMContentLoaded", function () {
-  fetch('/components/header.html')
+  fetch('/components/headerhome.html')
     .then(res => {
       if (!res.ok) throw new Error("Header file not found");
       return res.text();
@@ -13,7 +13,6 @@ document.addEventListener("DOMContentLoaded", function () {
       const menuToggle = document.getElementById('menuToggle');
       const mobileCanvas = document.getElementById('mobileCanvas');
       const closeCanvasBtn = document.getElementById('closeCanvas');
-      const backBtn = document.getElementById('mobileBackBtn'); // Added back button reference
 
       const toggleThemeDesktop = document.getElementById('toggleThemeDesktop');
       const toggleThemeMobile = document.getElementById('toggleThemeMobile');
@@ -59,24 +58,6 @@ document.addEventListener("DOMContentLoaded", function () {
           mobileCanvas.classList.remove('active');
           body.style.overflow = '';
         });
-      });
-
-      // 🔙 Back button functionality - Added this new section
-      backBtn?.addEventListener('click', function(e) {
-        e.preventDefault();
-        console.log('Back button clicked'); // Debug log
-        
-        try {
-          if (window.history && window.history.length > 1) {
-            window.history.back();
-          } else {
-            // Fallback when no history exists
-            window.location.href = document.referrer || '/';
-          }
-        } catch (error) {
-          console.error('Back navigation failed:', error);
-          window.location.href = '/'; // Ultimate fallback
-        }
       });
     })
     .catch(error => {

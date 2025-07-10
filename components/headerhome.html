@@ -1,4 +1,5 @@
 <header>
+
   <head>
   <script>
     (function () {
@@ -14,14 +15,7 @@
     })();
   </script>
   </head>
-  
   <div class="header-container">
-    <button class="mobile-back-btn" id="mobileBackBtn" aria-label="Go back">
-      <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-        <path d="M19 12H5M12 19l-7-7 7-7"/>
-      </svg>
-    </button>
-    
     <div class="logo">
       <a href="/"><img src="/assets/logo.png" alt="ToolsBD" /></a>
     </div>
@@ -113,33 +107,26 @@
   </div>
 </header>
 
+<!-- ✅ Dark Mode Script (put at end of header or in footer) -->
 <script>
-// Robust back button implementation
-(function() {
-  // Wait for DOM to be fully loaded
-  document.addEventListener('DOMContentLoaded', function() {
-    const backBtn = document.getElementById('mobileBackBtn');
-    
-    if (backBtn) {
-      backBtn.addEventListener('click', function(e) {
-        e.preventDefault();
-        console.log('Back button clicked'); // For debugging
-        
-        try {
-          if (window.history && window.history.length > 1) {
-            window.history.back();
-          } else {
-            // Fallback for when there's no history
-            window.location.href = document.referrer || '/';
-          }
-        } catch (error) {
-          console.error('Back navigation failed:', error);
-          window.location.href = '/'; // Ultimate fallback
-        }
+  document.addEventListener("DOMContentLoaded", function () {
+    const toggles = document.querySelectorAll(".toggle-theme");
+    const savedTheme = localStorage.getItem("theme");
+    const prefersDark = window.matchMedia("(prefers-color-scheme: dark)").matches;
+    const isDark = savedTheme === "dark" || (!savedTheme && prefersDark);
+
+    // Set initial mode
+    document.documentElement.classList.toggle("dark-mode", isDark);
+    toggles.forEach(t => t.checked = isDark);
+
+    // Handle toggle change
+    toggles.forEach(toggle => {
+      toggle.addEventListener("change", () => {
+        const enableDark = toggle.checked;
+        document.documentElement.classList.toggle("dark-mode", enableDark);
+        localStorage.setItem("theme", enableDark ? "dark" : "light");
+        toggles.forEach(t => t.checked = enableDark); // sync both toggles
       });
-    } else {
-      console.warn('Back button element not found');
-    }
+    });
   });
-})();
 </script>
