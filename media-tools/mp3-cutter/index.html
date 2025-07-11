@@ -1,0 +1,204 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <title>MP3 Cutter Tool</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      max-width: 480px;
+      margin: 40px auto;
+      padding: 20px;
+      text-align: center;
+      background: #f9f9f9;
+    }
+    input[type=file], input[type=number] {
+      margin: 10px 0;
+      padding: 8px;
+      width: 100%;
+      box-sizing: border-box;
+      font-size: 16px;
+    }
+    label {
+      font-weight: bold;
+      margin-top: 10px;
+      display: block;
+    }
+    button {
+      background: #077A7D;
+      color: white;
+      border: none;
+      padding: 12px 25px;
+      border-radius: 6px;
+      cursor: pointer;
+      font-size: 16px;
+      margin-top: 15px;
+    }
+    button:hover {
+      background: #066264;
+    }
+    audio {
+      margin-top: 20px;
+      width: 100%;
+    }
+  </style>
+</head>
+<body>
+
+  <h2>MP3 কাটার টুল</h2>
+
+  <input type="file" id="audioFile" accept="audio/mp3,audio/mpeg" />
+  
+  <label for="startTime">শুরু সময় (সেকেন্ডে):</label>
+  <input type="number" id="startTime" min="0" step="0.1" value="0" disabled />
+
+  <label for="endTime">শেষ সময় (সেকেন্ডে):</label>
+  <input type="number" id="endTime" min="0" step="0.1" value="0" disabled />
+
+  <button id="cutBtn" disabled>কাটার অংশ প্লে করুন ও ডাউনলোড করুন</button>
+
+  <audio id="audioPlayer" controls></audio>
+
+  <script>
+    const audioFile = document.getElementById('audioFile');
+    const startTimeInput = document.getElementById('startTime');
+    const endTimeInput = document.getElementById('endTime');
+    const cutBtn = document.getElementById('cutBtn');
+    const audioPlayer = document.getElementById('audioPlayer');
+
+    let audioContext;
+    let audioBuffer;
+
+    audioFile.addEventListener('change', async () => {
+      if (!audioFile.files.length) return;
+
+      if(audioContext) {
+        audioContext.close();
+        audioContext = null;
+      }
+
+      const file = audioFile.files[0];
+      const arrayBuffer = await file.arrayBuffer();
+
+      audioContext = new AudioContext();
+      audioBuffer = await audioContext.decodeAudioData(arrayBuffer);
+
+      startTimeInput.disabled = false;
+      endTimeInput.disabled = false;
+      cutBtn.disabled = false;
+
+      startTimeInput.value = 0;
+      endTimeInput.value = audioBuffer.duration.toFixed(2);
+      endTimeInput.max = audioBuffer.duration.toFixed(2);
+
+      audioPlayer.src = URL.createObjectURL(file);
+      audioPlayer.load();
+    });
+
+    cutBtn.addEventListener('click', async () => {
+      const start = parseFloat(startTimeInput.value);
+      const end = parseFloat(endTimeInput.value);
+
+      if (isNaN(start) || isNaN(end)) {
+        alert('সঠিক সময় লিখুন');
+        return;
+      }
+      if (start < 0 || end > audioBuffer.duration || start >= end) {
+        alert('সঠিক সময়ের সীমা বাছাই করুন');
+        return;
+      }
+
+      const duration = end - start;
+      const sampleRate = audioBuffer.sampleRate;
+      const numChannels = audioBuffer.numberOfChannels;
+
+      // নতুন অডিও বাফার তৈরি
+      const newBuffer = audioContext.createBuffer(numChannels, duration * sampleRate, sampleRate);
+
+      for (let channel = 0; channel < numChannels; channel++) {
+        const oldData = audioBuffer.getChannelData(channel);
+        const newData = newBuffer.getChannelData(channel);
+        const startSample = Math.floor(start * sampleRate);
+        for (let i = 0; i < newData.length; i++) {
+          newData[i] = oldData[startSample + i];
+        }
+      }
+
+      // WAV ফাইল বানানো ফাংশন
+      function audioBufferToWav(buffer) {
+        const numOfChan = buffer.numberOfChannels,
+              length = buffer.length * numOfChan * 2 + 44,
+              bufferArray = new ArrayBuffer(length),
+              view = new DataView(bufferArray),
+              channels = [],
+              sampleRate = buffer.sampleRate;
+        let offset = 0;
+
+        function writeString(s) {
+          for (let i = 0; i < s.length; i++) {
+            view.setUint8(offset++, s.charCodeAt(i));
+          }
+        }
+
+        // RIFF header
+        writeString('RIFF');
+        view.setUint32(offset, length - 8, true); offset += 4;
+        writeString('WAVE');
+
+        // fmt chunk
+        writeString('fmt ');
+        view.setUint32(offset, 16, true); offset += 4;
+        view.setUint16(offset, 1, true); offset += 2;
+        view.setUint16(offset, numOfChan, true); offset += 2;
+        view.setUint32(offset, sampleRate, true); offset += 4;
+        view.setUint32(offset, sampleRate * numOfChan * 2, true); offset += 4;
+        view.setUint16(offset, numOfChan * 2, true); offset += 2;
+        view.setUint16(offset, 16, true); offset += 2;
+
+        // data chunk
+        writeString('data');
+        view.setUint32(offset, length - offset - 4, true); offset += 4;
+
+        for (let i = 0; i < buffer.numberOfChannels; i++) {
+          channels.push(buffer.getChannelData(i));
+        }
+
+        // ইন্টারলিভড PCM
+        let index = 44;
+        for (let i = 0; i < buffer.length; i++) {
+          for (let channel = 0; channel < numOfChan; channel++) {
+            let sample = channels[channel][i];
+            sample = Math.max(-1, Math.min(1, sample));
+            sample = sample < 0 ? sample * 0x8000 : sample * 0x7FFF;
+            view.setInt16(index, sample, true);
+            index += 2;
+          }
+        }
+
+        return new Blob([bufferArray], { type: 'audio/wav' });
+      }
+
+      const wavBlob = audioBufferToWav(newBuffer);
+
+      const url = URL.createObjectURL(wavBlob);
+      audioPlayer.src = url;
+      audioPlayer.load();
+      audioPlayer.play();
+
+      // ডাউনলোড লিঙ্ক তৈরি
+      const a = document.createElement('a');
+      a.href = url;
+      a.download = 'cut-audio.wav';
+      a.textContent = 'ডাউনলোড করুন কাটানো অডিও';
+      a.style.display = 'inline-block';
+      a.style.marginTop = '15px';
+      a.style.backgroundColor = '#077A7D';
+      a.style.color = 'white';
+      a.style.padding = '10px 20px';
+      a.style.borderRadius = '6px';
+      a.style.textDecoration = 'none';
+      document.body.appendChild(a);
+    });
+  </script>
+</body>
+</html>

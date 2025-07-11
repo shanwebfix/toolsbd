@@ -1,0 +1,226 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+
+
+  <!-- Dark Mode Early Setup -->
+  <script>
+    (function () {
+      try {
+        const theme = localStorage.getItem('theme');
+        const prefersDark = window.matchMedia('(prefers-color-scheme: dark)').matches;
+        const isDark = theme === 'dark' || (!theme && prefersDark);
+        if (isDark) {
+          document.documentElement.classList.add('dark-mode');
+        }
+      } catch (e) {
+        console.error('Dark mode preload error:', e);
+      }
+    })();
+  </script>
+  <title>MP3 Volume Booster</title>
+    <link rel="stylesheet" href="/components/header.css" />
+  <link rel="stylesheet" href="/components/footer.css" />
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      max-width: 480px;
+      margin: 40px auto;
+      padding: 20px;
+      text-align: center;
+      background: #f0f0f0;
+    }
+    input[type=file] {
+      margin: 20px 0;
+    }
+    label {
+      display: block;
+      margin: 10px 0 5px;
+    }
+    button {
+      background: #077A7D;
+      color: white;
+      border: none;
+      padding: 10px 20px;
+      border-radius: 6px;
+      cursor: pointer;
+      font-size: 16px;
+      margin-top: 10px;
+    }
+    button:hover {
+      background: #066264;
+    }
+    audio {
+      margin-top: 20px;
+      width: 100%;
+      outline: none;
+    }
+    input[type=range] {
+      width: 100%;
+      margin-top: 10px;
+    }
+  </style>
+</head>
+<body>
+
+  <h2>MP3 Volume Booster</h2>
+
+  <input type="file" id="audioFile" accept="audio/mp3,audio/mpeg" />
+  
+  <label for="volumeRange">ভলিউম বুস্ট করুন: <span id="volumeValue">1.0</span>x</label>
+  <input type="range" id="volumeRange" min="1" max="5" step="0.1" value="1" disabled />
+
+  <audio id="audioPlayer" controls></audio>
+
+  <button id="downloadBtn" disabled>বুস্টেড MP3 ডাউনলোড</button>
+
+  <script>
+    const audioFile = document.getElementById('audioFile');
+    const audioPlayer = document.getElementById('audioPlayer');
+    const volumeRange = document.getElementById('volumeRange');
+    const volumeValue = document.getElementById('volumeValue');
+    const downloadBtn = document.getElementById('downloadBtn');
+
+    let audioContext;
+    let sourceNode;
+    let gainNode;
+    let audioBuffer;
+
+    audioFile.addEventListener('change', async function() {
+      if (!this.files.length) return;
+      const file = this.files[0];
+
+      // Reset
+      if (audioContext) {
+        audioContext.close();
+        audioContext = null;
+      }
+      downloadBtn.disabled = true;
+      volumeRange.disabled = true;
+
+      const arrayBuffer = await file.arrayBuffer();
+      audioContext = new AudioContext();
+
+      audioBuffer = await audioContext.decodeAudioData(arrayBuffer);
+
+      // Create source and gain nodes
+      sourceNode = audioContext.createBufferSource();
+      sourceNode.buffer = audioBuffer;
+
+      gainNode = audioContext.createGain();
+      gainNode.gain.value = volumeRange.value;
+
+      sourceNode.connect(gainNode).connect(audioContext.destination);
+
+      // Create blob URL for the original audio to play
+      const url = URL.createObjectURL(file);
+      audioPlayer.src = url;
+      audioPlayer.load();
+
+      volumeRange.disabled = false;
+      downloadBtn.disabled = false;
+      volumeValue.textContent = volumeRange.value;
+    });
+
+    volumeRange.addEventListener('input', function() {
+      volumeValue.textContent = this.value;
+      if (gainNode) {
+        gainNode.gain.value = this.value;
+      }
+      audioPlayer.volume = Math.min(this.value, 1);
+    });
+
+    downloadBtn.addEventListener('click', async function() {
+      if (!audioBuffer) return alert('অডিও ফাইল আপলোড করুন প্রথমে।');
+
+      // Create OfflineAudioContext for rendering
+      const offlineCtx = new OfflineAudioContext(
+        audioBuffer.numberOfChannels,
+        audioBuffer.length,
+        audioBuffer.sampleRate
+      );
+
+      const source = offlineCtx.createBufferSource();
+      source.buffer = audioBuffer;
+
+      const gain = offlineCtx.createGain();
+      gain.gain.value = volumeRange.value;
+
+      source.connect(gain).connect(offlineCtx.destination);
+      source.start(0);
+
+      const renderedBuffer = await offlineCtx.startRendering();
+
+      // Convert AudioBuffer to WAV Blob
+      function audioBufferToWav(buffer) {
+        const numOfChan = buffer.numberOfChannels,
+              length = buffer.length * numOfChan * 2 + 44,
+              bufferArray = new ArrayBuffer(length),
+              view = new DataView(bufferArray),
+              channels = [],
+              sampleRate = buffer.sampleRate;
+        let offset = 0;
+
+        function writeString(s) {
+          for (let i = 0; i < s.length; i++) {
+            view.setUint8(offset++, s.charCodeAt(i));
+          }
+        }
+
+        // RIFF chunk descriptor
+        writeString('RIFF');
+        view.setUint32(offset, length - 8, true); offset += 4;
+        writeString('WAVE');
+
+        // FMT sub-chunk
+        writeString('fmt ');
+        view.setUint32(offset, 16, true); offset += 4;
+        view.setUint16(offset, 1, true); offset += 2;
+        view.setUint16(offset, numOfChan, true); offset += 2;
+        view.setUint32(offset, sampleRate, true); offset += 4;
+        view.setUint32(offset, sampleRate * numOfChan * 2, true); offset += 4;
+        view.setUint16(offset, numOfChan * 2, true); offset += 2;
+        view.setUint16(offset, 16, true); offset += 2;
+
+        // data sub-chunk
+        writeString('data');
+        view.setUint32(offset, length - offset - 4, true); offset += 4;
+
+        // Write interleaved PCM samples
+        for (let i = 0; i < buffer.numberOfChannels; i++) {
+          channels.push(buffer.getChannelData(i));
+        }
+
+        const interleaved = new Float32Array(buffer.length * numOfChan);
+        for (let i = 0; i < buffer.length; i++) {
+          for (let channel = 0; channel < numOfChan; channel++) {
+            interleaved[i * numOfChan + channel] = channels[channel][i];
+          }
+        }
+
+        // Convert float samples to 16-bit PCM
+        let index = 44;
+        for (let i = 0; i < interleaved.length; i++) {
+          let sample = Math.max(-1, Math.min(1, interleaved[i]));
+          sample = sample < 0 ? sample * 0x8000 : sample * 0x7FFF;
+          view.setInt16(index, sample, true);
+          index += 2;
+        }
+
+        return new Blob([bufferArray], {type: 'audio/wav'});
+      }
+
+      const wavBlob = audioBufferToWav(renderedBuffer);
+
+      const link = document.createElement('a');
+      link.href = URL.createObjectURL(wavBlob);
+      link.download = 'boosted-audio.wav';
+      link.click();
+    });
+  </script>
+    <script src="/components/header.js"></script>
+  <script src="/components/footer.js"></script>
+</body>
+</html>

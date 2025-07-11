@@ -1,0 +1,195 @@
+<!DOCTYPE html>
+<html lang="bn">
+<head>
+  <meta charset="UTF-8">
+  <title>বাংলা রিজিউম জেনারেটর</title>
+  <style>
+    body {
+      font-family: 'Segoe UI', sans-serif;
+      background: #f0f4f8;
+      margin: 0;
+      padding: 20px;
+      color: #222;
+    }
+
+    h1 {
+      text-align: center;
+      margin-bottom: 30px;
+    }
+
+    .container {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 30px;
+      justify-content: center;
+    }
+
+    form {
+      background: #fff;
+      padding: 20px;
+      border-radius: 12px;
+      box-shadow: 0 0 10px rgba(0,0,0,0.1);
+      width: 360px;
+    }
+
+    label {
+      display: block;
+      margin-top: 10px;
+      font-weight: bold;
+    }
+
+    input, textarea {
+      width: 100%;
+      padding: 8px;
+      margin-top: 5px;
+      border: 1px solid #ccc;
+      border-radius: 6px;
+      font-size: 14px;
+    }
+
+    button {
+      margin-top: 15px;
+      background: #077A7D;
+      color: white;
+      padding: 10px 18px;
+      font-size: 16px;
+      border: none;
+      border-radius: 6px;
+      cursor: pointer;
+    }
+
+    button:hover {
+      background: #066264;
+    }
+
+    .preview {
+      background: #fff;
+      padding: 20px;
+      border-radius: 12px;
+      width: 380px;
+      box-shadow: 0 0 10px rgba(0,0,0,0.1);
+    }
+
+    .cv-image {
+      width: 120px;
+      height: 120px;
+      border-radius: 50%;
+      object-fit: cover;
+      margin-bottom: 10px;
+    }
+
+    .cv-section {
+      margin-bottom: 15px;
+    }
+
+    .cv-section h3 {
+      margin-bottom: 5px;
+      border-bottom: 1px solid #ddd;
+      padding-bottom: 3px;
+    }
+
+    #cv-output {
+      white-space: pre-line;
+    }
+
+    @media print {
+      body * {
+        visibility: hidden;
+      }
+      .preview, .preview * {
+        visibility: visible;
+      }
+      .preview {
+        position: absolute;
+        left: 0;
+        top: 0;
+      }
+    }
+  </style>
+</head>
+<body>
+
+<h1>📝 বাংলা রিজিউম (CV) তৈরি করুন</h1>
+
+<div class="container">
+  <form id="cv-form">
+    <label>পুরো নাম</label>
+    <input type="text" id="name" required>
+
+    <label>ইমেইল</label>
+    <input type="email" id="email" required>
+
+    <label>মোবাইল নাম্বার</label>
+    <input type="text" id="phone" required>
+
+    <label>ছবি আপলোড করুন</label>
+    <input type="file" id="photo" accept="image/*">
+
+    <label>সারাংশ</label>
+    <textarea id="summary" rows="3"></textarea>
+
+    <label>শিক্ষাগত যোগ্যতা</label>
+    <textarea id="education" rows="3"></textarea>
+
+    <label>কর্ম অভিজ্ঞতা</label>
+    <textarea id="experience" rows="3"></textarea>
+
+    <label>দক্ষতা</label>
+    <textarea id="skills" rows="2"></textarea>
+
+    <button type="submit">✅ রিজিউম তৈরি করুন</button>
+  </form>
+
+  <div class="preview">
+    <h2>📄 রিজিউম প্রিভিউ</h2>
+    <div id="cv-output">
+      <img id="cv-photo" class="cv-image" src="" style="display:none;" />
+    </div>
+    <button onclick="window.print()">🖨️ প্রিন্ট বা PDF সংরক্ষণ</button>
+  </div>
+</div>
+
+<script>
+  const form = document.getElementById("cv-form");
+  const cvOutput = document.getElementById("cv-output");
+  const photoInput = document.getElementById("photo");
+  const cvPhoto = document.getElementById("cv-photo");
+
+  form.addEventListener("submit", function (e) {
+    e.preventDefault();
+
+    const name = document.getElementById("name").value;
+    const email = document.getElementById("email").value;
+    const phone = document.getElementById("phone").value;
+    const summary = document.getElementById("summary").value;
+    const education = document.getElementById("education").value;
+    const experience = document.getElementById("experience").value;
+    const skills = document.getElementById("skills").value;
+
+    let html = `
+      <div class="cv-section"><h2>${name}</h2>
+      <p>📧 ${email}<br>📞 ${phone}</p></div>
+
+      <div class="cv-section"><h3>🔹 সারাংশ</h3><p>${summary}</p></div>
+      <div class="cv-section"><h3>🎓 শিক্ষাগত যোগ্যতা</h3><p>${education}</p></div>
+      <div class="cv-section"><h3>💼 কর্ম অভিজ্ঞতা</h3><p>${experience}</p></div>
+      <div class="cv-section"><h3>🛠️ দক্ষতা</h3><p>${skills}</p></div>
+    `;
+
+    cvOutput.innerHTML = `<img id="cv-photo" class="cv-image" style="display:none;" />` + html;
+
+    const file = photoInput.files[0];
+    if (file) {
+      const reader = new FileReader();
+      reader.onload = function () {
+        const img = document.getElementById("cv-photo");
+        img.src = reader.result;
+        img.style.display = "block";
+      };
+      reader.readAsDataURL(file);
+    }
+  });
+</script>
+
+</body>
+</html>

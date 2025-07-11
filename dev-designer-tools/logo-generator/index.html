@@ -1,0 +1,164 @@
+<!DOCTYPE html>
+<html lang="bn">
+<head>
+  <meta charset="UTF-8">
+  <title>Advanced Logo Generator</title>
+  <link href="https://fonts.googleapis.com/css2?family=Roboto&family=Great+Vibes&family=Anton&family=Lobster&family=Oswald&family=Poppins&family=Inconsolata&family=Noto+Sans+Bengali&display=swap" rel="stylesheet">
+  <style>
+    html {
+      background: #f8fafc;
+      color: #222;
+    }
+
+    html.dark-mode {
+      background: #1e293b;
+      color: #e2e8f0;
+    }
+
+    body {
+      font-family: 'Segoe UI', sans-serif;
+      padding: 30px;
+      text-align: center;
+    }
+
+    input, select {
+      padding: 8px;
+      margin: 10px;
+      border-radius: 6px;
+      border: 1px solid #ccc;
+      font-size: 16px;
+    }
+
+    html.dark-mode input,
+    html.dark-mode select {
+      background: #334155;
+      color: #e2e8f0;
+      border-color: #555;
+    }
+
+    canvas {
+      margin: 20px 0;
+      border: 2px dashed #077A7D;
+      background: #ffffff;
+    }
+
+    html.dark-mode canvas {
+      background: #0f172a;
+      border-color: #38bdf8;
+    }
+
+    button {
+      padding: 10px 20px;
+      font-size: 16px;
+      background: #077A7D;
+      color: white;
+      border: none;
+      border-radius: 6px;
+      cursor: pointer;
+      margin-top: 10px;
+    }
+
+    button:hover {
+      background: #066264;
+    }
+
+    html.dark-mode button {
+      background: #0891b2;
+    }
+
+    html.dark-mode button:hover {
+      background: #0e7490;
+    }
+  </style>
+</head>
+<body>
+
+  <h1>🎨 টেক্সট লোগো জেনারেটর</h1>
+
+  <div>
+    <input type="text" id="logoText" placeholder="লোগোর টেক্সট লিখুন"><br>
+
+    <label>ফন্ট:</label>
+    <select id="fontSelect">
+      <option value="Segoe UI">Segoe UI</option>
+      <option value="Roboto">Roboto</option>
+      <option value="Poppins">Poppins</option>
+      <option value="Lobster">Lobster</option>
+      <option value="Oswald">Oswald</option>
+      <option value="Great Vibes">Great Vibes</option>
+      <option value="Anton">Anton</option>
+      <option value="Inconsolata">Inconsolata</option>
+      <option value="Noto Sans Bengali">Noto Sans Bengali</option>
+    </select>
+
+    <label>লেখার রঙ:</label>
+    <input type="color" id="colorPicker" value="#077A7D">
+
+    <label>ব্যাকগ্রাউন্ড রঙ:</label>
+    <input type="color" id="bgColorPicker" value="#ffffff"><br>
+
+    <label>ফন্ট সাইজ:</label>
+    <input type="number" id="fontSize" value="60" min="10" max="200"> px
+
+    <label>প্রস্থ (width):</label>
+    <input type="number" id="canvasWidth" value="500" min="100" max="2000"> px
+
+    <label>উচ্চতা (height):</label>
+    <input type="number" id="canvasHeight" value="200" min="50" max="1000"> px
+  </div>
+
+  <canvas id="logoCanvas" width="500" height="200"></canvas><br>
+  <button id="downloadBtn">💾 PNG হিসেবে ডাউনলোড</button>
+
+  <script>
+    const textInput = document.getElementById("logoText");
+    const fontSelect = document.getElementById("fontSelect");
+    const colorPicker = document.getElementById("colorPicker");
+    const bgColorPicker = document.getElementById("bgColorPicker");
+    const fontSizeInput = document.getElementById("fontSize");
+    const canvasWidthInput = document.getElementById("canvasWidth");
+    const canvasHeightInput = document.getElementById("canvasHeight");
+    const canvas = document.getElementById("logoCanvas");
+    const ctx = canvas.getContext("2d");
+
+    function drawLogo() {
+      const text = textInput.value || "লোগো";
+      const font = fontSelect.value;
+      const textColor = colorPicker.value;
+      const bgColor = bgColorPicker.value;
+      const fontSize = fontSizeInput.value;
+
+      const width = parseInt(canvasWidthInput.value);
+      const height = parseInt(canvasHeightInput.value);
+      canvas.width = width;
+      canvas.height = height;
+
+      ctx.clearRect(0, 0, width, height);
+      ctx.fillStyle = bgColor;
+      ctx.fillRect(0, 0, width, height);
+
+      ctx.font = `${fontSize}px "${font}"`;
+      ctx.fillStyle = textColor;
+      ctx.textAlign = "center";
+      ctx.textBaseline = "middle";
+      ctx.fillText(text, width / 2, height / 2);
+    }
+
+    // Event Listeners
+    [textInput, fontSelect, colorPicker, bgColorPicker, fontSizeInput, canvasWidthInput, canvasHeightInput]
+      .forEach(el => el.addEventListener("input", drawLogo));
+
+    // Initial draw
+    drawLogo();
+
+    // Download as PNG
+    document.getElementById("downloadBtn").addEventListener("click", () => {
+      const link = document.createElement("a");
+      link.download = "text-logo.png";
+      link.href = canvas.toDataURL("image/png");
+      link.click();
+    });
+  </script>
+
+</body>
+</html>

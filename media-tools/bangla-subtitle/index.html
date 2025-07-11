@@ -1,0 +1,273 @@
+<!DOCTYPE html>
+<html lang="bn">
+<head>
+  <meta charset="UTF-8" />
+  <title>Bangla Subtitle Generator (ভিডিও আপলোড সহ)</title>
+  <style>
+    body {
+      max-width: 600px;
+      margin: 40px auto;
+      font-family: 'Noto Sans Bengali', sans-serif, sans-serif;
+      background: #f9f9f9;
+      padding: 20px;
+      box-sizing: border-box;
+    }
+    h2 {
+      text-align: center;
+      color: #077A7D;
+      margin-bottom: 20px;
+    }
+    video {
+      width: 100%;
+      border-radius: 8px;
+      background: black;
+      margin-bottom: 10px;
+    }
+    #uploadedVideo {
+      display: none;
+    }
+    #subtitleDisplay {
+      background: rgba(0,0,0,0.7);
+      color: #fff;
+      font-size: 20px;
+      padding: 8px 12px;
+      border-radius: 6px;
+      max-width: 100%;
+      text-align: center;
+      margin-bottom: 20px;
+      min-height: 30px;
+      font-family: 'Noto Sans Bengali', sans-serif;
+    }
+    label {
+      display: block;
+      font-weight: bold;
+      margin-top: 15px;
+      margin-bottom: 5px;
+    }
+    textarea, input[type="file"], input[type="number"], input[type="text"] {
+      width: 100%;
+      padding: 8px;
+      font-size: 16px;
+      border-radius: 6px;
+      border: 1px solid #ccc;
+      box-sizing: border-box;
+      font-family: 'Noto Sans Bengali', sans-serif;
+      resize: vertical;
+    }
+    button {
+      background: #077A7D;
+      color: white;
+      border: none;
+      padding: 12px 20px;
+      border-radius: 6px;
+      cursor: pointer;
+      font-size: 16px;
+      margin-top: 15px;
+      width: 100%;
+    }
+    button:hover {
+      background: #066264;
+    }
+    .subtitle-list {
+      margin-top: 20px;
+      max-height: 250px;
+      overflow-y: auto;
+      background: white;
+      padding: 10px;
+      border-radius: 6px;
+      box-shadow: 0 0 8px rgba(0,0,0,0.1);
+      font-family: 'Noto Sans Bengali', sans-serif;
+    }
+    .subtitle-item {
+      border-bottom: 1px solid #eee;
+      padding: 6px 0;
+      position: relative;
+    }
+    .timecode {
+      color: #555;
+      font-weight: bold;
+      font-family: monospace;
+      margin-bottom: 4px;
+    }
+    .delete-btn {
+      position: absolute;
+      right: 5px;
+      top: 8px;
+      background: #f44336;
+      color: white;
+      border: none;
+      border-radius: 4px;
+      padding: 2px 7px;
+      cursor: pointer;
+      font-size: 12px;
+    }
+  </style>
+</head>
+<body>
+
+  <h2>Bangla Subtitle Generator (ভিডিও আপলোড সহ)</h2>
+
+  <label for="videoFile">ভিডিও আপলোড করুন (সর্বোচ্চ 1 মিনিট):</label>
+  <input type="file" id="videoFile" accept="video/*" />
+
+  <video id="uploadedVideo" controls></video>
+
+  <div id="subtitleDisplay"></div>
+
+  <label for="subtitleText">সাবটাইটেল লিখুন:</label>
+  <textarea id="subtitleText" placeholder="সাবটাইটেল এখানে লিখুন..."></textarea>
+
+  <label for="startTime">শুরু সময় (সেকেন্ডে):</label>
+  <input type="number" id="startTime" min="0" step="0.1" value="0" />
+
+  <label for="endTime">শেষ সময় (সেকেন্ডে):</label>
+  <input type="number" id="endTime" min="0" step="0.1" value="3" />
+
+  <button id="addSubtitleBtn">সাবটাইটেল যোগ করুন</button>
+
+  <div class="subtitle-list" id="subtitleList"></div>
+
+  <button id="downloadBtn">সাবটাইটেল .srt ফাইল ডাউনলোড করুন</button>
+
+  <script>
+    const videoFileInput = document.getElementById('videoFile');
+    const uploadedVideo = document.getElementById('uploadedVideo');
+    const subtitleDisplay = document.getElementById('subtitleDisplay');
+    const subtitleText = document.getElementById('subtitleText');
+    const startTimeInput = document.getElementById('startTime');
+    const endTimeInput = document.getElementById('endTime');
+    const addSubtitleBtn = document.getElementById('addSubtitleBtn');
+    const subtitleList = document.getElementById('subtitleList');
+    const downloadBtn = document.getElementById('downloadBtn');
+
+    let subtitles = [];
+
+    // ভিডিও আপলোড হলে সেট করা
+    videoFileInput.addEventListener('change', () => {
+      const file = videoFileInput.files[0];
+      if (!file) return;
+
+      if (file.type.indexOf('video') === -1) {
+        alert('ভিডিও ফাইল নির্বাচন করুন।');
+        return;
+      }
+
+      // 1 মিনিট (60 সেকেন্ড) চেক
+      const maxDuration = 60;
+      const url = URL.createObjectURL(file);
+      uploadedVideo.src = url;
+      uploadedVideo.style.display = 'block';
+      subtitleDisplay.textContent = '';
+      subtitles = [];
+      renderSubtitles();
+
+      // ভিডিও duration পাওয়া না গেলে একটু অপেক্ষা করবো
+      uploadedVideo.onloadedmetadata = () => {
+        if (uploadedVideo.duration > maxDuration) {
+          alert('ভিডিওর দৈর্ঘ্য সর্বোচ্চ 1 মিনিট হতে হবে।');
+          uploadedVideo.src = '';
+          uploadedVideo.style.display = 'none';
+          videoFileInput.value = '';
+          subtitles = [];
+          renderSubtitles();
+          return;
+        }
+        startTimeInput.max = uploadedVideo.duration.toFixed(1);
+        endTimeInput.max = uploadedVideo.duration.toFixed(1);
+        endTimeInput.value = Math.min(3, uploadedVideo.duration).toFixed(1);
+      };
+    });
+
+    // সাবটাইটেল যোগ করা
+    addSubtitleBtn.addEventListener('click', () => {
+      const text = subtitleText.value.trim();
+      const start = parseFloat(startTimeInput.value);
+      const end = parseFloat(endTimeInput.value);
+
+      if (!text) {
+        alert('সাবটাইটেল লিখুন!');
+        return;
+      }
+      if (isNaN(start) || isNaN(end)) {
+        alert('সঠিক সময় দিন!');
+        return;
+      }
+      if (start < 0 || end <= start || !uploadedVideo.src) {
+        alert('সঠিক সময় বাছাই করুন এবং ভিডিও আপলোড আছে কিনা দেখুন।');
+        return;
+      }
+      if (end > uploadedVideo.duration) {
+        alert('শেষ সময় ভিডিওর দৈর্ঘ্যের বাইরে হতে পারে না।');
+        return;
+      }
+
+      subtitles.push({ start, end, text });
+      subtitleText.value = '';
+      renderSubtitles();
+    });
+
+    // সাবটাইটেল লিস্ট রেন্ডার
+    function renderSubtitles() {
+      subtitleList.innerHTML = '';
+      subtitles.sort((a,b) => a.start - b.start);
+      subtitles.forEach((sub, i) => {
+        const div = document.createElement('div');
+        div.className = 'subtitle-item';
+        div.innerHTML = `
+          <div class="timecode">${toSrtTimestamp(sub.start)} --> ${toSrtTimestamp(sub.end)}</div>
+          <div>${sub.text}</div>
+          <button class="delete-btn" data-index="${i}">মুছুন</button>
+        `;
+        subtitleList.appendChild(div);
+      });
+
+      // মুছুন বাটন ইভেন্ট
+      subtitleList.querySelectorAll('.delete-btn').forEach(btn => {
+        btn.addEventListener('click', (e) => {
+          const idx = parseInt(e.target.getAttribute('data-index'));
+          subtitles.splice(idx,1);
+          renderSubtitles();
+        });
+      });
+    }
+
+    // সেকেন্ডকে SRT ফরম্যাটে রূপান্তর
+    function toSrtTimestamp(seconds) {
+      const h = Math.floor(seconds / 3600);
+      const m = Math.floor((seconds % 3600) / 60);
+      const s = Math.floor(seconds % 60);
+      const ms = Math.floor((seconds - Math.floor(seconds)) * 1000);
+      return `${String(h).padStart(2,'0')}:${String(m).padStart(2,'0')}:${String(s).padStart(2,'0')},${String(ms).padStart(3,'0')}`;
+    }
+
+    // ভিডিওর টাইম আপডেট অনুযায়ী সাবটাইটেল দেখানো
+    uploadedVideo.addEventListener('timeupdate', () => {
+      const currentTime = uploadedVideo.currentTime;
+      const currentSubtitle = subtitles.find(sub => currentTime >= sub.start && currentTime <= sub.end);
+      subtitleDisplay.textContent = currentSubtitle ? currentSubtitle.text : '';
+    });
+
+    // .srt ডাউনলোড
+    downloadBtn.addEventListener('click', () => {
+      if (subtitles.length === 0) {
+        alert('সাবটাইটেল নেই ডাউনলোড করার জন্য!');
+        return;
+      }
+      let srtContent = '';
+      subtitles.forEach((sub, i) => {
+        srtContent += (i+1) + '\n';
+        srtContent += `${toSrtTimestamp(sub.start)} --> ${toSrtTimestamp(sub.end)}\n`;
+        srtContent += sub.text + '\n\n';
+      });
+
+      const blob = new Blob([srtContent], { type: 'text/plain;charset=utf-8' });
+      const url = URL.createObjectURL(blob);
+      const a = document.createElement('a');
+      a.href = url;
+      a.download = 'subtitle.srt';
+      a.click();
+      URL.revokeObjectURL(url);
+    });
+  </script>
+</body>
+</html>

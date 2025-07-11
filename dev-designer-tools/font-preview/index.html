@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html lang="bn">
+<head>
+  <meta charset="UTF-8">
+  <title>Bangla Font Preview Tool</title>
+  <!-- লিপিলিখি ও গুগল থেকে বাংলাফন্ট লোড -->
+  <link href="https://lipilikhi.github.io/fonts/AdorshoLipi.min.css" rel="stylesheet">
+  <link href="https://lipilikhi.github.io/fonts/AnekBangla.min.css" rel="stylesheet">
+  <link href="https://lipilikhi.github.io/fonts/Atma.min.css" rel="stylesheet">
+  <link href="https://lipilikhi.github.io/fonts/BalooDa2.min.css" rel="stylesheet">
+  <link href="https://lipilikhi.github.io/fonts/BenSenHandwriting.min.css" rel="stylesheet">
+  <link href="https://lipilikhi.github.io/fonts/Galada.min.css" rel="stylesheet">
+  <link href="https://lipilikhi.github.io/fonts/HindSiliguri.min.css" rel="stylesheet">
+  <link href="https://lipilikhi.github.io/fonts/Kalpurush.min.css" rel="stylesheet">
+  <link href="https://lipilikhi.github.io/fonts/Mina.min.css" rel="stylesheet">
+  <link href="https://lipilikhi.github.io/fonts/Mukti.min.css" rel="stylesheet">
+  <link href="https://lipilikhi.github.io/fonts/NotoSansBengali.min.css" rel="stylesheet">
+  <link href="https://lipilikhi.github.io/fonts/NotoSerifBengali.min.css" rel="stylesheet">
+  <link href="https://lipilikhi.github.io/fonts/SiyamRupali.min.css" rel="stylesheet">
+  <link href="https://lipilikhi.github.io/fonts/TiroBangla.min.css" rel="stylesheet">
+  <link href="https://lipilikhi.github.io/fonts/UNBangla.min.css" rel="stylesheet">
+  <!-- আরও প্রায় শতাধিক ফন্ট github লিপিলিখি-তে উপলব্ধ :contentReference[oaicite:1]{index=1} -->
+  <style>
+    html { background:#fafafa; color:#222; }
+    html.dark-mode { background:#1e293b; color:#e2e8f0; }
+    body { font-family:'Segoe UI',sans-serif; padding:30px; text-align:center; }
+    input, select { padding:8px; margin:8px; width:260px; border-radius:6px; border:1px solid #ccc; font-size:16px; }
+    html.dark-mode input, html.dark-mode select { background:#334155; color:#e2e8f0; border-color:#555; }
+    .preview { margin-top:30px; padding:20px; border:2px dashed #077A7D; border-radius:8px; min-height:150px; font-size:36px; }
+    html.dark-mode .preview { border-color:#38bdf8; background:#0f172a; }
+    label { display:block; margin:20px 0 5px; font-weight:bold; }
+    @media(max-width:600px){ input, select{ width:100%; } .preview{ font-size:24px; }}
+  </style>
+</head>
+<body>
+
+  <h1>🔤 বাংলা ফন্ট প্রিভিউ টুল</h1>
+  <input type="text" id="textInput" placeholder="এখানে বাংলা লেখা লিখুন..." value="বাংলা ফন্ট প্রিভিউ">
+  <label>ফন্ট নির্বাচন করুন:</label>
+  <select id="fontSelect"></select>
+  <div class="preview" id="previewBox"></div>
+
+  <script>
+    const fonts = [
+      'Adorsho Lipi','Anek Bangla','Atma','Baloo Da 2','BenSen Handwriting',
+      'Galada','Hind Siliguri','Kalpurush','Mina','Mukti','Noto Sans Bengali',
+      'Noto Serif Bengali','Siyam Rupali','Tiro Bangla','UN Bangla',
+      'Sutonny MJ','Solaiman Lipi','Apona Lohit','Ekushey Bangla','Likhan',
+      'Rupali','BanglaMN','Mitra','Prothoma','Rajon Shoily','Charukola',
+      'Ekushey Mukto','AB Shapla','Himel Borno','Baraka','Ekushey Saraswatii',
+      'Akash','Hoogli','Aikya','Sapa','Kala','Bensen','Bornoporichay','Sunar Bangla',
+      'Mamun Bornolipi','Hasan Priyotoma','Srabondhara','Mahfuj Raiyan','Helal Laveriya',
+      'Linda Bangla','Ekushey Lal Sabuj','Bornomala','Chitra MJ','Tuli','Vrinda',
+      'Amar Desh','Kongsho MJ','Chandrabati MJ','Kalindi MJ','Teeshta MJ','Mohanonda MJ',
+      'Nota Sans','Prothoma Light','Kumarkhali MJ','LikhoKotha','Swopno','Moyna Unicode',
+      'Buriganga','Sundori Unicode','Ekush','Priyo Nabi','Aborton','Mahin Shefa','Mahin Sayedi',
+      'Shonar Bangla','Bornoporichay','... (এখনো ১০০+ বাংলা ফন্ট)'];
+    const sel = document.getElementById('fontSelect');
+    fonts.forEach(f=>{
+      const opt = document.createElement('option');
+      opt.value = f;
+      opt.textContent = f;
+      sel.appendChild(opt);
+    });
+    const textInput = document.getElementById('textInput');
+    const previewBox = document.getElementById('previewBox');
+    function update(){
+      const txt = textInput.value || '';
+      const f = sel.value;
+      previewBox.style.fontFamily = `"${f}", sans-serif`;
+      previewBox.textContent = txt;
+    }
+    textInput.addEventListener('input', update);
+    sel.addEventListener('change', update);
+    update();
+  </script>
+</body>
+</html>

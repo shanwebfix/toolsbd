@@ -1,0 +1,235 @@
+<!DOCTYPE html>
+<html lang="bn">
+<head>
+  <meta charset="UTF-8" />
+  <title>Social Media Content Scheduler (Local & Lite)</title>
+  <style>
+    body {
+      max-width: 600px;
+      margin: 40px auto;
+      font-family: 'Noto Sans Bengali', sans-serif, sans-serif;
+      background: #f9f9f9;
+      padding: 20px;
+      box-sizing: border-box;
+      color: #222;
+    }
+    h2 {
+      text-align: center;
+      color: #077A7D;
+      margin-bottom: 20px;
+    }
+    label {
+      display: block;
+      font-weight: bold;
+      margin-top: 15px;
+      margin-bottom: 5px;
+    }
+    input[type="text"], input[type="datetime-local"], textarea {
+      width: 100%;
+      padding: 8px;
+      font-size: 16px;
+      border-radius: 6px;
+      border: 1px solid #ccc;
+      box-sizing: border-box;
+      resize: vertical;
+      font-family: 'Noto Sans Bengali', sans-serif;
+    }
+    textarea {
+      min-height: 80px;
+    }
+    button {
+      background: #077A7D;
+      color: white;
+      border: none;
+      padding: 12px 20px;
+      border-radius: 6px;
+      cursor: pointer;
+      font-size: 16px;
+      margin-top: 15px;
+      width: 100%;
+      transition: background 0.3s;
+    }
+    button:hover {
+      background: #066264;
+    }
+    .post-list {
+      margin-top: 30px;
+      background: white;
+      border-radius: 6px;
+      padding: 15px;
+      box-shadow: 0 0 8px rgba(0,0,0,0.1);
+      max-height: 300px;
+      overflow-y: auto;
+      font-family: 'Noto Sans Bengali', sans-serif;
+    }
+    .post-item {
+      border-bottom: 1px solid #eee;
+      padding: 10px 0;
+      position: relative;
+    }
+    .post-item:last-child {
+      border-bottom: none;
+    }
+    .post-date {
+      font-weight: bold;
+      color: #077A7D;
+      margin-bottom: 5px;
+      font-family: monospace;
+    }
+    .post-text {
+      white-space: pre-wrap;
+      margin-bottom: 8px;
+    }
+    .post-image {
+      max-width: 100%;
+      border-radius: 6px;
+      margin-bottom: 8px;
+    }
+    .delete-btn {
+      position: absolute;
+      top: 10px;
+      right: 0;
+      background: #f44336;
+      color: white;
+      border: none;
+      border-radius: 4px;
+      padding: 4px 8px;
+      cursor: pointer;
+      font-size: 12px;
+    }
+    .empty-msg {
+      text-align: center;
+      color: #555;
+      margin-top: 20px;
+    }
+  </style>
+</head>
+<body>
+
+  <h2>Social Media Content Scheduler (Local & Lite)</h2>
+
+  <label for="postDateTime">পোস্টের তারিখ ও সময়:</label>
+  <input type="datetime-local" id="postDateTime" />
+
+  <label for="postText">পোস্টের লেখা:</label>
+  <textarea id="postText" placeholder="আপনার পোস্টের লেখা লিখুন..."></textarea>
+
+  <label for="postImage">ছবি আপলোড (ঐচ্ছিক):</label>
+  <input type="file" id="postImage" accept="image/*" />
+
+  <button id="addPostBtn">পোস্ট সংরক্ষণ করুন</button>
+
+  <div class="post-list" id="postList">
+    <p class="empty-msg">কোনো পোস্ট নেই।</p>
+  </div>
+
+<script>
+  const postDateTimeInput = document.getElementById('postDateTime');
+  const postTextInput = document.getElementById('postText');
+  const postImageInput = document.getElementById('postImage');
+  const addPostBtn = document.getElementById('addPostBtn');
+  const postListDiv = document.getElementById('postList');
+
+  let posts = [];
+
+  // লোকালস্টোরেজ থেকে লোড
+  function loadPosts() {
+    const saved = localStorage.getItem('scheduledPosts');
+    posts = saved ? JSON.parse(saved) : [];
+    renderPosts();
+  }
+
+  // লোকালস্টোরেজ এ সেভ
+  function savePosts() {
+    localStorage.setItem('scheduledPosts', JSON.stringify(posts));
+  }
+
+  // পোস্ট রেন্ডার
+  function renderPosts() {
+    postListDiv.innerHTML = '';
+    if(posts.length === 0) {
+      postListDiv.innerHTML = '<p class="empty-msg">কোনো পোস্ট নেই।</p>';
+      return;
+    }
+    posts.sort((a,b) => new Date(a.datetime) - new Date(b.datetime));
+    posts.forEach((post, index) => {
+      const div = document.createElement('div');
+      div.className = 'post-item';
+
+      let imgHtml = '';
+      if(post.imageData) {
+        imgHtml = `<img src="${post.imageData}" alt="পোস্ট ছবি" class="post-image" />`;
+      }
+
+      div.innerHTML = `
+        <div class="post-date">${new Date(post.datetime).toLocaleString('bn-BD')}</div>
+        <div class="post-text">${escapeHtml(post.text)}</div>
+        ${imgHtml}
+        <button class="delete-btn" data-index="${index}">মুছুন</button>
+      `;
+
+      postListDiv.appendChild(div);
+
+      div.querySelector('.delete-btn').addEventListener('click', (e) => {
+        const idx = e.target.getAttribute('data-index');
+        posts.splice(idx,1);
+        savePosts();
+        renderPosts();
+      });
+    });
+  }
+
+  // HTML স্পেশাল ক্যারেক্টার এস্কেপ
+  function escapeHtml(text) {
+    const div = document.createElement('div');
+    div.textContent = text;
+    return div.innerHTML;
+  }
+
+  // পোস্ট যোগ
+  addPostBtn.addEventListener('click', () => {
+    const datetime = postDateTimeInput.value;
+    const text = postTextInput.value.trim();
+
+    if(!datetime) {
+      alert('অনুগ্রহ করে পোস্টের তারিখ ও সময় নির্বাচন করুন।');
+      return;
+    }
+    if(!text) {
+      alert('পোস্টের লেখা লিখুন।');
+      return;
+    }
+
+    // ছবি থাকলে ফাইল থেকে Base64 তৈরি করবো, না থাকলে null
+    if(postImageInput.files.length > 0) {
+      const file = postImageInput.files[0];
+      if(!file.type.startsWith('image/')) {
+        alert('সঠিক ছবি নির্বাচন করুন।');
+        return;
+      }
+      const reader = new FileReader();
+      reader.onload = function(e) {
+        const imageData = e.target.result;
+        addPost(datetime, text, imageData);
+      };
+      reader.readAsDataURL(file);
+    } else {
+      addPost(datetime, text, null);
+    }
+  });
+
+  function addPost(datetime, text, imageData) {
+    posts.push({ datetime, text, imageData });
+    savePosts();
+    renderPosts();
+    postDateTimeInput.value = '';
+    postTextInput.value = '';
+    postImageInput.value = '';
+  }
+
+  // শুরুতেই লোড করো
+  loadPosts();
+</script>
+
+</body>
+</html>

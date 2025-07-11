@@ -1,0 +1,92 @@
+<!DOCTYPE html>
+<html lang="bn">
+<head>
+  <meta charset="UTF-8" />
+  <title>YouTube ভিডিও ডাউনলোডার</title>
+  <style>
+    body {
+      max-width: 480px;
+      margin: 40px auto;
+      font-family: Arial, sans-serif;
+      padding: 20px;
+      text-align: center;
+      background: #f9f9f9;
+    }
+    input[type=text] {
+      width: 100%;
+      padding: 10px;
+      font-size: 16px;
+      margin-bottom: 10px;
+      border-radius: 6px;
+      border: 1px solid #ccc;
+      box-sizing: border-box;
+    }
+    button {
+      background: #077A7D;
+      color: white;
+      border: none;
+      padding: 12px 20px;
+      border-radius: 6px;
+      cursor: pointer;
+      font-size: 16px;
+    }
+    button:hover {
+      background: #066264;
+    }
+    #message {
+      margin-top: 20px;
+      color: red;
+    }
+  </style>
+</head>
+<body>
+
+  <h2>YouTube ভিডিও ডাউনলোডার</h2>
+  <input type="text" id="youtubeUrl" placeholder="ইউটিউব ভিডিও URL দিন..." />
+  <button id="downloadBtn">ভিডিও ডাউনলোড করুন</button>
+  <p id="message"></p>
+
+  <script>
+    const downloadBtn = document.getElementById('downloadBtn');
+    const youtubeUrlInput = document.getElementById('youtubeUrl');
+    const message = document.getElementById('message');
+
+    downloadBtn.addEventListener('click', async () => {
+      message.textContent = '';
+      const url = youtubeUrlInput.value.trim();
+      if (!url) {
+        message.textContent = 'দয়া করে ইউটিউব ভিডিও URL দিন।';
+        return;
+      }
+
+      try {
+        const response = await fetch('http://localhost:3000/download', {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({ url }),
+        });
+
+        if (!response.ok) {
+          const error = await response.json();
+          message.textContent = error.error || 'কোনো সমস্যা হয়েছে।';
+          return;
+        }
+
+        const blob = await response.blob();
+        const videoTitle = url.split('v=')[1]?.split('&')[0] || 'video';
+        const downloadUrl = window.URL.createObjectURL(blob);
+
+        const a = document.createElement('a');
+        a.href = downloadUrl;
+        a.download = `${videoTitle}.mp4`;
+        document.body.appendChild(a);
+        a.click();
+        a.remove();
+        window.URL.revokeObjectURL(downloadUrl);
+      } catch (err) {
+        message.textContent = 'ডাউনলোড করতে সমস্যা হয়েছে। সার্ভার চালু আছে কিনা চেক করুন।';
+      }
+    });
+  </script>
+</body>
+</html>

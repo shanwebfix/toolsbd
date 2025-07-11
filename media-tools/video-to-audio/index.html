@@ -1,0 +1,131 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <title>ভিডিও থেকে অডিও কনভার্টার</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      max-width: 480px;
+      margin: 40px auto;
+      padding: 20px;
+      text-align: center;
+      background: #f9f9f9;
+    }
+    input[type=file] {
+      margin: 20px 0;
+    }
+    button {
+      background: #077A7D;
+      color: white;
+      border: none;
+      padding: 10px 20px;
+      border-radius: 6px;
+      cursor: pointer;
+      font-size: 16px;
+      margin-top: 10px;
+    }
+    button:hover {
+      background: #066264;
+    }
+    audio {
+      margin-top: 20px;
+      width: 100%;
+      outline: none;
+    }
+  </style>
+</head>
+<body>
+
+  <h2>ভিডিও থেকে অডিও কনভার্টার</h2>
+
+  <input type="file" id="videoFile" accept="video/*" />
+  
+  <button id="extractBtn" disabled>অডিও আলাদা করুন</button>
+
+  <audio id="audioPlayer" controls style="display:none;"></audio>
+
+  <a id="downloadLink" style="display:none; margin-top:20px; display: inline-block; background:#077A7D; color:#fff; padding:10px 20px; border-radius:6px; text-decoration:none;">ডাউনলোড করুন</a>
+
+  <script>
+    const videoFileInput = document.getElementById('videoFile');
+    const extractBtn = document.getElementById('extractBtn');
+    const audioPlayer = document.getElementById('audioPlayer');
+    const downloadLink = document.getElementById('downloadLink');
+
+    let audioContext, sourceNode, destination, recorder, chunks = [];
+
+    videoFileInput.addEventListener('change', () => {
+      if(videoFileInput.files.length > 0) {
+        extractBtn.disabled = false;
+        audioPlayer.style.display = 'none';
+        downloadLink.style.display = 'none';
+      } else {
+        extractBtn.disabled = true;
+      }
+    });
+
+    extractBtn.addEventListener('click', async () => {
+      if (videoFileInput.files.length === 0) {
+        alert("দয়া করে প্রথমে ভিডিও ফাইল সিলেক্ট করুন");
+        return;
+      }
+
+      const file = videoFileInput.files[0];
+      const fileURL = URL.createObjectURL(file);
+
+      const video = document.createElement('video');
+      video.src = fileURL;
+      video.crossOrigin = "anonymous";
+      video.muted = true;
+      video.playsInline = true;
+
+      audioPlayer.style.display = 'none';
+      downloadLink.style.display = 'none';
+
+      await video.play();
+
+      if (!audioContext) {
+        audioContext = new AudioContext();
+      }
+
+      const source = audioContext.createMediaElementSource(video);
+      const destination = audioContext.createMediaStreamDestination();
+
+      source.connect(destination);
+      source.connect(audioContext.destination);
+
+      const mediaRecorder = new MediaRecorder(destination.stream);
+      const chunks = [];
+
+      mediaRecorder.ondataavailable = e => {
+        chunks.push(e.data);
+      };
+
+      mediaRecorder.onstop = e => {
+        const blob = new Blob(chunks, { type: 'audio/webm' });
+        const audioURL = URL.createObjectURL(blob);
+        audioPlayer.src = audioURL;
+        audioPlayer.style.display = 'block';
+
+        downloadLink.href = audioURL;
+        downloadLink.download = file.name.replace(/\.[^/.]+$/, "") + "_audio.webm";
+        downloadLink.style.display = 'inline-block';
+      };
+
+      mediaRecorder.start();
+
+      // Play full video to record all audio
+      video.onended = () => {
+        mediaRecorder.stop();
+        video.pause();
+        video.src = "";
+        URL.revokeObjectURL(fileURL);
+      };
+
+      video.play();
+    });
+  </script>
+
+</body>
+</html>

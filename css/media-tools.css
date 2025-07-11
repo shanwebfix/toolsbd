@@ -1,0 +1,121 @@
+/* Main Section */
+
+
+.main-section {
+  margin-top: 100px;
+  margin-bottom: 100px;
+  padding: 0 15px;
+}
+
+/* Tools Grid */
+.tools-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 20px;
+  max-width: 1080px;
+  margin: 0 auto;
+}
+
+/* Box styling */
+.clickable-box {
+  background: #fff;
+  border: 1px solid rgba(0, 0, 0, 0.1);
+  height: 150px;
+  padding: 20px 15px;
+  border-radius: 10px;
+  font-size: 17px;
+  font-weight: 500;
+  color: #000;
+  transition: box-shadow 0.3s ease, transform 0.2s ease, background-color 0.3s ease, color 0.3s ease;
+  text-decoration: none !important;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+  cursor: pointer;
+  overflow: hidden;
+  box-sizing: border-box;
+}
+
+/* Hover effect */
+.clickable-box:hover {
+  box-shadow: 0 4px 12px rgba(135, 206, 250, 0.6);
+  transform: translateY(-3px);
+}
+
+/* Icon inside box */
+.box-icon {
+  font-size: 40px;
+  color: #077A7D;
+  margin-bottom: 12px;
+  flex-shrink: 0;
+}
+
+/* Text with ellipsis */
+.clickable-box span.text {
+  white-space: nowrap;
+  text-overflow: ellipsis;
+  overflow: hidden;
+  width: 100%;
+  display: block;
+}
+
+/* Link cleanup */
+.box-link {
+  text-decoration: none !important;
+}
+
+.box-link .clickable-box {
+  text-decoration: none !important;
+}
+
+.box-link:hover,
+.box-link:focus {
+  text-decoration: none !important;
+}
+
+/* Responsive */
+@media (max-width: 768px) {
+  .tools-grid {
+    grid-template-columns: repeat(2, 1fr);
+    gap: 15px;
+  }
+
+  .clickable-box {
+    height: 120px;
+    padding: 12px 10px;
+  }
+
+  .box-icon {
+    font-size: 26px;
+    margin-bottom: 8px;
+  }
+
+  .clickable-box span.text {
+    font-size: 14px;
+  }
+}
+
+/* Dark Mode Styles */
+html.dark-mode body{
+  background: #121212;
+  color: #e0e0e0;
+}
+html.dark-mode .clickable-box {
+  background: #1e293b; /* dark navy */
+  border: 1px solid rgba(255, 255, 255, 0.15);
+  color: #e0e0e0;
+}
+
+html.dark-mode .clickable-box:hover {
+  box-shadow: 0 4px 12px rgba(56, 189, 248, 0.7);
+}
+
+html.dark-mode .box-icon {
+  color: #077A7D;
+}
+
+html.dark-mode .box-text {
+  color: #e0e0e0;
+}

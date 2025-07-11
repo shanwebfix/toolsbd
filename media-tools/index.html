@@ -1,0 +1,118 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>ToolsBD - Free Tools Collections</title>
+
+  <!-- Dark Mode Early Setup -->
+  <script>
+    (function () {
+      try {
+        const theme = localStorage.getItem('theme');
+        const prefersDark = window.matchMedia('(prefers-color-scheme: dark)').matches;
+        const isDark = theme === 'dark' || (!theme && prefersDark);
+        if (isDark) {
+          document.documentElement.classList.add('dark-mode');
+        }
+      } catch (e) {
+        console.error('Dark mode preload error:', e);
+      }
+    })();
+  </script>
+
+  <!-- Styles -->
+  <link rel="stylesheet" href="/css/media-tools.css" />
+  <link rel="stylesheet" href="/components/header.css" />
+  <link rel="stylesheet" href="/components/footer.css" />
+  <link
+    rel="stylesheet"
+    href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css"
+  />
+</head>
+<body>
+  <main class="main-section">
+    <div class="tools-grid">
+      <a href="mp3-volume-booster/" class="box-link">
+        <div class="clickable-box">
+          <div class="box-icon"><i class="fas fa-tachometer-alt"></i></div>
+          <span class="box-text">MP3 Volume Booster</span>
+        </div>
+      </a>
+
+      <a href="video-to-audio/" class="box-link">
+        <div class="clickable-box">
+          <div class="box-icon"><i class="fas fa-keyboard"></i></div>
+          <span class="box-text">Video To Audio Converter</span>
+        </div>
+      </a>
+
+      <a href="mp3-cutter/" class="box-link">
+        <div class="clickable-box">
+          <div class="box-icon"><i class="fas fa-calendar-alt"></i></div>
+          <span class="box-text">MP3 Cutter</span>
+        </div>
+      </a>
+
+      <a href="youtube-downloader/" class="box-link">
+        <div class="clickable-box">
+          <div class="box-icon"><i class="fas fa-file-pdf"></i></div>
+          <span class="box-text">YouTube Downloader</span>
+        </div>
+      </a>
+
+      <a href="bangla-subtitle/" class="box-link">
+        <div class="clickable-box">
+          <div class="box-icon"><i class="fas fa-weight"></i></div>
+          <span class="box-text">Bangla Subtitle</span>
+        </div>
+      </a>
+
+      <a href="content-scheduler/" class="box-link">
+        <div class="clickable-box">
+          <div class="box-icon"><i class="fas fa-calendar-plus"></i></div>
+          <span class="box-text">Social Media Content Scheduler</span>
+        </div>
+      </a>
+
+      <a href="voiceover/" class="box-link">
+        <div class="clickable-box">
+          <div class="box-icon"><i class="fas fa-percent"></i></div>
+          <span class="box-text">Voice Cover</span>
+        </div>
+      </a>
+
+      <a href="/daily-use-tools/notepad/" class="box-link">
+        <div class="clickable-box">
+          <div class="box-icon"><i class="fas fa-sticky-note"></i></div>
+          <span class="box-text">Notepad / Quick Notes</span>
+        </div>
+      </a>
+
+      <a href="/daily-use-tools/number-to-word/" class="box-link">
+        <div class="clickable-box">
+          <div class="box-icon"><i class="fas fa-language"></i></div>
+          <span class="box-text">Number to Words (BN/EN)</span>
+        </div>
+      </a>
+
+      <a href="#" class="box-link">
+        <div class="clickable-box">
+          <div class="box-icon"><i class="fas fa-spinner fa-spin"></i></div>
+          <span class="box-text">Loading...</span>
+        </div>
+      </a>
+
+      <a href="#" class="box-link">
+        <div class="clickable-box">
+          <div class="box-icon"><i class="fas fa-spinner fa-spin"></i></div>
+          <span class="box-text">Loading...</span>
+        </div>
+      </a>
+    </div>
+  </main>
+
+  <script src="/components/header.js"></script>
+  <script src="/components/footer.js"></script>
+</body>
+</html>
