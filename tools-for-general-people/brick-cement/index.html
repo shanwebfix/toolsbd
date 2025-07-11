@@ -1,0 +1,161 @@
+<!DOCTYPE html>
+<html lang="bn">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Brick & Cement Calculator</title>
+  <link rel="stylesheet" href="/components/header.css" />
+  <link rel="stylesheet" href="/components/footer.css" />
+  <style>
+    body {
+      font-family: 'Segoe UI', sans-serif;
+      background: #f4f6f9;
+      margin: 0;
+      padding: 20px;
+    }
+
+    .container {
+      max-width: 700px;
+      margin: 100px auto;
+      background: #fff;
+      padding: 30px;
+      border-radius: 12px;
+      box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
+    }
+
+    h1 {
+      text-align: center;
+      margin-bottom: 25px;
+      color: #333;
+    }
+
+    label {
+      display: block;
+      margin-top: 15px;
+      font-weight: bold;
+    }
+
+    input {
+      width: 100%;
+      padding: 12px;
+      font-size: 16px;
+      margin-top: 5px;
+      border-radius: 6px;
+      border: 2px solid #ccc;
+    }
+
+    input:focus {
+      border-color: #077A7D;
+      outline: none;
+    }
+
+    .results {
+      margin-top: 25px;
+      background: #eef2f5;
+      padding: 20px;
+      border-radius: 8px;
+    }
+
+    .results div {
+      margin-bottom: 10px;
+      font-size: 16px;
+    }
+
+    /* Dark Mode */
+    html.dark-mode body {
+      background: #000;
+      color: #a7ffeb;
+    }
+
+    html.dark-mode .container {
+      background: #1e293b;
+    }
+
+    html.dark-mode input {
+      background: #334155;
+      border-color: #475569;
+      color: #fff;
+    }
+
+    html.dark-mode .results {
+      background: #334155;
+      color: #a7ffeb;
+    }
+
+    html.dark-mode h1 {
+      color: #a7ffeb;
+    }
+  </style>
+
+  <script>
+    (function () {
+      const theme = localStorage.getItem('theme');
+      const prefersDark = window.matchMedia('(prefers-color-scheme: dark)').matches;
+      const isDark = theme === 'dark' || (!theme && prefersDark);
+      if (isDark) document.documentElement.classList.add('dark-mode');
+    })();
+  </script>
+</head>
+<body>
+
+  <div class="container">
+    <h1>🧱 Brick & Cement Calculator</h1>
+
+    <label for="length">দেয়ালের দৈর্ঘ্য (মিটার):</label>
+    <input type="number" id="length" placeholder="যেমন: 5" />
+
+    <label for="height">দেয়ালের উচ্চতা (মিটার):</label>
+    <input type="number" id="height" placeholder="যেমন: 3" />
+
+    <label for="thickness">দেয়ালের পুরুত্ব (মিটার):</label>
+    <input type="number" id="thickness" placeholder="যেমন: 0.15" />
+
+    <div class="results" id="output">
+      <div>🧱 ইটের সংখ্যা: ০ টি</div>
+      <div>🎯 সিমেন্টের বস্তা: ০ বস্তা</div>
+      <div>💰 ইটের খরচ: ৳০</div>
+      <div>💰 সিমেন্টের খরচ: ৳০</div>
+      <div>🔢 মোট খরচ: ৳০</div>
+    </div>
+  </div>
+
+  <script>
+    const lengthInput = document.getElementById('length');
+    const heightInput = document.getElementById('height');
+    const thicknessInput = document.getElementById('thickness');
+    const output = document.getElementById('output');
+
+    function calculate() {
+      const length = parseFloat(lengthInput.value) || 0;
+      const height = parseFloat(heightInput.value) || 0;
+      const thickness = parseFloat(thicknessInput.value) || 0;
+
+      const volume = length * height * thickness;
+
+      const bricks = volume * 500; // প্রতি ঘনমিটারে প্রায় ৫০০ ইট
+      const cementBags = volume * 4; // প্রতি ঘনমিটারে ৪ বস্তা সিমেন্ট
+
+      const brickCost = (bricks / 1000) * 11000;
+      const cementCost = cementBags * 500;
+      const totalCost = brickCost + cementCost;
+
+      output.innerHTML = `
+        <div>🧱 ইটের সংখ্যা: ${Math.round(bricks)} টি</div>
+        <div>🎯 সিমেন্টের বস্তা: ${Math.ceil(cementBags)} বস্তা</div>
+        <div>💰 ইটের খরচ: ৳${Math.round(brickCost)}</div>
+        <div>💰 সিমেন্টের খরচ: ৳${Math.round(cementCost)}</div>
+        <div>🔢 মোট খরচ: ৳${Math.round(totalCost)}</div>
+      `;
+    }
+
+    [lengthInput, heightInput, thicknessInput].forEach(input => {
+      input.addEventListener('input', calculate);
+    });
+
+    calculate();
+  </script>
+
+  <script src="/components/header.js"></script>
+  <script src="/components/footer.js"></script>
+</body>
+</html>

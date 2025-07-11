@@ -1,0 +1,204 @@
+<!DOCTYPE html>
+<html lang="bn">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Employee Evaluation Form</title>
+  <link rel="stylesheet" href="/components/header.css" />
+  <link rel="stylesheet" href="/components/footer.css" />
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
+  <style>
+    body {
+      font-family: 'Segoe UI', Tahoma, sans-serif;
+      background: #f0f2f5;
+      margin: 0;
+      padding: 20px;
+    }
+    .container {
+      max-width: 700px;
+      margin: auto;
+      background: #fff;
+      padding: 30px;
+      border-radius: 10px;
+      box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+      margin-top: 100px;
+      margin-bottom: 100px;
+    }
+    h1 {
+      text-align: center;
+      margin-bottom: 30px;
+      color: #333;
+    }
+    label {
+      font-weight: 600;
+      display: block;
+      margin-top: 15px;
+    }
+    input[type="text"],
+    select,
+    textarea {
+      width: 100%;
+      padding: 10px;
+      margin-top: 5px;
+      font-size: 16px;
+      border: 2px solid #ddd;
+      border-radius: 6px;
+    }
+    textarea {
+      resize: vertical;
+      min-height: 80px;
+    }
+    button {
+      margin-top: 20px;
+      background: #077A7D;
+      color: white;
+      padding: 12px 20px;
+      font-size: 16px;
+      border: none;
+      border-radius: 6px;
+      cursor: pointer;
+      transition: background-color 0.3s ease;
+    }
+    button:hover {
+      background-color: #066264;
+    }
+    #download-btn {
+      display: none;
+    }
+
+    /* Dark mode */
+    html.dark-mode body {
+      background: #000;
+      color: #a7ffeb;
+    }
+    html.dark-mode .container {
+      background: #1e293b;
+    }
+    html.dark-mode input,
+    html.dark-mode select,
+    html.dark-mode textarea {
+      background: #334155;
+      color: #fff;
+      border-color: #475569;
+    }
+    html.dark-mode h1 {
+      color: #fff;
+    }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <h1>কর্মচারী মূল্যায়ন ফর্ম</h1>
+    <form id="evaluation-form">
+      <label for="name">নাম</label>
+      <input type="text" id="name" required />
+
+      <label for="position">পদবি</label>
+      <input type="text" id="position" required />
+
+      <label for="department">বিভাগ</label>
+      <input type="text" id="department" required />
+
+      <label>যোগাযোগ দক্ষতা</label>
+      <select id="communication">
+        <option value="5">5 - চমৎকার</option>
+        <option value="4">4 - ভালো</option>
+        <option value="3">3 - গড়</option>
+        <option value="2">2 - দুর্বল</option>
+        <option value="1">1 - খুব দুর্বল</option>
+      </select>
+
+      <label>সময়নিষ্ঠা</label>
+      <select id="punctuality">
+        <option value="5">5 - চমৎকার</option>
+        <option value="4">4 - ভালো</option>
+        <option value="3">3 - গড়</option>
+        <option value="2">2 - দুর্বল</option>
+        <option value="1">1 - খুব দুর্বল</option>
+      </select>
+
+      <label>কাজের উৎপাদনশীলতা</label>
+      <select id="productivity">
+        <option value="5">5 - চমৎকার</option>
+        <option value="4">4 - ভালো</option>
+        <option value="3">3 - গড়</option>
+        <option value="2">2 - দুর্বল</option>
+        <option value="1">1 - খুব দুর্বল</option>
+      </select>
+
+      <label for="remarks">মন্তব্য</label>
+      <textarea id="remarks" placeholder="এই কর্মচারীর সম্পর্কে আরও বিস্তারিত লিখুন..."></textarea>
+
+      <button type="submit">জমা দিন</button>
+    </form>
+
+    <button id="download-btn">📥 PDF ডাউনলোড করুন</button>
+  </div>
+
+  <script>
+    // Dark mode auto-apply
+    (function () {
+      try {
+        const theme = localStorage.getItem('theme');
+        const prefersDark = window.matchMedia('(prefers-color-scheme: dark)').matches;
+        const isDark = theme === 'dark' || (!theme && prefersDark);
+        if (isDark) {
+          document.documentElement.classList.add('dark-mode');
+        }
+      } catch (e) {}
+    })();
+
+    const form = document.getElementById('evaluation-form');
+    const downloadBtn = document.getElementById('download-btn');
+
+    let pdfData = '';
+
+    form.addEventListener('submit', function (e) {
+      e.preventDefault();
+
+      const name = document.getElementById('name').value;
+      const position = document.getElementById('position').value;
+      const department = document.getElementById('department').value;
+      const communication = +document.getElementById('communication').value;
+      const punctuality = +document.getElementById('punctuality').value;
+      const productivity = +document.getElementById('productivity').value;
+      const remarks = document.getElementById('remarks').value;
+
+      const total = communication + punctuality + productivity;
+      const average = (total / 3).toFixed(2);
+
+      pdfData =
+`কর্মচারী মূল্যায়ন রিপোর্ট
+
+নাম: ${name}
+পদবি: ${position}
+বিভাগ: ${department}
+
+যোগাযোগ দক্ষতা: ${communication} / 5
+সময়নিষ্ঠা: ${punctuality} / 5
+উৎপাদনশীলতা: ${productivity} / 5
+
+মোট স্কোর: ${total} / 15
+গড় স্কোর: ${average}
+
+মন্তব্য:
+${remarks}
+`;
+
+      alert("✅ ফর্ম সফলভাবে জমা হয়েছে! এখন আপনি PDF ডাউনলোড করতে পারবেন।");
+      downloadBtn.style.display = 'inline-block';
+    });
+
+    downloadBtn.addEventListener('click', () => {
+      const { jsPDF } = window.jspdf;
+      const doc = new jsPDF();
+      doc.setFont("Helvetica");
+      doc.setFontSize(12);
+      doc.text(pdfData, 15, 20);
+      doc.save("Employee_Evaluation.pdf");
+    });
+  </script>
+  <script src="/components/header.js"></script>
+  <script src="/components/footer.js"></script>
+</body>
+</html>

@@ -1,0 +1,228 @@
+<!DOCTYPE html>
+<html lang="bn">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <link rel="stylesheet" href="/components/header.css" />
+  <link rel="stylesheet" href="/components/footer.css" />
+  <title>Daily Task Logger</title>
+  <style>
+    body {
+      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+      background: #f0f2f5;
+      margin: 0;
+      padding: 20px;
+      display: flex;
+      justify-content: center;
+      min-height: 100vh;
+      align-items: flex-start;
+    }
+    .container {
+      max-width: 700px;
+      width: 100%;
+      background: #fff;
+      padding: 30px;
+      border-radius: 10px;
+      box-shadow: 0 4px 12px rgba(0,0,0,0.08);
+      margin-top: 100px;
+      margin-bottom: 100px;
+    }
+    h1 {
+      text-align: center;
+      margin-bottom: 20px;
+      color: #333;
+    }
+    form {
+      display: flex;
+      gap: 10px;
+      margin-bottom: 20px;
+    }
+    input[type="text"] {
+      flex-grow: 1;
+      padding: 10px 12px;
+      font-size: 16px;
+      border: 2px solid #ddd;
+      border-radius: 6px;
+      transition: border-color 0.3s ease;
+    }
+    input[type="text"]:focus {
+      border-color: #077A7D;
+      outline: none;
+    }
+    button {
+      padding: 10px 15px;
+      background-color: #077A7D;
+      border: none;
+      color: white;
+      font-weight: 600;
+      font-size: 16px;
+      border-radius: 6px;
+      cursor: pointer;
+      transition: background-color 0.3s ease;
+    }
+    button:hover {
+      background-color: #066264;
+    }
+
+    /* task-list এর ভিতরে div.task-item থাকবে */
+    #task-list {
+      list-style: none;
+      padding-left: 0;
+      margin: 0;
+      display: flex;
+      flex-direction: column;
+      gap: 10px;
+    }
+
+    .task-item {
+      display: flex;
+      align-items: center;
+      background: #f9f9f9;
+      padding: 12px 15px;
+      border-radius: 8px;
+      box-shadow: 0 1px 4px rgb(0 0 0 / 0.05);
+    }
+
+    .task-item.completed .task-text {
+      text-decoration: line-through;
+      color: #6c757d;
+    }
+
+    span.task-text {
+      flex-grow: 1;
+      cursor: pointer;
+    }
+
+    .btn-group {
+      margin-left: auto; /* ডানদিকে ঠেলা */
+      display: flex;
+      align-items: center;
+    }
+
+    .btn-group button {
+      background: none;
+      border: none;
+      color: #666;
+      font-size: 18px;
+      margin-left: 12px;
+      cursor: pointer;
+      transition: color 0.2s ease;
+    }
+
+    .btn-group button:hover {
+      color: #066264;
+    }
+
+    .empty-msg {
+      text-align: center;
+      color: #999;
+      margin-top: 40px;
+      font-style: italic;
+    }
+
+    /* Dark mode styles */
+    html.dark-mode body {
+      background: #000;
+      color: #a7ffeb;
+    }
+    html.dark-mode .container {
+      background: #1e293b;
+    }
+    html.dark-mode h1 {
+      color: #fff;
+    }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <h1>Daily Task Logger</h1>
+    <form id="task-form">
+      <input type="text" id="task-input" placeholder="নতুন টাস্ক লিখুন..." autocomplete="off" />
+      <button type="submit">Add</button>
+    </form>
+    <ul id="task-list"></ul>
+    <p id="empty-msg" class="empty-msg">কোনো টাস্ক নেই। নতুন টাস্ক যোগ করুন।</p>
+  </div>
+
+<script>
+  const form = document.getElementById('task-form');
+  const input = document.getElementById('task-input');
+  const list = document.getElementById('task-list');
+  const emptyMsg = document.getElementById('empty-msg');
+
+  let tasks = JSON.parse(localStorage.getItem('dailyTasks')) || [];
+
+  function saveTasks() {
+    localStorage.setItem('dailyTasks', JSON.stringify(tasks));
+  }
+
+  function renderTasks() {
+    list.innerHTML = '';
+    if (tasks.length === 0) {
+      emptyMsg.style.display = 'block';
+      return;
+    }
+    emptyMsg.style.display = 'none';
+
+    tasks.forEach((task, index) => {
+      const taskDiv = document.createElement('div');
+      taskDiv.className = 'task-item' + (task.completed ? ' completed' : '');
+
+      const span = document.createElement('span');
+      span.textContent = task.text;
+      span.className = 'task-text';
+      span.title = 'টাস্ক সম্পন্ন বা অসম্পন্ন করতে ক্লিক করুন';
+      span.onclick = () => toggleComplete(index);
+
+      const btnGroup = document.createElement('div');
+      btnGroup.className = 'btn-group';
+
+      const delBtn = document.createElement('button');
+      delBtn.innerHTML = '🗑️';
+      delBtn.title = 'টাস্ক মুছুন';
+      delBtn.onclick = () => deleteTask(index);
+
+      btnGroup.appendChild(delBtn);
+
+      taskDiv.appendChild(span);
+      taskDiv.appendChild(btnGroup);
+      list.appendChild(taskDiv);
+    });
+  }
+
+  function addTask(text) {
+    if (!text.trim()) {
+      alert('টাস্ক খালি রাখা যাবে না।');
+      return;
+    }
+    tasks.push({ text: text.trim(), completed: false });
+    saveTasks();
+    renderTasks();
+    input.value = '';
+  }
+
+  function toggleComplete(index) {
+    tasks[index].completed = !tasks[index].completed;
+    saveTasks();
+    renderTasks();
+  }
+
+  function deleteTask(index) {
+    if (confirm('আপনি কি নিশ্চিত টাস্ক মুছতে চান?')) {
+      tasks.splice(index, 1);
+      saveTasks();
+      renderTasks();
+    }
+  }
+
+  form.addEventListener('submit', e => {
+    e.preventDefault();
+    addTask(input.value);
+  });
+
+  renderTasks();
+</script>
+<script src="/components/header.js"></script>
+<script src="/components/footer.js"></script>
+</body>
+</html>

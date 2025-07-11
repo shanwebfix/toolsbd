@@ -1,0 +1,167 @@
+<!DOCTYPE html>
+<html lang="bn">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Land Area Converter</title>
+  <link rel="stylesheet" href="/components/header.css" />
+  <link rel="stylesheet" href="/components/footer.css" />
+  <style>
+    body {
+      font-family: 'Segoe UI', sans-serif;
+      background: #f4f6f9;
+      margin: 0;
+      padding: 20px;
+    }
+
+    .container {
+      max-width: 600px;
+      margin: 100px auto;
+      background: #fff;
+      padding: 30px;
+      border-radius: 12px;
+      box-shadow: 0 4px 12px rgba(0,0,0,0.08);
+    }
+
+    h1 {
+      text-align: center;
+      color: #333;
+      margin-bottom: 20px;
+    }
+
+    .input-group {
+      margin-bottom: 20px;
+    }
+
+    label {
+      font-weight: bold;
+      display: block;
+      margin-bottom: 8px;
+    }
+
+    input[type="number"] {
+      width: 100%;
+      padding: 12px;
+      font-size: 16px;
+      border-radius: 6px;
+      border: 2px solid #ccc;
+      transition: border-color 0.3s ease;
+    }
+
+    input:focus {
+      border-color: #077A7D;
+      outline: none;
+    }
+
+    .results {
+      background: #f1f5f9;
+      padding: 15px;
+      border-radius: 8px;
+      font-size: 16px;
+      color: #333;
+    }
+
+    .results div {
+      margin-bottom: 8px;
+    }
+
+    /* Dark mode */
+    html.dark-mode body {
+      background: #000;
+      color: #a7ffeb;
+    }
+
+    html.dark-mode .container {
+      background: #1e293b;
+    }
+
+    html.dark-mode h1 {
+      color: #a7ffeb;
+    }
+
+    html.dark-mode input {
+      background: #334155;
+      border-color: #475569;
+      color: #fff;
+    }
+
+    html.dark-mode .results {
+      background: #334155;
+      color: #a7ffeb;
+    }
+  </style>
+  <script>
+    (function () {
+      const theme = localStorage.getItem('theme');
+      const prefersDark = window.matchMedia('(prefers-color-scheme: dark)').matches;
+      const isDark = theme === 'dark' || (!theme && prefersDark);
+      if (isDark) document.documentElement.classList.add('dark-mode');
+    })();
+  </script>
+</head>
+<body>
+  <div class="container">
+    <h1>🌾 Land Area Converter</h1>
+    <div class="input-group">
+      <label for="inputValue">পরিমাণ (কাঠা / ডেসিমেল / একর):</label>
+      <input type="number" id="inputValue" placeholder="যেকোনো পরিমাণ লিখুন..." />
+    </div>
+    <div class="input-group">
+      <label for="unit">ইউনিট নির্বাচন করুন:</label>
+      <select id="unit" style="width: 100%; padding: 12px; font-size: 16px; border-radius: 6px; border: 2px solid #ccc;">
+        <option value="katha">কাঠা</option>
+        <option value="decimal">ডেসিমেল</option>
+        <option value="acre">একর</option>
+      </select>
+    </div>
+    <div class="results" id="output">
+      <div>কাঠা: ০</div>
+      <div>ডেসিমেল: ০</div>
+      <div>একর: ০</div>
+    </div>
+  </div>
+
+  <script>
+    const input = document.getElementById('inputValue');
+    const unit = document.getElementById('unit');
+    const output = document.getElementById('output');
+
+    function convert() {
+      const value = parseFloat(input.value);
+      if (isNaN(value)) {
+        output.innerHTML = `<div>কাঠা: ০</div><div>ডেসিমেল: ০</div><div>একর: ০</div>`;
+        return;
+      }
+
+      let katha, decimal, acre;
+
+      if (unit.value === 'katha') {
+        decimal = value * 1.65;
+        acre = decimal / 100;
+        katha = value;
+      } else if (unit.value === 'decimal') {
+        decimal = value;
+        katha = value / 1.65;
+        acre = value / 100;
+      } else if (unit.value === 'acre') {
+        decimal = value * 100;
+        katha = decimal / 1.65;
+        acre = value;
+      }
+
+      output.innerHTML = `
+        <div>কাঠা: ${katha.toFixed(4)}</div>
+        <div>ডেসিমেল: ${decimal.toFixed(4)}</div>
+        <div>একর: ${acre.toFixed(4)}</div>
+      `;
+    }
+
+    input.addEventListener('input', convert);
+    unit.addEventListener('change', convert);
+    convert();
+  </script>
+
+  <script src="/components/header.js"></script>
+  <script src="/components/footer.js"></script>
+</body>
+</html>

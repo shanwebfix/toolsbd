@@ -1,0 +1,259 @@
+<!DOCTYPE html>
+<html lang="bn">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Room Allocation Planner</title>
+  <link rel="stylesheet" href="/components/header.css" />
+  <link rel="stylesheet" href="/components/footer.css" />
+  <style>
+    body {
+      font-family: 'Segoe UI', sans-serif;
+      background: #f0f2f5;
+      margin: 0;
+      padding: 20px;
+    }
+
+    .container {
+      max-width: 700px;
+      margin: 100px auto;
+      background: #fff;
+      padding: 30px;
+      border-radius: 10px;
+      box-shadow: 0 4px 12px rgba(0,0,0,0.08);
+    }
+
+    h1 {
+      text-align: center;
+      color: #333;
+      margin-bottom: 20px;
+    }
+
+    form {
+      display: flex;
+      gap: 10px;
+      flex-wrap: wrap;
+      margin-bottom: 20px;
+    }
+
+    input[type="text"],
+    input[type="number"] {
+      padding: 10px;
+      font-size: 16px;
+      border: 2px solid #ccc;
+      border-radius: 6px;
+      flex-grow: 1;
+    }
+
+    input[type="number"] {
+      max-width: 120px;
+    }
+
+    input:focus {
+      border-color: #077A7D;
+      outline: none;
+    }
+
+    button {
+      background: #077A7D;
+      color: white;
+      border: none;
+      padding: 10px 15px;
+      font-size: 16px;
+      border-radius: 6px;
+      cursor: pointer;
+      transition: background-color 0.3s ease;
+      flex-shrink: 0;
+    }
+
+    button:hover {
+      background: #066264;
+    }
+
+    .room-item {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      background: #f9f9f9;
+      padding: 12px 15px;
+      border-radius: 6px;
+      margin-bottom: 10px;
+      gap: 10px;
+      flex-wrap: wrap;
+    }
+
+    .room-details {
+      flex-grow: 1;
+      min-width: 200px;
+    }
+
+    .room-details span {
+      display: block;
+      font-weight: 600;
+      color: #333;
+    }
+
+    .room-details small {
+      color: #666;
+      font-size: 14px;
+    }
+
+    .room-item button {
+      background: none;
+      border: none;
+      color: #777;
+      font-size: 18px;
+      cursor: pointer;
+    }
+
+    .room-item button:hover {
+      color: #066264;
+    }
+
+    .empty-msg {
+      text-align: center;
+      color: #aaa;
+      font-style: italic;
+      margin-top: 30px;
+    }
+
+    /* ===== Dark Mode ===== */
+    html.dark-mode body {
+      background: #000;
+      color: #a7ffeb;
+    }
+
+    html.dark-mode .container {
+      background: #1e293b;
+    }
+
+    html.dark-mode h1 {
+      color: #fff;
+    }
+
+    html.dark-mode input {
+      background: #334155;
+      border-color: #475569;
+      color: #fff;
+    }
+
+    html.dark-mode .room-item {
+      background: #334155;
+    }
+
+    html.dark-mode .room-details span {
+      color: #a7ffeb;
+    }
+
+    html.dark-mode .room-details small {
+      color: #94a3b8;
+    }
+
+    html.dark-mode .room-item button {
+      color: #bbb;
+    }
+
+    html.dark-mode .room-item button:hover {
+      color: #4dd0e1;
+    }
+
+    html.dark-mode .empty-msg {
+      color: #666;
+    }
+  </style>
+
+  <script>
+    (function () {
+      const theme = localStorage.getItem('theme');
+      const prefersDark = window.matchMedia('(prefers-color-scheme: dark)').matches;
+      const isDark = theme === 'dark' || (!theme && prefersDark);
+      if (isDark) document.documentElement.classList.add('dark-mode');
+    })();
+  </script>
+</head>
+<body>
+
+  <div class="container">
+    <h1>🛏️ Room Allocation Planner</h1>
+    <form id="room-form">
+      <input type="text" id="room-number" placeholder="রুম নাম/নম্বর লিখুন" autocomplete="off" required />
+      <input type="number" id="guest-count" placeholder="অতিথির সংখ্যা" min="1" required />
+      <button type="submit">➕ যোগ করুন</button>
+    </form>
+
+    <div id="room-list"></div>
+    <p id="empty-msg" class="empty-msg">কোনো রুম আলোকেশন নেই। নতুন রুম যোগ করুন।</p>
+  </div>
+
+  <script>
+    const form = document.getElementById('room-form');
+    const roomNumberInput = document.getElementById('room-number');
+    const guestCountInput = document.getElementById('guest-count');
+    const roomList = document.getElementById('room-list');
+    const emptyMsg = document.getElementById('empty-msg');
+
+    let rooms = JSON.parse(localStorage.getItem('rooms')) || [];
+
+    function saveRooms() {
+      localStorage.setItem('rooms', JSON.stringify(rooms));
+    }
+
+    function renderRooms() {
+      roomList.innerHTML = '';
+      if (rooms.length === 0) {
+        emptyMsg.style.display = 'block';
+        return;
+      }
+      emptyMsg.style.display = 'none';
+
+      rooms.forEach((room, index) => {
+        const div = document.createElement('div');
+        div.className = 'room-item';
+
+        const details = document.createElement('div');
+        details.className = 'room-details';
+        details.innerHTML = `<span>রুম: ${room.number}</span><small>অতিথি সংখ্যা: ${room.guests}</small>`;
+
+        const delBtn = document.createElement('button');
+        delBtn.innerHTML = '🗑️';
+        delBtn.title = 'রুম মুছুন';
+        delBtn.onclick = () => deleteRoom(index);
+
+        div.appendChild(details);
+        div.appendChild(delBtn);
+        roomList.appendChild(div);
+      });
+    }
+
+    function addRoom(number, guests) {
+      if (!number.trim()) return alert('রুম নাম/নম্বর দিতে হবে।');
+      if (!guests || guests < 1) return alert('অতিথির সংখ্যা কমপক্ষে ১ হতে হবে।');
+
+      rooms.push({ number: number.trim(), guests: guests });
+      saveRooms();
+      renderRooms();
+
+      roomNumberInput.value = '';
+      guestCountInput.value = '';
+    }
+
+    function deleteRoom(index) {
+      if (confirm('আপনি কি নিশ্চিত রুমটি মুছতে চান?')) {
+        rooms.splice(index, 1);
+        saveRooms();
+        renderRooms();
+      }
+    }
+
+    form.addEventListener('submit', e => {
+      e.preventDefault();
+      addRoom(roomNumberInput.value, Number(guestCountInput.value));
+    });
+
+    renderRooms();
+  </script>
+
+  <script src="/components/header.js"></script>
+  <script src="/components/footer.js"></script>
+</body>
+</html>

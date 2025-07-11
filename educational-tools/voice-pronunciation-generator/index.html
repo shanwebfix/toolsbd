@@ -1,0 +1,117 @@
+<!DOCTYPE html>
+<html lang="bn">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Voice Pronunciation Generator</title>
+  <link rel="stylesheet" href="/components/header.css" />
+  <link rel="stylesheet" href="/components/footer.css" />
+  <style>
+    body {
+      font-family: 'Segoe UI', sans-serif;
+      background: #f0f2f5;
+      padding: 20px;
+    }
+    .container {
+      max-width: 700px;
+      margin: 100px auto;
+      background: #fff;
+      padding: 30px;
+      border-radius: 10px;
+      box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
+    }
+    h1 {
+      text-align: center;
+      margin-bottom: 20px;
+      color: #333;
+    }
+    textarea {
+      width: 100%;
+      height: 150px;
+      font-size: 16px;
+      padding: 10px;
+      border: 1px solid #ccc;
+      border-radius: 6px;
+    }
+    button {
+      background: #077A7D;
+      color: white;
+      border: none;
+      padding: 12px 20px;
+      font-size: 16px;
+      margin-top: 15px;
+      border-radius: 6px;
+      cursor: pointer;
+    }
+    button:hover {
+      background: #066264;
+    }
+    audio {
+      margin-top: 20px;
+      width: 100%;
+    }
+
+    /* Dark Mode */
+    html.dark-mode body {
+      background: #000;
+      color: #a7ffeb;
+    }
+    html.dark-mode .container {
+      background: #1e293b;
+    }
+    html.dark-mode textarea {
+      background: #334155;
+      color: #fff;
+      border-color: #475569;
+    }
+    html.dark-mode h1 {
+      color: #fff;
+    }
+  </style>
+  <script>
+    (function () {
+      const theme = localStorage.getItem('theme');
+      const prefersDark = window.matchMedia('(prefers-color-scheme: dark)').matches;
+      const isDark = theme === 'dark' || (!theme && prefersDark);
+      if (isDark) document.documentElement.classList.add('dark-mode');
+    })();
+  </script>
+</head>
+<body>
+  <div class="container">
+    <h1>🔊 Voice Pronunciation Generator</h1>
+    <textarea id="textInput" placeholder="বাংলা বা ইংরেজি লেখা দিন..."></textarea>
+    <button onclick="generateVoice()">🔈 প্লে ভয়েস</button>
+    <audio id="audioPlayer" controls style="display:none;"></audio>
+  </div>
+
+  <script>
+    async function generateVoice() {
+      const text = document.getElementById('textInput').value.trim();
+      if (!text) return alert("টেক্সট ফাঁকা হতে পারে না!");
+
+      // Call backend API (you must create it with gTTS or Coqui TTS)
+      const res = await fetch('https://voiceover-api-1.onrender.com//api/voiceover', {
+        method: 'POST',
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ text })
+      });
+
+      if (!res.ok) {
+        alert("⚠️ ভয়েস তৈরি করা যায়নি!");
+        return;
+      }
+
+      const blob = await res.blob();
+      const audioUrl = URL.createObjectURL(blob);
+      const audio = document.getElementById('audioPlayer');
+      audio.src = audioUrl;
+      audio.style.display = 'block';
+      audio.play();
+    }
+  </script>
+
+  <script src="/components/header.js"></script>
+  <script src="/components/footer.js"></script>
+</body>
+</html>

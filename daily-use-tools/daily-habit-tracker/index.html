@@ -1,0 +1,246 @@
+<!DOCTYPE html>
+<html lang="bn">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Daily Habit Tracker</title>
+  <link rel="stylesheet" href="/components/header.css" />
+  <link rel="stylesheet" href="/components/footer.css" />
+  <style>
+    body {
+      font-family: 'Segoe UI', sans-serif;
+      background: #f4f6f9;
+      margin: 0;
+      padding: 20px;
+    }
+
+    .container {
+      max-width: 600px;
+      margin: 100px auto;
+      background: #fff;
+      padding: 30px;
+      border-radius: 12px;
+      box-shadow: 0 4px 12px rgba(0,0,0,0.08);
+    }
+
+    h1 {
+      text-align: center;
+      margin-bottom: 20px;
+      color: #333;
+    }
+
+    form {
+      display: flex;
+      gap: 10px;
+      margin-bottom: 20px;
+    }
+
+    input[type="text"] {
+      flex: 1;
+      padding: 12px;
+      border: 2px solid #ccc;
+      border-radius: 6px;
+      font-size: 16px;
+    }
+
+    input[type="text"]:focus {
+      border-color: #077A7D;
+      outline: none;
+    }
+
+    button {
+      background: #077A7D;
+      color: white;
+      font-weight: bold;
+      border: none;
+      padding: 12px 16px;
+      border-radius: 6px;
+      cursor: pointer;
+      font-size: 16px;
+    }
+
+    button:hover {
+      background: #066264;
+    }
+
+    .habit-list {
+      list-style: none;
+      padding: 0;
+    }
+
+    .habit-item {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      background: #f1f5f9;
+      padding: 12px 16px;
+      border-radius: 8px;
+      margin-bottom: 10px;
+    }
+
+    .left-section {
+      display: flex;
+      align-items: center;
+      flex: 1;
+    }
+
+    .habit-item input[type="checkbox"] {
+      transform: scale(1.3);
+      margin-right: 12px;
+    }
+
+    .habit-text {
+      font-size: 16px;
+    }
+
+    .delete-btn {
+      background: none;
+      border: none;
+      font-size: 18px;
+      color: #888;
+      cursor: pointer;
+      margin-left: 10px;
+    }
+
+    .delete-btn:hover {
+      color: red;
+    }
+
+    .stats {
+      margin-top: 20px;
+      text-align: center;
+      font-weight: bold;
+    }
+
+    /* Dark mode */
+    html.dark-mode body {
+      background: #000;
+      color: #a7ffeb;
+    }
+
+    html.dark-mode .container {
+      background: #1e293b;
+    }
+
+    html.dark-mode input, html.dark-mode .habit-item {
+      background: #334155;
+      color: #fff;
+    }
+
+    html.dark-mode .habit-text {
+      color: #a7ffeb;
+    }
+
+    html.dark-mode h1,
+    html.dark-mode .stats {
+      color: #a7ffeb;
+    }
+
+    html.dark-mode .delete-btn {
+      color: #aaa;
+    }
+
+    html.dark-mode .delete-btn:hover {
+      color: #ff6666;
+    }
+  </style>
+  <script>
+    (function () {
+      const theme = localStorage.getItem('theme');
+      const prefersDark = window.matchMedia('(prefers-color-scheme: dark)').matches;
+      const isDark = theme === 'dark' || (!theme && prefersDark);
+      if (isDark) document.documentElement.classList.add('dark-mode');
+    })();
+  </script>
+</head>
+<body>
+
+  <div class="container">
+    <h1>🌿 Daily Habit Tracker</h1>
+    <form id="habit-form">
+      <input type="text" id="habit-input" placeholder="নতুন হ্যাবিট লিখুন..." />
+      <button type="submit">Add</button>
+    </form>
+
+    <ul id="habit-list" class="habit-list"></ul>
+    <div class="stats" id="stats">Total: ০, Complete: ০</div>
+  </div>
+
+  <script>
+    const habitForm = document.getElementById('habit-form');
+    const habitInput = document.getElementById('habit-input');
+    const habitList = document.getElementById('habit-list');
+    const stats = document.getElementById('stats');
+
+    let habits = JSON.parse(localStorage.getItem('habits')) || [];
+
+    function saveHabits() {
+      localStorage.setItem('habits', JSON.stringify(habits));
+    }
+
+    function renderHabits() {
+      habitList.innerHTML = '';
+      let completeCount = 0;
+
+      habits.forEach((habit, index) => {
+        const li = document.createElement('li');
+        li.className = 'habit-item';
+
+        const left = document.createElement('div');
+        left.className = 'left-section';
+
+        const checkbox = document.createElement('input');
+        checkbox.type = 'checkbox';
+        checkbox.checked = habit.done;
+        checkbox.onchange = () => {
+          habits[index].done = checkbox.checked;
+          saveHabits();
+          renderHabits();
+        };
+
+        const span = document.createElement('span');
+        span.className = 'habit-text';
+        span.textContent = habit.text;
+
+        if (habit.done) completeCount++;
+
+        const delBtn = document.createElement('button');
+        delBtn.className = 'delete-btn';
+        delBtn.innerHTML = '🗑️';
+        delBtn.title = 'ডিলিট করুন';
+        delBtn.onclick = () => {
+          if (confirm("আপনি কি এই হ্যাবিট মুছতে চান?")) {
+            habits.splice(index, 1);
+            saveHabits();
+            renderHabits();
+          }
+        };
+
+        left.appendChild(checkbox);
+        left.appendChild(span);
+
+        li.appendChild(left);
+        li.appendChild(delBtn);
+        habitList.appendChild(li);
+      });
+
+      stats.innerText = `Total: ${habits.length}, Complete: ${completeCount}`;
+    }
+
+    habitForm.addEventListener('submit', e => {
+      e.preventDefault();
+      const text = habitInput.value.trim();
+      if (!text) return alert("হ্যাবিট খালি রাখা যাবে না।");
+      habits.push({ text, done: false });
+      saveHabits();
+      renderHabits();
+      habitInput.value = '';
+    });
+
+    renderHabits();
+  </script>
+
+  <script src="/components/header.js"></script>
+  <script src="/components/footer.js"></script>
+</body>
+</html>

@@ -1,0 +1,143 @@
+<!DOCTYPE html>
+<html lang="bn">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Facebook DP Maker</title>
+
+  <!-- Header/Footer CSS -->
+  <link rel="stylesheet" href="/components/header.css" />
+  <link rel="stylesheet" href="/components/footer.css" />
+
+  <style>
+    body {
+      font-family: 'Segoe UI', sans-serif;
+      background: #f0f2f5;
+      padding: 20px;
+      margin: 0;
+    }
+
+    .container {
+      max-width: 500px;
+      margin: 100px auto;
+      background: #fff;
+      padding: 30px;
+      border-radius: 10px;
+      box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+      text-align: center;
+    }
+
+    h1 {
+      color: #333;
+      margin-bottom: 20px;
+    }
+
+    input[type="file"] {
+      margin-bottom: 20px;
+    }
+
+    canvas {
+      width: 100%;
+      max-width: 100%;
+      border-radius: 10px;
+      background: #eee;
+    }
+
+    button {
+      background: #077A7D;
+      color: white;
+      border: none;
+      padding: 12px 20px;
+      font-size: 16px;
+      margin-top: 20px;
+      border-radius: 6px;
+      cursor: pointer;
+      transition: background 0.3s ease;
+    }
+
+    button:hover {
+      background: #066264;
+    }
+
+    /* Dark mode */
+    html.dark-mode body {
+      background: #000;
+      color: #a7ffeb;
+    }
+
+    html.dark-mode .container {
+      background: #1e293b;
+    }
+
+    html.dark-mode h1 {
+      color: #fff;
+    }
+
+    html.dark-mode canvas {
+      background: #475569;
+    }
+  </style>
+
+  <!-- Dark Mode Initializer -->
+  <script>
+    (function () {
+      const theme = localStorage.getItem('theme');
+      const prefersDark = window.matchMedia('(prefers-color-scheme: dark)').matches;
+      const isDark = theme === 'dark' || (!theme && prefersDark);
+      if (isDark) document.documentElement.classList.add('dark-mode');
+    })();
+  </script>
+</head>
+<body>
+
+  <div class="container">
+    <h1>📸 Facebook DP Maker</h1>
+    <input type="file" id="upload" accept="image/*" />
+    <br />
+    <canvas id="canvas" width="500" height="500"></canvas>
+    <br />
+    <button onclick="downloadImage()">📥 ডাউনলোড করুন</button>
+  </div>
+
+  <!-- JS Logic -->
+  <script>
+    const upload = document.getElementById("upload");
+    const canvas = document.getElementById("canvas");
+    const ctx = canvas.getContext("2d");
+
+    const frameURL = "https://i.ibb.co/DYFSgJS/sample-frame.png"; // PNG Frame
+    let userImage = new Image();
+    let frameImage = new Image();
+    frameImage.crossOrigin = "anonymous";
+    frameImage.src = frameURL;
+
+    upload.addEventListener("change", function (e) {
+      const file = e.target.files[0];
+      if (!file) return;
+
+      const reader = new FileReader();
+      reader.onload = function (event) {
+        userImage = new Image();
+        userImage.onload = function () {
+          ctx.clearRect(0, 0, canvas.width, canvas.height);
+          ctx.drawImage(userImage, 0, 0, canvas.width, canvas.height);
+          ctx.drawImage(frameImage, 0, 0, canvas.width, canvas.height);
+        };
+        userImage.src = event.target.result;
+      };
+      reader.readAsDataURL(file);
+    });
+
+    function downloadImage() {
+      const link = document.createElement('a');
+      link.download = 'facebook-dp.png';
+      link.href = canvas.toDataURL("image/png");
+      link.click();
+    }
+  </script>
+
+  <!-- Header/Footer JS -->
+  <script src="/components/header.js"></script>
+  <script src="/components/footer.js"></script>
+</body>
+</html>

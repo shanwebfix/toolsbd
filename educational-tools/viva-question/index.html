@@ -1,0 +1,191 @@
+<!DOCTYPE html>
+<html lang="bn">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>🎤 Viva Question & Answer</title>
+  <link rel="stylesheet" href="/components/header.css" />
+  <link rel="stylesheet" href="/components/footer.css" />
+  <style>
+    body {
+      font-family: 'Segoe UI', sans-serif;
+      background: #f4f6f9;
+      margin: 0;
+      padding: 20px;
+    }
+    .container {
+      max-width: 800px;
+      margin: 100px auto;
+      background: #fff;
+      padding: 30px;
+      border-radius: 12px;
+      box-shadow: 0 4px 12px rgba(0,0,0,0.08);
+    }
+    h1 {
+      text-align: center;
+      margin-bottom: 20px;
+      color: #333;
+    }
+    .form-group {
+      display: flex;
+      flex-direction: column;
+      gap: 10px;
+      margin-bottom: 20px;
+    }
+    input, textarea {
+      padding: 10px;
+      font-size: 16px;
+      border: 2px solid #ccc;
+      border-radius: 6px;
+    }
+    input:focus, textarea:focus {
+      border-color: #077A7D;
+      outline: none;
+    }
+    button {
+      background: #077A7D;
+      color: white;
+      font-weight: bold;
+      border: none;
+      padding: 12px 16px;
+      border-radius: 6px;
+      cursor: pointer;
+      font-size: 16px;
+    }
+    button:hover {
+      background: #066264;
+    }
+    .qa-box {
+      background: #f1f5f9;
+      padding: 15px;
+      border-radius: 10px;
+      margin-bottom: 15px;
+      position: relative;
+    }
+    .qa-box h3 {
+      margin: 0 0 5px;
+    }
+    .qa-box p {
+      margin: 0;
+    }
+    .delete-btn {
+      position: absolute;
+      right: 10px;
+      top: 10px;
+      background: none;
+      border: none;
+      color: #888;
+      font-size: 18px;
+      cursor: pointer;
+    }
+    .delete-btn:hover {
+      color: red;
+    }
+
+    /* Dark mode */
+    html.dark-mode body {
+      background: #000;
+      color: #a7ffeb;
+    }
+    html.dark-mode .container {
+      background: #1e293b;
+    }
+    html.dark-mode input,
+    html.dark-mode textarea,
+    html.dark-mode .qa-box {
+      background: #334155;
+      color: #fff;
+    }
+    html.dark-mode h1,
+    html.dark-mode .qa-box h3 {
+      color: #a7ffeb;
+    }
+    html.dark-mode .delete-btn {
+      color: #bbb;
+    }
+    html.dark-mode .delete-btn:hover {
+      color: #ff6666;
+    }
+  </style>
+  <script>
+    (function () {
+      const theme = localStorage.getItem('theme');
+      const prefersDark = window.matchMedia('(prefers-color-scheme: dark)').matches;
+      if (theme === 'dark' || (!theme && prefersDark)) {
+        document.documentElement.classList.add('dark-mode');
+      }
+    })();
+  </script>
+</head>
+<body>
+  <div class="container">
+    <h1>🎤 Viva Question & Answer</h1>
+    <div class="form-group">
+      <input type="text" id="question" placeholder="প্রশ্ন লিখুন..." />
+      <textarea id="answer" rows="3" placeholder="উত্তর লিখুন..."></textarea>
+      <button onclick="addQA()">➕ সংরক্ষণ করুন</button>
+    </div>
+    <div id="qa-list"></div>
+  </div>
+
+  <script>
+    let qaList = JSON.parse(localStorage.getItem('vivaQAList')) || [];
+
+    function saveList() {
+      localStorage.setItem('vivaQAList', JSON.stringify(qaList));
+    }
+
+    function addQA() {
+      const q = document.getElementById("question").value.trim();
+      const a = document.getElementById("answer").value.trim();
+      if (!q || !a) return alert("প্রশ্ন ও উত্তর দুইটাই লিখুন!");
+
+      qaList.unshift({ question: q, answer: a });
+      saveList();
+      renderList();
+
+      document.getElementById("question").value = "";
+      document.getElementById("answer").value = "";
+    }
+
+    function deleteQA(index) {
+      if (confirm("আপনি কি মুছে ফেলতে চান?")) {
+        qaList.splice(index, 1);
+        saveList();
+        renderList();
+      }
+    }
+
+    function renderList() {
+      const container = document.getElementById("qa-list");
+      container.innerHTML = "";
+
+      qaList.forEach((item, i) => {
+        const div = document.createElement("div");
+        div.className = "qa-box";
+
+        const q = document.createElement("h3");
+        q.textContent = "প্রশ্ন: " + item.question;
+
+        const a = document.createElement("p");
+        a.textContent = "উত্তর: " + item.answer;
+
+        const del = document.createElement("button");
+        del.className = "delete-btn";
+        del.innerHTML = "🗑️";
+        del.onclick = () => deleteQA(i);
+
+        div.appendChild(q);
+        div.appendChild(a);
+        div.appendChild(del);
+        container.appendChild(div);
+      });
+    }
+
+    renderList();
+  </script>
+
+  <script src="/components/header.js"></script>
+  <script src="/components/footer.js"></script>
+</body>
+</html>

@@ -1,0 +1,323 @@
+<!DOCTYPE html>
+<html lang="bn">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>📢 Digital Flyer Generator (Advanced)</title>
+  <link rel="stylesheet" href="/components/header.css" />
+  <link rel="stylesheet" href="/components/footer.css" />
+  <style>
+    body {
+      font-family: 'Segoe UI', sans-serif;
+      background: #f2f4f8;
+      margin: 0;
+      padding: 20px;
+    }
+    .container {
+      max-width: 900px;
+      margin: 100px auto;
+      background: #fff;
+      padding: 30px;
+      border-radius: 12px;
+      box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+    }
+    h1 {
+      text-align: center;
+      color: #333;
+      margin-bottom: 20px;
+    }
+    .form-group {
+      display: flex;
+      flex-direction: column;
+      gap: 12px;
+      margin-bottom: 20px;
+    }
+    input, textarea, select {
+      padding: 10px;
+      font-size: 16px;
+      border: 2px solid #ccc;
+      border-radius: 6px;
+    }
+    input:focus, textarea:focus, select:focus {
+      border-color: #077A7D;
+      outline: none;
+    }
+    label {
+      font-weight: 600;
+    }
+    .flex-row {
+      display: flex;
+      gap: 10px;
+      flex-wrap: wrap;
+      align-items: center;
+    }
+    .flex-row > * {
+      flex: 1 1 150px;
+    }
+    button {
+      padding: 12px 20px;
+      font-size: 16px;
+      border: none;
+      border-radius: 6px;
+      cursor: pointer;
+      background: #077A7D;
+      color: white;
+      font-weight: bold;
+      transition: background 0.3s ease;
+    }
+    button:hover {
+      background: #066264;
+    }
+    .preview {
+      margin-top: 30px;
+      text-align: center;
+    }
+    #flyer {
+      width: 600px;
+      height: 800px;
+      background: #fff;
+      border: 1px solid #ccc;
+      border-radius: 12px;
+      margin: auto;
+      padding: 20px;
+      box-sizing: border-box;
+      position: relative;
+      overflow: hidden;
+      display: flex;
+      flex-direction: column;
+      align-items: stretch;
+    }
+    #flyer img {
+      max-width: 100%;
+      max-height: 250px;
+      object-fit: cover;
+      border-radius: 8px;
+      margin-bottom: 15px;
+    }
+    #flyer h2, #flyer h4, #flyer p {
+      margin: 0 0 10px;
+      word-break: break-word;
+    }
+    /* Dark mode */
+    html.dark-mode body {
+      background: #000;
+      color: #a7ffeb;
+    }
+    html.dark-mode .container {
+      background: #1e293b;
+    }
+    html.dark-mode input, 
+    html.dark-mode textarea, 
+    html.dark-mode select {
+      background: #334155;
+      color: #fff;
+      border-color: #555;
+    }
+    html.dark-mode #flyer {
+      background: #334155;
+      border-color: #555;
+    }
+    html.dark-mode h1 {
+      text-align: center;
+      color: #fff;
+      margin-bottom: 20px;
+    }
+  </style>
+  <script>
+    (function () {
+      const theme = localStorage.getItem('theme');
+      const prefersDark = window.matchMedia('(prefers-color-scheme: dark)').matches;
+      if (theme === 'dark' || (!theme && prefersDark)) {
+        document.documentElement.classList.add('dark-mode');
+      }
+    })();
+  </script>
+</head>
+<body>
+  <div class="container">
+    <h1>📢 Digital Flyer Generator (Advanced)</h1>
+
+    <div class="form-group">
+      <input type="text" id="title" placeholder="ফ্লায়ার শিরোনাম লিখুন" />
+      <div class="flex-row">
+        <label>ফন্ট সাইজ (শিরোনাম)
+          <input type="number" id="titleFontSize" value="36" min="12" max="72" />
+        </label>
+        <label>ফন্ট সাইজ (সাবহেডলাইন)
+          <input type="number" id="subtitleFontSize" value="24" min="10" max="48" />
+        </label>
+        <label>ফন্ট সাইজ (বডি)
+          <input type="number" id="bodyFontSize" value="18" min="10" max="36" />
+        </label>
+      </div>
+
+      <input type="text" id="subtitle" placeholder="সাব-হেডলাইন (ঐচ্ছিক)" />
+      <textarea id="body" rows="5" placeholder="বিস্তারিত তথ্য লিখুন"></textarea>
+
+      <div class="flex-row">
+        <label>ফন্ট ফ্যামিলি
+          <select id="fontFamily">
+            <option value="'SolaimanLipi', Arial, sans-serif">SolaimanLipi</option>
+            <option value="'Nikosh', Arial, sans-serif">Nikosh</option>
+            <option value="'Kalpurush', Arial, sans-serif">Kalpurush</option>
+            <option value="'Siyam Rupali', Arial, sans-serif">Siyam Rupali</option>
+            <option value="'Bangla', Arial, sans-serif">Bangla</option>
+            <option value="'Arial, sans-serif'" selected>Arial (English)</option>
+          </select>
+        </label>
+
+        <label>টেক্সট এলাইনমেন্ট
+          <select id="textAlign">
+            <option value="left">বামে</option>
+            <option value="center" selected>মাঝে</option>
+            <option value="right">ডানে</option>
+          </select>
+        </label>
+      </div>
+
+      <input type="file" id="imageUpload" accept="image/*" />
+
+      <div class="flex-row">
+        <label>ছবি এলাইনমেন্ট
+          <select id="imageAlign">
+            <option value="center" selected>মাঝে</option>
+            <option value="left">বামে</option>
+            <option value="right">ডানে</option>
+          </select>
+        </label>
+
+        <label>ব্যাকগ্রাউন্ড রঙ
+          <input type="color" id="bgColor" value="#ffffff" />
+        </label>
+        <label>লিখার রঙ
+          <input type="color" id="textColor" value="#000000" />
+        </label>
+      </div>
+
+      <div class="flex-row">
+        <label>বর্ডার রেডিয়াস (px)
+          <input type="number" id="borderRadius" value="12" min="0" max="50" />
+        </label>
+        <label>মার্জিন (px)
+          <input type="number" id="margin" value="20" min="0" max="100" />
+        </label>
+
+        <label>ডাউনলোড ফরম্যাট
+          <select id="downloadFormat">
+            <option value="png" selected>PNG</option>
+            <option value="pdf">PDF</option>
+          </select>
+        </label>
+      </div>
+
+      <button onclick="updateFlyer()">🎨 আপডেট প্রিভিউ</button>
+      <button onclick="downloadFlyer()">⬇️ ডাউনলোড করুন</button>
+    </div>
+
+    <div class="preview">
+      <div id="flyer">
+        <img id="flyerImage" style="display: none;" />
+        <h2 id="flyerTitle">ফ্লায়ার শিরোনাম</h2>
+        <h4 id="flyerSubtitle">সাব-হেডলাইন</h4>
+        <p id="flyerBody">এখানে ফ্লায়ার এর বিস্তারিত তথ্য থাকবে।</p>
+      </div>
+    </div>
+  </div>
+
+  <!-- Include libraries -->
+  <script src="https://cdn.jsdelivr.net/npm/html2canvas@1.4.1/dist/html2canvas.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
+
+  <script>
+    // Update flyer preview based on form inputs
+    function updateFlyer() {
+      const title = document.getElementById('title').value;
+      const subtitle = document.getElementById('subtitle').value;
+      const body = document.getElementById('body').value;
+      const bgColor = document.getElementById('bgColor').value;
+      const textColor = document.getElementById('textColor').value;
+      const fontFamily = document.getElementById('fontFamily').value;
+      const textAlign = document.getElementById('textAlign').value;
+      const titleFontSize = document.getElementById('titleFontSize').value + 'px';
+      const subtitleFontSize = document.getElementById('subtitleFontSize').value + 'px';
+      const bodyFontSize = document.getElementById('bodyFontSize').value + 'px';
+      const borderRadius = document.getElementById('borderRadius').value + 'px';
+      const margin = document.getElementById('margin').value + 'px';
+      const imageAlign = document.getElementById('imageAlign').value;
+
+      document.getElementById('flyer').style.backgroundColor = bgColor;
+      document.getElementById('flyer').style.color = textColor;
+      document.getElementById('flyer').style.borderRadius = borderRadius;
+      document.getElementById('flyer').style.padding = margin;
+
+      const flyer = document.getElementById('flyer');
+      flyer.style.fontFamily = fontFamily;
+      flyer.style.textAlign = textAlign;
+
+      const titleElem = document.getElementById('flyerTitle');
+      titleElem.textContent = title;
+      titleElem.style.fontSize = titleFontSize;
+
+      const subtitleElem = document.getElementById('flyerSubtitle');
+      subtitleElem.textContent = subtitle;
+      subtitleElem.style.fontSize = subtitleFontSize;
+
+      const bodyElem = document.getElementById('flyerBody');
+      bodyElem.textContent = body;
+      bodyElem.style.fontSize = bodyFontSize;
+
+      // Image handling
+      const imageFile = document.getElementById('imageUpload').files[0];
+      const flyerImage = document.getElementById('flyerImage');
+
+      if (imageFile) {
+        const reader = new FileReader();
+        reader.onload = function (e) {
+          flyerImage.src = e.target.result;
+          flyerImage.style.display = 'block';
+          flyerImage.style.objectPosition = imageAlign;
+        };
+        reader.readAsDataURL(imageFile);
+      } else {
+        flyerImage.style.display = 'none';
+        flyerImage.src = '';
+      }
+    }
+
+    async function downloadFlyer() {
+      const format = document.getElementById('downloadFormat').value;
+      const flyer = document.getElementById('flyer');
+
+      if (format === 'png') {
+        // PNG download with html2canvas
+        html2canvas(flyer).then(canvas => {
+          const link = document.createElement('a');
+          link.download = 'flyer.png';
+          link.href = canvas.toDataURL();
+          link.click();
+        });
+      } else {
+        // PDF download with jsPDF
+        const { jsPDF } = window.jspdf;
+        const pdf = new jsPDF({
+          unit: 'px',
+          format: [flyer.offsetWidth, flyer.offsetHeight]
+        });
+
+        // Use html2canvas to create image of flyer
+        const canvas = await html2canvas(flyer);
+        const imgData = canvas.toDataURL('image/png');
+
+        pdf.addImage(imgData, 'PNG', 0, 0, flyer.offsetWidth, flyer.offsetHeight);
+        pdf.save('flyer.pdf');
+      }
+    }
+
+    // Init preview on load
+    window.onload = () => updateFlyer();
+  </script>
+
+  <script src="/components/header.js"></script>
+  <script src="/components/footer.js"></script>
+</body>
+</html>

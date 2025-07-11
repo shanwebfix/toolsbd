@@ -1,0 +1,241 @@
+<!DOCTYPE html>
+<html lang="bn">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Grocery Shopping List</title>
+  <link rel="stylesheet" href="/components/header.css" />
+  <link rel="stylesheet" href="/components/footer.css" />
+
+  <style>
+    body {
+      font-family: 'Segoe UI', sans-serif;
+      background: #f0f2f5;
+      margin: 0;
+      padding: 20px;
+    }
+
+    .container {
+      max-width: 700px;
+      margin: 100px auto;
+      background: #fff;
+      padding: 30px;
+      border-radius: 10px;
+      box-shadow: 0 4px 12px rgba(0,0,0,0.08);
+    }
+
+    h1 {
+      text-align: center;
+      color: #333;
+      margin-bottom: 20px;
+    }
+
+    form {
+      display: flex;
+      gap: 10px;
+      margin-bottom: 20px;
+    }
+
+    input[type="text"] {
+      flex-grow: 1;
+      padding: 10px;
+      font-size: 16px;
+      border: 2px solid #ccc;
+      border-radius: 6px;
+    }
+
+    input[type="text"]:focus {
+      border-color: #077A7D;
+      outline: none;
+    }
+
+    button {
+      background: #077A7D;
+      color: white;
+      border: none;
+      padding: 10px 15px;
+      font-size: 16px;
+      border-radius: 6px;
+      cursor: pointer;
+      transition: background-color 0.3s ease;
+    }
+
+    button:hover {
+      background: #066264;
+    }
+
+    .item {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      background: #f9f9f9;
+      padding: 10px 15px;
+      border-radius: 6px;
+      margin-bottom: 10px;
+    }
+
+    .item.checked span {
+      text-decoration: line-through;
+      color: #999;
+    }
+
+    .item span {
+      flex-grow: 1;
+      cursor: pointer;
+    }
+
+    .item button {
+      background: none;
+      border: none;
+      font-size: 18px;
+      color: #777;
+      cursor: pointer;
+    }
+
+    .item button:hover {
+      color: #066264;
+    }
+
+    .empty-msg {
+      text-align: center;
+      color: #aaa;
+      font-style: italic;
+      margin-top: 30px;
+    }
+
+    /* ===== Dark Mode ===== */
+    html.dark-mode body {
+      background: #000;
+      color: #a7ffeb;
+    }
+
+    html.dark-mode .container {
+      background: #1e293b;
+    }
+
+    html.dark-mode h1 {
+      color: #fff;
+    }
+
+    html.dark-mode input[type="text"] {
+      background: #334155;
+      border-color: #475569;
+      color: #fff;
+    }
+
+    html.dark-mode .item {
+      background: #334155;
+    }
+
+    html.dark-mode .item.checked span {
+      color: #94a3b8;
+    }
+
+    html.dark-mode .item button {
+      color: #bbb;
+    }
+
+    html.dark-mode .item button:hover {
+      color: #4dd0e1;
+    }
+
+    html.dark-mode .empty-msg {
+      color: #666;
+    }
+  </style>
+
+  <!-- Dark Mode JS -->
+  <script>
+    (function () {
+      const theme = localStorage.getItem('theme');
+      const prefersDark = window.matchMedia('(prefers-color-scheme: dark)').matches;
+      const isDark = theme === 'dark' || (!theme && prefersDark);
+      if (isDark) document.documentElement.classList.add('dark-mode');
+    })();
+  </script>
+</head>
+<body>
+
+  <div class="container">
+    <h1>🛒 Grocery Shopping List</h1>
+    <form id="grocery-form">
+      <input type="text" id="grocery-input" placeholder="পণ্যের নাম লিখুন..." autocomplete="off" />
+      <button type="submit">➕ যোগ করুন</button>
+    </form>
+    <div id="grocery-list"></div>
+    <p id="empty-msg" class="empty-msg">তালিকাটি খালি। নতুন কিছু যোগ করুন।</p>
+  </div>
+
+  <script>
+    const form = document.getElementById("grocery-form");
+    const input = document.getElementById("grocery-input");
+    const list = document.getElementById("grocery-list");
+    const emptyMsg = document.getElementById("empty-msg");
+
+    let items = JSON.parse(localStorage.getItem("groceryItems")) || [];
+
+    function saveItems() {
+      localStorage.setItem("groceryItems", JSON.stringify(items));
+    }
+
+    function renderItems() {
+      list.innerHTML = "";
+      if (items.length === 0) {
+        emptyMsg.style.display = "block";
+        return;
+      }
+      emptyMsg.style.display = "none";
+
+      items.forEach((item, index) => {
+        const div = document.createElement("div");
+        div.className = "item" + (item.checked ? " checked" : "");
+
+        const span = document.createElement("span");
+        span.textContent = item.name;
+        span.onclick = () => toggleItem(index);
+
+        const delBtn = document.createElement("button");
+        delBtn.innerHTML = "🗑️";
+        delBtn.title = "মুছুন";
+        delBtn.onclick = () => deleteItem(index);
+
+        div.appendChild(span);
+        div.appendChild(delBtn);
+        list.appendChild(div);
+      });
+    }
+
+    function addItem(name) {
+      if (!name.trim()) return alert("পণ্যের নাম খালি রাখা যাবে না।");
+      items.push({ name: name.trim(), checked: false });
+      saveItems();
+      renderItems();
+      input.value = "";
+    }
+
+    function toggleItem(index) {
+      items[index].checked = !items[index].checked;
+      saveItems();
+      renderItems();
+    }
+
+    function deleteItem(index) {
+      if (confirm("আপনি কি নিশ্চিত এই পণ্যটি মুছতে চান?")) {
+        items.splice(index, 1);
+        saveItems();
+        renderItems();
+      }
+    }
+
+    form.addEventListener("submit", function (e) {
+      e.preventDefault();
+      addItem(input.value);
+    });
+
+    renderItems();
+  </script>
+
+  <script src="/components/header.js"></script>
+  <script src="/components/footer.js"></script>
+</body>
+</html>

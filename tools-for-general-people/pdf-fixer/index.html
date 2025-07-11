@@ -1,0 +1,123 @@
+<!DOCTYPE html>
+<html lang="bn">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>PDF Bangla Font Fixer</title>
+
+  <!-- Header/Footer Styles -->
+  <link rel="stylesheet" href="/components/header.css" />
+  <link rel="stylesheet" href="/components/footer.css" />
+
+  <!-- jsPDF -->
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
+
+  <style>
+    body {
+      font-family: 'Segoe UI', sans-serif;
+      background: #f0f2f5;
+      margin: 0;
+      padding: 20px;
+    }
+    .container {
+      max-width: 700px;
+      margin: auto;
+      background: #fff;
+      padding: 30px;
+      border-radius: 10px;
+      box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
+      margin-top: 100px;
+      margin-bottom: 100px;
+    }
+    h1 {
+      text-align: center;
+      color: #333;
+      margin-bottom: 20px;
+    }
+    textarea {
+      width: 100%;
+      height: 200px;
+      font-size: 16px;
+      padding: 10px;
+      border-radius: 6px;
+      border: 1px solid #ccc;
+      resize: vertical;
+    }
+    button {
+      margin-top: 20px;
+      background: #077A7D;
+      color: white;
+      padding: 12px 20px;
+      font-size: 16px;
+      border: none;
+      border-radius: 6px;
+      cursor: pointer;
+      transition: background-color 0.3s ease;
+    }
+    button:hover {
+      background-color: #066264;
+    }
+
+    /* Dark Mode */
+    html.dark-mode body {
+      background: #000;
+      color: #a7ffeb;
+    }
+    html.dark-mode .container {
+      background: #1e293b;
+    }
+    html.dark-mode textarea {
+      background: #334155;
+      color: #fff;
+      border-color: #475569;
+    }
+    html.dark-mode h1 {
+      color: #fff;
+    }
+  </style>
+
+  <!-- Dark Mode Script -->
+  <script>
+    (function () {
+      try {
+        const theme = localStorage.getItem('theme');
+        const prefersDark = window.matchMedia('(prefers-color-scheme: dark)').matches;
+        const isDark = theme === 'dark' || (!theme && prefersDark);
+        if (isDark) {
+          document.documentElement.classList.add('dark-mode');
+        }
+      } catch (e) {}
+    })();
+  </script>
+</head>
+<body>
+  <div class="container">
+    <h1>📄 PDF Bangla Font Fixer</h1>
+    <textarea id="banglaText" placeholder="এখানে বাংলা লিখুন..."></textarea>
+    <button onclick="generatePDF()">✅ PDF ডাউনলোড করুন</button>
+  </div>
+
+  <script>
+    async function generatePDF() {
+      const { jsPDF } = window.jspdf;
+      const doc = new jsPDF();
+
+      const banglaText = document.getElementById('banglaText').value || 'কোনো লেখা নেই।';
+
+      // Bengali font (base64 via external source)
+      const fontUrl = "https://cdn.jsdelivr.net/gh/sh4hids/bangla-fonts/NotoSansBengali-Regular.ttf";
+      const fontBuffer = await fetch(fontUrl).then(res => res.arrayBuffer());
+
+      doc.addFileToVFS("NotoSansBengali.ttf", btoa(String.fromCharCode(...new Uint8Array(fontBuffer))));
+      doc.addFont("NotoSansBengali.ttf", "NotoSansBengali", "normal");
+      doc.setFont("NotoSansBengali");
+      doc.setFontSize(14);
+      doc.text(banglaText, 15, 20, { maxWidth: 180 });
+      doc.save("Bangla_PDF_Fixed.pdf");
+    }
+  </script>
+
+  <script src="/components/header.js"></script>
+  <script src="/components/footer.js"></script>
+</body>
+</html>
