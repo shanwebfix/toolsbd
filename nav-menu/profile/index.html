@@ -1,0 +1,271 @@
+<!DOCTYPE html>
+<html lang="bn">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+  <link rel="stylesheet" href="/components/header.css" />
+  <link rel="stylesheet" href="/components/footer.css" />
+<title>প্রোফাইল ড্যাশবোর্ড | Profile Dashboard</title>
+<style>
+  body {
+    font-family: 'SolaimanLipi', Arial, sans-serif;
+    background-color: #f9fafb;
+    margin: 0; padding: 0;
+    color: #333;
+  }
+  .container {
+    max-width: 900px;
+    margin: 60px auto;
+    background: #fff;
+    border-radius: 12px;
+    padding: 30px 40px;
+    box-shadow: 0 4px 20px rgb(0 0 0 / 0.1);
+  }
+  h1 {
+    text-align: center;
+    color: #077A7D;
+    margin-bottom: 40px;
+    font-weight: 700;
+    font-size: 2.5rem;
+  }
+
+  .profile {
+    display: flex;
+    gap: 40px;
+    flex-wrap: wrap;
+  }
+
+  .profile-image {
+    flex: 0 0 180px;
+    border-radius: 50%;
+    overflow: hidden;
+    box-shadow: 0 0 12px rgb(0 122 125 / 0.4);
+    cursor: pointer;
+    transition: transform 0.3s ease;
+  }
+  .profile-image:hover {
+    transform: scale(1.05);
+  }
+  .profile-image img {
+    display: block;
+    width: 180px;
+    height: 180px;
+    object-fit: cover;
+  }
+
+  .profile-info {
+    flex: 1;
+    min-width: 280px;
+  }
+
+  .profile-info h2 {
+    margin: 0 0 12px 0;
+    font-size: 2rem;
+    color: #066264;
+  }
+  .profile-info p {
+    margin: 6px 0;
+    font-size: 1.1rem;
+  }
+
+  .profile-info p span {
+    font-weight: 600;
+    color: #077A7D;
+  }
+
+  .edit-btn {
+    display: inline-block;
+    margin-top: 20px;
+    background-color: #077A7D;
+    color: white;
+    border: none;
+    padding: 10px 18px;
+    border-radius: 8px;
+    font-weight: 600;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+  }
+  .edit-btn:hover {
+    background-color: #066264;
+  }
+
+  /* Edit Form Modal */
+  .modal {
+    position: fixed;
+    top: 0; left: 0; right: 0; bottom: 0;
+    background: rgba(0,0,0,0.5);
+    display: none;
+    justify-content: center;
+    align-items: center;
+    z-index: 9999;
+  }
+  .modal.active {
+    display: flex;
+  }
+  .modal-content {
+    background: #fff;
+    border-radius: 12px;
+    padding: 30px;
+    max-width: 400px;
+    width: 100%;
+    box-shadow: 0 8px 24px rgb(0 0 0 / 0.2);
+  }
+  .modal-content h3 {
+    margin-top: 0;
+    color: #077A7D;
+    text-align: center;
+    margin-bottom: 20px;
+  }
+  .modal-content label {
+    display: block;
+    margin-bottom: 6px;
+    font-weight: 600;
+    color: #066264;
+  }
+  .modal-content input[type="text"],
+  .modal-content input[type="email"] {
+    width: 100%;
+    padding: 8px 10px;
+    margin-bottom: 18px;
+    border: 1.8px solid #ddd;
+    border-radius: 6px;
+    font-size: 1rem;
+  }
+  .modal-content button {
+    background-color: #077A7D;
+    color: white;
+    border: none;
+    padding: 10px 18px;
+    font-weight: 600;
+    border-radius: 8px;
+    cursor: pointer;
+    width: 100%;
+    transition: background-color 0.3s ease;
+  }
+  .modal-content button:hover {
+    background-color: #066264;
+  }
+  .close-btn {
+    background: #ccc;
+    color: #333;
+    margin-top: 10px;
+  }
+  .close-btn:hover {
+    background: #999;
+  }
+
+  /* Responsive */
+  @media (max-width: 600px) {
+    .container {
+      padding: 20px;
+      margin: 30px 10px;
+    }
+    h1 {
+      font-size: 1.8rem;
+      margin-bottom: 30px;
+    }
+    .profile {
+      flex-direction: column;
+      align-items: center;
+    }
+    .profile-info {
+      min-width: auto;
+      text-align: center;
+    }
+  }
+</style>
+</head>
+<body>
+
+  <div class="container">
+    <h1>প্রোফাইল ড্যাশবোর্ড</h1>
+
+    <div class="profile">
+      <div class="profile-image" id="profileImage">
+        <img src="https://i.pravatar.cc/180" alt="প্রোফাইল ছবি" />
+      </div>
+      <div class="profile-info">
+        <h2 id="userName">জন ডো</h2>
+        <p><span>ইমেইল:</span> <span id="userEmail">john.doe@example.com</span></p>
+        <p><span>ফোন নম্বর:</span> <span id="userPhone">+880 1234 567890</span></p>
+        <p><span>ঠিকানা:</span> <span id="userAddress">ঢাকা, বাংলাদেশ</span></p>
+
+        <button class="edit-btn" id="editProfileBtn">প্রোফাইল সম্পাদনা করুন</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- Edit Modal -->
+  <div class="modal" id="editModal">
+    <div class="modal-content">
+      <h3>প্রোফাইল সম্পাদনা</h3>
+      <form id="editForm">
+        <label for="nameInput">নাম</label>
+        <input type="text" id="nameInput" required />
+
+        <label for="emailInput">ইমেইল</label>
+        <input type="email" id="emailInput" required />
+
+        <label for="phoneInput">ফোন নম্বর</label>
+        <input type="text" id="phoneInput" required />
+
+        <label for="addressInput">ঠিকানা</label>
+        <input type="text" id="addressInput" required />
+
+        <button type="submit">সেভ করুন</button>
+        <button type="button" class="close-btn" id="closeModalBtn">বাতিল করুন</button>
+      </form>
+    </div>
+  </div>
+
+  <!-- Header/Footer CSS & JS লিঙ্ক -->
+
+  <script src="/components/header.js"></script>
+  <script src="/components/footer.js"></script>
+
+<script>
+  const editBtn = document.getElementById('editProfileBtn');
+  const modal = document.getElementById('editModal');
+  const closeModalBtn = document.getElementById('closeModalBtn');
+  const editForm = document.getElementById('editForm');
+
+  const userName = document.getElementById('userName');
+  const userEmail = document.getElementById('userEmail');
+  const userPhone = document.getElementById('userPhone');
+  const userAddress = document.getElementById('userAddress');
+
+  const nameInput = document.getElementById('nameInput');
+  const emailInput = document.getElementById('emailInput');
+  const phoneInput = document.getElementById('phoneInput');
+  const addressInput = document.getElementById('addressInput');
+
+  // মডাল খুলা
+  editBtn.addEventListener('click', () => {
+    // বর্তমান তথ্য ইনপুটে সেট করো
+    nameInput.value = userName.textContent;
+    emailInput.value = userEmail.textContent;
+    phoneInput.value = userPhone.textContent;
+    addressInput.value = userAddress.textContent;
+
+    modal.classList.add('active');
+  });
+
+  // মডাল বন্ধ করা
+  closeModalBtn.addEventListener('click', () => {
+    modal.classList.remove('active');
+  });
+
+  // ফর্ম সাবমিট হলে তথ্য আপডেট করো
+  editForm.addEventListener('submit', e => {
+    e.preventDefault();
+
+    userName.textContent = nameInput.value.trim();
+    userEmail.textContent = emailInput.value.trim();
+    userPhone.textContent = phoneInput.value.trim();
+    userAddress.textContent = addressInput.value.trim();
+
+    modal.classList.remove('active');
+  });
+</script>
+</body>
+</html>

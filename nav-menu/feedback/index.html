@@ -1,0 +1,136 @@
+<!DOCTYPE html>
+<html lang="bn">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+  <link rel="stylesheet" href="/components/header.css" />
+  <link rel="stylesheet" href="/components/footer.css" />
+<title>ফিডব্যাক দিন | Feedback</title>
+<style>
+  body {
+    font-family: 'SolaimanLipi', Arial, sans-serif;
+    background-color: #f9fafb;
+    color: #333;
+    margin: 0; padding: 0;
+    line-height: 1.6;
+  }
+  .container {
+    max-width: 700px;
+    margin: 60px auto;
+    background: #fff;
+    padding: 30px 40px;
+    border-radius: 12px;
+    box-shadow: 0 4px 20px rgb(0 0 0 / 0.1);
+  }
+  h1 {
+    text-align: center;
+    color: #077A7D;
+    margin-bottom: 24px;
+    font-weight: 700;
+    font-size: 2.5rem;
+  }
+  form {
+    display: flex;
+    flex-direction: column;
+    gap: 16px;
+  }
+  label {
+    font-weight: 600;
+    margin-bottom: 6px;
+    color: #066264;
+  }
+  input[type="text"],
+  input[type="email"],
+  textarea,
+  select {
+    padding: 10px 12px;
+    font-size: 16px;
+    border: 2px solid #ddd;
+    border-radius: 6px;
+    resize: vertical;
+    transition: border-color 0.3s ease;
+  }
+  input[type="text"]:focus,
+  input[type="email"]:focus,
+  textarea:focus,
+  select:focus {
+    border-color: #077A7D;
+    outline: none;
+  }
+  textarea {
+    min-height: 120px;
+  }
+  button {
+    align-self: flex-start;
+    padding: 12px 25px;
+    background-color: #077A7D;
+    border: none;
+    color: white;
+    font-weight: 600;
+    font-size: 16px;
+    border-radius: 6px;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+  }
+  button:hover {
+    background-color: #066264;
+  }
+  .note {
+    font-size: 0.9rem;
+    color: #555;
+    margin-top: 8px;
+  }
+
+  /* Responsive */
+  @media (max-width: 600px) {
+    .container {
+      padding: 20px;
+      margin: 30px 10px;
+    }
+    h1 {
+      font-size: 1.8rem;
+    }
+  }
+</style>
+</head>
+<body>
+  <div class="container">
+    <h1>ফিডব্যাক দিন</h1>
+
+    <form id="feedback-form">
+      <label for="name">আপনার নাম</label>
+      <input type="text" id="name" name="name" placeholder="আপনার নাম লিখুন" required />
+
+      <label for="email">ইমেইল ঠিকানা</label>
+      <input type="email" id="email" name="email" placeholder="আপনার ইমেইল লিখুন" required />
+
+      <label for="rating">আমাদের সেবার মূল্যায়ন করুন</label>
+      <select id="rating" name="rating" required>
+        <option value="" disabled selected>মুল্যায়ন নির্বাচন করুন</option>
+        <option value="excellent">চমৎকার</option>
+        <option value="good">ভালো</option>
+        <option value="average">মাঝারি</option>
+        <option value="poor">নিম্নমান</option>
+      </select>
+
+      <label for="message">আপনার মতামত বা পরামর্শ</label>
+      <textarea id="message" name="message" placeholder="আপনার মতামত লিখুন" required></textarea>
+
+      <button type="submit">পাঠান</button>
+    </form>
+  </div>
+
+  <script>
+    const form = document.getElementById('feedback-form');
+    form.addEventListener('submit', function(e) {
+      e.preventDefault();
+      alert('আপনার ফিডব্যাকের জন্য ধন্যবাদ! আমরা শীঘ্রই যোগাযোগ করব।');
+      form.reset();
+    });
+  </script>
+
+  <!-- Header/Footer CSS & JS লিঙ্ক -->
+  <script src="/components/header.js"></script>
+  <script src="/components/footer.js"></script>
+</body>
+</html>

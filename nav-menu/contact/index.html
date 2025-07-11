@@ -1,0 +1,143 @@
+<!DOCTYPE html>
+<html lang="bn">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+ <link rel="stylesheet" href="/components/header.css" />
+  <link rel="stylesheet" href="/components/footer.css" />
+<title>যোগাযোগ করুন | Contact Us</title>
+<style>
+  body {
+    font-family: 'SolaimanLipi', Arial, sans-serif;
+    background-color: #f9fafb;
+    color: #333;
+    margin: 0; padding: 0;
+    line-height: 1.6;
+  }
+  .container {
+    max-width: 700px;
+    margin: 60px auto;
+    background: #fff;
+    padding: 30px 40px;
+    border-radius: 12px;
+    box-shadow: 0 4px 20px rgb(0 0 0 / 0.1);
+  }
+  h1 {
+    text-align: center;
+    color: #077A7D;
+    margin-bottom: 24px;
+    font-weight: 700;
+    font-size: 2.5rem;
+  }
+  form {
+    display: flex;
+    flex-direction: column;
+    gap: 16px;
+  }
+  label {
+    font-weight: 600;
+    margin-bottom: 6px;
+    color: #066264;
+  }
+  input[type="text"],
+  input[type="email"],
+  textarea {
+    padding: 10px 12px;
+    font-size: 16px;
+    border: 2px solid #ddd;
+    border-radius: 6px;
+    resize: vertical;
+    transition: border-color 0.3s ease;
+  }
+  input[type="text"]:focus,
+  input[type="email"]:focus,
+  textarea:focus {
+    border-color: #077A7D;
+    outline: none;
+  }
+  textarea {
+    min-height: 120px;
+  }
+  button {
+    align-self: flex-start;
+    padding: 12px 25px;
+    background-color: #077A7D;
+    border: none;
+    color: white;
+    font-weight: 600;
+    font-size: 16px;
+    border-radius: 6px;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+  }
+  button:hover {
+    background-color: #066264;
+  }
+  .contact-info {
+    margin-top: 30px;
+    font-size: 1rem;
+    color: #555;
+  }
+  .contact-info p {
+    margin: 6px 0;
+  }
+  a {
+    color: #077A7D;
+    text-decoration: none;
+  }
+  a:hover {
+    text-decoration: underline;
+  }
+
+  /* Responsive */
+  @media (max-width: 600px) {
+    .container {
+      padding: 20px;
+      margin: 30px 10px;
+    }
+    h1 {
+      font-size: 1.8rem;
+    }
+  }
+</style>
+</head>
+<body>
+  <div class="container">
+    <h1>যোগাযোগ করুন</h1>
+
+    <form id="contact-form">
+      <label for="name">আপনার নাম</label>
+      <input type="text" id="name" name="name" placeholder="আপনার নাম লিখুন" required />
+
+      <label for="email">ইমেইল ঠিকানা</label>
+      <input type="email" id="email" name="email" placeholder="আপনার ইমেইল লিখুন" required />
+
+      <label for="message">বার্তা</label>
+      <textarea id="message" name="message" placeholder="আপনার বার্তা লিখুন" required></textarea>
+
+      <button type="submit">পাঠান</button>
+    </form>
+
+    <div class="contact-info">
+      <p>ইমেইল: <a href="mailto:contact@yourdomain.com">contact@yourdomain.com</a></p>
+      <p>ফোন: +৮৮০ ১২৩৪৫৬৭৮৯০</p>
+      <p>ঠিকানা: ঢাকা, বাংলাদেশ</p>
+    </div>
+  </div>
+
+  <script>
+    // সাধারণ ফর্ম সাবমিশন হ্যান্ডলার (ডেমো জন্য)
+    const form = document.getElementById('contact-form');
+    form.addEventListener('submit', function(e) {
+      e.preventDefault();
+      alert('আপনার বার্তা পাঠানো হয়েছে। ধন্যবাদ!');
+      form.reset();
+    });
+  </script>
+
+  <!-- Header/Footer CSS & JS লিঙ্ক -->
+ 
+  <script src="/components/header.js"></script>
+  <script src="/components/footer.js"></script>
+</body>
+</html>

@@ -1,0 +1,121 @@
+<!DOCTYPE html>
+<html lang="bn">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+  <link rel="stylesheet" href="/components/header.css" />
+  <link rel="stylesheet" href="/components/footer.css" />
+<title>প্রায়শই জিজ্ঞাসিত প্রশ্নাবলী | FAQ</title>
+<style>
+  body {
+    font-family: 'SolaimanLipi', Arial, sans-serif;
+    background-color: #f9fafb;
+    color: #333;
+    margin: 0; padding: 0;
+    line-height: 1.6;
+  }
+  .container {
+    max-width: 900px;
+    margin: 60px auto;
+    background: #fff;
+    padding: 30px 40px;
+    border-radius: 12px;
+    box-shadow: 0 4px 20px rgb(0 0 0 / 0.1);
+  }
+  h1 {
+    text-align: center;
+    color: #077A7D;
+    margin-bottom: 24px;
+    font-weight: 700;
+    font-size: 2.5rem;
+  }
+  .faq-item {
+    margin-bottom: 20px;
+  }
+  .faq-question {
+    background: #077A7D;
+    color: white;
+    padding: 14px 20px;
+    border-radius: 8px;
+    cursor: pointer;
+    font-weight: 600;
+    font-size: 1.125rem;
+    user-select: none;
+    transition: background-color 0.3s ease;
+  }
+  .faq-question:hover {
+    background: #066264;
+  }
+  .faq-answer {
+    margin-top: 8px;
+    padding: 15px 20px;
+    background: #e0f2f1;
+    border-radius: 8px;
+    display: none;
+    font-size: 1rem;
+    color: #004d40;
+  }
+
+  /* Responsive */
+  @media (max-width: 600px) {
+    .container {
+      padding: 20px;
+      margin: 30px 10px;
+    }
+    h1 {
+      font-size: 1.8rem;
+    }
+  }
+</style>
+</head>
+<body>
+  <div class="container">
+    <h1>প্রায়শই জিজ্ঞাসিত প্রশ্নাবলী</h1>
+
+    <div class="faq-item">
+      <div class="faq-question">আমার টুল ব্যবহার করতে কি কোনো নিবন্ধন দরকার?</div>
+      <div class="faq-answer">না, আমাদের সকল টুল ব্যবহার করতে কোনো নিবন্ধনের প্রয়োজন নেই। আপনি সরাসরি সাইট থেকে টুল ব্যবহার করতে পারবেন।</div>
+    </div>
+
+    <div class="faq-item">
+      <div class="faq-question">আমি কীভাবে আমার ডেটা সেভ করতে পারি?</div>
+      <div class="faq-answer">আপনার টাস্ক বা ইনপুট ডেটা ব্রাউজারের লোকালস্টোরেজে সংরক্ষিত হয়, তাই আপনি বার বার ইনপুট দিতে হবে না যতক্ষণ একই ব্রাউজার ব্যবহার করছেন।</div>
+    </div>
+
+    <div class="faq-item">
+      <div class="faq-question">আমি যদি কোনো সমস্যা পাই তাহলে কি করব?</div>
+      <div class="faq-answer">আপনি আমাদের <a href="/contact.html">যোগাযোগ</a> পেজ থেকে আমাদের সঙ্গে যোগাযোগ করতে পারেন। আমরা দ্রুত আপনার সমস্যার সমাধান করার চেষ্টা করব।</div>
+    </div>
+
+    <div class="faq-item">
+      <div class="faq-question">আমার ডেটা কি নিরাপদ থাকবে?</div>
+      <div class="faq-answer">আমরা ব্যবহারকারীর ব্যক্তিগত ডেটা সংগ্রহ করি না এবং ব্রাউজারের লোকালস্টোরেজে তথ্য সংরক্ষণ করা হয়। তাই আপনার ডেটা কেবল আপনার ডিভাইসে থাকে এবং অন্য কারো অ্যাক্সেস নেই।</div>
+    </div>
+
+    <div class="faq-item">
+      <div class="faq-question">সাইটে নতুন টুল যোগ করার পরিকল্পনা আছে?</div>
+      <div class="faq-answer">হ্যাঁ, আমরা নিয়মিত নতুন টুল তৈরি করছি এবং সাইটে যোগ করছি। নতুন আপডেট পেতে আমাদের সাইট নিয়মিত ভিজিট করুন।</div>
+    </div>
+
+  </div>
+
+  <script>
+    // FAQ টগল ফাংশন
+    document.querySelectorAll('.faq-question').forEach(question => {
+      question.addEventListener('click', () => {
+        const answer = question.nextElementSibling;
+        const isVisible = answer.style.display === 'block';
+        // সব উত্তর বন্ধ করে দাও
+        document.querySelectorAll('.faq-answer').forEach(a => a.style.display = 'none');
+        // ক্লিক করা প্রশ্নের উত্তর টগল করো
+        answer.style.display = isVisible ? 'none' : 'block';
+      });
+    });
+  </script>
+
+  <!-- Header/Footer CSS & JS লিঙ্ক -->
+
+  <script src="/components/header.js"></script>
+  <script src="/components/footer.js"></script>
+</body>
+</html>

@@ -1,0 +1,160 @@
+<!DOCTYPE html>
+<html lang="bn">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>সার্চ পেজ | Search Page</title>
+  <link rel="stylesheet" href="/components/header.css" />
+  <link rel="stylesheet" href="/components/footer.css" />
+  <style>
+    body {
+      font-family: 'SolaimanLipi', Arial, sans-serif;
+      background: #f4f6f9;
+      margin: 0;
+      padding: 0;
+      color: #333;
+    }
+    .container {
+      max-width: 900px;
+      margin: 100px auto 60px;
+      background: #fff;
+      padding: 30px 40px;
+      border-radius: 10px;
+      box-shadow: 0 4px 16px rgba(0,0,0,0.1);
+    }
+    h1 {
+      text-align: center;
+      color: #077A7D;
+      margin-bottom: 30px;
+    }
+    input[type="text"] {
+      width: 100%;
+      padding: 12px 16px;
+      font-size: 1rem;
+      border: 2px solid #ccc;
+      border-radius: 6px;
+      margin-bottom: 20px;
+      transition: border-color 0.3s ease;
+    }
+    input[type="text"]:focus {
+      border-color: #077A7D;
+      outline: none;
+    }
+    .result {
+      margin-bottom: 20px;
+      padding: 18px;
+      border-left: 5px solid #077A7D;
+      background: #f9f9f9;
+      border-radius: 8px;
+    }
+    .result h3 {
+      margin: 0 0 6px;
+      color: #066264;
+    }
+    .result p {
+      margin: 0;
+      color: #444;
+    }
+    .no-result {
+      text-align: center;
+      font-style: italic;
+      color: #999;
+      margin-top: 30px;
+    }
+
+    /* Dark mode support */
+    html.dark-mode body {
+      background: #000;
+      color: #a7ffeb;
+    }
+    html.dark-mode .container {
+      background: #1e293b;
+    }
+    html.dark-mode input[type="text"] {
+      background: #000;
+      color: #a7ffeb;
+      border-color: #444;
+    }
+    html.dark-mode .result {
+      background: #0f172a;
+      border-color: #38bdf8;
+    }
+    html.dark-mode .result h3 {
+      color: #67e8f9;
+    }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <h1>সার্চ করুন</h1>
+    <input type="text" id="searchInput" placeholder="আপনার অনুসন্ধান লিখুন...">
+    <div id="results"></div>
+  </div>
+
+  <script>
+    const data = [
+      {
+        title: "ভূমি পরিমাপ কনভার্টার",
+        description: "কাঠা, শতক, একর, বিঘা ও ডেসিমাল কনভার্ট করুন।"
+      },
+      {
+        title: "সিম ইন্টারনেট তথ্য যাচাই",
+        description: "সিম নাম্বার দিয়ে ডেটা চেক করুন।"
+      },
+      {
+        title: "ভয়েস জেনারেটর",
+        description: "বাংলা লেখা দিয়ে ভয়েস তৈরি করুন।"
+      },
+      {
+        title: "গৃহ নির্মাণ ক্যালকুলেটর",
+        description: "ইট, বালি, সিমেন্ট হিসাব করুন।"
+      },
+      {
+        title: "সিভি জেনারেটর",
+        description: "সহজে আপনার সিভি তৈরি করুন।"
+      }
+    ];
+
+    const searchInput = document.getElementById('searchInput');
+    const resultsDiv = document.getElementById('results');
+
+    searchInput.addEventListener('input', function () {
+      const keyword = this.value.toLowerCase().trim();
+      resultsDiv.innerHTML = '';
+
+      if (keyword === '') return;
+
+      const filtered = data.filter(item =>
+        item.title.toLowerCase().includes(keyword) ||
+        item.description.toLowerCase().includes(keyword)
+      );
+
+      if (filtered.length === 0) {
+        resultsDiv.innerHTML = '<p class="no-result">কোনো ফলাফল পাওয়া যায়নি।</p>';
+        return;
+      }
+
+      filtered.forEach(item => {
+        const div = document.createElement('div');
+        div.className = 'result';
+        div.innerHTML = `<h3>${item.title}</h3><p>${item.description}</p>`;
+        resultsDiv.appendChild(div);
+      });
+    });
+  </script>
+
+  <!-- Header/Footer JS -->
+  <script src="/components/header.js"></script>
+  <script src="/components/footer.js"></script>
+  <script>
+    (function () {
+      try {
+        const theme = localStorage.getItem('theme');
+        const prefersDark = window.matchMedia('(prefers-color-scheme: dark)').matches;
+        const isDark = theme === 'dark' || (!theme && prefersDark);
+        if (isDark) document.documentElement.classList.add('dark-mode');
+      } catch (e) {}
+    })();
+  </script>
+</body>
+</html>
