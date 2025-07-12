@@ -6,10 +6,7 @@
 body {
   font-family: sans-serif;
   margin: 0;
-  background: linear-gradient(to top, #edf6fc 0%, #cce7f8 30%, #c4e6fc 45%, #b0dcf5 60%, #a0d8fc 75%, #87cefa 100%);
-  background-attachment: fixed;
-  background-repeat: no-repeat;
-  background-size: cover;
+  background-color: #edf6fc;
   min-height: 100vh;
   padding: 100px 70px 50px;
   color: #000; /* light mode text */
@@ -21,6 +18,53 @@ body {
     padding: 100px 20px 50px;
   }
 }
+
+
+.app-container {
+  background: #fff;
+  margin: auto;
+  border: 1px solid rgba(0, 0, 0, 0.1);
+  padding: 30px;
+  border-radius: 10px;
+  font-size: 17px;
+  font-weight: 500;
+  color: #000;
+  transition: box-shadow 0.3s ease, transform 0.2s ease;
+  text-decoration: none !important;
+  text-align: center;
+}
+  .appbtn {
+    align-self: flex-start;
+    padding: 12px 25px;
+    background-color: #077A7D;
+    border: none;
+    color: white;
+    font-weight: 600;
+    font-size: 16px;
+    border-radius: 6px;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+  }
+  .appbtn:hover {
+    background-color: #066264;
+  
+  }
+  .download-note {
+  background-color: #e0f4e0; /* হালকা সবুজ */
+  color: #2e7d32;
+  padding: 10px 15px;
+  border-radius: 8px;
+  font-size: 16px;
+  margin-bottom: 10px;
+  display: inline-block;
+}
+
+/* Optional: dark mode support */
+html.dark-mode .download-note {
+  background-color: #1b3f1b;
+  color: #a5d6a7;
+}
+
 
 /* Namaj Section */
 .namaj-box {
