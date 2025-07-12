@@ -30,8 +30,30 @@
 </head>
 
 <body>
+<!-- ✅ Search -->
+<div class="search-container">
+  <input type="text" id="searchInput" placeholder="খোঁজ করুন..." />
+  <button id="searchBtn" aria-label="Search">
+    <i class="fas fa-search"></i>
+  </button>
+</div>
 
-<!-- ✅ Dark Mode Toggle Switch -->
+<!-- Search Results Popup -->
+<div id="searchPopup" class="search-popup hidden">
+  <div class="popup-header">
+    <span>সার্চ রেজাল্ট</span>
+    <button id="closePopup" aria-label="Close">&times;</button>
+  </div>
+  <div id="searchResults" class="search-results">
+    <!-- এখানে সার্চ রেজাল্ট দেখানো হবে -->
+  </div>
+</div>
+
+
+
+
+
+<!-- ✅ Donload -->
 <div class="app-container">
   <div class="download-note">এই অ্যাপটি Android-এর জন্য তৈরি</div>
   
@@ -61,82 +83,122 @@
   </div>
 
   <!-- ✅ Category Section -->
-  <main class="main-section">
-    <div class="cat-title"><p class="cat-title-name">টুলস ক্যাটাগরি</p></div>
-    <div class="category-grid">
-      <a href="islamic/">
-        <div class="category-item">
-          <div class="category-icon"><i class="fas fa-mosque"></i></div>
+<main class="main-section">
+  <div class="cat-title"><p class="cat-title-name">টুলস ক্যাটাগরি</p></div>
+  <div class="category-grid">
+    <a href="islamic/" class="category-link">
+      <div class="category-item">
+        <div class="category-icon">
+          <i class="fas fa-mosque"></i>
+        </div>
+        <div class="category-content">
           <div class="category-title">Islamic Tools</div>
           <div class="category-desc">ইসলামিক ক্যালেন্ডার, নামাজের সময়সূচি, কিবলা দিক নির্ণয় সহ নানা ইসলামিক টুল।</div>
         </div>
-      </a>
-      <a href="daily-use-tools/">
-        <div class="category-item">
-          <div class="category-icon"><i class="fas fa-tools"></i></div>
+      </div>
+    </a>
+    <a href="daily-use-tools/" class="category-link">
+      <div class="category-item">
+        <div class="category-icon">
+          <i class="fas fa-tools"></i>
+        </div>
+        <div class="category-content">
           <div class="category-title">Daily Use Tools</div>
           <div class="category-desc">প্রতিদিন ব্যবহৃত সহজ ও দরকারি টুল যেমন কনভার্টার, ক্যালকুলেটর ইত্যাদি।</div>
         </div>
-      </a>
-      <a href="dev-designer-tools/">
-        <div class="category-item">
-          <div class="category-icon"><i class="fas fa-laptop-code"></i></div>
+      </div>
+    </a>
+    <a href="dev-designer-tools/" class="category-link">
+      <div class="category-item">
+        <div class="category-icon">
+          <i class="fas fa-laptop-code"></i>
+        </div>
+        <div class="category-content">
           <div class="category-title">Developer & Designer Tools</div>
           <div class="category-desc">JS, HTML, CSS কোড সুন্দরভাবে সাজান ও বিশ্লেষণ করুন।</div>
         </div>
-      </a>
-      <a href="bd-Localized-Special-tools/">
-        <div class="category-item">
-          <div class="category-icon"><i class="fas fa-flag"></i></div>
+      </div>
+    </a>
+    <a href="bd-Localized-Special-tools/" class="category-link">
+      <div class="category-item">
+        <div class="category-icon">
+          <i class="fas fa-flag"></i>
+        </div>
+        <div class="category-content">
           <div class="category-title">BD Localized Special Tools</div>
           <div class="category-desc">বাংলাদেশ ভিত্তিক প্রয়োজনীয় টুল যেমন এনআইডি যাচাই, BRTC তথ্য ইত্যাদি।</div>
         </div>
-      </a>
-      <a href="educational-tools/">
-        <div class="category-item">
-          <div class="category-icon"><i class="fas fa-graduation-cap"></i></div>
+      </div>
+    </a>
+    <a href="educational-tools/" class="category-link">
+      <div class="category-item">
+        <div class="category-icon">
+          <i class="fas fa-graduation-cap"></i>
+        </div>
+        <div class="category-content">
           <div class="category-title">Educational Tools</div>
           <div class="category-desc">শিক্ষার্থীদের জন্য ক্যালকুলেটর, MCQ প্রস্তুতি ও শেখার নানা টুল।</div>
         </div>
-      </a>
-      <a href="freelanching-tools/">
-        <div class="category-item">
-          <div class="category-icon"><i class="fas fa-briefcase"></i></div>
+      </div>
+    </a>
+    <a href="freelanching-tools/" class="category-link">
+      <div class="category-item">
+        <div class="category-icon">
+          <i class="fas fa-briefcase"></i>
+        </div>
+        <div class="category-content">
           <div class="category-title">Business & Freelancing Tools</div>
           <div class="category-desc">ফ্রিল্যান্সার ও ব্যবসায়ীদের জন্য ইনভয়েস, টাইম ট্র্যাকিং সহ দরকারি টুল।</div>
         </div>
-      </a>
-      <a href="dokan-tools/">
-        <div class="category-item">
-          <div class="category-icon"><i class="fas fa-store"></i></div>
+      </div>
+    </a>
+    <a href="dokan-tools/" class="category-link">
+      <div class="category-item">
+        <div class="category-icon">
+          <i class="fas fa-store"></i>
+        </div>
+        <div class="category-content">
           <div class="category-title">Shop & Dokan Tools</div>
           <div class="category-desc">দোকানদারদের জন্য প্রিন্ট রিসিপ্ট, ইনভয়েস ও হিসাব ব্যবস্থাপনা টুল।</div>
         </div>
-      </a>
-      <a href="money-tools/">
-        <div class="category-item">
-          <div class="category-icon"><i class="fas fa-coins"></i></div>
+      </div>
+    </a>
+    <a href="money-tools/" class="category-link">
+      <div class="category-item">
+        <div class="category-icon">
+          <i class="fas fa-coins"></i>
+        </div>
+        <div class="category-content">
           <div class="category-title">Finance & Money Tools</div>
           <div class="category-desc">আয়-ব্যয় হিসাব, ট্যাক্স ক্যালকুলেটর ও বাজেট ম্যানেজমেন্ট টুল।</div>
         </div>
-      </a>
-      <a href="tools-for-general-people/">
-        <div class="category-item">
-          <div class="category-icon"><i class="fas fa-users"></i></div>
+      </div>
+    </a>
+    <a href="tools-for-general-people/" class="category-link">
+      <div class="category-item">
+        <div class="category-icon">
+          <i class="fas fa-users"></i>
+        </div>
+        <div class="category-content">
           <div class="category-title">Tools for General People</div>
           <div class="category-desc">সাধারণ মানুষের দৈনন্দিন কাজে লাগবে এমন সহজ টুলের সংগ্রহ।</div>
         </div>
-      </a>
-      <a href="media-tools/">
-        <div class="category-item">
-          <div class="category-icon"><i class="fas fa-pager"></i></div>
+      </div>
+    </a>
+    <a href="media-tools/" class="category-link">
+      <div class="category-item">
+        <div class="category-icon">
+          <i class="fas fa-pager"></i>
+        </div>
+        <div class="category-content">
           <div class="category-title">Media Tools</div>
           <div class="category-desc">সাধারণ মানুষের দৈনন্দিন কাজে লাগবে এমন সহজ টুলের সংগ্রহ।</div>
         </div>
-      </a>
+      </div>
+    </a>
+  </div>
+</main>
 
-    </div>
-  </main>
 
   <!-- ✅ Scripts -->
   <script src="/components/headerhome.js"></script>

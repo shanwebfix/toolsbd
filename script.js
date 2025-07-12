@@ -217,3 +217,99 @@ parts.forEach(part => {
 
 document.getElementById("arabic-date").innerText = `${islDay} ${islMonth} ${islYear}`;
 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+// আপনার সাইটের কন্টেন্ট (search data) — এখানে টাইটেল + URL + ডেসক্রিপশন দিতে হবে
+const siteContent = [
+  {
+    title: "Islamic Tools",
+    url: "islamic/",
+    desc: "ইসলামিক ক্যালেন্ডার, নামাজের সময়সূচি, কিবলা দিক নির্ণয় সহ নানা ইসলামিক টুল।",
+  },
+  {
+    title: "Daily Use Tools",
+    url: "daily-use-tools/",
+    desc: "প্রতিদিন ব্যবহৃত সহজ ও দরকারি টুল যেমন কনভার্টার, ক্যালকুলেটর ইত্যাদি।",
+  },
+  {
+    title: "Developer & Designer Tools",
+    url: "dev-designer-tools/",
+    desc: "JS, HTML, CSS কোড সুন্দরভাবে সাজান ও বিশ্লেষণ করুন।",
+  },
+  {
+    title: "BD Localized Special Tools",
+    url: "bd-Localized-Special-tools/",
+    desc: "বাংলাদেশ ভিত্তিক প্রয়োজনীয় টুল যেমন এনআইডি যাচাই, BRTC তথ্য ইত্যাদি।",
+  },
+  // আরও এভাবে আপনার সব পেজ বা টুল যোগ করতে পারবেন
+];
+
+const searchInput = document.getElementById("searchInput");
+const searchBtn = document.getElementById("searchBtn");
+const searchPopup = document.getElementById("searchPopup");
+const closePopup = document.getElementById("closePopup");
+const searchResults = document.getElementById("searchResults");
+
+// সার্চ ফাংশন
+function doSearch() {
+  const query = searchInput.value.trim().toLowerCase();
+  searchResults.innerHTML = "";
+
+  if (!query) {
+    searchResults.innerHTML = "<p>অনুগ্রহ করে সার্চ করুন।</p>";
+    return;
+  }
+
+  // ফিল্টার করে রেজাল্ট বের করা
+  const results = siteContent.filter(item =>
+    item.title.toLowerCase().includes(query) ||
+    item.desc.toLowerCase().includes(query)
+  );
+
+  if (results.length === 0) {
+    searchResults.innerHTML = "<p>কোনো ফলাফল পাওয়া যায়নি।</p>";
+  } else {
+    // রেজাল্ট দেখানো
+    results.forEach(item => {
+      const p = document.createElement("p");
+      p.textContent = item.title;
+      p.title = item.desc;
+      p.onclick = () => {
+        window.location.href = item.url;
+      };
+      searchResults.appendChild(p);
+    });
+  }
+}
+
+// event listeners
+searchBtn.addEventListener("click", () => {
+  doSearch();
+  searchPopup.classList.remove("hidden");
+});
+
+closePopup.addEventListener("click", () => {
+  searchPopup.classList.add("hidden");
+});
+
+// ইনপুটে এন্টার চাপলে সার্চ হবে
+searchInput.addEventListener("keypress", (e) => {
+  if (e.key === "Enter") {
+    doSearch();
+    searchPopup.classList.remove("hidden");
+  }
+});
